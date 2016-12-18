@@ -1,14 +1,15 @@
 # eMarket Mobile App
 Mobile App Developed with Ionic Framework for eMarketSyetem
 
-# Prerequisites
-NodeJS 7.2+
-https://nodejs.org/en/download/current/
+## Prerequisites
+1. NodeJS 7.2+
+... [Get it here](https://nodejs.org/en/download/current)
 
-Ionic Framework
-`npm install -g cordova ionic`
+1. Ionic Framework
+... `npm install -g cordova ionic`
 
-# Getting Started
+## Getting Started
 1. Clone the repository
 2. Navigate to cloned folder in command prompt
-3. Execute `ionic serve`
+3. Execute following  command
+... `ionic serve`

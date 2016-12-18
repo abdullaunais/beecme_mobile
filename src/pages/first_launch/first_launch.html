@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title ng-style="color:white;">Select Your Country</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="card-background-page">
+      <h4 style="margin-top:0.5em;"></h4>
+      <ion-card *ngFor="let country of countries">
+        <img class="card-image" src="../../assets/img/{{ country.imageUrl }}"/>
+        <div class="card-title">{{ country.title }}</div>
+        <div class="card-subtitle">{{ country.numCities }} CITIES AVAILABLE</div>
+      </ion-card>
+    </div>
+</ion-content>

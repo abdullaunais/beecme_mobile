@@ -1,0 +1,41 @@
+page-first_launch {
+}
+
+.toolbar-background {
+  background-color: #007aff;
+}
+
+.toolbar-title, .bar-buttons {
+  color: white;
+}
+
+.card-image {
+
+}
+
+.card-background-page {
+
+  ion-card {
+    position: relative;
+    text-align: center;
+    height: 10em;
+  }
+
+  .card-title {
+    position: absolute;
+    top: 25%;
+    font-size: 2.0em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .card-subtitle {
+    font-size: 1.0em;
+    position: absolute;
+    top: 52%;
+    width: 100%;
+    color: #fff;
+  }
+
+}

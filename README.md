@@ -11,5 +11,5 @@ Mobile App Developed with Ionic Framework for eMarketSyetem
 ## Getting Started
 1. Clone the repository
 2. Navigate to cloned folder in command prompt
-3. Execute following  command
+3. Execute following  command 
 > `ionic serve`

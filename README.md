@@ -5,9 +5,7 @@ Mobile App Developed with Ionic Framework for eMarketSyetem
 1. [NodeJS 7.2+](https://nodejs.org/en/download/current)
 
 2. Ionic Framework
-```
-npm install -g cordova ionic
-```
+`npm install -g cordova ionic`
 
 ## Getting Started
 1. Clone the repository
@@ -15,11 +13,7 @@ npm install -g cordova ionic
 2. Navigate to cloned folder in command prompt
 
 3. Install node modules
-```
-npm install
-```
+`npm install`
 
 4. Execute following  command 
-```
-ionic serve
-```
+`ionic serve`

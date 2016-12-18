@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title ng-style="color:white;">Categories</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="page-categories">
+    <div class="card-background-page">
+          <ion-grid>
+              <ion-row *ngFor="let category of categories">
+                  <ion-col>
+                      <ion-card >
+                          <img class="card-image" src="../../assets/img/{{ category.imageUrl }}"/>
+                          <div class="card-title">{{ category.title }}</div>
+                          <div class="card-subtitle">{{ category.value }}</div>
+                      </ion-card>
+                  </ion-col>
+                  <ion-col>
+                      <ion-card>
+                          <img class="card-image" src="../../assets/img/{{ category.imageUrl }}"/>
+                          <div class="card-title">{{ category.title }}</div>
+                          <div class="card-subtitle">{{ category.value }}</div>
+                      </ion-card>
+                  </ion-col>
+              </ion-row>
+          </ion-grid>
+
+
+    </div>
+</ion-content>

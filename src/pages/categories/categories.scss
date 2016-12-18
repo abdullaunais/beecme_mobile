@@ -1,4 +1,4 @@
-page-first_launch {
+.page-categories {
   .toolbar-background {
     background-color: #007aff;
   }
@@ -7,8 +7,8 @@ page-first_launch {
     color: white;
   }
 
-  .card-image {
-
+  ion-col {
+    padding:0;
   }
 
   .card-background-page {
@@ -16,7 +16,6 @@ page-first_launch {
     ion-card {
       position: relative;
       text-align: center;
-      height: 10em;
     }
 
     .card-title {
@@ -37,6 +36,6 @@ page-first_launch {
     }
 
   }
-
 }
+
 

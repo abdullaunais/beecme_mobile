@@ -10,6 +10,7 @@ export class FirstLaunch {
   filterText:string = '';
   countries: Array<{title: string, imageUrl: string, numCities: number, value:string }>;
   selectedCountry:string;
+  selectedCity:string;
 
   constructor(public navCtrl: NavController) {
 

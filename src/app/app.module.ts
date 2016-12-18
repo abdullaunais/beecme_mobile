@@ -4,11 +4,13 @@ import { MyApp } from './app.component';
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
 import {FirstLaunch} from "../pages/first_launch/first_launch";
+import {Categories} from "../pages/categories/categories";
 
 @NgModule({
   declarations: [
     MyApp,
     FirstLaunch,
+    Categories,
     Page1,
     Page2
   ],
@@ -19,6 +21,7 @@ import {FirstLaunch} from "../pages/first_launch/first_launch";
   entryComponents: [
     MyApp,
     FirstLaunch,
+    Categories,
     Page1,
     Page2
   ],

@@ -1,5 +1,5 @@
 node_modules/
+.idea/
+www/
 plugins/
 platforms/
-www/
-.idea/

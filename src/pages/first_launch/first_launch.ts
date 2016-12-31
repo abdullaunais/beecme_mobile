@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {Categories} from "../categories/categories";
 
 @Component({
   selector: 'first_launch',
@@ -7,6 +8,7 @@ import { NavController } from 'ionic-angular';
 })
 export class FirstLaunch {
 
+  categoryPage = Categories;
   filterText:string = '';
   countries: Array<{title: string, imageUrl: string, numCities: number, value:string }>;
   selectedCountry:string;

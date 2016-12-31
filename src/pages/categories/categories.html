@@ -12,14 +12,14 @@
           <ion-grid>
               <ion-row *ngFor="let category of categories">
                   <ion-col>
-                      <ion-card style="margin: 2px 2px 2px 2px; width: auto;">
+                      <ion-card style="margin: 2px 2px 2px 2px; width: auto;" [navPush]="itemListPage"  [navParams]="category">
                           <img class="card-image" src="../../assets/img/country_cover/{{ category.imageUrl }}"/>
                           <div class="card-title">{{ category.title }}</div>
                           <div class="card-subtitle">{{ category.value }}</div>
                       </ion-card>
                   </ion-col>
                   <ion-col>
-                      <ion-card style="margin: 2px 2px 2px 2px; width: auto;">
+                      <ion-card style="margin: 2px 2px 2px 2px; width: auto;" [navPush]="itemListPage" [navParams]="category">
                           <img class="card-image" src="../../assets/img/country_cover/{{ category.imageUrl }}"/>
                           <div class="card-title">{{ category.title }}</div>
                           <div class="card-subtitle">{{ category.value }}</div>

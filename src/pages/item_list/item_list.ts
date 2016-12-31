@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'item_list',
@@ -12,7 +12,7 @@ export class ItemList {
   searchQuery:string;
   filters: Array<string>;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,  public navParams: NavParams) {
 
     this.items = [
       { title: 'Carrot', desc: "healthy food for anyone", imageUrl: "cover_sl.jpg", price: 3, },
@@ -22,6 +22,8 @@ export class ItemList {
       { title: 'Carrot', desc: "healthy food for anyone", imageUrl: "cover_sl.jpg", price: 3, },
       { title: 'Carrot', desc: "healthy food for anyone", imageUrl: "cover_sl.jpg", price: 3, }
     ];
+
+    console.log(navParams.data)
 
   }
 

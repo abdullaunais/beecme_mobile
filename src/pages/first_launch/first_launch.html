@@ -10,7 +10,7 @@
 <ion-content class="page-first_launch">
     <div class="card-background-page">
       <h4 style="margin-top:0.5em;"></h4>
-      <ion-card *ngFor="let country of countries">
+      <ion-card *ngFor="let country of countries" [navPush]="categoryPage"  [navParams]="country">
         <img class="card-image" src="../../assets/img/country_cover/{{ country.imageUrl }}"/>
         <div class="card-title">{{ country.title }}</div>
         <div class="card-subtitle">{{ country.numCities }} CITIES AVAILABLE</div>

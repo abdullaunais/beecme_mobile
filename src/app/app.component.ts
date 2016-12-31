@@ -15,7 +15,7 @@ import {ItemList} from "../pages/item_list/item_list";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = ItemList;
+  rootPage: any = FirstLaunch;
 
   pages: Array<{title: string, component: any}>;
 

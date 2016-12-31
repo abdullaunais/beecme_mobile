@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title ng-style="color:white;">Available Fish</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="page-item_list">
+
+
+    <ion-card *ngFor="let item of items; let i = index;">
+        <ion-row>
+            <ion-col width-25 class="item-card-icon-col">
+                <img class="item-card-icon" src="../../assets/img/items/F00{{ i+1 }}.jpg"/>
+            </ion-col>
+            <ion-col width-75 class="item-card-content-col">
+                <ion-card-content class="item-card-content">
+                    <ion-card-title class="item-card-content-title">
+                        Fish Item {{ i }}
+                    </ion-card-title>
+                    <p class="item-card-content-desc">
+                        Same Description goes here. This is a sample content description.
+                    </p>
+                </ion-card-content>
+            </ion-col>
+        </ion-row>
+    </ion-card>
+
+
+    <!--<ion-list>-->
+
+        <!--<ion-item>-->
+
+            <!--<ion-thumbnail item-left>-->
+                <!--<img src="../../assets/img/items/F001.jpg">-->
+            <!--</ion-thumbnail>-->
+            <!--<h2>{{ item.title }}</h2>-->
+            <!--<p>{{ item.desc }}</p>-->
+            <!--<button ion-button clear item-right>View</button>-->
+        <!--</ion-item>-->
+
+        <!--<ion-item>-->
+
+            <!--<ion-thumbnail item-left>-->
+                <!--<img src="../../assets/img/items/F001.jpg">-->
+            <!--</ion-thumbnail>-->
+            <!--<h2>{{ item.title }}</h2>-->
+            <!--<p>{{ item.desc }}</p>-->
+            <!--<button ion-button clear item-right>View</button>-->
+        <!--</ion-item>-->
+
+    <!--</ion-list>-->
+</ion-content>

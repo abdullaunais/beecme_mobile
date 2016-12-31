@@ -6,6 +6,7 @@ import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
 import {FirstLaunch} from "../pages/first_launch/first_launch";
 import {Categories} from "../pages/categories/categories";
+import {ItemList} from "../pages/item_list/item_list";
 
 
 @Component({
@@ -14,7 +15,7 @@ import {Categories} from "../pages/categories/categories";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Categories;
+  rootPage: any = ItemList;
 
   pages: Array<{title: string, component: any}>;
 
@@ -25,6 +26,7 @@ export class MyApp {
     this.pages = [
       { title: 'Welcome', component: FirstLaunch },
       { title: 'Categories', component: Categories },
+      { title: 'List', component: ItemList },
       { title: 'Page One', component: Page1 },
       { title: 'Page Two', component: Page2 }
     ];

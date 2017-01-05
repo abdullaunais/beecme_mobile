@@ -5,82 +5,84 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Fish Item 01</ion-title>
-  </ion-navbar>
-
+    <ion-navbar>
+        <ion-title>Details</ion-title>
+        <!--<button ion-button icon-only menuToggle>-->
+        <!--<ion-icon name="arrow-round-back"></ion-icon>-->
+        <!--</button>-->
+    </ion-navbar>
 </ion-header>
 
 
-<ion-content class="page-details">
-      <img src="../../assets/img/items/F001.jpg" class="item-image-main"/>
-      <!--<div class="parallax" style="background-image: url('../../assets/img/items/F001.jpg')"></div>-->
-      <!--<div style="height:1000px;background-color:red;font-size:36px">-->
-        <!--Scroll Up and Down this page to see the parallax scrolling effect.-->
-        <!--This div is just here to enable scrolling.-->
-        <!--Tip: Try to remove the background-attachment property to remove the scrolling effect.-->
-      <!--</div>-->
-      <!--<div class="parallax"></div>-->
-      <ion-card-content>
-        <h2 class="card-title">
-          Fish Item 01
-        </h2>
-        <p>
-          This is a sample description of fish. This is a sample description of fish.
-          This is a sample description of fish. This is a sample description of fish.
-          This is a sample description of fish. This is a sample description of fish.
-          This is a sample description of fish. This is a sample description of fish.
-        </p>
-      </ion-card-content>
+<ion-content id="itemContent" class="page-details">
+    <div style="background-image: url('../../assets/img/items/F001.jpg');" class="item-image-main"></div>
+    <!--<div class="parallax" style="background-image: url('../../assets/img/items/F001.jpg')"></div>-->
+    <!--<div style="height:1000px;background-color:red;font-size:36px">-->
+    <!--Scroll Up and Down this page to see the parallax scrolling effect.-->
+    <!--This div is just here to enable scrolling.-->
+    <!--Tip: Try to remove the background-attachment property to remove the scrolling effect.-->
+    <!--</div>-->
+    <!--<div class="parallax"></div>-->
+    <ion-card-content>
+        <h3>Fish Item 3</h3>
+        <hr/>
+        <div class="item-description-paragraph">
+            This is a sample description of fish. This is a sample description of fish.
+            This is a sample description of fish. This is a sample description of fish.
+            This is a sample description of fish. This is a sample description of fish.
+            This is a sample description of fish. This is a sample description of fish.
+        </div>
 
-      <ion-scroll direction="x">
-        This is a sample description of fish. This is a sample description of fish.
-        This is a sample description of fish. This is a sample description of fish.
-      </ion-scroll>
-      <ion-list>
-        <ion-item>
-          <ion-icon item-left name="checkmark-circle"></ion-icon>
-          <h3>Status</h3>
-          <ion-note item-right>5</ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-icon item-left name="contact"></ion-icon>
-          <h3>Supplier</h3>
-          <ion-note item-right>6</ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-icon item-left name="pricetag"></ion-icon>
-          <h3>Asking Price</h3>
-          <ion-note item-right>655</ion-note>
-        </ion-item>
-        <button ion-item>
-          <ion-avatar item-left>
-            <img src="../../assets/img/items/F006.jpg"/>
-          </ion-avatar>
-          <h2>Abdulla Unais</h2>
-          <p>My Title Here</p>
-        </button>
-      </ion-list>
-      <!--<ion-row no-padding>-->
-        <!--<ion-col>-->
-          <!--<button clear small (click)="favorite($event, property)">-->
-            <!--<ion-icon name="star"></ion-icon>-->
-            <!--Favorite-->
-          <!--</button>-->
-        <!--</ion-col>-->
-        <!--<ion-col text-center>-->
-          <!--<button clear small (click)="like($event, property)">-->
-            <!--<ion-icon name="thumbs-up"></ion-icon>-->
-            <!--Like-->
-          <!--</button>-->
-        <!--</ion-col>-->
-        <!--<ion-col text-right>-->
-          <!--<button clear small (click)="share($event, property)">-->
-            <!--<ion-icon name="share-alt"></ion-icon>-->
-            <!--Share-->
-          <!--</button>-->
-        <!--</ion-col>-->
-      <!--</ion-row>-->
+    </ion-card-content>
 
+    <ion-scroll scrollX="true" style="height: 15rem;">
+        <div style="display: inline-block;">
+            <img src="../../assets/img/items/F001.jpg" class="item-image-scroll">
+        </div>
+        <div style="display: inline-block;">
+            <img src="../../assets/img/items/F002.jpg" class="item-image-scroll">
+        </div>
+        <div style="display: inline-block;">
+            <img src="../../assets/img/items/F003.jpg" class="item-image-scroll">
+        </div>
+        <div style="display: inline-block;">
+            <img src="../../assets/img/items/F004.jpg" class="item-image-scroll">
+        </div>
+        <div style="display: inline-block;">
+            <img src="../../assets/img/items/F005.jpg" class="item-image-scroll">
+        </div>
+        <div style="display: inline-block;">
+            <img src="../../assets/img/items/F006.jpg" class="item-image-scroll">
+        </div>
+    </ion-scroll>
+    <hr/>
+    <ion-list>
+
+        <ion-item>
+            <ion-icon item-left name="checkmark-circle"></ion-icon>
+            <h3>Status</h3>
+            <ion-note item-right>Available</ion-note>
+        </ion-item>
+        <ion-item>
+            <ion-icon item-left name="contact"></ion-icon>
+            <h3>Supplier</h3>
+            <!--<ion-avatar item-right>-->
+            <!--<img src="../../assets/img/items/F006.jpg"/>-->
+            <!--</ion-avatar>-->
+            <ion-note item-right>username</ion-note>
+        </ion-item>
+        <ion-item>
+            <ion-icon item-left name="pricetag"></ion-icon>
+            <h3>Price</h3>
+            <ion-note item-right>655 SR / KG</ion-note>
+        </ion-item>
+    </ion-list>
 </ion-content>
+
+<ion-footer>
+    <button ion-button full clear>
+        <ion-icon name="cart"></ion-icon>
+        &nbsp;&nbsp;ADD TO CART ( 655 SAR / kg )
+    </button>
+</ion-footer>
+

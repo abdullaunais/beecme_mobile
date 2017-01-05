@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, Content } from 'ionic-angular';
 
 /*
   Generated class for the Details page.
@@ -13,10 +13,23 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class DetailsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  @ViewChild(Content) content: Content;
+  headerShow: boolean = false;
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailsPage');
+  }
+
+  ngAfterViewInit() {
+    // let itemContent = document.getElementById('itemContent');
+    // let yOffset = itemContent.offsetTop;
+    // console.log(yOffset);
+
+    // this.content.ionScroll.subscribe(($event: any) => {
+    //   this.headerShow = $event.scrollTop > 300;
+    // });
   }
 
 }

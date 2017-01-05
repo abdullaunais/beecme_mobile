@@ -7,6 +7,7 @@ import { Page2 } from '../pages/page2/page2';
 import {FirstLaunch} from "../pages/first_launch/first_launch";
 import {Categories} from "../pages/categories/categories";
 import {ItemList} from "../pages/item_list/item_list";
+import {DetailsPage} from "../pages/details/details";
 
 
 @Component({
@@ -15,7 +16,7 @@ import {ItemList} from "../pages/item_list/item_list";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = FirstLaunch;
+  rootPage: any = DetailsPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -27,6 +28,7 @@ export class MyApp {
       { title: 'Welcome', component: FirstLaunch },
       { title: 'Categories', component: Categories },
       { title: 'List', component: ItemList },
+      { title: 'Details', component: DetailsPage },
       { title: 'Page One', component: Page1 },
       { title: 'Page Two', component: Page2 }
     ];

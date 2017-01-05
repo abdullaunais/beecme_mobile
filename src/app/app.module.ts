@@ -6,6 +6,7 @@ import { Page2 } from '../pages/page2/page2';
 import {FirstLaunch} from "../pages/first_launch/first_launch";
 import {Categories} from "../pages/categories/categories";
 import {ItemList} from "../pages/item_list/item_list";
+import {DetailsPage} from "../pages/details/details";
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import {ItemList} from "../pages/item_list/item_list";
     FirstLaunch,
     Categories,
     ItemList,
+    DetailsPage,
     Page1,
     Page2
   ],
@@ -25,6 +27,7 @@ import {ItemList} from "../pages/item_list/item_list";
     FirstLaunch,
     Categories,
     ItemList,
+    DetailsPage,
     Page1,
     Page2
   ],

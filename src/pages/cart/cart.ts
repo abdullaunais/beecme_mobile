@@ -13,7 +13,10 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class CartPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  cartItems: Array<any>;
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.cartItems = [0,1,2,3]
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CartPage');

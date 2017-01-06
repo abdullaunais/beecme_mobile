@@ -7,12 +7,48 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>cart</ion-title>
+    <ion-title>Cart</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <ion-card *ngFor="let item of cartItems; let i = index;">
+    <ion-row>
+      <ion-col width-25 class="item-card-icon-col">
+        <img class="item-card-icon" src="../../assets/img/items/F00{{ i+1 }}.jpg"/>
+      </ion-col>
+      <ion-col width-75 class="item-card-content-col">
+        <ion-card-content class="item-card-content">
+          <ion-card-title class="item-card-content-title">
+            Fish Item {{ i }}
+          </ion-card-title>
+          <p class="item-card-content-desc">
+            Same Description goes here. This is a sample content description.
+          </p>
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+    <ion-row no-padding>
+      <ion-col>
+        <button clear small>
+          <ion-icon name="star"></ion-icon>
+          Favorite
+        </button>
+      </ion-col>
+      <ion-col text-center>
+        <button clear small>
+          <ion-icon name="thumbs-up"></ion-icon>
+          Like
+        </button>
+      </ion-col>
+      <ion-col text-right>
+        <button clear small>
+          <ion-icon name="share-alt"></ion-icon>
+          Share
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 </ion-content>

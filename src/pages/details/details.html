@@ -6,6 +6,9 @@
 -->
 <ion-header>
     <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
         <ion-title>Details</ion-title>
         <!--<button ion-button icon-only menuToggle>-->
         <!--<ion-icon name="arrow-round-back"></ion-icon>-->
@@ -80,7 +83,7 @@
 </ion-content>
 
 <ion-footer>
-    <button ion-button full clear>
+    <button ion-button full clear [navPush]="cartPage" [navParams]="item">
         <ion-icon name="cart"></ion-icon>
         &nbsp;&nbsp;ADD TO CART ( 655 SAR / kg )
     </button>

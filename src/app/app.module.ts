@@ -7,6 +7,7 @@ import {FirstLaunch} from "../pages/first_launch/first_launch";
 import {Categories} from "../pages/categories/categories";
 import {ItemList} from "../pages/item_list/item_list";
 import {DetailsPage} from "../pages/details/details";
+import {CartPage} from "../pages/cart/cart";
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {DetailsPage} from "../pages/details/details";
     Categories,
     ItemList,
     DetailsPage,
+    CartPage,
     Page1,
     Page2
   ],
@@ -28,6 +30,7 @@ import {DetailsPage} from "../pages/details/details";
     Categories,
     ItemList,
     DetailsPage,
+    CartPage,
     Page1,
     Page2
   ],

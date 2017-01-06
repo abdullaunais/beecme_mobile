@@ -16,7 +16,7 @@ import {DetailsPage} from "../pages/details/details";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = DetailsPage;
+  rootPage: any = Categories;
 
   pages: Array<{title: string, component: any}>;
 

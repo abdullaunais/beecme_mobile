@@ -10,7 +10,7 @@
 <ion-content class="page-item_list">
 
 
-    <ion-card *ngFor="let item of items; let i = index;">
+    <ion-card *ngFor="let item of items; let i = index;" [navPush]="detailsPage" [navParams]="item">
         <ion-row>
             <ion-col width-25 class="item-card-icon-col">
                 <img class="item-card-icon" src="../../assets/img/items/F00{{ i+1 }}.jpg"/>

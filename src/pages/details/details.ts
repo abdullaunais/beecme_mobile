@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, Content } from 'ionic-angular';
+import {CartPage} from "../cart/cart";
 
 /*
   Generated class for the Details page.
@@ -14,8 +15,10 @@ import { NavController, NavParams, Content } from 'ionic-angular';
 export class DetailsPage {
 
   @ViewChild(Content) content: Content;
+  cartPage = CartPage;
   headerShow: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    console.log(navParams.data)
   }
 
   ionViewDidLoad() {

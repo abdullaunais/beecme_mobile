@@ -16,10 +16,10 @@
 <ion-content class="page-cart">
   <ion-card *ngFor="let item of cartItems; let i = index;">
     <ion-row>
-      <ion-col width-25 class="item-card-icon-col">
+      <ion-col class="item-card-icon-col" style="padding:0; max-width:12rem;">
         <img class="item-card-icon" src="../../assets/img/items/F00{{ i+1 }}.jpg"/>
       </ion-col>
-      <ion-col width-75 class="item-card-content-col">
+      <ion-col class="item-card-content-col">
         <ion-card-content class="item-card-content">
           <ion-card-title class="item-card-content-title">
             Fish Item {{ i }}
@@ -30,25 +30,48 @@
         </ion-card-content>
       </ion-col>
     </ion-row>
+    <!--<hr style="margin: 0;"/>-->
+    <ion-row>
+      <ion-col width-25></ion-col>
+      <ion-col width-50 no-padding text-center>
+      <ion-list>
+        <ion-item>
+          <ion-label>Quantity</ion-label>
+          <ion-select>
+            <ion-option value="2" selected="true">2</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      </ion-col>
+      <ion-col width-25></ion-col>
+    </ion-row>
+    <hr style="margin: 0;"/>
     <ion-row no-padding>
-      <ion-col>
-        <button clear small>
-          <ion-icon name="star"></ion-icon>
-          Favorite
+      <ion-col text-center style="padding:0">
+        <button clear small class="btnCartAction">
+          <ion-icon name="pricetag" style="font-size: 1.6rem;"></ion-icon>
+          &nbsp;$6.99
         </button>
       </ion-col>
-      <ion-col text-center>
-        <button clear small>
-          <ion-icon name="thumbs-up"></ion-icon>
-          Like
+      <ion-col text-center style="padding:0">
+        <button clear small class="btnCartAction">
+          <ion-icon name="eye" style="font-size: 1.6rem;"></ion-icon>
+          &nbsp;View Item
         </button>
       </ion-col>
-      <ion-col text-right>
-        <button clear small>
-          <ion-icon name="share-alt"></ion-icon>
-          Share
+      <ion-col text-center style="padding:0">
+        <button clear small class="btnCartAction">
+          <ion-icon name="trash" style="font-size: 1.6rem;"></ion-icon>
+          &nbsp;Remove
         </button>
       </ion-col>
     </ion-row>
   </ion-card>
 </ion-content>
+
+<ion-footer>
+  <button ion-button full clear>
+    <ion-icon name="checkmark-circle-outline"></ion-icon>
+    &nbsp;&nbsp;CHECKOUT ( Total $30.33 )
+  </button>
+</ion-footer>

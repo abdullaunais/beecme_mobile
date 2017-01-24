@@ -1,3 +1,15 @@
 .page-cart {
-
+  .btnCartAction {
+    width:100%;
+    height:4rem;
+    background-color: #fff;
+    font-size: 1.4rem;
+  }
+  .item-card-content-col {
+    max-height:12rem;
+    overflow:hidden;
+  }
+  .card-content-md {
+    padding: 0 1rem;
+  }
 }

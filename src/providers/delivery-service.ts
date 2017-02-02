@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import { Http } from '@angular/http';
-import { Config } from './config'
-import {Observable} from 'rxjs/Observable';
+import { Config } from './config';
 import 'rxjs/add/operator/map';
 
 
@@ -11,6 +10,7 @@ import 'rxjs/add/operator/map';
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
+
 @Injectable()
 export class DeliveryService {
 
@@ -18,7 +18,7 @@ export class DeliveryService {
   data: any;
   serviceRootUrl : string;
 
-  CATEGORIES_URL = "/categories";
+  CATEGORIES_URL = "/categories/1";
 
   constructor(public httpService: Http, public config:Config) {
     console.log('Hello DeliveryService Provider');

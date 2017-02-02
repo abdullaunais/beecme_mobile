@@ -8,10 +8,12 @@ import {FirstLaunch} from "../pages/first_launch/first_launch";
 import {Categories} from "../pages/categories/categories";
 import {ItemList} from "../pages/item_list/item_list";
 import {DetailsPage} from "../pages/details/details";
+import {Config} from "../providers/config";
 
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [Config]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;

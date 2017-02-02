@@ -5,14 +5,16 @@ import { DeliveryService } from '../../providers/delivery-service'
 
 @Component({
   selector: 'categories',
-  templateUrl: 'categories.html'
+  templateUrl: 'categories.html',
+  providers: [DeliveryService]
 })
 export class Categories {
 
   itemListPage = ItemList;
   filterText:string = '';
   // categories: Array<{title: string, imageUrl: string, description: number, value:string }>;
-  categories: Array<any>;
+  categories: Array<any> = [];
+  rows: Array<any> = [];
   deliveryService : DeliveryService;
   selectedCategory:string;
 
@@ -32,8 +34,10 @@ export class Categories {
 
   initialize() {
     this.deliveryService.getCategories().then((data) =>  {
-      console.info(data);
-      this.categories = data;
+      let json = JSON.stringify(data);
+      this.categories = JSON.parse(json);
+      this.rows = Array.from(Array(Math.ceil(this.categories.length / 2)).keys());
+      console.info(this.categories);
     });
   }
 

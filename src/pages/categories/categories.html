@@ -15,19 +15,12 @@
 <ion-content class="page-categories">
     <div class="card-background-page">
           <ion-grid>
-              <ion-row *ngFor="let category of categories">
-                  <ion-col>
-                      <ion-card style="margin: 2px 2px 2px 2px; width: auto;" [navPush]="itemListPage"  [navParams]="category">
-                          <img class="card-image" src="../../assets/img/country_cover/{{ category.imageUrl }}"/>
-                          <div class="card-title">{{ category.title }}</div>
-                          <div class="card-subtitle">{{ category.value }}</div>
-                      </ion-card>
-                  </ion-col>
-                  <ion-col>
-                      <ion-card style="margin: 2px 2px 2px 2px; width: auto;" [navPush]="itemListPage" [navParams]="category">
-                          <img class="card-image" src="../../assets/img/country_cover/{{ category.imageUrl }}"/>
-                          <div class="card-title">{{ category.title }}</div>
-                          <div class="card-subtitle">{{ category.value }}</div>
+              <ion-row *ngFor="let i of rows">
+                  <ion-col  *ngFor="let category of categories | slice:(i*2):(i+1)*2" >
+                      <ion-card style="margin: 2px 2px 2px 2px; width: auto; height: 12rem;" [navPush]="itemListPage"  [navParams]="category">
+                          <img class="card-image" src="{{ category.imageEn }}"/>
+                          <div class="card-title">{{ category.nameEn }}</div>
+                          <div class="card-subtitle">{{ category.descriptionEn }}</div>
                       </ion-card>
                   </ion-col>
               </ion-row>

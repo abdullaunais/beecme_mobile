@@ -1,32 +1,44 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {DetailsPage} from "../details/details";
+import {DeliveryService} from "../../providers/delivery-service";
 
 @Component({
   selector: 'item_list',
-  templateUrl: 'item_list.html'
+  templateUrl: 'item_list.html',
+  providers: [DeliveryService]
 })
 export class ItemList {
 
   detailsPage = DetailsPage;
-  category:string = '';
-  items: Array<{title: string, desc:string, imageUrl: string, price: number }>;
+  category: any;
+  items: Array<any> = [];
   searchQuery:string;
   filters: Array<string>;
 
-  constructor(public navCtrl: NavController,  private navParams: NavParams) {
 
-    this.items = [
-      { title: 'Carrot', desc: "healthy food for anyone", imageUrl: "cover_sl.jpg", price: 3, },
-      { title: 'Carrot', desc: "healthy food for anyone", imageUrl: "cover_sl.jpg", price: 3, },
-      { title: 'Carrot', desc: "healthy food for anyone", imageUrl: "cover_sl.jpg", price: 3, },
-      { title: 'Carrot', desc: "healthy food for anyone", imageUrl: "cover_sl.jpg", price: 3, },
-      { title: 'Carrot', desc: "healthy food for anyone", imageUrl: "cover_sl.jpg", price: 3, },
-      { title: 'Carrot', desc: "healthy food for anyone", imageUrl: "cover_sl.jpg", price: 3, }
-    ];
+  deliveryService : DeliveryService;
 
-    console.log(navParams.data)
+  constructor(public navCtrl: NavController,  private navParams: NavParams, delivery: DeliveryService) {
+    this.deliveryService = delivery;
+    this.category = navParams.data;
+    this.initialize();
+  }
 
+  initialize() {
+    let catId = this.category['categoryId'];
+    this.deliveryService.getItemByCityAndCategory(this.cityId, catId, this.start, this.offset).then((data) =>  {
+      if(data['itemList']) {
+        if(data['itemList'].length > 0) {
+          this.items = data['itemList'];
+        } else {
+          this.items = [];
+        }
+      } else {
+        this.items = [];
+      }
+      console.info("List Response -> ", data);
+    });
   }
 
 }

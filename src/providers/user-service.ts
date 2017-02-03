@@ -22,6 +22,6 @@ export class UserService {
   constructor(public httpService: Http, public config:Config) {
     this.http = httpService;
     this.data = null;
-    this.serviceRootUrl = config.serverUrl + "/delivery";
+    this.serviceRootUrl = config.serverUrl + "/delivery/users";
   }
 }

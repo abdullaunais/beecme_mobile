@@ -16,6 +16,9 @@ export class ItemList {
   searchQuery:string;
   filters: Array<string>;
 
+  start : number = 0;
+  offset : number = 10;
+  cityId : number = 1;
 
   deliveryService : DeliveryService;
 
@@ -41,4 +44,24 @@ export class ItemList {
     });
   }
 
+  paginate() {
+    let catId = this.category['categoryId'];
+    this.start = this.start + this.offset;
+    this.deliveryService.getItemByCityAndCategory(this.cityId, catId, this.start, this.offset).then((data) =>  {
+      let itemArray = data['itemList'];
+      if(itemArray) {
+        if(itemArray.length > 0) {
+          itemArray.forEach((item) => {
+            this.items.push(item);
+          });
+          console.info("Paginated -> ", this.items);
+        } else {
+          console.info("No more items remaining");
+        }
+      } else {
+        console.info("No more items remaining");
+      }
+
+    });
+  }
 }

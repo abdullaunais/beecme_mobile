@@ -1,4 +1,29 @@
 .page-first_launch {
+  background-color: #007AFF;
+
+  .countrySelectIcon {
+    height: 30vh;
+    width: auto;
+    margin: 8vh auto;
+    display: block;
+  }
+
+  .countryHead {
+    color: white;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 10%;
+  }
+
+  .selectInput {
+    padding: 2rem;
+  }
+
+  .selectItem {
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+  }
+
   .toolbar-background {
     background-color: #007aff;
   }

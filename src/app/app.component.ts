@@ -18,7 +18,7 @@ import {Config} from "../providers/config";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Categories;
+  rootPage: any = FirstLaunch;
 
   pages: Array<{title: string, component: any}>;
 

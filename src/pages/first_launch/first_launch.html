@@ -20,23 +20,23 @@
       <ion-list style="margin: 3rem;">
         <ion-item class="selectItem">
           <ion-label>Country</ion-label>
-          <ion-select [(ngModel)]="selectedCountry" class="selectInput" interface="action-sheet" okText="Select" cancelText="Cancel">
+          <ion-select [(ngModel)]="selectedCountry" (ionChange)="countryChanged()" class="selectInput" interface="action-sheet" okText="Select" cancelText="Cancel">
             <!--<ion-option [value]="-1" [selected]="true"> - SELECT - </ion-option>-->
-            <ion-option *ngFor="let country of countries" [value] = "country.id">{{ country.nameEn }}</ion-option>
+            <ion-option *ngFor="let country of countries" [value] = "country">{{ country.nameEn }}</ion-option>
           </ion-select>
         </ion-item>
-        <ion-item class="selectItem">
+        <ion-item class="selectItem" *ngIf="countrySet">
           <ion-label>Province</ion-label>
-          <ion-select [(ngModel)]="selectedProvince" class="selectInput" interface="action-sheet" okText="Select" cancelText="Cancel">
+          <ion-select [(ngModel)]="selectedProvince" (ionChange)="provinceChanged()" class="selectInput" interface="action-sheet" okText="Select" cancelText="Cancel">
             <!--<ion-option [value]="-1" [selected]="true"> - SELECT - </ion-option>-->
-            <ion-option *ngFor="let province of provinces" [value] = "province.id">{{ province.nameEn }}</ion-option>
+            <ion-option *ngFor="let province of provinces" [value] = "province">{{ province.nameEn }}</ion-option>
           </ion-select>
         </ion-item>
-        <ion-item class="selectItem">
+        <ion-item class="selectItem" *ngIf="countrySet && provinceSet">
           <ion-label>City</ion-label>
-          <ion-select [(ngModel)]="selectedCity" class="selectInput" interface="action-sheet" okText="Select" cancelText="Cancel">
+          <ion-select [(ngModel)]="selectedCity" (ionChange)="cityChanged()" class="selectInput" interface="action-sheet" okText="Select" cancelText="Cancel">
             <!--<ion-option [value]="-1" [selected]="true"> - SELECT - </ion-option>-->
-            <ion-option *ngFor="let city of cities" [value] = "city.id">{{ city.nameEn }}</ion-option>
+            <ion-option *ngFor="let city of cities" [value] = "city">{{ city.nameEn }}</ion-option>
           </ion-select>
         </ion-item>
       </ion-list>

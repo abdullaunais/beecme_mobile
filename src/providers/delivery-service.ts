@@ -18,6 +18,7 @@ export class DeliveryService {
   data: any;
   serviceRootUrl : string;
 
+  LOCATION_URL = "/locations?";
   CATEGORIES_URL = "/categories/1";
   ITEM_URL = "/items?";
 
@@ -26,6 +27,17 @@ export class DeliveryService {
     this.http = httpService;
     this.data = null;
     this.serviceRootUrl = config.serverUrl + "/delivery";
+  }
+
+  getLocation(type, value, start, offset) {
+    let queryParams = "type="+type+"&value="+value+"&start="+start+"&offset="+offset;
+    let requestUrl : string = this.serviceRootUrl + this.LOCATION_URL + queryParams;
+    return new Promise(resolve => {
+      this.http.get(requestUrl)
+          .subscribe(data => {
+            resolve(data.json());
+          });
+    });
   }
 
   getCategories() {

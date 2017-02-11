@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the Cart page.
@@ -14,12 +15,33 @@ import { NavController, NavParams } from 'ionic-angular';
 export class CartPage {
 
   cartItems: Array<any>;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.cartItems = [0,1,2,3]
+  storage : Storage;
+
+  cartIsEmpty : boolean = false;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, storage : Storage) {
+    this.cartItems = [];
+    this.storage = storage;
+
+    storage.get('delivery.cart').then((cart) => {
+      console.info("CartItems --> ", cart);
+      if(cart) {
+        if(cart.length > 0) {
+          this.cartItems = cart;
+          this.cartIsEmpty = false;
+        } else {
+          this.cartItems = [];
+          this.cartIsEmpty = true;
+        }
+      } else {
+        this.cartItems = [];
+        this.cartIsEmpty = true;
+      }
+    });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CartPage');
-  }
+  // ionViewDidLoad() {
+  //   console.log('ionViewDidLoad CartPage');
+  // }
 
 }

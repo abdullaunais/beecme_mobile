@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="secondary">
     <ion-title>Cart</ion-title>
   </ion-navbar>
 
@@ -38,7 +38,7 @@
         <ion-item>
           <ion-label>Quantity</ion-label>
           <ion-select>
-            <ion-option value="2" selected="true">2</ion-option>
+            <ion-option value="2" selected="true">{{ item.cartQuantity }}</ion-option>
           </ion-select>
         </ion-item>
       </ion-list>

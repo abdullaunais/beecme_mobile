@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import {NavController, NavParams, Content} from 'ionic-angular';
 import {DetailsPage} from "../details/details";
 import {DeliveryService} from "../../providers/delivery-service";
 
@@ -10,10 +10,14 @@ import {DeliveryService} from "../../providers/delivery-service";
 })
 export class ItemList {
 
+  @ViewChild(Content) content: Content;
+
   detailsPage = DetailsPage;
+  searchVisible : boolean = false;
+
   category: any;
   items: Array<any> = [];
-  searchQuery:string;
+  searchQuery : string = '';
   filters: Array<string>;
 
   start : number = 0;
@@ -30,10 +34,10 @@ export class ItemList {
 
   initialize() {
     let catId = this.category['categoryId'];
-    this.deliveryService.getItemByCityAndCategory(this.cityId, catId, this.start, this.offset).then((data) =>  {
-      if(data['itemList']) {
-        if(data['itemList'].length > 0) {
-          this.items = data['itemList'];
+    this.deliveryService.getItemByCategory(catId, this.start, this.offset).then((data) =>  {
+      if(data['itemlist']) {
+        if(data['itemlist'].length > 0) {
+          this.items = data['itemlist'];
         } else {
           this.items = [];
         }
@@ -47,8 +51,8 @@ export class ItemList {
   paginate() {
     let catId = this.category['categoryId'];
     this.start = this.start + this.offset;
-    this.deliveryService.getItemByCityAndCategory(this.cityId, catId, this.start, this.offset).then((data) =>  {
-      let itemArray = data['itemList'];
+    this.deliveryService.getItemByCategory(catId, this.start, this.offset).then((data) =>  {
+      let itemArray = data['itemlist'];
       if(itemArray) {
         if(itemArray.length > 0) {
           itemArray.forEach((item) => {
@@ -63,5 +67,23 @@ export class ItemList {
       }
 
     });
+  }
+
+  showSearch() {
+    this.searchVisible = true;
+    this.content.resize();
+  }
+
+  hideSearch() {
+    this.searchVisible = false;
+    this.content.resize();
+  }
+
+  onSearchTextEntered() {
+
+  }
+
+  onSearchCancel() {
+    this.hideSearch();
   }
 }

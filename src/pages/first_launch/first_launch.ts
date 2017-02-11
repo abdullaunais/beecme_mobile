@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 import {Categories} from "../categories/categories";
 import { DeliveryService } from '../../providers/delivery-service';
 import { Storage } from '@ionic/storage';
@@ -32,19 +32,26 @@ export class FirstLaunch {
   start : number = 0;
   offset : number = 20;
 
-  constructor(public navCtrl: NavController, delivery: DeliveryService, storage: Storage) {
+  constructor(public navCtrl: NavController, private navParams: NavParams, delivery: DeliveryService, storage: Storage) {
     this.deliveryService = delivery;
-    this.initialize();
     this.storage = storage;
 
-    storage.get('location.set').then((response) => {
-      if(response) {
-        console.log('Location Set');
-        this.navCtrl.push(Categories);
-      } else {
-        console.log('Location Not Set');
-      }
-    });
+
+    // storage.get('location.set').then((response) => {
+    //   if(response) {
+    //     console.log('Location Set');
+    //     storage.get('location.city').then((city) => {
+    //       this.navCtrl.push(Categories, {
+    //         city: city
+    //       });
+    //     });
+    //   } else {
+    //     console.log('Location Not Set');
+    //     // ignore and continue
+    //   }
+    // });
+
+    this.initialize();
     // this.countries = [{"id":1,"nameEn":"Saudi Arabia","nameAr":"Saudi Arabia"}];
     // this.provinces = [];
     // this.cities = [{"id":1,"nameEn":"Al Malaz","nameAr":"Al Malaz"},{"id":2,"nameEn":"Al Nasim","nameAr":"Al Nasim"}];
@@ -80,9 +87,19 @@ export class FirstLaunch {
   cityChanged() {
     this.citySet = true;
 
-    this.storage.set('location.country', this.selectedCountry);
-    this.storage.set('location.province', this.selectedProvince);
-    this.storage.set('location.city', this.selectedCity);
-    this.storage.set('location.set', true);
+    if(this.countrySet && this.provinceSet) {
+      this.storage.set('location.country', this.selectedCountry);
+      this.storage.set('location.province', this.selectedProvince);
+      this.storage.set('location.city', this.selectedCity);
+      this.storage.set('location.set', true);
+
+      this.storage.set('delivery.cart', []);
+
+      this.navCtrl.push(Categories, {
+        locationSet : true,
+        city : this.selectedCity
+      });
+
+    }
   }
 }

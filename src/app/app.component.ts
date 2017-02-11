@@ -12,6 +12,7 @@ import {UserRegistrationPage} from "../pages/user-registration/user-registration
 import {Config} from "../providers/config";
 
 
+
 @Component({
   templateUrl: 'app.html',
   providers: [Config]
@@ -43,7 +44,8 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
+      // StatusBar.styleDefault();
+      StatusBar.backgroundColorByHexString('#32db64');
       Splashscreen.hide();
     });
   }

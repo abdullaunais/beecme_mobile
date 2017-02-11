@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color="secondary">
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
@@ -14,7 +14,7 @@
         <!--<ion-icon name="arrow-round-back"></ion-icon>-->
         <!--</button>-->
         <ion-buttons end>
-            <button ion-button icon-only (click)="openModal()">
+            <button ion-button icon-only [navPush]="cartPage">
                 <ion-icon name="cart"></ion-icon>
             </button>
         </ion-buttons>
@@ -32,35 +32,23 @@
     <!--</div>-->
     <!--<div class="parallax"></div>-->
     <ion-card-content>
-        <h3>Fish Item 3</h3>
+        <h3>{{ item.nameEn }}</h3>
         <hr/>
         <div class="item-description-paragraph">
-            This is a sample description of fish. This is a sample description of fish.
-            This is a sample description of fish. This is a sample description of fish.
-            This is a sample description of fish. This is a sample description of fish.
-            This is a sample description of fish. This is a sample description of fish.
+            {{ item.descriptionEn }}
         </div>
 
     </ion-card-content>
 
     <ion-scroll scrollX="true" style="height: 15rem;">
         <div style="display: inline-block;">
-            <img src="../../assets/img/items/F001.jpg" class="item-image-scroll">
+            <img src="{{ item.img1 }}" class="item-image-scroll">
         </div>
         <div style="display: inline-block;">
-            <img src="../../assets/img/items/F002.jpg" class="item-image-scroll">
+            <img src="{{ item.img2 }}" class="item-image-scroll">
         </div>
         <div style="display: inline-block;">
-            <img src="../../assets/img/items/F003.jpg" class="item-image-scroll">
-        </div>
-        <div style="display: inline-block;">
-            <img src="../../assets/img/items/F004.jpg" class="item-image-scroll">
-        </div>
-        <div style="display: inline-block;">
-            <img src="../../assets/img/items/F005.jpg" class="item-image-scroll">
-        </div>
-        <div style="display: inline-block;">
-            <img src="../../assets/img/items/F006.jpg" class="item-image-scroll">
+            <img src="{{ item.img3 }}" class="item-image-scroll">
         </div>
     </ion-scroll>
     <hr/>
@@ -77,20 +65,20 @@
             <!--<ion-avatar item-right>-->
             <!--<img src="../../assets/img/items/F006.jpg"/>-->
             <!--</ion-avatar>-->
-            <ion-note item-right>username</ion-note>
+            <ion-note item-right>{{ item.supplierName }}</ion-note>
         </ion-item>
         <ion-item>
             <ion-icon item-left name="pricetag"></ion-icon>
             <h3>Price</h3>
-            <ion-note item-right>655 SR / KG</ion-note>
+            <ion-note item-right>{{ item.price }} / {{ item.unit }}</ion-note>
         </ion-item>
     </ion-list>
 </ion-content>
 
 <ion-footer>
-    <button ion-button full clear [navPush]="cartPage" [navParams]="item">
+    <button ion-button full clear (click)="selectQuantity()">
         <ion-icon name="cart"></ion-icon>
-        &nbsp;&nbsp;ADD TO CART ( 655 SAR / kg )
+        &nbsp;&nbsp;ADD TO CART ( {{ item.price }} / {{ item.unit }} )
     </button>
 </ion-footer>
 

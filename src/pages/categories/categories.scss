@@ -1,7 +1,6 @@
 .page-categories {
-  .toolbar-background {
-    background-color: #007aff;
-  }
+  margin-top:0.5rem;
+  background-color: #eeeeee;
 
   .toolbar-title, .bar-buttons {
     color: white;
@@ -16,6 +15,13 @@
     ion-card {
       position: relative;
       text-align: center;
+    }
+
+    .category-card {
+      margin: 0.5rem;
+      width: auto;
+      height: 12rem;
+      overflow:hidden;
     }
 
     .card-title {

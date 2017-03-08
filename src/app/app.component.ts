@@ -1,14 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
+import { Storage } from '@ionic/storage';
 
-import { Page1 } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
 import {FirstLaunch} from "../pages/first_launch/first_launch";
 import {Categories} from "../pages/categories/categories";
-import {ItemList} from "../pages/item_list/item_list";
-import {DetailsPage} from "../pages/details/details";
-import {UserRegistrationPage} from "../pages/user-registration/user-registration"
+import {CartPage} from "../pages/cart/cart";
+import {UserProfilePage} from "../pages/user-profile/user-profile";
 import {Config} from "../providers/config";
 
 
@@ -22,20 +20,26 @@ export class MyApp {
 
   rootPage: any = Categories;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon: string, devide: boolean}>;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, storage: Storage) {
+    storage.get('location.set').then((response) => {
+      if(!response) {
+        this.rootPage = FirstLaunch;
+      }
+    });
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Welcome', component: FirstLaunch },
-      { title: 'Categories', component: Categories },
-      { title: 'List', component: ItemList },
-      { title: 'Details', component: DetailsPage },
-      { title: 'User Registration', component: UserRegistrationPage },
-      { title: 'Page One', component: Page1 },
-      { title: 'Page Two', component: Page2 }
+      { title: 'Categories', component: Categories, icon: 'apps', devide:false },
+      { title: 'My Cart', component: CartPage, icon: 'cart', devide:false },
+      { title: 'My Orders', component: CartPage, icon: 'cash', devide: true },
+      // { title: 'List', component: ItemList, icon: '' },
+      // { title: 'Details', component: DetailsPage, icon: '' },
+      // { title: 'User Registration', component: UserRegistrationPage, icon: '' },
+      { title: 'Profile', component: UserProfilePage, icon: 'person', devide:false },
+      { title: 'Settings', component: UserProfilePage, icon: 'settings', devide:false }
     ];
 
   }
@@ -45,7 +49,7 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       // StatusBar.styleDefault();
-      StatusBar.backgroundColorByHexString('#32db64');
+      StatusBar.backgroundColorByHexString('#279f46');
       Splashscreen.hide();
     });
   }

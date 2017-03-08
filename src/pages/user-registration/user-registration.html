@@ -4,28 +4,88 @@
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<!--<ion-header>-->
 
-  <ion-navbar>
-    <ion-title>Register</ion-title>
-  </ion-navbar>
+  <!--<ion-navbar>-->
+    <!--<ion-title>Register</ion-title>-->
+  <!--</ion-navbar>-->
 
-</ion-header>
+<!--</ion-header>-->
 
 
 <ion-content class="page-user-registration">
+  <h4 class="registerHead"> Register </h4>
   <ion-list style="margin: 3rem;">
-    <ion-item>
-      <ion-label floating>Username</ion-label>
-      <ion-input type="text"></ion-input>
+
+    <ion-label style="color:#fff; text-align: center;">Already a Member? Login </ion-label>
+    
+    <ion-label class="register-section-label">Login Details</ion-label>
+
+    <ion-item class="registerItem">
+      <ion-input type="text" class="registerInput" [(ngModel)]="username" placeholder="Username"></ion-input>
+      <ion-icon name="person" class="registerInputIcon" item-left></ion-icon>
     </ion-item>
-    <ion-item>
-      <ion-label floating>Username</ion-label>
-      <ion-input type="text"></ion-input>
+
+
+    <ion-item class="registerItem">
+      <ion-input type="tel" class="registerInput" [(ngModel)]="phone" placeholder="Phone"></ion-input>
+      <ion-icon name="call" class="registerInputIcon" item-left></ion-icon>
+      <ion-select class="registerInput" [(ngModel)]="countryCode" item-left>
+        <ion-option value="sa" selected="true">+966</ion-option>
+        <!--<ion-option value="lk">+94</ion-option>-->
+      </ion-select>
     </ion-item>
-    <ion-item class="selectItem">
-      <ion-label floating>Username</ion-label>
-      <ion-input type="text"></ion-input>
+    <!--<ion-item class="registerItem">-->
+      <!--&lt;!&ndash;<ion-label floating>Username</ion-label>&ndash;&gt;-->
+      <!--&lt;!&ndash;<ion-label>Country Code</ion-label>&ndash;&gt;-->
+      <!--<ion-select class="registerInput" [(ngModel)]="countryCode">-->
+        <!--<ion-option value="sa" selected="true">🇸🇦 &nbsp;+966</ion-option>-->
+        <!--<ion-option value="lk">+94 🇸🇦</ion-option>-->
+      <!--</ion-select>-->
+      <!--<ion-input type="tel" class="registerInput"  placeholder="Phone"></ion-input>-->
+    <!--</ion-item>-->
+    <ion-item class="registerItem">
+      <ion-input type="password" class="registerInput" [(ngModel)]="password" placeholder="Password"></ion-input>
+      <ion-icon name="key" class="registerInputIcon" item-left></ion-icon>
     </ion-item>
+
+    <ion-label class="register-section-label" style="margin-top:3rem;">Delivery Address</ion-label>
+
+    <ion-item class="registerItem">
+      <ion-input type="text" class="registerInput" [(ngModel)]="address1" placeholder="Street Address"></ion-input>
+      <!--<ion-icon name="home" class="registerInputIcon" item-left></ion-icon>-->
+    </ion-item>
+    <ion-item class="registerItem">
+      <ion-input type="text" class="registerInput" [(ngModel)]="address2" placeholder="Street Address 2"></ion-input>
+    </ion-item>
+    <ion-grid  no-padding>
+      <ion-row>
+        <ion-col style="background-color: #fff; margin-right: 0.5rem; padding:0; border-radius: 6px;" no-padding>
+          <ion-input type="text" class="registerInput" disabled [(ngModel)]="latitude" placeholder="Latitude"></ion-input>
+        </ion-col>
+        <ion-col style="background-color: #fff; padding:0; border-radius: 6px;" no-padding>
+          <ion-input type="text" class="registerInput" disabled [(ngModel)]="logitude" placeholder="Logitude"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-item class="registerItem" style="margin-top: 4rem;">
+      <button ion-button full clear (click)="registerUser()" class="register-button">
+        <ion-icon name="person-add"></ion-icon>
+        &nbsp;&nbsp;REGISTER
+    </button>
+    </ion-item>
+     <!--<ion-item class="registerItem">
+      <ion-input type="text" class="" placeholder="Latitude"></ion-input>
+      <ion-input type="text" class="" placeholder="Longitude"></ion-input>
+    </ion-item>-->
   </ion-list>
 </ion-content>
+
+<!--<ion-footer class="footer-user-registration">
+    <button ion-button full clear (click)="registerUser()" class="register-button">
+        <ion-icon name="person-add"></ion-icon>
+        &nbsp;&nbsp;REGISTER
+    </button>
+</ion-footer>-->

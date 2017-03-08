@@ -1,0 +1,46 @@
+<!--
+  Generated template for the UserProfile page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="profile-header">
+
+  <ion-navbar>
+    <!--<button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>-->
+    <ion-title>Profile</ion-title>
+    <ion-buttons end>
+          <button ion-button icon-only (click)="editProfile()" style="color: white;">
+              <ion-icon name="create"></ion-icon>
+          </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding class="page-user-profile">
+  <!--<img src="../../assets/img/country_cover/cover_sl.jpg" alt="Cover Picture" style="width: 100%; height:auto;"/>-->
+  <div style="width: 100%; height:20rem; background-color: #32db64;"></div>
+  <img src="../../assets/img/items/F001.jpg" alt="Picture" style="display: block; margin: -8rem auto 0 auto; border-radius: 100%; height: 16rem;">
+
+  <ion-list no-lines>
+    <ion-item style="text-align: center; background-color: transparent; font-size: 2.5rem;" no-margin>
+      nuttloose
+    </ion-item>
+    <ion-item style="text-align: center; background-color: transparent; font-size: 1.5rem; margin-top: -2rem; " no-margin>
+      0770040302
+    </ion-item>
+    <ion-item style="text-align: center; background-color: transparent;" no-margin>
+      <div style="font-size: 2rem;">Shipping Address:</div>
+    </ion-item>
+    <ion-item full style="text-align: center; background-color: #fff;" no-margin>
+      442 <br>
+      Dematagoda Road <br>
+      Colombo <br>
+      00900 <br>
+      Sri Lanka
+    </ion-item>
+  </ion-list>
+</ion-content>

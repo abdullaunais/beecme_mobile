@@ -12,15 +12,13 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="page-categories">
+<ion-content class="page-categories" no-padding no-margin>
     <div class="card-background-page">
 
-                      <ion-card *ngFor="let category of categories" class="category-card" [navPush]="itemListPage"  [navParams]="category">
+                      <ion-card *ngFor="let category of categories; let i = index;" class="category-card" [navPush]="itemListPage"  [navParams]="category">
                           <img class="card-image" src="{{ category.imageEn }}"/>
                           <div class="card-title">{{ category.nameEn }}</div>
                           <div class="card-subtitle">{{ category.descriptionEn }}</div>
                       </ion-card>
-
-
     </div>
 </ion-content>

@@ -8,7 +8,24 @@ import {FirstLaunch} from "../first_launch/first_launch";
 @Component({
   selector: 'categories',
   templateUrl: 'categories.html',
-  providers: [DeliveryService]
+  providers: [DeliveryService],
+  // animations: [
+ 
+ // IMPORT  trigger, state, style, transition, animate, keyframes FROM ANGULAR CORE
+  //   //For the background detail
+  //   trigger('bounceInBottom', [
+  //     state('in', style({
+  //       transform: 'translate3d(0,0,0)'
+  //     })),
+  //     transition('void => *', [
+  //       animate('200ms 200ms ease-in', keyframes([
+  //         style({transform: 'translate3d(0,2000px,0)', offset: 0}),
+  //         style({transform: 'translate3d(0,-20px,0)', offset: 0.9}),
+  //         style({transform: 'translate3d(0,0,0)', offset: 1}) 
+  //       ]))
+  //     ])
+  //   ])
+  // ]
 })
 export class Categories {
 
@@ -46,18 +63,13 @@ export class Categories {
     //
     // this.selectedCity = this.navParams.get('city');
     console.log(navParams.data);
-    if(!navParams.data.locationSet) {
-      storage.get('location.set').then((response) => {
-          if(response) {
-            storage.get('location.city').then((city) => {
-              this.selectedCity = city;
-              this.initialize();
-            });
-          } else {
-            console.log('Location Not Set');
-            this.navCtrl.push(FirstLaunch);
-          }
-        });
+    if (!navParams.data.locationSet) {
+      storage.get('location.city').then((city) => {
+        if(city) {
+          this.selectedCity = city;
+          this.initialize();
+        }
+      });
     } else {
       this.selectedCity = navParams.data.city;
       this.initialize();
@@ -68,7 +80,7 @@ export class Categories {
     this.deliveryService.getCategories(this.selectedCity.id).then((data) =>  {
       let json = JSON.stringify(data);
       this.categories = JSON.parse(json);
-      this.rows = Array.from(Array(Math.ceil(this.categories.length / 2)).keys());
+      // this.rows = Array.from(Array(Math.ceil(this.categories.length / 2)).keys());
       console.info(this.categories);
     });
   }

@@ -17,12 +17,31 @@
       text-align: center;
     }
 
+    .card-image {
+      opacity: 0.7;
+    }
+
     .category-card {
-      margin: 0.5rem;
+      margin: 0rem;
       width: auto;
       height: 12rem;
       overflow:hidden;
+      background-color: #000;
+      border-top: 1px solid #ddd;
     }
+
+    // .overlay-front {
+    //   position   : absolute;
+    //   top        : 0;
+    //   left       : 0;
+    //   width      : 100%;
+    //   height     : 100%;
+    //   background : #000;
+    //   opacity    : 0.6;
+    //   filter     : alpha(opacity=60);
+    //   z-index    : 5;
+    //   display    : none;
+    // }
 
     .card-title {
       position: absolute;

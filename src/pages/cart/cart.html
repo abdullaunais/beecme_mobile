@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar color="secondary">
+  <ion-navbar color="ui-theme">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -17,26 +17,33 @@
 
 
 <ion-content class="page-cart">
+  <div style="display: flex; justify-content: space-between;">
+    <ion-label  *ngIf="cartItems.length === 0 && !isLoading" style="text-align: center; width: 100%; color: #999;">No Items in Cart.</ion-label>
+    <ion-spinner *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
+  </div>
   <ion-card *ngFor="let item of cartItems; let i = index;">
     <ion-row>
-      <ion-col class="item-card-icon-col" style="padding:0; max-width:12rem;">
-        <img class="item-card-icon" src="../../assets/img/items/F00{{ i+1 }}.jpg"/>
+      <ion-col width-25 class="item-card-icon-col" no-padding>
+        <img class="item-card-icon" src="{{ item.img1 }}"/>
       </ion-col>
-      <ion-col class="item-card-content-col">
+      <ion-col class="item-card-content-col" no-padding>
         <ion-card-content class="item-card-content">
-          <ion-card-title class="item-card-content-title">
-            Fish Item {{ i }}
+          <ion-card-title class="item-card-content-title" no-margin>
+            {{ item.nameEn }}
           </ion-card-title>
-          <p class="item-card-content-desc">
-            Same Description goes here. This is a sample content description.
+          <p class="item-card-content-desc" no-margin>
+            Quantity: {{ item.quantity }}
+          </p>
+          <p class="item-card-content-desc" no-margin>
+            Comment: {{ item.comment }}
           </p>
         </ion-card-content>
       </ion-col>
     </ion-row>
     <!--<hr style="margin: 0;"/>-->
-    <ion-row>
-      <ion-col width-25></ion-col>
-      <ion-col width-50 no-padding text-center>
+    <!--<ion-row>
+      <ion-col width-25 no-padding></ion-col>
+      <ion-col no-padding text-center>
       <ion-list>
         <ion-item>
           <ion-label>Quantity</ion-label>
@@ -47,23 +54,23 @@
       </ion-list>
       </ion-col>
       <ion-col width-25></ion-col>
-    </ion-row>
+    </ion-row>-->
     <hr style="margin: 0;"/>
     <ion-row no-padding>
       <ion-col text-center style="padding:0">
         <button clear small class="btnCartAction">
-          <ion-icon name="pricetag" style="font-size: 1.6rem;"></ion-icon>
-          &nbsp;$6.99
+          <ion-icon name="pricetag" style="font-size: 1.6rem;">&nbsp;Total:</ion-icon>
+          &nbsp;{{item.quantity*item.price}}
         </button>
       </ion-col>
       <ion-col text-center style="padding:0">
-        <button clear small class="btnCartAction">
+        <button clear small class="btnCartAction" (click)="viewItem(item)">
           <ion-icon name="eye" style="font-size: 1.6rem;"></ion-icon>
-          &nbsp;View Item
+          &nbsp;View
         </button>
       </ion-col>
       <ion-col text-center style="padding:0">
-        <button clear small class="btnCartAction">
+        <button clear small class="btnCartAction" (click)="removeItem(item)">
           <ion-icon name="trash" style="font-size: 1.6rem;"></ion-icon>
           &nbsp;Remove
         </button>
@@ -72,8 +79,8 @@
   </ion-card>
 </ion-content>
 
-<ion-footer>
-  <button ion-button full clear>
+<ion-footer class="footer-cart">
+  <button ion-button full clear (click)="checkout()" class="button-checkout"> 
     <ion-icon name="checkmark-circle-outline"></ion-icon>
     &nbsp;&nbsp;CHECKOUT ( Total $30.33 )
   </button>

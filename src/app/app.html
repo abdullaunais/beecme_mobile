@@ -1,11 +1,11 @@
 <ion-menu [content]="content" style="background-color: #efefef;">
-  <ion-header>
+  <ion-header (click)="loginOrProfile()">
     <!--<ion-toolbar>
       <ion-title>Menu</ion-title>
     </ion-toolbar>-->
     <img src="assets/img/cover/cover.jpg" alt="Cover" style="display: block; width: 100%; height: auto;" />
-    <img src="assets/img/items/F001.jpg" alt="Cover" style="position: absolute; top:2rem; left:2rem; width: 8rem; height: 8rem; border-radius: 100%;" />
-    <ion-label style="position: absolute; top: 10rem; left: 3rem; color: #fff;">nuttloose</ion-label>
+    <img [attr.src]="profilepic" alt="Cover" style="position: absolute; top:2rem; left:2rem; width: 8rem; height: 8rem; border-radius: 100%;" />
+    <ion-label style="position: absolute; top: 10rem; left: 3rem; color: #fff;">{{ profileLabel }}</ion-label>
     <!--<ion-label style="position: absolute; top: 12rem; left: 3rem; color: #fff;">0770040302</ion-label>-->
   </ion-header>
 

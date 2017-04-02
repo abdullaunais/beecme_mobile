@@ -1,13 +1,16 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 
-import {FirstLaunch} from "../pages/first_launch/first_launch";
-import {Categories} from "../pages/categories/categories";
-import {CartPage} from "../pages/cart/cart";
-import {UserProfilePage} from "../pages/user-profile/user-profile";
-import {Config} from "../providers/config";
+import { FirstLaunch } from "../pages/first_launch/first_launch";
+import { Categories } from "../pages/categories/categories";
+import { CartPage } from "../pages/cart/cart";
+import { UserProfilePage } from "../pages/user-profile/user-profile";
+import { UserLoginPage } from "../pages/user-login/user-login";
+import { Config } from "../providers/config";
+import { AppSettingsPage } from "../pages/app-settings/app-settings";
+import { OrderHistoryPage } from "../pages/order-history/order-history";
 
 
 
@@ -19,28 +22,68 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = Categories;
+  profileLabel: string;
+  profilepic: string;
+  isLogin: boolean = false;
+  profileComponent: any;
 
-  pages: Array<{title: string, component: any, icon: string, devide: boolean}>;
+  pages: Array<{ title: string, component: any, icon: string, devide: boolean }>;
 
-  constructor(public platform: Platform, storage: Storage) {
-    storage.get('location.set').then((response) => {
-      if(!response) {
+  constructor(public platform: Platform, storage: Storage, public menuCtrl: MenuController) {
+    this.initializeApp();
+    storage.get('location.set').then((locationSet) => {
+      if (!locationSet) {
         this.rootPage = FirstLaunch;
+        
       }
     });
-    this.initializeApp();
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Categories', component: Categories, icon: 'apps', devide:false },
-      { title: 'My Cart', component: CartPage, icon: 'cart', devide:false },
-      { title: 'My Orders', component: CartPage, icon: 'cash', devide: true },
-      // { title: 'List', component: ItemList, icon: '' },
-      // { title: 'Details', component: DetailsPage, icon: '' },
-      // { title: 'User Registration', component: UserRegistrationPage, icon: '' },
-      { title: 'Profile', component: UserProfilePage, icon: 'person', devide:false },
-      { title: 'Settings', component: UserProfilePage, icon: 'settings', devide:false }
-    ];
+    storage.get('user.data').then((response) => {
+      if (response) {
+        if (response.email != undefined || response.email != null) {
+          this.profileLabel = response.email;
+          this.isLogin = true;
+          if(response.profilePicture !== null){
+            this.profilepic = response.profilePicture;
+          } else {
+            this.profilepic = "assets/img/cover/profile_default.jpg";
+          }
+          
+        } else {
+          this.profileLabel = "Sign In";
+          this.isLogin = false;
+        }
+      } else {
+        this.profileLabel = "Sign In";
+        this.isLogin = false;
+      }
+
+
+      if (this.isLogin) {
+        this.profileComponent = {
+          title: 'Profile', component: UserProfilePage, icon: 'person', devide: false
+        }
+      } else {
+        this.profileComponent = {
+          title: 'Sign In', component: UserLoginPage, icon: 'person', devide: false
+        }
+      }
+
+      // used for an example of ngFor and navigation
+      this.pages = [
+        { title: 'Categories', component: Categories, icon: 'apps', devide: false },
+        { title: 'My Cart', component: CartPage, icon: 'cart', devide: false },
+        { title: 'My Orders', component: OrderHistoryPage, icon: 'cash', devide: true },
+        // { title: 'List', component: ItemList, icon: '' },
+        // { title: 'Details', component: DetailsPage, icon: '' },
+        // { title: 'User Registration', component: UserRegistrationPage, icon: '' },
+        this.profileComponent,
+        { title: 'Settings', component: AppSettingsPage, icon: 'settings', devide: false }
+      ];
+    });
+
+    
+
 
   }
 
@@ -52,6 +95,16 @@ export class MyApp {
       StatusBar.backgroundColorByHexString('#279f46');
       Splashscreen.hide();
     });
+  }
+
+  loginOrProfile() {
+    if (this.isLogin) {
+      this.nav.push(UserProfilePage);
+      this.menuCtrl.close();
+    } else {
+      this.nav.push(UserLoginPage);
+      this.menuCtrl.close();
+    }
   }
 
   openPage(page) {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 
 /*
   Generated class for the UserProfile page.
@@ -13,7 +13,21 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class UserProfilePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
+    let alert = this.alertCtrl.create({
+      title: 'Message',
+      message: 'Still in Development. Will be available soon.',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            //ignore
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProfilePage');

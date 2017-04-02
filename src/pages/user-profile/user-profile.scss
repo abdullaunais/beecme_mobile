@@ -1,5 +1,11 @@
 .page-user-profile {
   background-color: #efefef;
+  .profile-pic {
+    width: 100%;
+    height: 30rem;
+    background-color: #32db64;
+    object-fit: cover;
+  }
 }
 
 .profile-header {

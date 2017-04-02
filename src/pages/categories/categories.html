@@ -1,24 +1,29 @@
 <ion-header>
-  <ion-navbar color="secondary">
-    <button ion-button menuToggle>
+    <ion-navbar color="ui-theme">
+        <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title ng-style="color:white;">Categories</ion-title>
-      <ion-buttons end>
-          <button ion-button icon-only (click)="openModal()">
+        <ion-title ng-style="color:white;">Categories</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="openCart()">
               <ion-icon name="cart"></ion-icon>
+              <ion-badge *ngIf="cartCount > 0" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
           </button>
-      </ion-buttons>
-  </ion-navbar>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 <ion-content class="page-categories" no-padding no-margin>
+    <div style="display: flex; justify-content: space-between;">
+        <ion-label *ngIf="categories.length === 0 && !isLoading" style="text-align: center; width: 100%; color: #999;">No Categories Available.</ion-label>
+        <ion-spinner *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
+    </div>
     <div class="card-background-page">
 
-                      <ion-card *ngFor="let category of categories; let i = index;" class="category-card" [navPush]="itemListPage"  [navParams]="category">
-                          <img class="card-image" src="{{ category.imageEn }}"/>
-                          <div class="card-title">{{ category.nameEn }}</div>
-                          <div class="card-subtitle">{{ category.descriptionEn }}</div>
-                      </ion-card>
+        <ion-card *ngFor="let category of categories; let i = index;" class="category-card" (click)="openCategory(category)">
+            <img class="card-image" src="{{ category.imageEn }}" />
+            <div class="card-title">{{ category.nameEn }}</div>
+            <div class="card-subtitle">{{ category.descriptionEn }}</div>
+        </ion-card>
     </div>
 </ion-content>

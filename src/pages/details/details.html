@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-    <ion-navbar color="secondary">
+    <ion-navbar color="ui-theme">
         <button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
@@ -16,6 +16,7 @@
         <ion-buttons end>
             <button ion-button icon-only [navPush]="cartPage">
                 <ion-icon name="cart"></ion-icon>
+                <ion-badge *ngIf="cartCount > 0" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
             </button>
         </ion-buttons>
     </ion-navbar>
@@ -23,7 +24,8 @@
 
 
 <ion-content id="itemContent" class="page-details">
-    <div style="background-image: url('{{ item.img1 }}');" class="item-image-main"></div>
+    <!--<div style="background-image: url('{{ item.img1 }}');" class="item-image-main"></div>-->
+    <img class="item-image-main" src="{{item.img1}}" (click)="showImages()">
     <!--<div class="parallax" style="background-image: url('../../assets/img/items/F001.jpg')"></div>-->
     <!--<div style="height:1000px;background-color:red;font-size:36px">-->
     <!--Scroll Up and Down this page to see the parallax scrolling effect.-->
@@ -40,15 +42,15 @@
 
     </ion-card-content>
 
-    <ion-scroll scrollX="true" style="height: 15rem;">
+    <ion-scroll scrollX="true" style="height: 15rem;" (click)="showImages()">
         <div style="display: inline-block;">
-            <img src="{{ item.img1 }}" class="item-image-scroll">
+            <img *ngIf="item.img1" src="{{ item.img1 }}" class="item-image-scroll">
         </div>
         <div style="display: inline-block;">
-            <img src="{{ item.img2 }}" class="item-image-scroll">
+            <img *ngIf="item.img2" src="{{ item.img2 }}" class="item-image-scroll">
         </div>
         <div style="display: inline-block;">
-            <img src="{{ item.img3 }}" class="item-image-scroll">
+            <img *ngIf="item.img3" src="{{ item.img3 }}" class="item-image-scroll">
         </div>
     </ion-scroll>
     <hr/>
@@ -65,18 +67,18 @@
             <!--<ion-avatar item-right>-->
             <!--<img src="../../assets/img/items/F006.jpg"/>-->
             <!--</ion-avatar>-->
-            <ion-note item-right>{{ item.supplierName }}</ion-note>
+            <ion-note item-right>{{ item.supplierEmail }}</ion-note>
         </ion-item>
         <ion-item>
             <ion-icon item-left name="pricetag"></ion-icon>
             <h3>Price</h3>
-            <ion-note item-right>{{ item.price }} / {{ item.unit }}</ion-note>
+            <ion-note item-right>{{ item.price }} SAR / {{ item.unit }}</ion-note>
         </ion-item>
     </ion-list>
 </ion-content>
 
-<ion-footer>
-    <button ion-button full clear (click)="selectQuantity()">
+<ion-footer class="footer-details">
+    <button ion-button full clear (click)="selectQuantity()" class="button-cart">
         <ion-icon name="cart"></ion-icon>
         &nbsp;&nbsp;ADD TO CART ( {{ item.price }} / {{ item.unit }} )
     </button>

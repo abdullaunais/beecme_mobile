@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, Content, ActionSheetController, AlertController } from 'ionic-angular';
-import {CartPage} from "../cart/cart";
+import { CartPage } from "../cart/cart";
 import { Storage } from '@ionic/storage';
+import { ImageSliderPage } from "../image-slider/image-slider";
 
 /*
   Generated class for the Details page.
@@ -19,16 +20,23 @@ export class DetailsPage {
   cartPage = CartPage;
   headerShow: boolean = false;
 
-  item : any;
+  item: any;
   storage: Storage;
 
+  cartCount: number = 0;
+
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              storage: Storage,
-              public actionSheetCtrl: ActionSheetController,
-              public alertCtrl: AlertController ) {
+    public navParams: NavParams,
+    storage: Storage,
+    public actionSheetCtrl: ActionSheetController,
+    public alertCtrl: AlertController) {
     this.item = navParams.data;
     this.storage = storage;
+    storage.get('delivery.cartCount').then((data) => {
+      if (data) {
+        this.cartCount = data;
+      }
+    });
   }
 
   selectQuantity() {
@@ -91,8 +99,9 @@ export class DetailsPage {
         { name: 'quantity', placeholder: 'Quantity' },
       ],
       buttons: [
-        { text: 'Cancel', handler: data => {}},
-        { text: 'Add',
+        { text: 'Cancel', handler: data => { } },
+        {
+          text: 'Add',
           handler: data => {
             this.addToCart(data.quantity);
           }
@@ -107,21 +116,46 @@ export class DetailsPage {
   // }
 
   addToCart(quantity) {
-    if(this.item.qty >= quantity) {
-      this.item.cartQuantity = quantity;
-      this.storage.get('delivery.cart').then((cart) => {
-        let cartItems : Array<any> = cart;
-        cartItems.push(this.item);
-        this.storage.set('delivery.cart', cartItems);
-      });
-    } else {
-      let alert = this.alertCtrl.create({
-        title: 'Cant add more than the available amount!',
-        subTitle: 'Please select a quantity that is available',
-        buttons: ['OK']
-      });
-      alert.present();
-    }
+    let prompt = this.alertCtrl.create({
+      title: 'Enter Comment',
+      message: "",
+      inputs: [
+        { name: 'comment', placeholder: 'Comment' },
+      ],
+      buttons: [
+        { text: 'Cancel', handler: data => { } },
+        {
+          text: 'Add',
+          handler: data => {
+            // if (this.item.qty >= quantity) {
+            this.item.comment = data.comment;
+            this.item.quantity = quantity;
+            this.storage.get('delivery.cart').then((cart) => {
+              let cartItems: Array<any> = cart;
+              cartItems.push(this.item);
+              this.storage.set('delivery.cart', cartItems).then((response) => {
+                this.storage.set('delivery.cartCount', cartItems.length).then((res) => {
+                  this.navCtrl.push(CartPage, null);
+                });
+              });
+            });
+            // } else {
+            //   let alert = this.alertCtrl.create({
+            //     title: 'Cant add more than the available amount!',
+            //     subTitle: 'Please select a quantity that is available',
+            //     buttons: ['OK']
+            //   });
+            //   alert.present();
+            // }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  showImages() {
+    this.navCtrl.push(ImageSliderPage, this.item);
   }
 
   ngAfterViewInit() {

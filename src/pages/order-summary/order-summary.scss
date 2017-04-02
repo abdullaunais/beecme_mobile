@@ -1,0 +1,26 @@
+.page-order-summary {
+    background-color: $ui-theme;
+    .confirmHead {
+        color: white;
+        font-size: 2.5rem;
+        text-align: center;
+        margin-top: 10%;
+    }
+    .confirmItem {
+        margin-bottom: 0.5rem;
+        padding: 0;
+        border-radius: 6px;
+    }
+    .confirm-button {
+        height: 2.5rem;
+        background-color: #fff;
+        font-size: 1.6rem;
+    }
+    .card-background-page {
+        ion-card {
+            position: relative;
+            text-align: center;
+            height: 10em;
+        }
+    }
+}

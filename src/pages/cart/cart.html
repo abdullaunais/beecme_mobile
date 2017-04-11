@@ -23,7 +23,7 @@
   </div>
   <ion-card *ngFor="let item of cartItems; let i = index;">
     <ion-row>
-      <ion-col width-25 class="item-card-icon-col" no-padding>
+      <ion-col col-3 class="item-card-icon-col" no-padding>
         <img class="item-card-icon" src="{{ item.img1 }}"/>
       </ion-col>
       <ion-col class="item-card-content-col" no-padding>
@@ -82,6 +82,6 @@
 <ion-footer class="footer-cart">
   <button ion-button full clear (click)="checkout()" class="button-checkout"> 
     <ion-icon name="checkmark-circle-outline"></ion-icon>
-    &nbsp;&nbsp;CHECKOUT ( Total $30.33 )
+    &nbsp;&nbsp;CHECKOUT ( Total {{totalAmount}} SAR )
   </button>
 </ion-footer>

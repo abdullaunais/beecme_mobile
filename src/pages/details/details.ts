@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Content, ActionSheetController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, Content, ActionSheetController, AlertController, ToastController } from 'ionic-angular';
 import { CartPage } from "../cart/cart";
 import { Storage } from '@ionic/storage';
 import { ImageSliderPage } from "../image-slider/image-slider";
+import { Variables } from "../../providers/variables";
 
 /*
   Generated class for the Details page.
@@ -29,14 +30,13 @@ export class DetailsPage {
     public navParams: NavParams,
     storage: Storage,
     public actionSheetCtrl: ActionSheetController,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    private variables: Variables,
+    private toastCtrl: ToastController
+  ) {
     this.item = navParams.data;
     this.storage = storage;
-    storage.get('delivery.cartCount').then((data) => {
-      if (data) {
-        this.cartCount = data;
-      }
-    });
+    this.variables.cartCount.subscribe(value => this.cartCount = value);
   }
 
   selectQuantity() {
@@ -95,6 +95,7 @@ export class DetailsPage {
     let prompt = this.alertCtrl.create({
       title: 'Enter Quantity',
       message: "",
+      cssClass: 'prompt-ui-theme',
       inputs: [
         { name: 'quantity', placeholder: 'Quantity' },
       ],
@@ -103,7 +104,16 @@ export class DetailsPage {
         {
           text: 'Add',
           handler: data => {
-            this.addToCart(data.quantity);
+            if (data.quantity) {
+              if (!Number.isNaN(data.quantity)) {
+                this.addToCart(data.quantity);
+              } else {
+                // Quantity should be a number
+                this.presentToast("Quantity should be a number", 3000);
+              }
+            } else {
+              this.presentToast("Quantity is required", 3000);
+            }
           }
         }
       ]
@@ -119,6 +129,7 @@ export class DetailsPage {
     let prompt = this.alertCtrl.create({
       title: 'Enter Comment',
       message: "",
+      cssClass: 'prompt-ui-theme',
       inputs: [
         { name: 'comment', placeholder: 'Comment' },
       ],
@@ -132,12 +143,25 @@ export class DetailsPage {
             this.item.quantity = quantity;
             this.storage.get('delivery.cart').then((cart) => {
               let cartItems: Array<any> = cart;
-              cartItems.push(this.item);
-              this.storage.set('delivery.cart', cartItems).then((response) => {
-                this.storage.set('delivery.cartCount', cartItems.length).then((res) => {
-                  this.navCtrl.push(CartPage, null);
+              let prevCart = cartItems.filter(x => x.itemCode == this.item.itemCode);
+              if (prevCart && prevCart.length > 0) {
+                let index = cartItems.findIndex(x => x.itemCode == this.item.itemCode);
+                cartItems[index] = this.item
+                this.storage.set("delivery.cart", cartItems).then(res => {
+                  this.storage.set("delivery.cartCount", cartItems.length).then(res => {
+                    this.variables.setCartCount(cartItems.length);
+                  });
                 });
-              });
+              } else {
+                cartItems.push(this.item);
+                this.storage.set('delivery.cart', cartItems).then((response) => {
+                  this.storage.set('delivery.cartCount', cartItems.length).then((res) => {
+                    this.variables.setCartCount(cartItems.length);
+                    // this.navCtrl.push(CartPage, null);
+                  });
+                });
+              }
+
             });
             // } else {
             //   let alert = this.alertCtrl.create({
@@ -156,6 +180,16 @@ export class DetailsPage {
 
   showImages() {
     this.navCtrl.push(ImageSliderPage, this.item);
+  }
+
+  presentToast(message, duration) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      showCloseButton: true,
+      closeButtonText: 'OK',
+      duration: duration
+    });
+    toast.present();
   }
 
   ngAfterViewInit() {

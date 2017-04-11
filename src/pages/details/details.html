@@ -16,7 +16,7 @@
         <ion-buttons end>
             <button ion-button icon-only [navPush]="cartPage">
                 <ion-icon name="cart"></ion-icon>
-                <ion-badge *ngIf="cartCount > 0" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
+                <ion-badge *ngIf="cartCount > 0" color="danger" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
             </button>
         </ion-buttons>
     </ion-navbar>
@@ -25,7 +25,7 @@
 
 <ion-content id="itemContent" class="page-details">
     <!--<div style="background-image: url('{{ item.img1 }}');" class="item-image-main"></div>-->
-    <img class="item-image-main" src="{{item.img1}}" (click)="showImages()">
+    <img class="item-image-main" src="{{item.img1}}" (tap)="showImages()">
     <!--<div class="parallax" style="background-image: url('../../assets/img/items/F001.jpg')"></div>-->
     <!--<div style="height:1000px;background-color:red;font-size:36px">-->
     <!--Scroll Up and Down this page to see the parallax scrolling effect.-->
@@ -42,7 +42,7 @@
 
     </ion-card-content>
 
-    <ion-scroll scrollX="true" style="height: 15rem;" (click)="showImages()">
+    <ion-scroll scrollX="true" style="height: 15rem;" (tap)="showImages()">
         <div style="display: inline-block;">
             <img *ngIf="item.img1" src="{{ item.img1 }}" class="item-image-scroll">
         </div>
@@ -80,7 +80,7 @@
 <ion-footer class="footer-details">
     <button ion-button full clear (click)="selectQuantity()" class="button-cart">
         <ion-icon name="cart"></ion-icon>
-        &nbsp;&nbsp;ADD TO CART ( {{ item.price }} / {{ item.unit }} )
+        &nbsp;&nbsp;ADD TO CART ( {{ item.price }} SAR / {{ item.unit }} )
     </button>
 </ion-footer>
 

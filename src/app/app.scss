@@ -15,8 +15,66 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-//.cover-background {
-//  background-image: url("../assets/img/cover_sl.jpg");
-//  height: auto;
-//  margin: 0;
-//}
+.toolbar-ios {
+    padding: 4px;
+    min-height: 5rem;
+}
+
+.alert-ui-theme-success {
+  .alert-wrapper {
+    border-radius: 8px;
+  }
+  .alert-button {
+    padding: 10px 30px;
+    background-color: $ui-theme;
+    color:#fff;
+    border-radius: 4px;
+  }
+}
+
+.alert-ui-theme-danger {
+  .alert-wrapper {
+    border-radius: 8px;
+  }
+  .alert-button {
+    padding: 10px 30px;
+    background-color: $ui-theme-danger;
+    color:#fff;
+    border-radius: 4px;
+  }
+}
+
+.prompt-ui-theme {
+  .alert-wrapper {
+    border-radius: 8px;
+  }
+}
+
+.menu-app {
+    .cover-pic {
+        display: block;
+        width: 100%;
+        height: auto;
+        opacity:0.8;
+        -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
+        filter: blur(2px);
+    }
+    .profile-pic {
+        position: absolute;
+        top:1.5rem;
+        left:2rem;
+        width: 7rem;
+        height: 7rem;
+        border-radius: 100%;
+    }
+    .profile-label {
+        position: absolute;
+        top: 9rem;
+        left: 3rem;
+        color: #fff;
+        border-radius: 3px;
+        padding: 0.5rem;
+        font-weight: 700;
+        background-color: #f53d3d;
+    }
+}

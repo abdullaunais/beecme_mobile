@@ -1,6 +1,11 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
+import { IonicStorageModule } from '@ionic/storage';
+import { SplashScreen } from "@ionic-native/splash-screen";
+import { StatusBar } from "@ionic-native/status-bar";
+
 import { MyApp } from './app.component';
 import { FirstLaunch } from "../pages/first_launch/first_launch";
 import { Categories } from "../pages/categories/categories";
@@ -15,6 +20,9 @@ import { OrderSummaryPage } from "../pages/order-summary/order-summary";
 import { AppSettingsPage } from "../pages/app-settings/app-settings";
 import { ImageSliderPage } from "../pages/image-slider/image-slider";
 import { OrderHistoryPage } from "../pages/order-history/order-history";
+import { ChangeLocation } from "../pages/change-location/change-location";
+import { Config } from "../providers/config";
+import { Variables } from "../providers/variables";
 
 
 @NgModule({
@@ -32,17 +40,21 @@ import { OrderHistoryPage } from "../pages/order-history/order-history";
     UserLoginPage,
     DeliverySchedulePage,
     OrderSummaryPage,
-    OrderHistoryPage
+    OrderHistoryPage,
+    ChangeLocation
   ],
   imports: [
+    BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp, {
       menuType: 'push',
       platforms: {
         ios: {
-          menuType: 'overlay',
+          menuType: 'push',
         }
       }
-    })
+    }),
+    IonicStorageModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -59,8 +71,9 @@ import { OrderHistoryPage } from "../pages/order-history/order-history";
     UserLoginPage,
     DeliverySchedulePage,
     OrderSummaryPage,
-    OrderHistoryPage
+    OrderHistoryPage,
+    ChangeLocation
   ],
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, Storage]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, StatusBar, SplashScreen, Config, Variables]
 })
 export class AppModule { }

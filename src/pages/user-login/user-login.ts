@@ -5,6 +5,7 @@ import { DeliverySchedulePage } from "../delivery-schedule/delivery-schedule";
 import { Categories } from "../categories/categories";
 import { UserRegistrationPage } from "../user-registration/user-registration";
 import { Storage } from '@ionic/storage';
+import { Variables } from "../../providers/variables";
 
 /*
   Generated class for the UserLogin page.
@@ -34,7 +35,8 @@ export class UserLoginPage {
     userService: UserService,
     storage: Storage,
     public loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private variables: Variables
   ) {
     this.userService = userService;
     this.storage = storage;
@@ -82,6 +84,10 @@ export class UserLoginPage {
         console.info(userData);
         this.storage.set("user.data", userData);
         this.storage.set("user.login", true);
+        this.variables.setLogin(true);
+        Variables.user.username = userData.username;
+        Variables.user.email = userData.email;
+
         this.hideLoading();
 
         if (this.redirectString === "redirect-deliveryschedule") {
@@ -94,6 +100,7 @@ export class UserLoginPage {
         let alert = this.alertCtrl.create({
           title: 'Invalid Credentials',
           message: 'Please check your login details',
+          cssClass: 'alert-ui-theme-danger',
           buttons: [
             {
               text: 'OK',

@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, MenuController } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 
 import { FirstLaunch } from "../pages/first_launch/first_launch";
@@ -8,7 +9,7 @@ import { Categories } from "../pages/categories/categories";
 import { CartPage } from "../pages/cart/cart";
 import { UserProfilePage } from "../pages/user-profile/user-profile";
 import { UserLoginPage } from "../pages/user-login/user-login";
-import { Config } from "../providers/config";
+import { Variables } from "../providers/variables";
 import { AppSettingsPage } from "../pages/app-settings/app-settings";
 import { OrderHistoryPage } from "../pages/order-history/order-history";
 
@@ -16,7 +17,7 @@ import { OrderHistoryPage } from "../pages/order-history/order-history";
 
 @Component({
   templateUrl: 'app.html',
-  providers: [Config]
+  providers: []
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -26,36 +27,55 @@ export class MyApp {
   profilepic: string;
   isLogin: boolean = false;
   profileComponent: any;
+  cartCount: number;
 
   pages: Array<{ title: string, component: any, icon: string, devide: boolean }>;
 
-  constructor(public platform: Platform, storage: Storage, public menuCtrl: MenuController) {
+  constructor(
+    public platform: Platform,
+    storage: Storage,
+    public menuCtrl: MenuController,
+    private splashScreen: SplashScreen,
+    private statusBar: StatusBar,
+    private variables: Variables
+  ) {
     this.initializeApp();
+    this.variables.login.subscribe(value => this.isLogin = value);
+    this.variables.cartCount.subscribe(value => this.cartCount = value);
+
     storage.get('location.set').then((locationSet) => {
       if (!locationSet) {
         this.rootPage = FirstLaunch;
-        
       }
     });
 
     storage.get('user.data').then((response) => {
       if (response) {
         if (response.email != undefined || response.email != null) {
-          this.profileLabel = response.email;
-          this.isLogin = true;
-          if(response.profilePicture !== null){
+          Variables.user.username = response.username;
+          Variables.user.email = response.email;
+          this.variables.setLogin(true);
+          this.profileLabel = Variables.user['username'];
+
+          if (response.profilePicture) {
             this.profilepic = response.profilePicture;
           } else {
             this.profilepic = "assets/img/cover/profile_default.jpg";
           }
-          
+
         } else {
-          this.profileLabel = "Sign In";
-          this.isLogin = false;
+          this.profileLabel = "";
+          this.profilepic = "assets/img/cover/profile_default.jpg";
+          Variables.user.username = "";
+          Variables.user.email = "";
+          this.variables.setLogin(false);
         }
       } else {
-        this.profileLabel = "Sign In";
-        this.isLogin = false;
+        this.profileLabel = "";
+        this.profilepic = "assets/img/cover/profile_default.jpg";
+        Variables.user.username = "";
+        Variables.user.email = "";
+        this.variables.setLogin(false);
       }
 
 
@@ -74,15 +94,18 @@ export class MyApp {
         { title: 'Categories', component: Categories, icon: 'apps', devide: false },
         { title: 'My Cart', component: CartPage, icon: 'cart', devide: false },
         { title: 'My Orders', component: OrderHistoryPage, icon: 'cash', devide: true },
-        // { title: 'List', component: ItemList, icon: '' },
-        // { title: 'Details', component: DetailsPage, icon: '' },
-        // { title: 'User Registration', component: UserRegistrationPage, icon: '' },
         this.profileComponent,
         { title: 'Settings', component: AppSettingsPage, icon: 'settings', devide: false }
       ];
     });
 
-    
+    storage.get('delivery.cartCount').then((data) => {
+      if (data)
+        if (!Number.isNaN(data))
+          this.variables.setCartCount(data);
+    });
+
+
 
 
   }
@@ -92,8 +115,9 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       // StatusBar.styleDefault();
-      StatusBar.backgroundColorByHexString('#279f46');
-      Splashscreen.hide();
+      this.statusBar.overlaysWebView(true);
+      this.statusBar.backgroundColorByHexString('#77bb11');
+      this.splashScreen.hide();
     });
   }
 

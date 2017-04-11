@@ -1,19 +1,21 @@
-<ion-menu [content]="content" style="background-color: #efefef;">
-  <ion-header (click)="loginOrProfile()">
+<ion-menu [content]="content" style="background-color: #efefef;" class="menu-app">
+  <ion-header (tap)="loginOrProfile()" style="background-color: #000;"> 
     <!--<ion-toolbar>
       <ion-title>Menu</ion-title>
     </ion-toolbar>-->
-    <img src="assets/img/cover/cover.jpg" alt="Cover" style="display: block; width: 100%; height: auto;" />
-    <img [attr.src]="profilepic" alt="Cover" style="position: absolute; top:2rem; left:2rem; width: 8rem; height: 8rem; border-radius: 100%;" />
-    <ion-label style="position: absolute; top: 10rem; left: 3rem; color: #fff;">{{ profileLabel }}</ion-label>
+    <img src="assets/img/cover/cover.jpg" alt="Cover" class="cover-pic" />
+    <img [attr.src]="profilepic" alt="Cover" class="profile-pic" />
+    <ion-label class="profile-label" *ngIf="!isLogin">LOGIN</ion-label>
+    <ion-label class="profile-label" [style.left]="'2rem'" *ngIf="isLogin">{{ profileLabel }}</ion-label>
     <!--<ion-label style="position: absolute; top: 12rem; left: 3rem; color: #fff;">0770040302</ion-label>-->
   </ion-header>
 
   <ion-content>
     <ion-list style="margin-top: 0.5rem;" no-lines>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" [ngStyle]="{'border-bottom': p.devide ? '1px solid #eee' : '0px'}">
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" [ngStyle]="{'border-bottom': p.seperate ? '1px solid #eee' : '0px'}">
         <ion-icon [name]="p.icon" color="ui-theme" item-left></ion-icon>
         {{p.title}}
+        <ion-badge color="danger" *ngIf="p.title == 'My Cart' && cartCount > 0" style="margin-left: 1rem;">{{cartCount}} {{ cartCount > 1 ? "items" : "item"}}</ion-badge>
       </button>
     </ion-list>
   </ion-content>

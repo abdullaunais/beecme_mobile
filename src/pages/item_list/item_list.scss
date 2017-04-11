@@ -39,13 +39,14 @@
   }
 
   .item-card-content-desc {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: normal;
-    line-height: 1.4;
+    line-height: 1.5rem;
+    height: 4.5rem;
     overflow: hidden;
     width: 100%;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: pre-wrap;
     position: relative;
   }
 

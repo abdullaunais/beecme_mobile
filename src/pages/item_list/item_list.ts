@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Content, ActionSheetController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, Content, ActionSheetController, AlertController, ToastController } from 'ionic-angular';
 import { DetailsPage } from "../details/details";
 import { DeliveryService } from "../../providers/delivery-service";
 import { Storage } from '@ionic/storage';
 import { CartPage } from "../cart/cart";
+import { Variables } from "../../providers/variables";
 
 @Component({
   selector: 'item_list',
@@ -38,17 +39,15 @@ export class ItemList {
     delivery: DeliveryService,
     storage: Storage,
     public actionSheetCtrl: ActionSheetController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    private variables: Variables,
+    private toastCtrl: ToastController
   ) {
     this.deliveryService = delivery;
     this.storage = storage;
     this.isLoading = true;
     this.category = navParams.data;
-    storage.get('delivery.cartCount').then((data) => {
-      if (data) {
-        this.cartCount = data;
-      }
-    });
+    this.variables.cartCount.subscribe(value => this.cartCount = value);
 
     this.initialize();
   }
@@ -125,7 +124,11 @@ export class ItemList {
     this.hideSearch();
   }
 
-  selectQuantity(item) {
+  selectQuantity(e: Event, item) {
+    if (!e) var e = window.event;
+    e.cancelBubble = true;
+    if (e.stopPropagation) e.stopPropagation();
+
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Quantity',
       buttons: [
@@ -181,25 +184,39 @@ export class ItemList {
     let prompt = this.alertCtrl.create({
       title: 'Enter Comment',
       message: "",
+      cssClass: 'prompt-ui-theme',
       inputs: [
         { name: 'comment', placeholder: 'Comment' },
       ],
       buttons: [
         { text: 'Cancel', handler: data => { } },
         {
-          text: 'Save',
+          text: 'ADD',
           handler: data => {
-            // if(item.qty >= quantity) {
+            // if (this.item.qty >= quantity) {
             item.comment = data.comment;
             item.quantity = quantity;
             this.storage.get('delivery.cart').then((cart) => {
               let cartItems: Array<any> = cart;
-              cartItems.push(item);
-              this.storage.set('delivery.cart', cartItems).then((response) => {
-                this.storage.set('delivery.cartCount', cartItems.length).then((res) => {
-                  this.navCtrl.push(CartPage, null);
+              let prevCart = cartItems.filter(x => x.itemCode == item.itemCode);
+              if (prevCart && prevCart.length > 0) {
+                let index = cartItems.findIndex(x => x.itemCode == item.itemCode);
+                cartItems[index] = item
+                this.storage.set("delivery.cart", cartItems).then(res => {
+                  this.storage.set("delivery.cartCount", cartItems.length).then(res => {
+                    this.variables.setCartCount(cartItems.length);
+                  });
                 });
-              });
+              } else {
+                cartItems.push(item);
+                this.storage.set('delivery.cart', cartItems).then((response) => {
+                  this.storage.set('delivery.cartCount', cartItems.length).then((res) => {
+                    this.variables.setCartCount(cartItems.length);
+                    // this.navCtrl.push(CartPage, null);
+                  });
+                });
+              }
+
             });
             // } else {
             //   let alert = this.alertCtrl.create({
@@ -220,6 +237,7 @@ export class ItemList {
     let prompt = this.alertCtrl.create({
       title: 'Enter Quantity',
       message: "",
+      cssClass: 'prompt-ui-theme',
       inputs: [
         { name: 'quantity', placeholder: 'Quantity' },
       ],
@@ -228,12 +246,25 @@ export class ItemList {
         {
           text: 'Add',
           handler: data => {
-            this.addToCart(data.quantity, item);
+            if (data.quantity) {
+              if (!Number.isNaN(data.quantity)) {
+                this.addToCart(data.quantity, item);
+              } else {
+                // Quantity should be a number
+                this.presentToast("Quantity should be a number", 3000);
+              }
+            } else {
+              this.presentToast("Quantity is required", 3000);
+            }
           }
         }
       ]
     });
     prompt.present();
+  }
+
+  errorUpdateUrl(event, index) {
+    this.items[index].img1 = "assets/img/items/" + this.category.nameEn.toLowerCase() + "_default.svg";
   }
 
   viewDetails(item) {
@@ -242,6 +273,16 @@ export class ItemList {
 
   openCart() {
     this.navCtrl.push(CartPage, null);
+  }
+
+  presentToast(message, duration) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      showCloseButton: true,
+      closeButtonText: 'OK',
+      duration: duration
+    });
+    toast.present();
   }
 
 }

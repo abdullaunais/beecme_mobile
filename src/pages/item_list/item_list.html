@@ -9,7 +9,7 @@
         <ion-buttons end>
             <button ion-button icon-only (click)="openCart()">
                 <ion-icon name="cart"></ion-icon>
-                <ion-badge *ngIf="cartCount > 0" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
+                <ion-badge *ngIf="cartCount > 0" color="danger" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
             </button>
             <button ion-button icon-only (click)="showSearch()" *ngIf="!searchVisible">
                 <ion-icon name="search"></ion-icon>
@@ -19,13 +19,13 @@
             </button>
         </ion-buttons>
     </ion-navbar>
-    <!--<ion-searchbar class="item-searchbar" *ngIf="searchVisible"
-                   (animated)="true" (placeholder)="Search"
+    <ion-searchbar class="item-searchbar" *ngIf="searchVisible"
+                   (animated)="true" placeholder="Comming Soon..."
                    [(ngModel)]="searchQuery"
                    [showCancelButton]="true"
                    (ionInput)="onSearchTextEntered($event)"
                    (ionCancel)="onSearchCancel($event)">
-    </ion-searchbar>-->
+    </ion-searchbar>
 </ion-header>
 
 <ion-content class="page-item_list">
@@ -39,23 +39,25 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-    <ion-card *ngFor="let item of items; let i = index;" (click)="viewDetails(item);">
-        <ion-row>
-            <ion-col width-25 class="item-card-icon-col">
-                <img class="item-card-icon" src="{{ item.img1 }}">
+    <ion-card *ngFor="let item of items; let i = index;" style="height: 10rem;" (click)="viewDetails(item);">
+        <ion-row style="height: 10rem;">
+            <ion-col col-3 class="item-card-icon-col">
+                <img class="item-card-icon" [src]="item.img1" (error)="errorUpdateUrl($event, i)">
             </ion-col>
-            <ion-col width-50 class="item-card-content-col">
+            <ion-col col-6 class="item-card-content-col">
                 <ion-card-content class="item-card-content">
                     <ion-card-title class="item-card-content-title">{{ item.nameEn }}</ion-card-title>
                     <p class="item-card-content-desc">{{ item.descriptionEn }}</p>
                     
                 </ion-card-content>
             </ion-col>
-            <ion-col width-25 class="item-card-content-col">
-                <ion-label style="text-align: right; margin: 3vw; color: #999; font-size: 1.2rem;">{{ item.price }} SAR / {{ item.unit}}</ion-label>
-                <button ion-button color="ui-theme" (click)="selectQuantity(item)" style="margin: 2vw; width:20vw;">
+            <ion-col col-3 class="item-card-content-col">
+                <ion-label style="text-align: right; margin: 3vw 2vw; color: #999; font-size: 1.2rem; overflow: hidden;">{{ item.price }} SAR / {{ item.unit}}</ion-label>
+                <!--<button ion-button color="ui-theme" (click)="selectQuantity(item)" style="margin: 2vw; width:20vw;">
                     ADD&nbsp;<ion-icon name="cart"></ion-icon>
-                </button>
+                </button>-->
+                <img src="assets/img/ui_icons/add_shopping_cart_green.svg" (click)="selectQuantity($event, item)" style="width: 3.5rem; height: 6rem; position: absolute; right: 2vw; bottom: 0;"/>
+                
             </ion-col>
         </ion-row>
     </ion-card>

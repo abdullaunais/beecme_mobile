@@ -19,7 +19,7 @@
     display: block;
   }
   .welcomeHead {
-    color: white;
+    color: #506f27;
     font-size: 2.5rem;
     text-align: center;
   }
@@ -28,15 +28,15 @@
     margin: 4vw;
     text-align: justify;
     color: #fff;
-    background-color: #66BB6A;
+    background-color: #8dd234;
     border-radius: 5px;
   }
   .welcomeButton {
-    background-color: #fff;
-    width: 92vw;
+    background-color: #506f27;
+    width: 88vw;
     border-radius: 5px;
     height: 8vh;
-    color:$ui-theme;
+    color: white;
     font-size: 2.5vh;
   }
   .selectInput {

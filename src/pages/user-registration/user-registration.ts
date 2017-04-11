@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { UserService } from "../../providers/user-service";
-import { Geolocation } from 'ionic-native';
+import { Geolocation } from '@ionic-native/geolocation';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { UserLoginPage } from "../user-login/user-login";
 
 /*
@@ -14,10 +15,11 @@ import { UserLoginPage } from "../user-login/user-login";
 @Component({
   selector: 'page-user-registration',
   templateUrl: 'user-registration.html',
-  providers: [UserService]
+  providers: [UserService, Geolocation, ReactiveFormsModule]
 })
 export class UserRegistrationPage {
   countryCode: string = "sa";
+
   latitude: any;
   longitude: any;
   username: string;
@@ -35,13 +37,25 @@ export class UserRegistrationPage {
   userService: UserService;
   loading: any;
   redirectString: string;
+
+  public registerForm = this.fb.group({
+    formUsername: ["", [Validators.required, Validators.minLength(4)]],
+    formEmail: ["", [Validators.required, Validators.minLength(6)]],
+    formPhone: ["", [Validators.required, Validators.minLength(9)]],
+    formPassword: ["", [Validators.required, Validators.minLength(6)]],
+    formAddress1: ["", [Validators.required, Validators.minLength(2)]],
+    formAddress2: ["", []],
+  });
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     storage: Storage,
     userService: UserService,
     private alertCtrl: AlertController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    private geolocation: Geolocation,
+    public fb: FormBuilder,
+    public toastCtrl: ToastController
   ) {
     this.storage = storage;
     this.userService = userService;
@@ -62,7 +76,9 @@ export class UserRegistrationPage {
       }
     });
 
-    Geolocation.getCurrentPosition().then((resp) => {
+    this.geolocation.getCurrentPosition().then((resp) => {
+      // resp.coords.latitude
+      // resp.coords.longitude
       console.info("Latitude -- ", resp.coords.latitude);
       this.latitude = resp.coords.latitude;
       console.info("Longitude -- ", resp.coords.longitude);
@@ -80,6 +96,7 @@ export class UserRegistrationPage {
     let alert = this.alertCtrl.create({
       title: 'Confim Signup',
       message: 'Do you wish to proceed signup?',
+      cssClass: 'prompt-ui-theme',
       buttons: [
         {
           text: 'Cancel',
@@ -121,11 +138,12 @@ export class UserRegistrationPage {
                 let prompt = this.alertCtrl.create({
                   title: 'Registration Success',
                   message: "Please Login with the details provided.",
+                  cssClass: 'alert-ui-theme-success',
                   buttons: [
                     {
                       text: 'OK',
                       handler: data => {
-                        if(this.redirectString === "redirect-deliveryschedule") {
+                        if (this.redirectString === "redirect-deliveryschedule") {
                           this.navCtrl.push(UserLoginPage, "redirect-deliveryschedule");
                         } else {
                           this.navCtrl.push(UserLoginPage, null);
@@ -152,6 +170,71 @@ export class UserRegistrationPage {
     // implement validation
   }
 
+  doRegister(event) {
+    // console.log(event);
+    // console.log(this.registerForm.value);
+    // console.log(this.registerForm);
+    if (this.registerForm.controls.formUsername.errors) {
+      if (this.registerForm.controls.formUsername.errors.required) {
+        this.presentToast("Username is required", 2000);
+        return;
+      } else if (this.registerForm.controls.formUsername.errors.minlength) {
+        this.presentToast("Username should be at least 4 charaters long", 2000);
+        return;
+      }
+    }
+
+    if (this.registerForm.controls.formEmail.errors) {
+      if (this.registerForm.controls.formEmail.errors.required) {
+        this.presentToast("Email is required", 2000);
+        return;
+      } else if (this.registerForm.controls.formEmail.errors.minlength) {
+        this.presentToast("Email is not a valid format", 2000);
+        return;
+      }
+    }
+
+    if (this.registerForm.controls.formPhone.errors) {
+      if (this.registerForm.controls.formPhone.errors.required) {
+        this.presentToast("Phone is required", 2000);
+        return;
+      } else if (this.registerForm.controls.formPhone.errors.minlength) {
+        this.presentToast("Phone should be at least 9 charaters long", 2000);
+        return;
+      }
+    }
+
+
+    if (this.registerForm.controls.formPassword.errors) {
+      if (this.registerForm.controls.formPassword.errors.required) {
+        this.presentToast("Password is required", 2000);
+        return;
+      } else if (this.registerForm.controls.formPassword.errors.minlength) {
+        this.presentToast("Password should be at least 6 charaters", 2000);
+        return;
+      }
+    }
+
+    if (this.registerForm.controls.formAddress1.errors) {
+      if (this.registerForm.controls.formAddress1.errors.required) {
+        this.presentToast("Address is required", 2000);
+        return;
+      } else if (this.registerForm.controls.formAddress1.errors.minlength) {
+        this.presentToast("Address is Invalid", 2000);
+        return;
+      }
+    }
+    this.username = this.registerForm.value.formUsername;
+    this.email = this.registerForm.value.formEmail;
+    this.phone = this.registerForm.value.formPhone;
+    this.password = this.registerForm.value.formPassword;
+    this.address1 = this.registerForm.value.formAddress1;
+    this.address2 = this.registerForm.value.formAddress2;
+
+    this.registerUser();
+    return;
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserRegistrationPage');
   }
@@ -165,6 +248,16 @@ export class UserRegistrationPage {
 
   hideLoading() {
     this.loading.dismiss();
+  }
+
+  presentToast(message, duration) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      showCloseButton: true,
+      closeButtonText: 'OK',
+      duration: duration
+    });
+    toast.present();
   }
 
 }

@@ -1,0 +1,65 @@
+<!--
+  Generated template for the ChangeLocation page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="ui-theme">
+    <ion-title>Change Location</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="viewCtrl.dismiss({success: false});">
+              <ion-icon name="close"></ion-icon>
+         </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+
+<ion-item-group>
+    <ion-item-divider color="light">Current Location</ion-item-divider>
+    <ion-item style="padding:0 2rem;">
+      <ion-label item-left>Country</ion-label>
+      <ion-label type="text" item-right style="text-align: center;">{{ prevCountry.nameEn }}</ion-label>
+    </ion-item>
+    <ion-item style="padding:0 2rem;">
+      <ion-label item-left>Province</ion-label>
+      <ion-label type="text" item-right style="text-align: center;">{{ prevProvince.nameEn }}</ion-label>
+    </ion-item>
+    <ion-item style="padding:0 2rem;">
+      <ion-label item-left>City</ion-label>
+      <ion-label type="text" item-right style="text-align: center;">{{ prevCity.nameEn }}</ion-label>
+    </ion-item>
+  </ion-item-group>
+
+  <ion-item-group>
+    <ion-item-divider color="light">Moved to new Location?</ion-item-divider>
+       <ion-item style="padding:0 2rem;">
+      <ion-label>Country</ion-label>
+      <ion-select [(ngModel)]="selectedCountry" (ionChange)="countryChanged()" interface="action-sheet" okText="Select" cancelText="Cancel">
+        <ion-option *ngFor="let country of countries" [value]="country">{{ country.nameEn }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="countrySet" style="padding:0 2rem;">
+      <ion-label>Province</ion-label>
+      <ion-select [(ngModel)]="selectedProvince" (ionChange)="provinceChanged()" interface="action-sheet" okText="Select" cancelText="Cancel">
+        <ion-option *ngFor="let province of provinces" [value]="province">{{ province.nameEn }}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="countrySet && provinceSet" style="padding:0 2rem;">
+      <ion-label>City</ion-label>
+      <ion-select [(ngModel)]="selectedCity" (ionChange)="cityChanged()" interface="action-sheet" okText="Select" cancelText="Cancel">
+        <ion-option *ngFor="let city of cities" [value]="city">{{ city.nameEn }}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-item-group>
+
+
+ 
+  </ion-list>
+</ion-content>

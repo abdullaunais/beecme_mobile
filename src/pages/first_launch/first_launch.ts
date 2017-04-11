@@ -3,6 +3,8 @@ import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Categories } from "../categories/categories";
 import { DeliveryService } from '../../providers/delivery-service';
 import { Storage } from '@ionic/storage';
+import { ViewChild } from '@angular/core';
+import { Slides } from 'ionic-angular';
 
 @Component({
   selector: 'first_launch',
@@ -10,8 +12,6 @@ import { Storage } from '@ionic/storage';
   providers: [DeliveryService]
 })
 export class FirstLaunch {
-
-  categoryPage = Categories;
   deliveryService: DeliveryService;
   storage: Storage;
 
@@ -33,6 +33,7 @@ export class FirstLaunch {
   offset: number = 20;
 
   loading: any;
+  @ViewChild(Slides) slides: Slides;
 
   constructor(
     public navCtrl: NavController,
@@ -43,26 +44,7 @@ export class FirstLaunch {
   ) {
     this.deliveryService = delivery;
     this.storage = storage;
-
-
-    // storage.get('location.set').then((response) => {
-    //   if(response) {
-    //     console.log('Location Set');
-    //     storage.get('location.city').then((city) => {
-    //       this.navCtrl.push(Categories, {
-    //         city: city
-    //       });
-    //     });
-    //   } else {
-    //     console.log('Location Not Set');
-    //     // ignore and continue
-    //   }
-    // });
-
     this.initialize();
-    // this.countries = [{"id":1,"nameEn":"Saudi Arabia","nameAr":"Saudi Arabia"}];
-    // this.provinces = [];
-    // this.cities = [{"id":1,"nameEn":"Al Malaz","nameAr":"Al Malaz"},{"id":2,"nameEn":"Al Nasim","nameAr":"Al Nasim"}];
   }
 
   initialize() {
@@ -130,5 +112,9 @@ export class FirstLaunch {
 
   hideLoading() {
     this.loading.dismiss();
+  }
+
+  goToSlide(num) {
+    this.slides.slideTo(num, 500);
   }
 }

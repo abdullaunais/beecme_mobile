@@ -1,49 +1,65 @@
 .page-first_launch {
   background-color: $ui-theme;
-
   .countrySelectIcon {
     height: 30vh;
     width: auto;
     margin: 8vh auto;
     display: block;
   }
-
   .countryHead {
     color: white;
     font-size: 2.5rem;
     text-align: center;
     margin-top: 10%;
   }
-
+  .welcomeIcon {
+    height: 20vh;
+    width: auto;
+    margin: 4vh auto;
+    display: block;
+  }
+  .welcomeHead {
+    color: white;
+    font-size: 2.5rem;
+    text-align: center;
+  }
+  .welcomeDescription {
+    padding: 4vw;
+    margin: 4vw;
+    text-align: justify;
+    color: #fff;
+    background-color: #66BB6A;
+    border-radius: 5px;
+  }
+  .welcomeButton {
+    background-color: #fff;
+    width: 92vw;
+    border-radius: 5px;
+    height: 8vh;
+    color:$ui-theme;
+    font-size: 2.5vh;
+  }
   .selectInput {
     padding: 2rem;
   }
-
   .selectItem {
     margin-bottom: 0.5rem;
     border-radius: 6px;
   }
-
   .toolbar-background {
     background-color: #007aff;
   }
-
-  .toolbar-title, .bar-buttons {
+  .toolbar-title,
+  .bar-buttons {
     color: white;
   }
-
-  .card-image {
-
-  }
-
+  .card-image {}
   .card-background-page {
-
     ion-card {
       position: relative;
       text-align: center;
       height: 10em;
     }
-
     .card-title {
       position: absolute;
       top: 25%;
@@ -52,7 +68,6 @@
       font-weight: bold;
       color: #fff;
     }
-
     .card-subtitle {
       font-size: 1.0em;
       position: absolute;
@@ -60,8 +75,5 @@
       width: 100%;
       color: #fff;
     }
-
   }
-
 }
-

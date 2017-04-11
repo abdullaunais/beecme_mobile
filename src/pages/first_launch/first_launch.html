@@ -1,44 +1,59 @@
 <!--<ion-header>-->
-  <!--<ion-navbar>-->
-    <!--<button ion-button menuToggle>-->
-      <!--<ion-icon name="menu"></ion-icon>-->
-    <!--</button>-->
-    <!--<ion-title ng-style="color:white;">Select Your Country</ion-title>-->
-  <!--</ion-navbar>-->
+<!--<ion-navbar>-->
+<!--<button ion-button menuToggle>-->
+<!--<ion-icon name="menu"></ion-icon>-->
+<!--</button>-->
+<!--<ion-title ng-style="color:white;">Select Your Country</ion-title>-->
+<!--</ion-navbar>-->
 <!--</ion-header>-->
 
 <ion-content class="page-first_launch">
-    <div class="card-background-page">
-      <img src="assets/img/ui_icons/location-marker-flat.png" width="50%" class="countrySelectIcon" alt="Location Icon" />
+  <div class="card-background-page">
 
-      <h4 class="countryHead"> Select Location </h4>
-      <!--<ion-card *ngFor="let country of countries" [navPush]="categoryPage"  [navParams]="country">-->
-        <!--<img class="card-image" src="../../assets/img/country_cover/{{ country.imageUrl }}"/>-->
-        <!--<div class="card-title">{{ country.title }}</div>-->
-        <!--<div class="card-subtitle">{{ country.numCities }} CITIES AVAILABLE</div>-->
-      <!--</ion-card>-->
-      <ion-list style="margin: 3rem;">
-        <ion-item class="selectItem">
-          <ion-label>Country</ion-label>
-          <ion-select [(ngModel)]="selectedCountry" (ionChange)="countryChanged()" class="selectInput" interface="action-sheet" okText="Select" cancelText="Cancel">
-            <!--<ion-option [value]="-1" [selected]="true"> - SELECT - </ion-option>-->
-            <ion-option *ngFor="let country of countries" [value] = "country">{{ country.nameEn }}</ion-option>
-          </ion-select>
-        </ion-item>
-        <ion-item class="selectItem" *ngIf="countrySet">
-          <ion-label>Province</ion-label>
-          <ion-select [(ngModel)]="selectedProvince" (ionChange)="provinceChanged()" class="selectInput" interface="action-sheet" okText="Select" cancelText="Cancel">
-            <!--<ion-option [value]="-1" [selected]="true"> - SELECT - </ion-option>-->
-            <ion-option *ngFor="let province of provinces" [value] = "province">{{ province.nameEn }}</ion-option>
-          </ion-select>
-        </ion-item>
-        <ion-item class="selectItem" *ngIf="countrySet && provinceSet">
-          <ion-label>City</ion-label>
-          <ion-select [(ngModel)]="selectedCity" (ionChange)="cityChanged()" class="selectInput" interface="action-sheet" okText="Select" cancelText="Cancel">
-            <!--<ion-option [value]="-1" [selected]="true"> - SELECT - </ion-option>-->
-            <ion-option *ngFor="let city of cities" [value] = "city">{{ city.nameEn }}</ion-option>
-          </ion-select>
-        </ion-item>
-      </ion-list>
-    </div>
+    <ion-slides>
+      <ion-slide>
+        <img src="assets/img/ui_icons/logo_no_background.png" width="50%" class="welcomeIcon" alt="Location Icon" />
+        <h4 class="welcomeHead"> Welcome to BeecMe </h4>
+
+        <div class="welcomeDescription">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+        </div>
+        <button class="welcomeButton" (click)="goToSlide(1)">Get Started</button>
+      </ion-slide>
+
+
+      <ion-slide>
+        <a style="float: left;margin: 3vh 6vw;position: absolute;left: 0;top: 0;color:#fff" (click)="goToSlide(0)">
+          <ion-icon name="arrow-back"> &nbsp;Back</ion-icon>
+        </a>
+        <img src="assets/img/ui_icons/location-marker-flat.png" width="50%" class="countrySelectIcon" alt="Location Icon" />
+
+        <h4 class="countryHead"> Select Location </h4>
+        <ion-list style="margin: 3rem;">
+          <ion-item class="selectItem">
+            <ion-label>Country</ion-label>
+            <ion-select [(ngModel)]="selectedCountry" (ionChange)="countryChanged()" class="selectInput" interface="action-sheet" okText="Select"
+              cancelText="Cancel">
+              <ion-option *ngFor="let country of countries" [value]="country">{{ country.nameEn }}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="selectItem" *ngIf="countrySet">
+            <ion-label>Province</ion-label>
+            <ion-select [(ngModel)]="selectedProvince" (ionChange)="provinceChanged()" class="selectInput" interface="action-sheet" okText="Select"
+              cancelText="Cancel">
+              <ion-option *ngFor="let province of provinces" [value]="province">{{ province.nameEn }}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="selectItem" *ngIf="countrySet && provinceSet">
+            <ion-label>City</ion-label>
+            <ion-select [(ngModel)]="selectedCity" (ionChange)="cityChanged()" class="selectInput" interface="action-sheet" okText="Select"
+              cancelText="Cancel">
+              <ion-option *ngFor="let city of cities" [value]="city">{{ city.nameEn }}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-slide>
+    </ion-slides>
+
+  </div>
 </ion-content>

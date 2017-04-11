@@ -16,12 +16,21 @@
 </ion-header>
 
 
-<ion-content no-padding>
+<ion-content padding class="page-app-settings">
 
   <ion-list>
-    <button ion-item (click)="loginOrLogout()">
+
+    <ion-item (tap)="presentChangeLocationModal()">
+      <ion-icon name="pin" item-left></ion-icon>
+      Change Location
+    </ion-item>
+
+    <ion-item (tap)="loginOrLogout()">
+      <ion-icon name="contact" *ngIf="!isLogin" item-left></ion-icon>
+      <ion-icon name="exit" *ngIf="isLogin" item-left></ion-icon>
       {{logTitle}}
-    </button> 
+    </ion-item>
+
   </ion-list>
 
 </ion-content>

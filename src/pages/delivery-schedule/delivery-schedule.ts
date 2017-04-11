@@ -22,9 +22,11 @@ export class DeliverySchedulePage {
   schedules : Array<any>;
   deliverySchedule : any;
   city: any;
+  checkoutComment: string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, delivery: DeliveryService, storage: Storage) {
     this.deliveryService = delivery;
+    this.checkoutComment = navParams.data;
     storage.get("location.city").then((city) => {
       this.city = city;
       this.initialize();

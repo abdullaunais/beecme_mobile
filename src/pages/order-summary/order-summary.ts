@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController, LoadingController } from 'io
 import { DeliveryService } from "../../providers/delivery-service";
 import { Storage } from '@ionic/storage';
 import { Categories } from "../categories/categories";
+import { Variables } from "../../providers/variables";
 
 /*
   Generated class for the OrderSummary page.
@@ -22,13 +23,15 @@ export class OrderSummaryPage {
   storage: Storage;
   loading: any;
   deliveryService: DeliveryService;
+  checkoutComment: string = "";
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     deliveryService: DeliveryService,
     storage: Storage,
     private alertCtrl: AlertController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    private variables: Variables
   ) {
     this.deliveryService = deliveryService;
     this.storage = storage;
@@ -41,7 +44,8 @@ export class OrderSummaryPage {
   }
 
   confirmOrder() {
-    this.showLoading("Placing Order...")
+    this.showLoading("Placing Order...");
+    this.checkoutComment = Variables.checkoutComment;
     this.storage.get('delivery.cart').then((cart) => {
       let cartItems: Array<any> = cart;
       cartItems.forEach((item) => {
@@ -54,7 +58,7 @@ export class OrderSummaryPage {
             "dlvSchId": this.deliverySchedule.dlvSchId,
             "totalAmount": this.totalAmount,
             "email": user.email,
-            "comment": "sample comment"
+            "comment": this.checkoutComment
           },
           "orderDetails": cartItems
         }
@@ -67,6 +71,7 @@ export class OrderSummaryPage {
             let alert = this.alertCtrl.create({
               title: 'Success',
               message: response['_body'],
+              cssClass: 'alert-ui-theme-success',
               buttons: [
                 {
                   text: 'OK',

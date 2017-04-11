@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the UserProfile page.
@@ -12,21 +13,33 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
   templateUrl: 'user-profile.html'
 })
 export class UserProfilePage {
+  user: any = {}
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
-    let alert = this.alertCtrl.create({
-      title: 'Message',
-      message: 'Still in Development. Will be available soon.',
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            //ignore
-          }
-        }
-      ]
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, storage: Storage) {
+
+    storage.get("user.login").then((login) => {
+      if(login) {
+        storage.get("user.data").then((userData) => {
+          this.user = userData;
+        })
+      } else {
+        // redirect to login
+      }
     });
-    alert.present();
+    // let alert = this.alertCtrl.create({
+    //   title: 'Message',
+    //   message: 'Still in Development. Will be available soon.',
+    //   cssClass: 'alert-ui-theme-success',
+    //   buttons: [
+    //     {
+    //       text: 'OK',
+    //       handler: () => {
+    //         //ignore
+    //       }
+    //     }
+    //   ]
+    // });
+    // alert.present();
   }
 
   ionViewDidLoad() {

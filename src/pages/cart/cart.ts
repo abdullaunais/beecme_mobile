@@ -81,7 +81,7 @@ export class CartPage {
 
   checkout() {
     if (this.totalAmount < 100) {
-      this.presentToast("You should have atvleast 100 SAR worth items in cart to checkout", 2000);
+      this.presentToast("You should have at least 100 SAR worth items. Add some more items to checkout", 2000);
       return;
     }
 

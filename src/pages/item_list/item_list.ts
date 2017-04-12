@@ -247,11 +247,11 @@ export class ItemList {
           text: 'Add',
           handler: data => {
             if (data.quantity) {
-              if (!Number.isNaN(data.quantity)) {
+              if (!Number.isNaN(data.quantity) && data.quantity > 0) {
                 this.addToCart(data.quantity, item);
               } else {
                 // Quantity should be a number
-                this.presentToast("Quantity should be a number", 3000);
+                this.presentToast("Quantity should be a valid number", 3000);
               }
             } else {
               this.presentToast("Quantity is required", 3000);

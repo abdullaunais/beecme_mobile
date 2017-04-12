@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DetailsPage } from "../details/details";
 import { DeliverySchedulePage } from "../delivery-schedule/delivery-schedule";
@@ -32,6 +32,7 @@ export class CartPage {
     public navParams: NavParams,
     storage: Storage,
     private variables: Variables,
+    private toastCtrl: ToastController,
     private alertCtrl: AlertController
   ) {
     this.cartItems = [];
@@ -79,6 +80,11 @@ export class CartPage {
   }
 
   checkout() {
+    if (this.totalAmount < 100) {
+      this.presentToast("You should have atvleast 100 SAR worth items in cart to checkout", 2000);
+      return;
+    }
+
     let prompt = this.alertCtrl.create({
       title: 'Checkout Comment',
       message: "",
@@ -108,5 +114,15 @@ export class CartPage {
       ]
     });
     prompt.present();
+  }
+
+  presentToast(message, duration) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      showCloseButton: true,
+      closeButtonText: 'OK',
+      duration: duration
+    });
+    toast.present();
   }
 }

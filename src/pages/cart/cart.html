@@ -79,7 +79,7 @@
   </ion-card>
 </ion-content>
 
-<ion-footer class="footer-cart">
+<ion-footer class="footer-cart" *ngIf="cartItems.length > 0">
   <button ion-button full clear (click)="checkout()" class="button-checkout"> 
     <ion-icon name="checkmark-circle-outline"></ion-icon>
     &nbsp;&nbsp;CHECKOUT ( Total {{totalAmount}} SAR )

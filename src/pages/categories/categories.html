@@ -19,7 +19,7 @@
         <ion-spinner *ngIf="isLoading" class="loading-spinner" color="light"></ion-spinner>
     </div>
     <div class="card-background-page" style="margin-top: 6rem; margin-right: 1rem; margin-left: 1rem;">
-
+         <!--<ion-card class="section-devider">Categories</ion-card>-->
          <ion-grid>
               <ion-row *ngFor="let i of rows">
                   <ion-col  *ngFor="let category of categories | slice:(i*2):(i+1)*2">

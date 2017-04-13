@@ -25,6 +25,13 @@
 
 .page-categories {
   background-color: $ui-theme;
+  .section-devider {
+    margin: 0 1rem;
+    color: #fff;
+    font-size: 1.8rem;
+    border-bottom: 1px solid $ui-theme-dark;
+    padding: 0.5rem 1rem;
+  }
   .toolbar-title,
   .bar-buttons {
     color: white;

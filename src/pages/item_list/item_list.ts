@@ -32,6 +32,7 @@ export class ItemList {
 
   cartCount: number;
   isLoading: boolean;
+  noMoreItems: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -46,6 +47,7 @@ export class ItemList {
     this.deliveryService = delivery;
     this.storage = storage;
     this.isLoading = true;
+    this.noMoreItems = false;
     this.category = navParams.data;
     this.variables.cartCount.subscribe(value => this.cartCount = value);
 
@@ -65,7 +67,6 @@ export class ItemList {
         this.items = [];
       }
       this.isLoading = false;
-      console.info("List Response -> ", data);
     });
   }
 
@@ -85,9 +86,10 @@ export class ItemList {
     });
   }
 
-  paginate() {
+  paginate(infiniteScroll) {
     let catId = this.category['categoryId'];
-    this.start = this.start + this.offset;
+    this.noMoreItems = false;
+    this.start++;
     this.deliveryService.getItemByCategory(catId, this.start, this.offset).then((data) => {
       let itemArray = data['itemlist'];
       if (itemArray) {
@@ -95,14 +97,15 @@ export class ItemList {
           itemArray.forEach((item) => {
             this.items.push(item);
           });
-          console.info("Paginated -> ", this.items);
         } else {
-          console.info("No more items remaining");
+          this.start--;
+          this.noMoreItems = true;
         }
       } else {
-        console.info("No more items remaining");
+        this.start--;
+        this.noMoreItems = true;
       }
-
+      infiniteScroll.complete();
     });
   }
 

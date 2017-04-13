@@ -24,7 +24,7 @@ export class ItemList {
   filters: Array<string>;
 
   start: number = 0;
-  offset: number = 10;
+  offset: number = 20;
   cityId: number = 1;
 
   deliveryService: DeliveryService;

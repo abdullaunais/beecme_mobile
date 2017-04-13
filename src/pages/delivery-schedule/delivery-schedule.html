@@ -27,8 +27,8 @@
       <!--</ion-card>-->
       <ion-list style="margin: 3rem;">
         <ion-item class="selectItem">
-          <ion-label style="-webkit-flex: 0;-ms-flex: 0;flex: 0;">Schedule</ion-label>
-          <ion-select [(ngModel)]="deliverySchedule" (ionChange)="deliveryScheduleChanged()" class="selectInput" interface="action-sheet" okText="Select" cancelText="Cancel">
+          <!--<ion-label>Schedule</ion-label>-->
+          <ion-select [(ngModel)]="deliverySchedule" (ionChange)="deliveryScheduleChanged()" placeholder="Schedule" class="selectInput" interface="action-sheet" okText="Select" cancelText="Cancel">
             <!--<ion-option [value]="-1" [selected]="true"> - SELECT - </ion-option>-->
             <ion-option *ngFor="let schedule of schedules" [value] = "schedule">{{ schedule.schDescEn }}</ion-option>
           </ion-select>

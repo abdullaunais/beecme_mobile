@@ -73,10 +73,11 @@ export class UserLoginPage {
     this.userService.authenticate(this.email, this.password).then((data) => {
       let json = JSON.stringify(data);
       let response = JSON.parse(json);
-      let res = JSON.parse(response['_body'])
+      let responseMesage = JSON.parse(response['_body']).message;
+      let capitalizeFirstChar = (string) => {return string.charAt(0).toUpperCase() + string.substring(1)};
 
       console.log(response);
-      if (res.message !== 'invalid credentials') {
+      if (response.status === 201 || response.status === 200) {
         // login success
         // this.storage.get('user.data').then((user) => {
         // });
@@ -91,14 +92,14 @@ export class UserLoginPage {
         this.hideLoading();
 
         if (this.redirectString === "redirect-deliveryschedule") {
-          this.navCtrl.push(DeliverySchedulePage, null);
+          this.navCtrl.push(DeliverySchedulePage, "login-success");
         } else {
           this.navCtrl.setRoot(Categories);
         }
       } else {
         this.hideLoading();
         let alert = this.alertCtrl.create({
-          title: 'Invalid Credentials',
+          title: capitalizeFirstChar(responseMesage),
           message: 'Please check your login details',
           cssClass: 'alert-ui-theme-danger',
           buttons: [

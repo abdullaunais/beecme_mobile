@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { DeliveryService } from '../../providers/delivery-service';
 import { OrderSummaryPage } from "../order-summary/order-summary";
 import { Storage } from "@ionic/storage";
@@ -22,11 +22,14 @@ export class DeliverySchedulePage {
   schedules : Array<any>;
   deliverySchedule : any;
   city: any;
-  checkoutComment: string = "";
+  loginParam: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, delivery: DeliveryService, storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, delivery: DeliveryService, storage: Storage, private toastCtrl: ToastController) {
     this.deliveryService = delivery;
-    this.checkoutComment = navParams.data;
+    this.loginParam = navParams.data;
+    if(this.loginParam == "login-success") {
+      this.presentToast("Login Success", 2000);
+    }
     storage.get("location.city").then((city) => {
       this.city = city;
       this.initialize();
@@ -50,6 +53,16 @@ export class DeliverySchedulePage {
 
   showOrderSummary() {
     this.navCtrl.push(OrderSummaryPage, this.deliverySchedule);
+  }
+
+    presentToast(message, duration) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      showCloseButton: true,
+      closeButtonText: 'OK',
+      duration: duration
+    });
+    toast.present();
   }
 
 }

@@ -67,10 +67,10 @@ export class OrderSummaryPage {
           let response = JSON.parse(json);
           this.hideLoading();
 
-          if (response['_body'] === "Shopping cart is added and ready to deliver") {
+          if (response.status === 201 || response.status === 200) {
             let alert = this.alertCtrl.create({
               title: 'Success',
-              message: response['_body'],
+              message: "Shopping cart is added and ready to deliver.",
               cssClass: 'alert-ui-theme-success',
               buttons: [
                 {

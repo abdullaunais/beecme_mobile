@@ -153,6 +153,45 @@ export class UserRegistrationPage {
                   ]
                 });
                 prompt.present();
+              } else if(response.message === "User already registered with this email") {
+                // user already registered
+                let prompt = this.alertCtrl.create({
+                  title: 'Already Registered',
+                  message: "This email is already been registered. Login with your account instead.",
+                  cssClass: 'alert-ui-theme-success',
+                  buttons: [
+                    {
+                      text: 'Chnage Email',
+                      handler: data => {
+                      }
+                    },
+                    {
+                      text: 'Login',
+                      handler: data => {
+                        if (this.redirectString === "redirect-deliveryschedule") {
+                          this.navCtrl.push(UserLoginPage, "redirect-deliveryschedule");
+                        } else {
+                          this.navCtrl.push(UserLoginPage, null);
+                        }
+                      }
+                    }
+                  ]
+                });
+                prompt.present();
+              } else {
+                let prompt = this.alertCtrl.create({
+                  title: 'Registration Failed',
+                  message: "Something went wrong when registering your account.",
+                  cssClass: 'alert-ui-theme-danger',
+                  buttons: [
+                    {
+                      text: 'OK',
+                      handler: data => {
+                      }
+                    }
+                  ]
+                });
+                prompt.present();
               }
             }, (err) => {
               this.hideLoading();

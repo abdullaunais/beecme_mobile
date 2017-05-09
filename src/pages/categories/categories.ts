@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ItemList } from "../item_list/item_list";
+import { Shops } from "../shops/shops";
 import { DeliveryService } from '../../providers/delivery-service';
 import { Storage } from '@ionic/storage';
 import { CartPage } from "../cart/cart";
@@ -57,7 +57,8 @@ export class Categories {
       let json = JSON.stringify(data);
       this.categories = JSON.parse(json);
       if (this.categories) {
-        if (this.categories.length > 0) {
+        if (this.categories.length > 1) {
+          this.categories.splice(0, 1);
           this.rows = Array.from(Array(Math.ceil(this.categories.length / 2)).keys());
           this.isAvailable = true;
         } else {
@@ -75,7 +76,7 @@ export class Categories {
   }
 
   openCategory(category) {
-    this.navCtrl.push(ItemList, category);
+    this.navCtrl.push(Shops, { category:  category, city: this.selectedCity});
   }
 
 }

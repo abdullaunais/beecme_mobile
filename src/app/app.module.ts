@@ -23,6 +23,7 @@ import { OrderHistoryPage } from "../pages/order-history/order-history";
 import { ChangeLocation } from "../pages/change-location/change-location";
 import { Config } from "../providers/config";
 import { Variables } from "../providers/variables";
+import { Shops } from "../pages/shops/shops";
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { Variables } from "../providers/variables";
     MyApp,
     FirstLaunch,
     Categories,
+    Shops,
     ItemList,
     DetailsPage,
     ImageSliderPage,
@@ -60,6 +62,7 @@ import { Variables } from "../providers/variables";
   entryComponents: [
     MyApp,
     FirstLaunch,
+    Shops,
     Categories,
     ItemList,
     DetailsPage,

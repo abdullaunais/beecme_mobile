@@ -1,0 +1,75 @@
+.page-shops {
+    background-color: #eeeeee;
+    ion-img img {
+        object-fit: cover;
+        height: 100%;
+    }
+    .loading-spinner {
+        width: 5rem;
+        height: 5rem;
+        text-align: center;
+        margin: 2rem auto;
+    }
+    .shop-card-icon-col {
+        padding: 0;
+    }
+    .shop-card-content-col {
+        padding: 0;
+    }
+    .shop-card-icon {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .shop-card-content {
+        padding: 0 3vw;
+    }
+    .shop-card-content-title {
+        font-size: 5vw;
+        width: 100%;
+        white-space: nowrap;
+        line-height: 1.0;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        position: relative;
+    }
+    .shop-card-content-badge {
+        margin-right: 4px;
+        color: $ui-theme;
+        background-color: white;
+        border: 1px solid $ui-theme;
+    }
+    .shop-card-content-button {
+        background-color: $ui-theme;
+        box-shadow: none;
+        color: white;
+        height: 5vh;
+        width: 24vw;
+        font-size: 4vw; // border:1px solid $ui-theme;
+    }
+    .shop-card-content-button-image {
+        height: 8vw;
+        width: 9vw;
+        border-right: 1px solid white;
+        padding: 1vw 2vw 1vw 1vw;
+    }
+    .shop-card-content-label {
+        font-size: 4vw;
+        overflow: hidden;
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: pre-wrap;
+        position: relative;
+        margin: 0;
+    } // .shop-card-content-desc {
+    //     font-size: 1.5rem;
+    //     font-weight: normal;
+    //     line-height: 1.5rem;
+    //     height: 4.5rem;
+    //     overflow: hidden;
+    //     width: 100%;
+    //     text-overflow: ellipsis;
+    //     white-space: pre-wrap;
+    //     position: relative;
+    // }
+}

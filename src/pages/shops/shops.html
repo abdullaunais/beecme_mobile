@@ -1,0 +1,194 @@
+<!--
+  Generated template for the Shops page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="ui-theme">
+    <ion-buttons start>
+      <button ion-button menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+    </ion-buttons>
+    <ion-title ng-style="color:white;">{{ category.nameEn }} Shops</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openCart()">
+                <ion-icon name="cart"></ion-icon>
+                <ion-badge *ngIf="cartCount > 0" color="danger" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
+            </button>
+      <!--<button ion-button icon-only (click)="showSearch()" *ngIf="!searchVisible">
+                <ion-icon name="search"></ion-icon>
+            </button>
+            <button ion-button icon-only (click)="hideSearch()" *ngIf="searchVisible">
+                <ion-icon name="close"></ion-icon>
+            </button>-->
+    </ion-buttons>
+  </ion-navbar>
+  <!--<ion-searchbar class="shop-searchbar" *ngIf="searchVisible"
+                   (animated)="true" placeholder="Comming Soon..."
+                   [(ngModel)]="searchQuery"
+                   [showCancelButton]="true"
+                   (ionInput)="onSearchTextEntered($event)"
+                   (ionCancel)="onSearchCancel($event)">
+    </ion-searchbar>-->
+</ion-header>
+
+<ion-content class="page-shops">
+  <div style="display: flex; justify-content: space-between;">
+    <ion-label *ngIf="shops.length === 0 && !isLoading" style="text-align: center; width: 100%; color: #999; white-space: inherit; margin: 8vw;">No Shops available under {{ category.nameEn }}. Please try a different category</ion-label>
+    <ion-spinner *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
+  </div>
+
+  <ion-refresher (ionRefresh)="refreshList($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngFor="let shop of shops; let i = index;" style="height: 18vh;" (click)="viewShops(shop);">
+    <ion-row style="height: 18vh;">
+      <ion-col col-4 class="shop-card-icon-col">
+        <img class="shop-card-icon" src="http://www.kfc.co.zw/wp-content/uploads/2016/04/cropped-2015_KFC_IFLG_4C_A2V_RED_RGB_SM.jpg"/>
+        <!--<ion-img class="shop-card-icon" [src]="shop.profilePicture" (error)="errorUpdateUrl($event, i)"></ion-img>-->
+      </ion-col>
+      <ion-col col-8 class="shop-card-content-col">
+        <ion-card-content class="shop-card-content">
+          <!--<ion-card-title class="shop-card-content-title">{{ shop.username }}</ion-card-title>-->
+          <ion-card-title class="shop-card-content-title">Shop Name 01</ion-card-title>
+          <div style="margin-bottom: 1vh;">
+            <ion-badge class="shop-card-content-badge" color="ui-theme" *ngFor="let keyword of shop.keywordsArray">{{ keyword }}</ion-badge>
+          </div>
+          <div style="position: absolute; bottom: 1vh;">
+            <button ion-button class="shop-card-content-button">
+                <img src="assets/img/ui_icons/icon_truck_white.png" class="shop-card-content-button-image"/>
+                &nbsp;{{ shop.deliveryCharge }} {{ shop.currency }}&nbsp;
+            </button>
+            <button ion-button class="shop-card-content-button">
+                <img src="assets/img/ui_icons/icon_meter_white.png" class="shop-card-content-button-image"/>
+                &nbsp;{{ shop.minOrderAmt }} {{ shop.currency }}&nbsp;
+            </button>
+          </div>
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+    <ion-card *ngFor="let shop of shops; let i = index;" style="height: 18vh;" (click)="viewShops(shop);">
+    <ion-row style="height: 18vh;">
+      <ion-col col-4 class="shop-card-icon-col">
+         <img class="shop-card-icon" src="https://pbs.twimg.com/profile_images/1542084496/foodcity.png"/>
+      </ion-col>
+      <ion-col col-8 class="shop-card-content-col">
+        <ion-card-content class="shop-card-content">
+          <!--<ion-card-title class="shop-card-content-title">{{ shop.username }}</ion-card-title>-->
+          <ion-card-title class="shop-card-content-title">Shop Name 02</ion-card-title>
+          <div style="margin-bottom: 1vh;">
+            <ion-badge class="shop-card-content-badge" color="ui-theme" *ngFor="let keyword of shop.keywordsArray">{{ keyword }}</ion-badge>
+          </div>
+          <div style="position: absolute; bottom: 1vh;">
+            <button ion-button class="shop-card-content-button">
+                <img src="assets/img/ui_icons/icon_truck_white.png" class="shop-card-content-button-image"/>
+                &nbsp;{{ shop.deliveryCharge }} {{ shop.currency }}&nbsp;
+            </button>
+            <button ion-button class="shop-card-content-button">
+                <img src="assets/img/ui_icons/icon_meter_white.png" class="shop-card-content-button-image"/>
+                &nbsp;{{ shop.minOrderAmt }} {{ shop.currency }}&nbsp;
+            </button>
+          </div>
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+    <ion-card *ngFor="let shop of shops; let i = index;" style="height: 18vh;" (click)="viewShops(shop);">
+    <ion-row style="height: 18vh;">
+      <ion-col col-4 class="shop-card-icon-col">
+        <img class="shop-card-icon" src="http://www.keells.com/images/stories/brands/fb/Kest-new.gif"/>
+      </ion-col>
+      <ion-col col-8 class="shop-card-content-col">
+        <ion-card-content class="shop-card-content">
+          <!--<ion-card-title class="shop-card-content-title">{{ shop.username }}</ion-card-title>-->
+          <ion-card-title class="shop-card-content-title">Shop Name 03</ion-card-title>
+          <div style="margin-bottom: 1vh;">
+            <ion-badge class="shop-card-content-badge" color="ui-theme" *ngFor="let keyword of shop.keywordsArray">{{ keyword }}</ion-badge>
+          </div>
+          <div style="position: absolute; bottom: 1vh;">
+            <button ion-button class="shop-card-content-button">
+                <img src="assets/img/ui_icons/icon_truck_white.png" class="shop-card-content-button-image"/>
+                &nbsp;{{ shop.deliveryCharge }} {{ shop.currency }}&nbsp;
+            </button>
+            <button ion-button class="shop-card-content-button">
+                <img src="assets/img/ui_icons/icon_meter_white.png" class="shop-card-content-button-image"/>
+                &nbsp;{{ shop.minOrderAmt }} {{ shop.currency }}&nbsp;
+            </button>
+          </div>
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+    <ion-card *ngFor="let shop of shops; let i = index;" style="height: 18vh;" (click)="viewShops(shop);">
+    <ion-row style="height: 18vh;">
+      <ion-col col-4 class="shop-card-icon-col">
+        <img class="shop-card-icon" src="http://www.kfc.co.zw/wp-content/uploads/2016/04/cropped-2015_KFC_IFLG_4C_A2V_RED_RGB_SM.jpg"/>
+      </ion-col>
+      <ion-col col-8 class="shop-card-content-col">
+        <ion-card-content class="shop-card-content">
+          <!--<ion-card-title class="shop-card-content-title">{{ shop.username }}</ion-card-title>-->
+          <ion-card-title class="shop-card-content-title">Shop Name 04</ion-card-title>
+          <div style="margin-bottom: 1vh;">
+            <ion-badge class="shop-card-content-badge" color="ui-theme" *ngFor="let keyword of shop.keywordsArray">{{ keyword }}</ion-badge>
+          </div>
+          <div style="position: absolute; bottom: 1vh;">
+            <button ion-button class="shop-card-content-button">
+                <img src="assets/img/ui_icons/icon_truck_white.png" class="shop-card-content-button-image"/>
+                &nbsp;{{ shop.deliveryCharge }} {{ shop.currency }}&nbsp;
+            </button>
+            <button ion-button class="shop-card-content-button">
+                <img src="assets/img/ui_icons/icon_meter_white.png" class="shop-card-content-button-image"/>
+                &nbsp;{{ shop.minOrderAmt }} {{ shop.currency }}&nbsp;
+            </button>
+          </div>
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+    <ion-card *ngFor="let shop of shops; let i = index;" style="height: 18vh;" (click)="viewShops(shop);">
+    <ion-row style="height: 18vh;">
+      <ion-col col-4 class="shop-card-icon-col">
+        <img class="shop-card-icon" src="http://www.keells.com/images/stories/brands/fb/Kest-new.gif"/>
+      </ion-col>
+      <ion-col col-8 class="shop-card-content-col">
+        <ion-card-content class="shop-card-content">
+          <!--<ion-card-title class="shop-card-content-title">{{ shop.username }}</ion-card-title>-->
+          <ion-card-title class="shop-card-content-title">Shop Name 05</ion-card-title>
+          <div style="margin-bottom: 1vh;">
+            <ion-badge class="shop-card-content-badge" color="ui-theme" *ngFor="let keyword of shop.keywordsArray">{{ keyword }}</ion-badge>
+          </div>
+          <div style="position: absolute; bottom: 1vh;">
+            <button ion-button class="shop-card-content-button">
+                <img src="assets/img/ui_icons/icon_truck_white.png" class="shop-card-content-button-image"/>
+                &nbsp;{{ shop.deliveryCharge }} {{ shop.currency }}&nbsp;
+            </button>
+            <button ion-button class="shop-card-content-button">
+                <img src="assets/img/ui_icons/icon_meter_white.png" class="shop-card-content-button-image"/>
+                &nbsp;{{ shop.minOrderAmt }} {{ shop.currency }}&nbsp;
+            </button>
+          </div>
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+
+
+  <div style="display: flex; justify-content: space-between;">
+    <ion-label *ngIf="noMoreShops" style="text-align: center; width: 100%; color: #999;">No more shops</ion-label>
+  </div>
+
+
+  <ion-infinite-scroll (ionInfinite)="paginate($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

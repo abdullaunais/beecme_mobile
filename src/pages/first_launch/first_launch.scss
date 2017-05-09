@@ -1,43 +1,57 @@
 .page-first_launch {
   background-color: $ui-theme;
   .countrySelectIcon {
-    height: 30vh;
+    height: 25vh;
     width: auto;
     margin: 8vh auto;
     display: block;
   }
   .countryHead {
-    color: white;
-    font-size: 2.5rem;
+    color: $ui-theme-dark;
+    font-size: 6vw;
     text-align: center;
     margin-top: 10%;
   }
   .welcomeIcon {
     height: 20vh;
     width: auto;
-    margin: 4vh auto;
+    margin: 3vh auto;
     display: block;
   }
   .welcomeHead {
-    color: #506f27;
-    font-size: 2.5rem;
+    color: $ui-theme-dark;
+    font-size: 6vw;
     text-align: center;
   }
   .welcomeDescription {
     padding: 4vw;
     margin: 4vw;
-    text-align: justify;
-    color: #fff;
-    background-color: #8dd234;
+    text-align: center;
+    color: $ui-theme-dark; // background-color: #8dd234;
     border-radius: 5px;
+    font-size: 5vw;
+    height: 50vh;
+  }
+  .checkboxTermsAndConditions {
+    background-color: transparent;
+    margin-left: 4vw;
+    margin-right: 4vw;
+    font-size: 4vw;
+  }
+  .welcomeFooter {
+    background-color: $ui-theme;
+  }
+  .welcomeFooter::before {
+    background-image: url('');
   }
   .welcomeButton {
-    background-color: #506f27;
+    background-color: $ui-theme-dark;
     width: 92vw;
     border-radius: 5px;
     height: 8vh;
     color: white;
-    font-size: 2.5vh;
+    font-size: 4vw;
+    margin: 4vw;
   }
   .selectInput {
     padding: 2rem;
@@ -47,6 +61,7 @@
   .selectItem {
     margin-bottom: 0.5rem;
     border-radius: 6px;
+    font-size: 4vw;
   }
   .toolbar-background {
     background-color: #007aff;
@@ -54,6 +69,15 @@
   .toolbar-title,
   .bar-buttons {
     color: white;
+  }
+  .btnSlideBack {
+    float: left;
+    margin: 3vh 6vw;
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: $ui-theme-dark;
+    font-size: 5vw;
   }
   .card-image {}
   .card-background-page {

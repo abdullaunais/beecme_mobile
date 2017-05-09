@@ -4,7 +4,7 @@ import { Categories } from "../categories/categories";
 import { DeliveryService } from '../../providers/delivery-service';
 import { Storage } from '@ionic/storage';
 import { ViewChild } from '@angular/core';
-import { Slides } from 'ionic-angular';
+import { Slides, ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'first_launch',
@@ -14,6 +14,8 @@ import { Slides } from 'ionic-angular';
 export class FirstLaunch {
   deliveryService: DeliveryService;
   storage: Storage;
+
+  isAgreedToTerms: boolean = false;
 
   countries: Array<any> = [];
   provinces: Array<any> = [];
@@ -40,11 +42,17 @@ export class FirstLaunch {
     private navParams: NavParams,
     delivery: DeliveryService,
     storage: Storage,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController
   ) {
     this.deliveryService = delivery;
     this.storage = storage;
     this.initialize();
+    //  if (true){
+    //    swiperInstance.unlockSwipes();
+    //  } else {
+    //    swiperInstance.lockSwipes();
+    //  }
   }
 
   initialize() {
@@ -114,7 +122,40 @@ export class FirstLaunch {
     this.loading.dismiss();
   }
 
+  checkIsAgreedToTerms() {
+    if (this.isAgreedToTerms) {
+      this.goToSlide(2);
+      this.unlockSwipe();
+    } else {
+      let toast = this.toastCtrl.create({
+        message: "You should accept the terms and conditions before continuing",
+        showCloseButton: true,
+        closeButtonText: 'OK',
+        duration: 2000,
+        position: 'top'
+      });
+      toast.present();
+    }
+  }
+
   goToSlide(num) {
     this.slides.slideTo(num, 500);
   }
+
+  lockSwipe() {
+    this.slides.lockSwipes(true);
+  }
+
+  unlockSwipe() {
+    this.slides.lockSwipes(false);
+  }
+
+  lockSwipeNext() {
+    this.slides.lockSwipeToNext(true);
+  }
+
+  unlockSwipeNext() {
+    this.slides.lockSwipeToNext(false);
+  }
+
 }

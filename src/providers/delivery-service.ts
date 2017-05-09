@@ -19,10 +19,11 @@ export class DeliveryService {
   serviceRootUrl: string;
 
   LOCATION_URL = "/locations";
+  SHOPS_URL = "/users";
   CATEGORIES_URL = "/categories";
   ITEM_URL = "/items";
   SCHEDULES_URL = "/schedules";
-  ADD_ORDER = "/carts"
+  ADD_ORDER = "/carts";
 
   constructor(public httpService: Http, public config: Config) {
     this.http = httpService;
@@ -38,7 +39,18 @@ export class DeliveryService {
         .subscribe(data => {
           resolve(data.json());
         });
-    },);
+    });
+  }
+
+  getShops(cityId, categoryId, start, offset) {
+    let queryParams = "?type=51&value=" + cityId + "&value=" + categoryId + "&start=" + start + "&offset=" + offset;
+    let requestUrl: string = this.serviceRootUrl + this.SHOPS_URL + queryParams;
+    return new Promise((resolve) => {
+      this.http.get(requestUrl)
+        .subscribe(data => {
+          resolve(data.json());
+        });
+    });
   }
 
   getCategories(cityId) {

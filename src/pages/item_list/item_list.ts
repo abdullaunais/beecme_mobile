@@ -25,7 +25,6 @@ export class ItemList {
 
   start: number = 0;
   offset: number = 20;
-  cityId: number = 1;
 
   deliveryService: DeliveryService;
   storage: Storage;

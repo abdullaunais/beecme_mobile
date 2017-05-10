@@ -1,6 +1,5 @@
 {
   "name": "emakrket",
   "app_id": "46af166b",
-  "v2": true,
-  "typescript": true
+  "type": "ionic-angular"
 }

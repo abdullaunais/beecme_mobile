@@ -47,15 +47,17 @@ export class ItemList {
     this.storage = storage;
     this.isLoading = true;
     this.noMoreItems = false;
-    this.category = navParams.data;
+    this.shop = navParams.data.shop;
+    this.city = navParams.data.city;
+    this.category = navParams.data.category;
     this.variables.cartCount.subscribe(value => this.cartCount = value);
 
     this.initialize();
   }
 
   initialize() {
-    let catId = this.category['categoryId'];
-    this.deliveryService.getItemByCategory(catId, this.start, this.offset).then((data) => {
+    let userId = this.shop['userId'];
+    this.deliveryService.getItemByShop(userId, this.start, this.offset).then((data) => {
       if (data['itemlist']) {
         if (data['itemlist'].length > 0) {
           this.items = data['itemlist'];
@@ -70,8 +72,8 @@ export class ItemList {
   }
 
   refreshList(refresher) {
-    let catId = this.category['categoryId'];
-    this.deliveryService.getItemByCategory(catId, 0, this.offset).then((data) => {
+    let userId = this.shop['userId'];
+    this.deliveryService.getItemByShop(userId, 0, this.offset).then((data) => {
       if (data['itemlist']) {
         if (data['itemlist'].length > 0) {
           this.items = data['itemlist'];
@@ -86,10 +88,10 @@ export class ItemList {
   }
 
   paginate(infiniteScroll) {
-    let catId = this.category['categoryId'];
+    let userId = this.shop['userId'];
     this.noMoreItems = false;
     this.start++;
-    this.deliveryService.getItemByCategory(catId, this.start, this.offset).then((data) => {
+    this.deliveryService.getItemByShop(userId, this.start, this.offset).then((data) => {
       let itemArray = data['itemlist'];
       if (itemArray) {
         if (itemArray.length > 0) {
@@ -267,14 +269,15 @@ export class ItemList {
 
   errorUpdateUrl(event, index) {
     this.items[index].img1 = "assets/img/items/" + this.category.nameEn.toLowerCase() + "_default.svg";
+    console.log(this.items[index].img1);
   }
 
   viewDetails(item) {
-    this.navCtrl.push(DetailsPage, item, { animate: true, direction: "forward" });
+    this.navCtrl.push('DetailsPage', {item : item, shop: this.shop}, { animate: true, direction: "forward" });
   }
 
   openCart() {
-    this.navCtrl.push(CartPage, null);
+    this.navCtrl.push('CartPage', null);
   }
 
   presentToast(message, duration) {

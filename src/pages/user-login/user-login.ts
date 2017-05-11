@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, IonicPage } from 'ionic-angular';
 import { UserService } from '../../providers/user-service';
-import { DeliverySchedulePage } from "../delivery-schedule/delivery-schedule";
-import { Categories } from "../categories/categories";
-import { UserRegistrationPage } from "../user-registration/user-registration";
 import { Storage } from '@ionic/storage';
 import { Variables } from "../../providers/variables";
 
@@ -13,6 +10,7 @@ import { Variables } from "../../providers/variables";
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+@IonicPage()
 @Component({
   selector: 'page-user-login',
   templateUrl: 'user-login.html',
@@ -59,7 +57,7 @@ export class UserLoginPage {
   }
 
   goToRegister() {
-    this.navCtrl.push(UserRegistrationPage, this.redirectString)
+    this.navCtrl.push('UserRegistrationPage', this.redirectString)
   }
 
   loginUser() {
@@ -74,7 +72,7 @@ export class UserLoginPage {
       let json = JSON.stringify(data);
       let response = JSON.parse(json);
       let responseMesage = JSON.parse(response['_body']).message;
-      let capitalizeFirstChar = (string) => {return string.charAt(0).toUpperCase() + string.substring(1)};
+      let capitalizeFirstChar = (string) => { return string.charAt(0).toUpperCase() + string.substring(1) };
 
       console.log(response);
       if (response.status === 201 || response.status === 200) {
@@ -92,9 +90,9 @@ export class UserLoginPage {
         this.hideLoading();
 
         if (this.redirectString === "redirect-deliveryschedule") {
-          this.navCtrl.push(DeliverySchedulePage, "login-success");
+          this.navCtrl.push('DeliverySchedulePage', "login-success");
         } else {
-          this.navCtrl.setRoot(Categories);
+          this.navCtrl.setRoot('Categories');
         }
       } else {
         this.hideLoading();

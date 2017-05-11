@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, ToastController, IonicPage } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { UserService } from "../../providers/user-service";
 import { Geolocation } from '@ionic-native/geolocation';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { UserLoginPage } from "../user-login/user-login";
 
 /*
   Generated class for the UserRegistration page.
@@ -12,6 +11,7 @@ import { UserLoginPage } from "../user-login/user-login";
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+@IonicPage()
 @Component({
   selector: 'page-user-registration',
   templateUrl: 'user-registration.html',
@@ -144,9 +144,9 @@ export class UserRegistrationPage {
                       text: 'OK',
                       handler: data => {
                         if (this.redirectString === "redirect-deliveryschedule") {
-                          this.navCtrl.push(UserLoginPage, "redirect-deliveryschedule");
+                          this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
                         } else {
-                          this.navCtrl.push(UserLoginPage, null);
+                          this.navCtrl.push('UserLoginPage', null);
                         }
                       }
                     }
@@ -169,9 +169,9 @@ export class UserRegistrationPage {
                       text: 'Login',
                       handler: data => {
                         if (this.redirectString === "redirect-deliveryschedule") {
-                          this.navCtrl.push(UserLoginPage, "redirect-deliveryschedule");
+                          this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
                         } else {
-                          this.navCtrl.push(UserLoginPage, null);
+                          this.navCtrl.push('UserLoginPage', null);
                         }
                       }
                     }

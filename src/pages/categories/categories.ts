@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { Shops } from "../shops/shops";
-import { DeliveryService } from '../../providers/delivery-service';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { CartPage } from "../cart/cart";
+import { DeliveryService } from '../../providers/delivery-service';
 import { Variables } from "../../providers/variables";
 
+
+@IonicPage()
 @Component({
   selector: 'categories',
   templateUrl: 'categories.html',
@@ -72,11 +72,11 @@ export class Categories {
   }
 
   openCart() {
-    this.navCtrl.push(CartPage, null);
+    this.navCtrl.push('CartPage', null);
   }
 
   openCategory(category) {
-    this.navCtrl.push(Shops, { category:  category, city: this.selectedCity});
+    this.navCtrl.push('Shops', { category:  category, city: this.selectedCity});
   }
 
 }

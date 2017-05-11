@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, IonicPage } from 'ionic-angular';
 import { DeliveryService } from "../../providers/delivery-service";
 import { Storage } from '@ionic/storage';
-import { Categories } from "../categories/categories";
 import { Variables } from "../../providers/variables";
 
 /*
@@ -11,6 +10,7 @@ import { Variables } from "../../providers/variables";
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+@IonicPage()
 @Component({
   selector: 'page-order-summary',
   templateUrl: 'order-summary.html',
@@ -78,7 +78,7 @@ export class OrderSummaryPage {
                   handler: () => {
                     this.storage.set('delivery.cart', []).then((cart) => {
                       this.storage.set('delivery.cartCount', 0).then((count) => {
-                        this.navCtrl.setRoot(Categories, null);
+                        this.navCtrl.setRoot('Categories', null);
                       });
                     });
                   }

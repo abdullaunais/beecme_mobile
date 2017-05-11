@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ViewController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ViewController, AlertController, IonicPage } from 'ionic-angular';
 import { DeliveryService } from "../../providers/delivery-service";
 import { Storage } from '@ionic/storage';
 import { Variables } from "../../providers/variables";
@@ -10,6 +10,7 @@ import { Variables } from "../../providers/variables";
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
+@IonicPage()
 @Component({
   selector: 'page-change-location',
   templateUrl: 'change-location.html',

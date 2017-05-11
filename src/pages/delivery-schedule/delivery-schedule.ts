@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, IonicPage } from 'ionic-angular';
 import { DeliveryService } from '../../providers/delivery-service';
-import { OrderSummaryPage } from "../order-summary/order-summary";
 import { Storage } from "@ionic/storage";
 
 
@@ -11,6 +10,7 @@ import { Storage } from "@ionic/storage";
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+@IonicPage()
 @Component({
   selector: 'page-delivery-schedule',
   templateUrl: 'delivery-schedule.html',
@@ -52,7 +52,7 @@ export class DeliverySchedulePage {
   }
 
   showOrderSummary() {
-    this.navCtrl.push(OrderSummaryPage, this.deliverySchedule);
+    this.navCtrl.push('OrderSummaryPage', this.deliverySchedule);
   }
 
     presentToast(message, duration) {

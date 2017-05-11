@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
-import { Categories } from "../categories/categories";
 import { DeliveryService } from '../../providers/delivery-service';
 import { Storage } from '@ionic/storage';
 import { ViewChild } from '@angular/core';
-import { Slides, ToastController } from 'ionic-angular';
+import { Slides, ToastController, IonicPage } from 'ionic-angular';
 
+@IonicPage()
 @Component({
   selector: 'first_launch',
   templateUrl: 'first_launch.html',
@@ -103,7 +103,7 @@ export class FirstLaunch {
       this.storage.set('delivery.cart', []);
       this.storage.set('delivery.cartCount', 0);
 
-      this.navCtrl.setRoot(Categories, {
+      this.navCtrl.setRoot('Categories', {
         locationSet: true,
         city: this.selectedCity
       });

@@ -1,8 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Content, ActionSheetController, AlertController, ToastController } from 'ionic-angular';
-import { CartPage } from "../cart/cart";
+import { NavController, NavParams, Content, ActionSheetController, AlertController, ToastController, IonicPage } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { ImageSliderPage } from "../image-slider/image-slider";
 import { Variables } from "../../providers/variables";
 
 /*
@@ -11,6 +9,7 @@ import { Variables } from "../../providers/variables";
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+@IonicPage()
 @Component({
   selector: 'page-details',
   templateUrl: 'details.html'
@@ -18,10 +17,10 @@ import { Variables } from "../../providers/variables";
 export class DetailsPage {
 
   @ViewChild(Content) content: Content;
-  cartPage = CartPage;
   headerShow: boolean = false;
 
   item: any;
+  shop: any;
   storage: Storage;
 
   cartCount: number = 0;
@@ -34,7 +33,8 @@ export class DetailsPage {
     private variables: Variables,
     private toastCtrl: ToastController
   ) {
-    this.item = navParams.data;
+    this.item = navParams.data.item;
+    this.shop = navParams.data.shop;    
     this.storage = storage;
     this.variables.cartCount.subscribe(value => this.cartCount = value);
   }
@@ -179,7 +179,7 @@ export class DetailsPage {
   }
 
   showImages() {
-    this.navCtrl.push(ImageSliderPage, this.item);
+    this.navCtrl.push('ImageSliderPage', this.item);
   }
 
   presentToast(message, duration) {
@@ -190,6 +190,10 @@ export class DetailsPage {
       duration: duration
     });
     toast.present();
+  }
+
+  goToCart() {
+    this.navCtrl.push('CartPage');
   }
 
   ngAfterViewInit() {

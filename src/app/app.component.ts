@@ -3,17 +3,7 @@ import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
-
-import { FirstLaunch } from "../pages/first_launch/first_launch";
-import { Categories } from "../pages/categories/categories";
-import { CartPage } from "../pages/cart/cart";
-import { UserProfilePage } from "../pages/user-profile/user-profile";
-import { UserLoginPage } from "../pages/user-login/user-login";
 import { Variables } from "../providers/variables";
-import { AppSettingsPage } from "../pages/app-settings/app-settings";
-import { OrderHistoryPage } from "../pages/order-history/order-history";
-
-
 
 @Component({
   templateUrl: 'app.html',
@@ -22,7 +12,7 @@ import { OrderHistoryPage } from "../pages/order-history/order-history";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Categories;
+  rootPage: any = 'Categories';
   profileLabel: string;
   profilepic: string;
   isLogin: boolean = false;
@@ -45,7 +35,7 @@ export class MyApp {
 
     storage.get('location.set').then((locationSet) => {
       if (!locationSet) {
-        this.rootPage = FirstLaunch;
+        this.rootPage = 'FirstLaunch';
       }
     });
 
@@ -81,21 +71,21 @@ export class MyApp {
 
       if (this.isLogin) {
         this.profileComponent = {
-          title: 'Profile', component: UserProfilePage, icon: 'person', devide: false
+          title: 'Profile', component: 'UserProfilePage', icon: 'person', devide: false
         }
       } else {
         this.profileComponent = {
-          title: 'Sign In', component: UserLoginPage, icon: 'person', devide: false
+          title: 'Sign In', component: 'UserLoginPage', icon: 'person', devide: false
         }
       }
 
       // used for an example of ngFor and navigation
       this.pages = [
-        { title: 'Categories', component: Categories, icon: 'apps', devide: false },
-        { title: 'My Cart', component: CartPage, icon: 'cart', devide: false },
-        { title: 'My Orders', component: OrderHistoryPage, icon: 'cash', devide: true },
+        { title: 'Categories', component: 'Categories', icon: 'apps', devide: false },
+        { title: 'My Cart', component: 'CartPage', icon: 'cart', devide: false },
+        { title: 'My Orders', component: 'OrderHistoryPage', icon: 'cash', devide: true },
         this.profileComponent,
-        { title: 'Settings', component: AppSettingsPage, icon: 'settings', devide: false }
+        { title: 'Settings', component: 'AppSettingsPage', icon: 'settings', devide: false }
       ];
     });
 
@@ -123,10 +113,10 @@ export class MyApp {
 
   loginOrProfile() {
     if (this.isLogin) {
-      this.nav.push(UserProfilePage);
+      this.nav.push('UserProfilePage');
       this.menuCtrl.close();
     } else {
-      this.nav.push(UserLoginPage);
+      this.nav.push('UserLoginPage');
       this.menuCtrl.close();
     }
   }

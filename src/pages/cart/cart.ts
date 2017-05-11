@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, IonicPage } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { DetailsPage } from "../details/details";
-import { DeliverySchedulePage } from "../delivery-schedule/delivery-schedule";
-import { UserLoginPage } from "../user-login/user-login";
 import { Variables } from "../../providers/variables";
 
 /*
@@ -12,6 +9,7 @@ import { Variables } from "../../providers/variables";
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+@IonicPage()
 @Component({
   selector: 'page-cart',
   templateUrl: 'cart.html'
@@ -76,7 +74,7 @@ export class CartPage {
   }
 
   viewItem(item) {
-    this.navCtrl.push(DetailsPage, item);
+    this.navCtrl.push('DetailsPage', item);
   }
 
   checkout() {
@@ -102,11 +100,11 @@ export class CartPage {
 
             this.storage.get('user.login').then((auth) => {
               if (auth) {
-                this.navCtrl.push(DeliverySchedulePage, this.checkoutComment);
+                this.navCtrl.push('DeliverySchedulePage', this.checkoutComment);
               } else {
                 // DeliverySchedulePage - testing
                 // UserLoginPage - original
-                this.navCtrl.push(UserLoginPage, "redirect-deliveryschedule");
+                this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
               }
             });
           }

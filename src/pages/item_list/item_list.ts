@@ -1,11 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Content, ActionSheetController, AlertController, ToastController } from 'ionic-angular';
-import { DetailsPage } from "../details/details";
+import { NavController, NavParams, Content, ActionSheetController, AlertController, ToastController, IonicPage } from 'ionic-angular';
 import { DeliveryService } from "../../providers/delivery-service";
 import { Storage } from '@ionic/storage';
-import { CartPage } from "../cart/cart";
 import { Variables } from "../../providers/variables";
 
+@IonicPage()
 @Component({
   selector: 'item_list',
   templateUrl: 'item_list.html',
@@ -14,10 +13,10 @@ import { Variables } from "../../providers/variables";
 export class ItemList {
 
   @ViewChild(Content) content: Content;
-
-  detailsPage = DetailsPage;
   searchVisible: boolean = false;
 
+  shop: any;
+  city: any;
   category: any;
   items: Array<any> = [];
   searchQuery: string = '';

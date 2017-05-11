@@ -14,7 +14,7 @@
         <!--<ion-icon name="arrow-round-back"></ion-icon>-->
         <!--</button>-->
         <ion-buttons end>
-            <button ion-button icon-only [navPush]="cartPage">
+            <button ion-button icon-only (click)="goToCart()">
                 <ion-icon name="cart"></ion-icon>
                 <ion-badge *ngIf="cartCount > 0" color="danger" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
             </button>
@@ -24,15 +24,7 @@
 
 
 <ion-content id="itemContent" class="page-details">
-    <!--<div style="background-image: url('{{ item.img1 }}');" class="item-image-main"></div>-->
     <img class="item-image-main" src="{{item.img1}}" (tap)="showImages()">
-    <!--<div class="parallax" style="background-image: url('../../assets/img/items/F001.jpg')"></div>-->
-    <!--<div style="height:1000px;background-color:red;font-size:36px">-->
-    <!--Scroll Up and Down this page to see the parallax scrolling effect.-->
-    <!--This div is just here to enable scrolling.-->
-    <!--Tip: Try to remove the background-attachment property to remove the scrolling effect.-->
-    <!--</div>-->
-    <!--<div class="parallax"></div>-->
     <ion-card-content>
         <h3>{{ item.nameEn }}</h3>
         <hr/>
@@ -67,7 +59,7 @@
             <!--<ion-avatar item-right>-->
             <!--<img src="../../assets/img/items/F006.jpg"/>-->
             <!--</ion-avatar>-->
-            <ion-note item-right>{{ item.supplierEmail }}</ion-note>
+            <ion-note item-right>{{ shop.username }}</ion-note>
         </ion-item>
         <ion-item>
             <ion-icon item-left name="pricetag"></ion-icon>

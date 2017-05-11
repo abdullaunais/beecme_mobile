@@ -5,7 +5,7 @@
                 <ion-icon name="menu"></ion-icon>
             </button>
         </ion-buttons>
-        <ion-title ng-style="color:white;">{{ category.nameEn }}</ion-title>
+        <ion-title ng-style="color:white;">{{ shop.username }}</ion-title>
         <ion-buttons end>
             <button ion-button icon-only (click)="openCart()">
                 <ion-icon name="cart"></ion-icon>
@@ -42,7 +42,7 @@
     <ion-card *ngFor="let item of items; let i = index;" style="height: 10rem;" (click)="viewDetails(item);">
         <ion-row style="height: 10rem;">
             <ion-col col-3 class="item-card-icon-col">
-                <ion-img class="item-card-icon" [src]="item.img1" (error)="errorUpdateUrl($event, i)"></ion-img>
+                <ion-img class="item-card-icon" [src]="item.img1" cache="true" (error)="errorUpdateUrl($event, i)"></ion-img>
             </ion-col>
             <ion-col col-6 class="item-card-content-col">
                 <ion-card-content class="item-card-content">
@@ -52,7 +52,7 @@
                 </ion-card-content>
             </ion-col>
             <ion-col col-3 class="item-card-content-col">
-                <ion-label style="text-align: right; margin: 3vw 2vw; color: #999; font-size: 1.2rem; overflow: hidden;">{{ item.price }} SAR / {{ item.unit}}</ion-label>
+                <ion-label style="text-align: right; margin: 3vw 2vw 3vw 0; color: #999; font-size: 1.2rem; overflow: hidden;">{{ item.price }} SAR / {{ item.unit}}</ion-label>
                 <!--<button ion-button color="ui-theme" (click)="selectQuantity(item)" style="margin: 2vw; width:20vw;">
                     ADD&nbsp;<ion-icon name="cart"></ion-icon>
                 </button>-->

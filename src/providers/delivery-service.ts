@@ -63,6 +63,17 @@ export class DeliveryService {
     });
   }
 
+  getItemByShop(userId, start, offset) {
+    let queryParams = "?type=17&value=" + userId + "&start=" + start + "&offset=" + offset;
+    let requestUrl: string = this.serviceRootUrl + this.ITEM_URL + queryParams;
+    return new Promise(resolve => {
+      this.http.get(requestUrl)
+        .subscribe(data => {
+          resolve(data.json());
+        });
+    });
+  }
+
   getItemByCategory(category, start, offset) {
     let queryParams = "?type=11&value=" + category + "&start=" + start + "&offset=" + offset;
     let requestUrl: string = this.serviceRootUrl + this.ITEM_URL + queryParams;

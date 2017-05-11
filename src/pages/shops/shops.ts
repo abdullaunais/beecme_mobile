@@ -111,7 +111,7 @@ export class Shops {
           });
         } else {
           this.start--;
-          this.noMoreShops= true;
+          this.noMoreShops = true;
         }
       } else {
         this.start--;
@@ -121,8 +121,8 @@ export class Shops {
     });
   }
 
-  viewItems(shop) {
-
+  viewShop(shop) {
+    this.navCtrl.push('ItemList', { shop: shop, city: this.city, category: this.category });
   }
 
   ionViewDidLoad() {

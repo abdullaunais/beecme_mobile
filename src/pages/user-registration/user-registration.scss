@@ -1,8 +1,9 @@
 .page-user-registration {
   background-color: $ui-theme;
   .register-button-login {
-    color: #00f;
+    color: white;
     text-align: center;
+    background-color: $ui-theme-dark;
     width: 100%;
     height: 4rem;
     border-radius: 5px;
@@ -16,16 +17,18 @@
     margin-left: 0.2rem;
   }
   .registerItem {
-    margin-bottom: 0.5rem;
+    margin-top: -1px;
     padding:2px;
-    border-radius: 6px;
+    // border-top:1px solid #eee;
+    // border-radius: 4px;
   }
 
   .registerInputIcon {
     padding-left: 2rem;
   }
   .registerInput {
-    padding: 0.2rem;
+    padding: 0.2rem 0;
+    font-size: 1.6rem;
   }
 
   .registerHead {
@@ -36,10 +39,30 @@
   }
   .register-button {
     height: 2.5rem;
-    background-color: #fff;
+    background-color: $ui-theme-dark;
+    color: white;
     font-size: 1.6rem;
   }
-
+  .register-button-item {
+    margin-top: 3rem;
+    border-radius: 5px;
+    background-color: $ui-theme-dark;
+  }
+  .item-inner {
+    border-bottom-color: transparent !important;
+    box-shadow: none !important;
+    margin-left: 1rem !important;
+}
+.center-input-text {
+  input {
+    text-align: center;
+  }
+  .validation-error {
+    input {
+      background-color: #f00;
+    }
+  }
+}
   // ion-list .item .item-inner {
   //   border-bottom: 2px solid #5DA2AD;
   // }

@@ -70,6 +70,9 @@ export class CartPage {
     })
     this.storage.set('delivery.cart', this.cartItems);
     this.storage.set('delivery.cartCount', this.cartItems.length);
+    if (this.cartItems.length === 0) {
+      this.storage.set('delivery.cartShop', {});
+    }
     this.variables.setCartCount(this.cartItems.length);
   }
 
@@ -77,23 +80,39 @@ export class CartPage {
     this.navCtrl.push('DetailsPage', item);
   }
 
-  checkout() {
-    if (this.totalAmount < 100) {
-      this.presentToast("You should have at least 100 SAR worth items. Add some more items to checkout", 2000);
-      return;
-    }
+  checkAmount() {
+    this.storage.get('delivery.cartShop').then((cartShop) => {
+      if (cartShop) {
+        if (cartShop.userId) {
+          if (this.totalAmount < cartShop.minOrderAmt) {
+            this.presentToast("You should have at least "+ cartShop.minOrderAmt +" worth items in this shop to checkout. Add some more items", 2000);
+            return;
+          } else {
+            this.checkout();
+          }
+        } else {
+          this.presentToast("Error in Checkout. Please remove all and add items again", 2000);
+        }
+      }
+    });
+  }
 
+  checkout() {
     let prompt = this.alertCtrl.create({
       title: 'Checkout Comment',
       message: "",
-      cssClass: 'prompt-ui-theme',
+      cssClass: 'alert-style',
       inputs: [
         { name: 'comment', placeholder: 'Comment' },
       ],
       buttons: [
-        { text: 'Cancel', handler: data => { } },
+        { 
+          text: 'Cancel',
+          cssClass: 'alert-button-danger-plain',
+          handler: data => { } },
         {
-          text: 'Save',
+          text: 'Checkout',
+          cssClass: 'alert-button-primary',
           handler: data => {
             this.checkoutComment = data.comment;
             Variables.checkoutComment = this.checkoutComment;
@@ -122,5 +141,9 @@ export class CartPage {
       duration: duration
     });
     toast.present();
+  }
+
+  toTitleCase(str) {
+    return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
   }
 }

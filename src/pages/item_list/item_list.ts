@@ -100,10 +100,12 @@ export class ItemList {
         } else {
           this.start--;
           this.noMoreItems = true;
+          infiniteScroll.enable(false);
         }
       } else {
         this.start--;
         this.noMoreItems = true;
+        infiniteScroll.enable(false);
       }
       infiniteScroll.complete();
     });
@@ -127,11 +129,56 @@ export class ItemList {
     this.hideSearch();
   }
 
-  selectQuantity(e: Event, item) {
+  validateCart(e: Event, item) {
     if (!e) var e = window.event;
     e.cancelBubble = true;
     if (e.stopPropagation) e.stopPropagation();
 
+    this.storage.get('delivery.cartShop').then((cartShop) => {
+      if (cartShop) {
+        if (cartShop.userId) {
+          if (parseInt(cartShop.userId) !== parseInt(this.shop.userId)) {
+            let cartAlert = this.alertCtrl.create({
+              title: 'Existing Cart',
+              cssClass: 'alert-style',
+              message: 'Your cart already contains items from a different Shop. You can only  add items from one shop at a time. Do you wish to clear the existing cart and add this item?',
+              buttons: [
+                {
+                  text: 'Cancel',
+                  cssClass: 'alert-button-danger-plain',
+                  role: 'cancel',
+                  handler: () => {
+                    return;
+                  }
+                },
+                {
+                  text: 'Clear Cart',
+                  cssClass: 'alert-button-primary',
+                  handler: () => {
+                    this.storage.set("delivery.cart", []).then(res => {
+                      this.storage.set("delivery.cartCount", 0).then(res => {
+                        this.storage.set("delivery.cartShop", {}).then(res => {
+                          this.variables.setCartCount(0);
+                          this.selectQuantity(item);
+                        });
+                      });
+                    });
+                  }
+                }
+              ]
+            });
+            cartAlert.present();
+          } else {
+            this.selectQuantity(item);
+          }
+        } else {
+          this.selectQuantity(item);
+        }
+      }
+    });
+  }
+
+  selectQuantity(item) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Select Quantity',
       buttons: [
@@ -211,15 +258,19 @@ export class ItemList {
                 cartItems[index] = item
                 this.storage.set("delivery.cart", cartItems).then(res => {
                   this.storage.set("delivery.cartCount", cartItems.length).then(res => {
-                    this.variables.setCartCount(cartItems.length);
+                    this.storage.set("delivery.cartShop", this.shop).then(res => {
+                      this.variables.setCartCount(cartItems.length);
+                    });
                   });
                 });
               } else {
                 cartItems.push(item);
                 this.storage.set('delivery.cart', cartItems).then((response) => {
                   this.storage.set('delivery.cartCount', cartItems.length).then((res) => {
-                    this.variables.setCartCount(cartItems.length);
-                    // this.navCtrl.push(CartPage, null);
+                    this.storage.set("delivery.cartShop", this.shop).then(res => {
+                      this.variables.setCartCount(cartItems.length);
+                      // this.navCtrl.push(CartPage, null);
+                    });
                   });
                 });
               }
@@ -280,11 +331,11 @@ export class ItemList {
   }
 
   viewDetails(item) {
-    this.navCtrl.push('DetailsPage', {item : item, shop: this.shop}, { animate: true, direction: "forward" });
+    this.navCtrl.push('DetailsPage', { item: item, shop: this.shop, category: this.category }, { animate: true, direction: "forward" });
   }
 
   openCart() {
-    this.navCtrl.push('CartPage', null);
+    this.navCtrl.push('CartPage', null, { animate: true, direction: "forward" });
   }
 
   presentToast(message, duration) {
@@ -297,4 +348,7 @@ export class ItemList {
     toast.present();
   }
 
+  toTitleCase(str) {
+    return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+  }
 }

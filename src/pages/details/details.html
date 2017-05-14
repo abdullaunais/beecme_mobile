@@ -26,7 +26,7 @@
 <ion-content id="itemContent" class="page-details">
     <img class="item-image-main" src="{{item.img1}}" (tap)="showImages()">
     <ion-card-content>
-        <h3>{{ item.nameEn }}</h3>
+        <h3>{{ toTitleCase(item.nameEn) }}</h3>
         <hr/>
         <div class="item-description-paragraph">
             {{ item.descriptionEn }}
@@ -34,7 +34,7 @@
 
     </ion-card-content>
 
-    <ion-scroll scrollX="true" style="height: 15rem;" (tap)="showImages()">
+    <div (click)="showImages()"  style="height: 15rem; overflow: overlay; white-space: nowrap;">
         <div style="display: inline-block;">
             <img *ngIf="item.img1" src="{{ item.img1 }}" class="item-image-scroll">
         </div>
@@ -44,7 +44,7 @@
         <div style="display: inline-block;">
             <img *ngIf="item.img3" src="{{ item.img3 }}" class="item-image-scroll">
         </div>
-    </ion-scroll>
+    </div>
     <hr/>
     <ion-list>
 
@@ -56,10 +56,7 @@
         <ion-item>
             <ion-icon item-left name="contact"></ion-icon>
             <h3>Supplier</h3>
-            <!--<ion-avatar item-right>-->
-            <!--<img src="../../assets/img/items/F006.jpg"/>-->
-            <!--</ion-avatar>-->
-            <ion-note item-right>{{ shop.username }}</ion-note>
+            <ion-note item-right>{{ toTitleCase(shop.username) }}</ion-note>
         </ion-item>
         <ion-item>
             <ion-icon item-left name="pricetag"></ion-icon>
@@ -70,7 +67,7 @@
 </ion-content>
 
 <ion-footer class="footer-details">
-    <button ion-button full clear (click)="selectQuantity()" class="button-cart">
+    <button ion-button full clear (click)="validateCart()" class="button-cart">
         <ion-icon name="cart"></ion-icon>
         &nbsp;&nbsp;ADD TO CART ( {{ item.price }} SAR / {{ item.unit }} )
     </button>

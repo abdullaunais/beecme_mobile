@@ -8,8 +8,9 @@
   }
 
   .item-description-paragraph {
-    height:10rem;
-    overflow:hidden;
+    height: 8rem;
+    overflow: overlay;
+    white-space: pre-line;
   }
   //.item-description-overlay {
   //  width: 100%;
@@ -22,7 +23,7 @@
   //}
 
   .item-image-scroll {
-    height: 15rem;
+    height: 14rem;
     width: auto;
     background-color: #eeeeee;
     margin:0;

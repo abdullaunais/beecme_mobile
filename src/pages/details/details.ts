@@ -21,6 +21,7 @@ export class DetailsPage {
 
   item: any;
   shop: any;
+  category: any;
   storage: Storage;
 
   cartCount: number = 0;
@@ -34,7 +35,8 @@ export class DetailsPage {
     private toastCtrl: ToastController
   ) {
     this.item = navParams.data.item;
-    this.shop = navParams.data.shop;    
+    this.shop = navParams.data.shop;
+    this.category = navParams.data.category;
     this.storage = storage;
     this.variables.cartCount.subscribe(value => this.cartCount = value);
   }
@@ -157,15 +159,18 @@ export class DetailsPage {
                 cartItems[index] = this.item
                 this.storage.set("delivery.cart", cartItems).then(res => {
                   this.storage.set("delivery.cartCount", cartItems.length).then(res => {
-                    this.variables.setCartCount(cartItems.length);
+                    this.storage.set("delivery.cartShop", this.shop).then(res => {
+                      this.variables.setCartCount(cartItems.length);
+                    });
                   });
                 });
               } else {
                 cartItems.push(this.item);
                 this.storage.set('delivery.cart', cartItems).then((response) => {
                   this.storage.set('delivery.cartCount', cartItems.length).then((res) => {
-                    this.variables.setCartCount(cartItems.length);
-                    // this.navCtrl.push(CartPage, null);
+                    this.storage.set("delivery.cartShop", this.shop).then(res => {
+                      this.variables.setCartCount(cartItems.length);
+                    });
                   });
                 });
               }
@@ -184,6 +189,51 @@ export class DetailsPage {
       ]
     });
     prompt.present();
+  }
+
+    validateCart() {
+    this.storage.get('delivery.cartShop').then((cartShop) => {
+      if (cartShop) {
+        if (cartShop.userId) {
+          if (parseInt(cartShop.userId) !== parseInt(this.shop.userId)) {
+            let cartAlert = this.alertCtrl.create({
+              title: 'Existing Cart',
+              cssClass: 'alert-style',
+              message: 'Your cart already contains items from a different Shop. You can only  add items from one shop at a time. Do you wish to clear the existing cart and add this item?',
+              buttons: [
+                {
+                  text: 'Cancel',
+                  cssClass: 'alert-button-danger-plain',
+                  role: 'cancel',
+                  handler: () => {
+                    return;
+                  }
+                },
+                {
+                  text: 'Clear Cart',
+                  cssClass: 'alert-button-primary',
+                  handler: () => {
+                    this.storage.set("delivery.cart", []).then(res => {
+                      this.storage.set("delivery.cartCount", 0).then(res => {
+                        this.storage.set("delivery.cartShop", {}).then(res => {
+                          this.variables.setCartCount(0);
+                          this.selectQuantity();
+                        });
+                      });
+                    });
+                  }
+                }
+              ]
+            });
+            cartAlert.present();
+          } else {
+            this.selectQuantity();
+          }
+        } else {
+          this.selectQuantity();
+        }
+      }
+    });
   }
 
   showImages() {
@@ -205,13 +255,9 @@ export class DetailsPage {
   }
 
   ngAfterViewInit() {
-    // let itemContent = document.getElementById('itemContent');
-    // let yOffset = itemContent.offsetTop;
-    // console.log(yOffset);
-
-    // this.content.ionScroll.subscribe(($event: any) => {
-    //   this.headerShow = $event.scrollTop > 300;
-    // });
   }
 
+  toTitleCase(str) {
+    return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+  }
 }

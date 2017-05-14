@@ -19,79 +19,68 @@
             </button>
         </ion-buttons>
     </ion-navbar>
-    <ion-searchbar class="item-searchbar" *ngIf="searchVisible"
-                   (animated)="true" placeholder="Comming Soon..."
-                   [(ngModel)]="searchQuery"
-                   [showCancelButton]="true"
-                   (ionInput)="onSearchTextEntered($event)"
-                   (ionCancel)="onSearchCancel($event)">
+    <ion-searchbar class="item-searchbar" *ngIf="searchVisible" (animated)="true" placeholder="Comming Soon..." [(ngModel)]="searchQuery"
+        [showCancelButton]="true" (ionInput)="onSearchTextEntered($event)" (ionCancel)="onSearchCancel($event)">
     </ion-searchbar>
 </ion-header>
 
 <ion-content class="page-item_list">
 
     <div style="display: flex; justify-content: space-between;">
-    <ion-label  *ngIf="items.length === 0 && !isLoading" style="text-align: center; width: 100%; color: #999;">No {{ category.nameEn }} Available. Please try a different category</ion-label>
-    <ion-spinner *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
+        <ion-label *ngIf="items.length === 0 && !isLoading" style="text-align: center; width: 100%; color: #999;">No {{ category.nameEn }} Available. Please try a different category</ion-label>
+        <ion-spinner *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
     </div>
 
     <ion-refresher (ionRefresh)="refreshList($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
 
     <ion-card *ngFor="let item of items; let i = index;" style="height: 10rem;" (click)="viewDetails(item);">
         <ion-row style="height: 10rem;">
             <ion-col col-3 class="item-card-icon-col">
-                <ion-img class="item-card-icon" [src]="item.img1" cache="true" (error)="errorUpdateUrl($event, i)"></ion-img>
+                <ion-img class="item-card-icon" [src]="item.img1" cache="true" onerror="errorUpdateUrl($event, i)"></ion-img>
             </ion-col>
-            <ion-col col-6 class="item-card-content-col">
+            <ion-col col-9 class="item-card-content-col">
                 <ion-card-content class="item-card-content">
-                    <ion-card-title class="item-card-content-title">{{ item.nameEn }}</ion-card-title>
+                    <ion-card-title class="item-card-content-title">{{ toTitleCase(item.nameEn) }}</ion-card-title>
                     <p class="item-card-content-desc">{{ item.descriptionEn }}</p>
-                    
+                    <img src="assets/img/ui_icons/add_shopping_cart_green.svg" (click)="validateCart($event, item)" class="item-card-btn-cart">
+                    <ion-label class="item-card-content-price">{{ item.price }} SAR/{{ item.unit.toUpperCase() }}</ion-label>
                 </ion-card-content>
-            </ion-col>
-            <ion-col col-3 class="item-card-content-col">
-                <ion-label style="text-align: right; margin: 3vw 2vw 3vw 0; color: #999; font-size: 1.2rem; overflow: hidden;">{{ item.price }} SAR / {{ item.unit}}</ion-label>
-                <!--<button ion-button color="ui-theme" (click)="selectQuantity(item)" style="margin: 2vw; width:20vw;">
-                    ADD&nbsp;<ion-icon name="cart"></ion-icon>
-                </button>-->
-                <img src="assets/img/ui_icons/add_shopping_cart_green.svg" (click)="selectQuantity($event, item)" style="width: 3.5rem; height: 6rem; position: absolute; right: 2vw; bottom: 0;"/>
-                
             </ion-col>
         </ion-row>
     </ion-card>
 
     <div style="display: flex; justify-content: space-between;">
-    <ion-label  *ngIf="noMoreItems" style="text-align: center; width: 100%; color: #999;">No more items</ion-label>
-</div>
+        <ion-label *ngIf="noMoreItems" style="text-align: center; width: 100%; color: #999;">No more items</ion-label>
+    </div>
 
 
-     <ion-infinite-scroll (ionInfinite)="paginate($event)">
-   <ion-infinite-scroll-content></ion-infinite-scroll-content>
- </ion-infinite-scroll>
+    <ion-infinite-scroll (ionInfinite)="paginate($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 
     <!--<ion-list>-->
 
-        <!--<ion-item>-->
+    <!--<ion-item>-->
 
-            <!--<ion-thumbnail item-left>-->
-                <!--<img src="../../assets/img/items/F001.jpg">-->
-            <!--</ion-thumbnail>-->
-            <!--<h2>{{ item.title }}</h2>-->
-            <!--<p>{{ item.desc }}</p>-->
-            <!--<button ion-button clear item-right>View</button>-->
-        <!--</ion-item>-->
+    <!--<ion-thumbnail item-left>-->
+    <!--<img src="../../assets/img/items/F001.jpg">-->
+    <!--</ion-thumbnail>-->
+    <!--<h2>{{ item.title }}</h2>-->
+    <!--<p>{{ item.desc }}</p>-->
+    <!--<button ion-button clear item-right>View</button>-->
+    <!--</ion-item>-->
 
-        <!--<ion-item>-->
+    <!--<ion-item>-->
 
-            <!--<ion-thumbnail item-left>-->
-                <!--<img src="../../assets/img/items/F001.jpg">-->
-            <!--</ion-thumbnail>-->
-            <!--<h2>{{ item.title }}</h2>-->
-            <!--<p>{{ item.desc }}</p>-->
-            <!--<button ion-button clear item-right>View</button>-->
-        <!--</ion-item>-->
+    <!--<ion-thumbnail item-left>-->
+    <!--<img src="../../assets/img/items/F001.jpg">-->
+    <!--</ion-thumbnail>-->
+    <!--<h2>{{ item.title }}</h2>-->
+    <!--<p>{{ item.desc }}</p>-->
+    <!--<button ion-button clear item-right>View</button>-->
+    <!--</ion-item>-->
 
     <!--</ion-list>-->
 </ion-content>

@@ -66,10 +66,12 @@ export class AppSettingsPage {
       if (data.success) {
         let alert = this.alertCtrl.create({
           title: 'Success',
+          cssClass: 'alert-style',
           message: 'Location Changed. Your cart and the login data is reset.',
           buttons: [
             {
               text: 'OK',
+              cssClass: 'alert-button-success',
               handler: () => {
                 //ignore
               }

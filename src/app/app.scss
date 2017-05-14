@@ -20,34 +20,63 @@
     min-height: 5rem;
 }
 
-.alert-ui-theme-success {
+.alert-style {
   .alert-wrapper {
     border-radius: 8px;
   }
   .alert-button {
-    padding: 10px 30px;
-    background-color: $ui-theme;
-    color:#fff;
+    padding: 1rem 2rem;
     border-radius: 4px;
+  }
+  .alert-button-ios {
+    border-radius: 0 !important;
   }
 }
 
-.alert-ui-theme-danger {
-  .alert-wrapper {
-    border-radius: 8px;
-  }
-  .alert-button {
-    padding: 10px 30px;
-    background-color: $ui-theme-danger;
-    color:#fff;
-    border-radius: 4px;
-  }
+.alert-button-primary {
+    color: white !important;
+    background-color: $ui-theme-primary !important;
+    button{
+        background-color: $ui-theme-primary !important;
+        color: white;
+    }
+}
+.alert-button-primary-plain {
+    color: $ui-theme-primary !important;
+    button{
+      color: $ui-theme-primary !important;
+    }
 }
 
-.prompt-ui-theme {
-  .alert-wrapper {
-    border-radius: 8px;
-  }
+.alert-button-danger {
+    color: white !important;
+    background-color: $ui-theme-danger !important;
+    button{
+      background-color: $ui-theme-danger !important;
+      color: white;
+    }
+}
+.alert-button-danger-plain {
+    color: $ui-theme-danger !important;
+    button{
+      color: $ui-theme-danger !important;
+    }
+}
+
+
+.alert-button-success {
+    color: white !important;
+    background-color: $ui-theme-secondary !important;
+    button{
+        background-color: $ui-theme-secondary !important;
+        color: white;
+    }
+}
+.alert-button-success-plain {
+    color: $ui-theme-secondary !important;
+    button{
+      color: $ui-theme-secondary !important;
+    }
 }
 
 .menu-app {

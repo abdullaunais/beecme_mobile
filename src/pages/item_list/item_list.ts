@@ -187,14 +187,18 @@ export class ItemList {
     let prompt = this.alertCtrl.create({
       title: 'Enter Comment',
       message: "",
-      cssClass: 'prompt-ui-theme',
+      cssClass: 'alert-style',
       inputs: [
         { name: 'comment', placeholder: 'Comment' },
       ],
       buttons: [
-        { text: 'Cancel', handler: data => { } },
+        { 
+          text: 'Cancel',
+          cssClass: 'alert-button-danger-plain',
+          handler: data => { } },
         {
           text: 'ADD',
+          cssClass: 'alert-button-primary',
           handler: data => {
             // if (this.item.qty >= quantity) {
             item.comment = data.comment;
@@ -240,14 +244,18 @@ export class ItemList {
     let prompt = this.alertCtrl.create({
       title: 'Enter Quantity',
       message: "",
-      cssClass: 'prompt-ui-theme',
+      cssClass: 'alert-style',
       inputs: [
         { name: 'quantity', placeholder: 'Quantity' },
       ],
       buttons: [
-        { text: 'Cancel', handler: data => { } },
+        { 
+          text: 'Cancel',
+          cssClass: 'alert-button-danger-plain',
+          handler: data => { } },
         {
           text: 'Add',
+          cssClass: 'alert-button-primary',
           handler: data => {
             if (data.quantity) {
               if (!Number.isNaN(data.quantity) && data.quantity > 0) {

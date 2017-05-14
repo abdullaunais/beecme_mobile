@@ -89,17 +89,18 @@ export class UserRegistrationPage {
   }
 
   goToLogin() {
-    this.navCtrl.pop();
+    this.navCtrl.setRoot('UserLoginPage', null, { animate: true, direction: "forward" });
   }
 
   registerUser() {
     let alert = this.alertCtrl.create({
       title: 'Confim Signup',
       message: 'Do you wish to proceed signup?',
-      cssClass: 'prompt-ui-theme',
+      cssClass: 'alert-style',
       buttons: [
         {
           text: 'Cancel',
+          cssClass: 'alert-button-danger-plain',
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
@@ -107,6 +108,7 @@ export class UserRegistrationPage {
         },
         {
           text: 'Yes',
+          cssClass: 'alert-button-primary',
           handler: () => {
             console.log('Yes clicked');
             this.showLoading("Registering...")
@@ -133,15 +135,16 @@ export class UserRegistrationPage {
               this.storage.set('user.login', true);
               this.hideLoading();
 
-              if (response.message === "Thank you for registering with Beecme") {
+              if (response.code === 1) {
                 // register success
                 let prompt = this.alertCtrl.create({
                   title: 'Registration Success',
                   message: "Please Login with the details provided.",
-                  cssClass: 'alert-ui-theme-success',
+                  cssClass: 'alert-style',
                   buttons: [
                     {
                       text: 'OK',
+                      cssClass: 'alert-button-success',
                       handler: data => {
                         if (this.redirectString === "redirect-deliveryschedule") {
                           this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");

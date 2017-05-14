@@ -38,7 +38,6 @@ export class MyApp {
         this.rootPage = 'FirstLaunch';
       }
     });
-
     storage.get('user.data').then((response) => {
       if (response) {
         if (response.email != undefined || response.email != null) {

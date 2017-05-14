@@ -47,16 +47,18 @@
     <ion-card *ngFor="let shop of shops; let i = index;" style="height: 18vh;" (click)="viewShop(shop);">
     <ion-row style="height: 18vh;">
       <ion-col col-4 class="shop-card-icon-col">
-        <img class="shop-card-icon" src="http://www.keells.com/images/stories/brands/fb/Kest-new.gif"/>
+        <!--<image [defaultImage]="shop.profilePicture" [lazyLoad]="shop.profilePicture" [offset]="offset"></image>-->
+        <ion-img class="shop-card-icon" [src]="shop.profilePicture"></ion-img>
+        <ion-spinner></ion-spinner>
       </ion-col>
       <ion-col col-8 class="shop-card-content-col">
         <ion-card-content class="shop-card-content">
-          <!--<ion-card-title class="shop-card-content-title">{{ shop.username }}</ion-card-title>-->
-          <ion-card-title class="shop-card-content-title">Shop Name 05</ion-card-title>
-          <div style="margin-bottom: 1vh;">
-            <ion-badge class="shop-card-content-badge" color="ui-theme" *ngFor="let keyword of shop.keywordsArray">{{ keyword }}</ion-badge>
+          <ion-card-title class="shop-card-content-title">{{ toTitleCase(shop.username) }}</ion-card-title>
+           <ion-icon name="information-circle" item-right style="position: absolute; top: 0.5rem; right: 1rem; font-size: 2rem;"></ion-icon>
+          <div style="margin-bottom: 1vh; white-space: nowrap; overflow: overlay;">
+            <ion-badge class="shop-card-content-badge" color="ui-theme" *ngFor="let keyword of shop.keywordsArray">{{ keyword.toLowerCase()  }}</ion-badge>
           </div>
-          <div style="position: absolute; bottom: 1vh;">
+          <div style="position: absolute; bottom: 1vh; white-space: nowrap; overflow: overlay;">
             <button ion-button class="shop-card-content-button">
                 <img src="assets/img/ui_icons/icon_truck_white.png" class="shop-card-content-button-image"/>
                 &nbsp;{{ shop.deliveryCharge }} {{ shop.currency }}&nbsp;

@@ -113,10 +113,12 @@ export class Shops {
         } else {
           this.start--;
           this.noMoreShops = true;
+          infiniteScroll.enable(false);
         }
       } else {
         this.start--;
         this.noMoreShops = true;
+        infiniteScroll.enable(false);
       }
       infiniteScroll.complete();
     });
@@ -126,8 +128,16 @@ export class Shops {
     this.navCtrl.push('ItemList', { shop: shop, city: this.city, category: this.category });
   }
 
+  openCart() {
+    this.navCtrl.push('CartPage', null);
+  }
+
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad Shops');
   }
 
+  toTitleCase(str) {
+    return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+  }
 }

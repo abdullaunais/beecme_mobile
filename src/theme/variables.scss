@@ -30,15 +30,27 @@ $colors: (
   light:      #f4f4f4,
   dark:       #222,
 
+  // ui-theme:   #a0de4f,
+  // ui-theme-dark: #506f27,
+  // ui-accent:  #ffffff
+
+  // ui-theme:   #03A9F4,
+  // ui-theme-dark: #0277BD,
+  // ui-accent:  #ffffff //blue
+
   ui-theme:   #a0de4f,
   ui-theme-dark: #506f27,
   ui-accent:  #ffffff
 );
 
-$ui-theme: #a0de4f;
-$ui-theme-dark: #506f27;
+    $ui-theme:   #a0de4f;
+  $ui-theme-dark: #506f27;
+//   $ui-theme: #a0de4f;
+// $ui-theme-dark: #506f27;
 $ui-theme-accent: #ffffff;
 $ui-theme-danger: #f53d3d;
+$ui-theme-primary: #387ef5;
+$ui-theme-secondary: #32db64;
 
 // App iOS Variables
 // --------------------------------------------------

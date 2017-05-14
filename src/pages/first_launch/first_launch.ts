@@ -102,6 +102,7 @@ export class FirstLaunch {
 
       this.storage.set('delivery.cart', []);
       this.storage.set('delivery.cartCount', 0);
+      this.storage.set('delivery.cartShop', {});
 
       this.navCtrl.setRoot('Categories', {
         locationSet: true,

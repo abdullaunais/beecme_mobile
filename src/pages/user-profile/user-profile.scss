@@ -1,9 +1,35 @@
 .page-user-profile {
-  background-color: #efefef;
+  background-color: #000;
+  .cover-background {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    opacity: .8;
+    background-color: #000;
+    -webkit-filter: blur(16px);
+    /* Safari 6.0 - 9.0 */
+    filter: blur(16px);
+  }
+
+  .cover-content {
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin:0 4rem;
+    z-index: 9999;
+  }
+
   .profile-pic {
     width: 100%;
-    height: 30rem;
-    background-color: #32db64;
+    height: 20rem;
+    width: 20rem;
+    display: block;
+    margin: 10rem auto 2rem;
+    border-radius: 100%;
     object-fit: cover;
   }
 }
@@ -11,9 +37,11 @@
 .profile-header {
   .toolbar {
     position: absolute;
+
     .toolbar-background {
       background: transparent;
     }
+
     .toolbar-title {
       color: #fff;
     }

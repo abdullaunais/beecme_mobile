@@ -3,7 +3,7 @@ import { NavController, NavParams, LoadingController, AlertController, IonicPage
 import { UserService } from '../../providers/user-service';
 import { Storage } from '@ionic/storage';
 import { Variables } from "../../providers/variables";
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 /*
   Generated class for the UserLogin page.

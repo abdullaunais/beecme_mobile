@@ -3,6 +3,7 @@ import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DeliveryService } from '../../providers/delivery-service';
 import { Variables } from "../../providers/variables";
+import { Subscription } from "rxjs/Subscription";
 
 
 @IonicPage()
@@ -21,6 +22,7 @@ export class Categories {
   deliveryService: DeliveryService;
   selectedCategory: string;
 
+  watchCart: Subscription;
   cartCount: number = 0;
   isLoading: boolean;
   isAvailable: boolean;
@@ -36,9 +38,7 @@ export class Categories {
     this.storage = storage;
     this.isLoading = true;
     this.isAvailable = true;
-    
-    this.variables.cartCount.subscribe(value => this.cartCount = value); 
-    
+
     if (!navParams.data.locationSet) {
       storage.get('location.city').then((city) => {
         if (city) {
@@ -50,6 +50,14 @@ export class Categories {
       this.selectedCity = navParams.data.city;
       this.initialize();
     }
+  }
+
+  ionViewWillEnter() {
+    this.watchCart = this.variables.cartCount.subscribe(value => this.cartCount = value); 
+  }
+
+  ionViewWillLeave() {
+    this.watchCart.unsubscribe();
   }
 
   initialize() {
@@ -68,6 +76,9 @@ export class Categories {
         this.isAvailable = false;
       }
       this.isLoading = false;
+    }).catch(err => {
+      // this.isAvailable = false;
+      // this.isLoading = false;
     });
   }
 

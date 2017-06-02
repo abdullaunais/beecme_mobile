@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { DeliveryService } from "../../providers/delivery-service";
 import { Variables } from "../../providers/variables";
+import { Subscription } from "rxjs/Subscription";
 
 /**
  * Generated class for the Shops page.
@@ -25,6 +26,7 @@ export class Shops {
   start: number = 0;
   offset: number = 20;
 
+  watchCart: Subscription;
   isLoading: boolean;
   isAvailable: boolean;
   cartCount: number;
@@ -36,13 +38,20 @@ export class Shops {
     private variables: Variables,
     delivery: DeliveryService
   ) {
-    this.variables.cartCount.subscribe(value => this.cartCount = value);
     this.deliveryService = delivery;
     this.category = navParams.data.category;
     this.city = navParams.data.city;
     this.isLoading = true;
     this.noMoreShops = false;
     this.initialize();
+  }
+
+  ionViewWillEnter() {
+    this.watchCart = this.variables.cartCount.subscribe(value => this.cartCount = value);
+  }
+
+  ionViewWillLeave() {
+    this.watchCart.unsubscribe();
   }
 
   initialize() {

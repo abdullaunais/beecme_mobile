@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions, Headers } from '@angular/http';
 import { Config } from './config';
-import 'rxjs/add/operator/map';
-
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 
 /*
   Generated class for the DeliveryService provider.
@@ -15,7 +14,9 @@ import 'rxjs/add/operator/map';
 export class DeliveryService {
 
   http: Http;
-  data: any;
+  headers: Headers;
+  options: RequestOptions;
+
   serviceRootUrl: string;
 
   LOCATION_URL = "/locations";
@@ -27,75 +28,58 @@ export class DeliveryService {
 
   constructor(public httpService: Http, public config: Config) {
     this.http = httpService;
-    this.data = null;
+    this.headers = new Headers({ 'Content-Type': 'application/json' });
+    this.options = new RequestOptions({ headers: this.headers });
     this.serviceRootUrl = config.serverUrl + "/delivery";
   }
 
-  getLocation(type, value, start, offset) {
+  getLocation(type, value, start, offset): Promise<any> {
     let queryParams = "?type=" + type + "&value=" + value + "&start=" + start + "&offset=" + offset;
     let requestUrl: string = this.serviceRootUrl + this.LOCATION_URL + queryParams;
-    return new Promise((resolve) => {
-      this.http.get(requestUrl)
-        .subscribe(data => {
-          resolve(data.json());
-        });
-    });
+    return this.http.get(requestUrl, this.options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
   }
 
-  getShops(cityId, categoryId, start, offset) {
+  getShops(cityId, categoryId, start, offset): Promise<any> {
     let queryParams = "?type=51&value=" + cityId + "&value=" + categoryId + "&start=" + start + "&offset=" + offset;
     let requestUrl: string = this.serviceRootUrl + this.SHOPS_URL + queryParams;
-    return new Promise((resolve) => {
-      this.http.get(requestUrl)
-        .subscribe(data => {
-          resolve(data.json());
-        });
-    });
+    return this.http.get(requestUrl, this.options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
   }
 
-  getCategories(cityId) {
+  getCategories(cityId): Promise<any> {
     let requestUrl: string = this.serviceRootUrl + this.CATEGORIES_URL + "/" + cityId;
-    return new Promise(resolve => {
-      this.http.get(requestUrl)
-        .subscribe(data => {
-          resolve(data.json());
-        });
-    });
+    return this.http.get(requestUrl, this.options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
   }
 
-  getItemByShop(userId, start, offset) {
+  getItemByShop(userId, start, offset): Promise<any> {
     let queryParams = "?type=17&value=" + userId + "&start=" + start + "&offset=" + offset;
     let requestUrl: string = this.serviceRootUrl + this.ITEM_URL + queryParams;
-    return new Promise(resolve => {
-      this.http.get(requestUrl)
-        .subscribe(data => {
-          resolve(data.json());
-        });
-    });
+    return this.http.get(requestUrl, this.options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
   }
 
-  getItemByCategory(category, start, offset) {
+  getItemByCategory(category, start, offset): Promise<any> {
     let queryParams = "?type=11&value=" + category + "&start=" + start + "&offset=" + offset;
     let requestUrl: string = this.serviceRootUrl + this.ITEM_URL + queryParams;
-    return new Promise(resolve => {
-      this.http.get(requestUrl)
-        .subscribe(data => {
-          resolve(data.json());
-        });
-    });
+    return this.http.get(requestUrl, this.options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
   }
 
-  getSchedules(cityId) {
+  getSchedules(cityId): Promise<any> {
     let requestUrl: string = this.serviceRootUrl + this.SCHEDULES_URL + "?city=" + cityId;
-    return new Promise(resolve => {
-      this.http.get(requestUrl)
-        .subscribe(data => {
-          resolve(data.json());
-        });
-    });
+    return this.http.get(requestUrl, this.options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
   }
 
-  addOrder(order, authToken) {
+  addOrder(order, authToken): Promise<any> {
     let body = JSON.stringify(order);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -103,13 +87,18 @@ export class DeliveryService {
     let options = new RequestOptions({ headers: headers });
 
     let requestUrl: string = this.serviceRootUrl + this.ADD_ORDER;
-    return new Promise(resolve => {
-      this.http.post(requestUrl, body, options)
-        .subscribe(data => {
-          resolve(data);
-        }, err => {
-          resolve(err);
-        });
-    });
+    return this.http.post(requestUrl, body, options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  private extractData(res: Response) {
+    let body = res.json();
+    return body || {};
+  }
+
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error);
+    return Promise.reject(error.message || error);
   }
 }

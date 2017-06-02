@@ -19,20 +19,20 @@
         <ion-spinner *ngIf="isLoading" class="loading-spinner" color="light"></ion-spinner>
     </div>
     <div class="card-background-page" style="margin-top: 6rem; margin-right: 1rem; margin-left: 1rem;">
-         <!--<ion-card class="section-devider">Categories</ion-card>-->
-         <ion-grid>
-              <ion-row *ngFor="let i of rows">
-                  <ion-col  *ngFor="let category of categories | slice:(i*2):(i+1)*2">
-                      <ion-card class="category-card-grid" (tap)="openCategory(category)">
-                          <!--<img class="card-image" src="{{ category.imageEn }}"/>-->
-                          <img class="card-image-grid" src="assets/img/categories/{{ category.nameEn.toLowerCase() }}.png"/>
-                          <div class="card-title-grid">{{ category.nameEn }}</div>
-                          <div class="card-devider-grid"></div>
-                          <div class="card-subtitle-grid">{{ category.descriptionEn }}</div>
-                      </ion-card>
-                  </ion-col>
-              </ion-row>
-          </ion-grid>
+        <!--<ion-card class="section-devider">Categories</ion-card>-->
+        <ion-grid>
+            <ion-row *ngFor="let i of rows">
+                <ion-col *ngFor="let category of categories | slice:(i*2):(i+1)*2">
+                    <ion-card class="category-card-grid" (tap)="openCategory(category)">
+                        <!--<img class="card-image" src="{{ category.imageEn }}"/>-->
+                        <img class="card-image-grid" src="assets/img/categories/{{ category.nameEn.toLowerCase() }}.png" />
+                        <div class="card-title-grid">{{ category.nameEn }}</div>
+                        <div class="card-devider-grid"></div>
+                        <div class="card-subtitle-grid">{{ category.descriptionEn }}</div>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
 
         <!--<ion-card *ngFor="let category of categories; let i = index;" class="category-card" (click)="openCategory(category)">
             <img class="card-image" src="{{ category.imageEn }}" />

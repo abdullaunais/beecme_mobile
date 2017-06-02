@@ -15,7 +15,7 @@ export class Config {
   serverUrl : string;
 
   constructor() {
-    this.serverHost = "34.208.134.2"; // local: 192.168.0.102 // aws: 34.208.134.2
+    this.serverHost = "54.254.246.56"; // local: 192.168.0.102 // aws: 54.254.246.56
     this.serverPort = "8080";
     this.serverUrl = "http://" + this.serverHost + ":" + this.serverPort;
   }

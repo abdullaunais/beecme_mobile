@@ -9,6 +9,7 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { MyApp } from './app.component';
 import { Config } from "../providers/config";
 import { Variables } from "../providers/variables";
+import { Network } from "@ionic-native/network";
 
 
 @NgModule({
@@ -32,6 +33,6 @@ import { Variables } from "../providers/variables";
   entryComponents: [
     MyApp
   ],
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, StatusBar, SplashScreen, Config, Variables]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, StatusBar, SplashScreen, Config, Variables, Network]
 })
 export class AppModule { }

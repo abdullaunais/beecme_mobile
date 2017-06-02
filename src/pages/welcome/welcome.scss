@@ -1,4 +1,4 @@
-.page-first_launch {
+.page-welcome {
   background-color: $ui-theme;
   .countrySelectIcon {
     height: 25vh;
@@ -7,7 +7,7 @@
     display: block;
   }
   .countryHead {
-    color: $ui-theme-dark;
+    color: $ui-theme-accent-dark;
     font-size: 6vw;
     text-align: center;
     margin-top: 10%;
@@ -19,7 +19,7 @@
     display: block;
   }
   .welcomeHead {
-    color: $ui-theme-dark;
+    color: $ui-theme-accent-dark;
     font-size: 6vw;
     text-align: center;
   }
@@ -27,7 +27,7 @@
     padding: 4vw;
     margin: 4vw;
     text-align: center;
-    color: $ui-theme-dark; // background-color: #8dd234;
+    color: $ui-theme-accent-dark; // background-color: #8dd234;
     border-radius: 5px;
     font-size: 5vw;
     height: 50vh;
@@ -76,7 +76,7 @@
     position: absolute;
     left: 0;
     top: 0;
-    color: $ui-theme-dark;
+    color: $ui-theme-accent-dark;
     font-size: 5vw;
   }
   .card-image {}

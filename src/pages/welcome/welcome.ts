@@ -7,12 +7,11 @@ import { Slides, ToastController, IonicPage } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'first_launch',
-  templateUrl: 'first_launch.html',
+  selector: 'welcome',
+  templateUrl: 'welcome.html',
   providers: [DeliveryService]
 })
-export class FirstLaunch {
-  deliveryService: DeliveryService;
+export class Welcome {
   storage: Storage;
 
   isAgreedToTerms: boolean = false;
@@ -40,14 +39,12 @@ export class FirstLaunch {
   constructor(
     public navCtrl: NavController,
     private navParams: NavParams,
-    delivery: DeliveryService,
+    private delivery: DeliveryService,
     storage: Storage,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController
   ) {
-    this.deliveryService = delivery;
     this.storage = storage;
-    this.initialize();
     //  if (true){
     //    swiperInstance.unlockSwipes();
     //  } else {
@@ -55,24 +52,36 @@ export class FirstLaunch {
     //  }
   }
 
+  ngAfterViewInit() {
+    this.initialize();
+  }
+
   initialize() {
     this.showLoading("Loading...");
-    this.deliveryService.getLocation(this.type, this.value, this.start, this.offset).then((data) => {
-      let json = JSON.stringify(data);
-      this.countries = JSON.parse(json);
-      this.hideLoading();
-    });
+    this.delivery.getLocation(this.type, this.value, this.start, this.offset)
+      .then((data) => {
+        let json = JSON.stringify(data);
+        this.countries = JSON.parse(json);
+        this.hideLoading();
+      }).catch((err) => {
+        console.log("Error ", err);
+        this.hideLoading();
+      });
   }
 
   countryChanged() {
     this.showLoading("Please wait...");
     this.type = 22;
     this.value = this.selectedCountry.id;
-    this.deliveryService.getLocation(this.type, this.value, this.start, this.offset).then((data) => {
-      let json = JSON.stringify(data);
-      this.provinces = JSON.parse(json);
-      this.hideLoading();
-    });
+    this.delivery.getLocation(this.type, this.value, this.start, this.offset)
+      .then((data) => {
+        let json = JSON.stringify(data);
+        this.provinces = JSON.parse(json);
+        this.hideLoading();
+      }).catch((err) => {
+        console.log("Error ", err);
+        this.hideLoading();
+      });
     this.countrySet = true;
   }
 
@@ -80,7 +89,7 @@ export class FirstLaunch {
     this.showLoading("Please wait...");
     this.type = 24;
     this.value = this.selectedProvince.id;
-    this.deliveryService.getLocation(this.type, this.value, this.start, this.offset).then((data) => {
+    this.delivery.getLocation(this.type, this.value, this.start, this.offset).then((data) => {
       let json = JSON.stringify(data);
       this.cities = JSON.parse(json);
       this.hideLoading();

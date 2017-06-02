@@ -1,9 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController } from 'ionic-angular';
+import { Nav, Platform, MenuController, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { Variables } from "../providers/variables";
+import { Network } from '@ionic-native/network';
+import { Subscription } from "rxjs/Subscription";
+
 
 @Component({
   templateUrl: 'app.html',
@@ -12,12 +15,17 @@ import { Variables } from "../providers/variables";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = 'Categories';
+  rootPage: any;
   profileLabel: string;
   profilepic: string;
   isLogin: boolean = false;
   profileComponent: any;
   cartCount: number;
+
+  connected: Subscription;
+  disconnected: Subscription;
+  watchLogin: Subscription;
+  watchCart: Subscription;
 
   pages: Array<{ title: string, component: any, icon: string, devide: boolean }>;
 
@@ -25,17 +33,19 @@ export class MyApp {
     public platform: Platform,
     storage: Storage,
     public menuCtrl: MenuController,
+    public toastCtrl: ToastController,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private variables: Variables
+    private variables: Variables,
+    private network: Network
   ) {
     this.initializeApp();
-    this.variables.login.subscribe(value => this.isLogin = value);
-    this.variables.cartCount.subscribe(value => this.cartCount = value);
 
     storage.get('location.set').then((locationSet) => {
       if (!locationSet) {
-        this.rootPage = 'FirstLaunch';
+        this.rootPage = 'Welcome';
+      } else {
+        this.rootPage = 'Categories';
       }
     });
     storage.get('user.data').then((response) => {
@@ -108,6 +118,35 @@ export class MyApp {
       this.statusBar.backgroundColorByHexString('#77bb11');
       this.splashScreen.hide();
     });
+  }
+
+  ionViewDidEnter() {
+    this.connected = this.network.onConnect().subscribe(data => {
+      console.log(data);
+    }, error => console.error(error));
+
+    this.disconnected = this.network.onDisconnect().subscribe(data => {
+      console.log(data);
+      this.displayNetworkUpdate(data.type);
+    }, error => console.error(error));
+
+    this.watchLogin = this.variables.login.subscribe(value => this.isLogin = value);
+    this.watchCart = this.variables.cartCount.subscribe(value => this.cartCount = value);
+  }
+
+  ionViewWillLeave() {
+    this.connected.unsubscribe();
+    this.disconnected.unsubscribe();
+    this.watchLogin.unsubscribe();
+    this.watchCart.unsubscribe();
+  }
+
+  displayNetworkUpdate(connectionState: string) {
+    // let networkType = this.network.type
+    this.toastCtrl.create({
+      message: `You are disconnected from the Internet. Check your connection`,
+      duration: 3000
+    }).present();
   }
 
   loginOrProfile() {

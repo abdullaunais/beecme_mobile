@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { FirstLaunch } from "./first_launch";
+import { Welcome } from "./welcome";
 
 @NgModule({
   declarations: [
-    FirstLaunch,
+    Welcome,
   ],
   imports: [
-    IonicPageModule.forChild(FirstLaunch),
+    IonicPageModule.forChild(Welcome),
   ],
   exports: [
-    FirstLaunch
+    Welcome
   ]
 })
-export class FirstLaunchModule {}
+export class WelcomeModule {}

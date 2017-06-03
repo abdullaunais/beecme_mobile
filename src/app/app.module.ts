@@ -21,6 +21,7 @@ import { Network } from "@ionic-native/network";
     HttpModule,
     IonicModule.forRoot(MyApp, {
       menuType: 'push',
+      // locationStrategy: 'path',
       platforms: {
         ios: {
           menuType: 'push',

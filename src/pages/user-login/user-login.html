@@ -1,24 +1,9 @@
-<!--
-  Generated template for the UserLogin page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<!--<ion-header>
-
-  <ion-navbar>
-    <ion-title>UserLogin</ion-title>
-  </ion-navbar>
-
-</ion-header>-->
-
-
 <ion-content class="page-user-login">
   <h4 class="registerHead"> Login to BeecMe </h4>
   <form [formGroup]="loginForm" (ngSubmit)="validate($event)">
     <ion-list style="margin: 3rem;">
 
-      <button  type="button" (click)="goToRegister()" class="login-button-register">Don't have an account? <b>Signup</b> </button>
+      <button type="button" (click)="goToRegister()" class="login-button-register">Don't have an account? <b>Signup</b> </button>
 
       <!--<ion-label class="register-section-label">Login Details</ion-label>-->
 
@@ -32,17 +17,11 @@
         <ion-icon name="key" color="ui-theme-dark" class="registerInputIcon" item-left></ion-icon>
       </ion-item>
 
-
-      <ion-item class="registerItem register-button-item" style="margin-top: 3rem;">
-        <button ion-button full clear type="submit" (click)="loginClick()" class="register-button">
+      <button ion-button full clear type="submit" (click)="loginClick()" class="register-button">
         <ion-icon name="person-add"></ion-icon>
         &nbsp;&nbsp;Login
     </button>
-      </ion-item>
-      <!--<ion-item class="registerItem">
-      <ion-input type="text" class="" placeholder="Latitude"></ion-input>
-      <ion-input type="text" class="" placeholder="Longitude"></ion-input>
-    </ion-item>-->
+
     </ion-list>
   </form>
 </ion-content>

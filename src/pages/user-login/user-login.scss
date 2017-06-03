@@ -20,11 +20,6 @@
     padding: 0;
     border-radius: 6px;
   }
-  .register-button-item {
-    margin-top: 3rem;
-    border-radius: 5px;
-    background-color: $ui-theme-dark;
-  }
   .registerInputIcon {
     padding-left: 2rem;
   }
@@ -38,9 +33,11 @@
     margin-top: 10%;
   }
   .register-button {
-    height: 2.5rem;
+    height: 5rem;
     color: #fff;
     background-color:  $ui-theme-dark;
+    margin-top: 3rem;
+    border-radius: 5px;
     font-size: 1.6rem;
   } // ion-list .item .item-inner {
   //   border-bottom: 2px solid #5DA2AD;

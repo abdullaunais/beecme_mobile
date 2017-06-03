@@ -1,18 +1,3 @@
-<!--
-  Generated template for the UserRegistration page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<!--<ion-header>-->
-
-<!--<ion-navbar>-->
-<!--<ion-title>Register</ion-title>-->
-<!--</ion-navbar>-->
-
-<!--</ion-header>-->
-
-
 <ion-content class="page-user-registration">
   <h4 class="registerHead"> Register with BeecMe </h4>
   <ion-list style="margin: 3rem;">
@@ -44,7 +29,7 @@
           <ion-input type="tel" formControlName="formPhone" (blur)="inputBlur()" #forminput class="registerInput" placeholder="Phone"></ion-input>
           <ion-icon name="call" color="ui-theme-dark" class="registerInputIcon" item-left></ion-icon>
           <ion-label style="margin:0 0 0 1rem; padding:0 0.5rem;" item-left>
-           +966 - 
+            +966 -
             <!--<ion-option value="lk">+94</ion-option>-->
           </ion-label>
         </ion-item>
@@ -73,7 +58,7 @@
             <ion-badge color="ui-theme" class="badge badge-assertive header-badge" style="top: -15px !important; left: -15px !important;">1</ion-badge>
           </ion-icon>
         </ion-item>
-        <ion-item class="registerItem" #formitem  style="border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
+        <ion-item class="registerItem" #formitem style="border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
           <ion-input type="text" class="registerInput" formControlName="formAddress2" (blur)="inputBlur()" #forminput placeholder="Street Address 2"></ion-input>
           <ion-icon name="home" color="ui-theme-dark" class="registerInputIcon" item-left style="margin-right: -1.7rem;">
             <ion-badge color="ui-theme" class="badge badge-assertive header-badge" style="top: -15px !important; left: -15px !important;">2</ion-badge>
@@ -84,32 +69,20 @@
             <ion-col style="background-color: #fff; padding:0 0.5rem; border-top-left-radius: 5px;border-bottom-left-radius: 5px;" no-padding>
               <ion-input type="text" class="registerInput center-input-text" disabled placeholder="Latitude"></ion-input>
             </ion-col>
-            <ion-col style="background-color: #fff; padding:0 0.5rem; border-bottom-right-radius: 5px;border-top-right-radius: 5px; margin-left:-1px;" no-padding>
+            <ion-col style="background-color: #fff; padding:0 0.5rem; border-bottom-right-radius: 5px;border-top-right-radius: 5px; margin-left:-1px;"
+              no-padding>
               <ion-input type="text" class="registerInput center-input-text" disabled placeholder="Longitude"></ion-input>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-item-group>
 
-
-      <ion-item class="registerItem register-button-item">
-        <!--<button ion-button full clear (click)="registerUser()" class="register-button">-->
-        <button ion-button full clear type="submit" (click)=" registerClick()" class="register-button">
+      <!--<button ion-button full clear (click)="registerUser()" class="register-button">-->
+      <button ion-button full clear type="submit" (click)=" registerClick()" class="register-button">
         <ion-icon name="person-add"></ion-icon>
         &nbsp;&nbsp;REGISTER
     </button>
-      </ion-item>
+
     </form>
-    <!--<ion-item class="registerItem">
-      <ion-input type="text" class="" placeholder="Latitude"></ion-input>
-      <ion-input type="text" class="" placeholder="Longitude"></ion-input>
-    </ion-item>-->
   </ion-list>
 </ion-content>
-
-<!--<ion-footer class="footer-user-registration">
-    <button ion-button full clear (click)="registerUser()" class="register-button">
-        <ion-icon name="person-add"></ion-icon>
-        &nbsp;&nbsp;REGISTER
-    </button>
-</ion-footer>-->

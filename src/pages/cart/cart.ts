@@ -17,6 +17,7 @@ import { Variables } from "../../providers/variables";
 export class CartPage {
 
   cartItems: Array<any>;
+  cartShop: any;
   storage: Storage;
 
   cartIsEmpty: boolean = false;
@@ -55,6 +56,9 @@ export class CartPage {
         this.cartIsEmpty = true;
       }
       this.isLoading = false;
+      this.storage.get('delivery.cartShop').then((cartShop) => {
+        this.cartShop = cartShop;
+      });
     });
   }
 
@@ -77,7 +81,7 @@ export class CartPage {
   }
 
   viewItem(item) {
-    this.navCtrl.push('DetailsPage', item);
+    this.navCtrl.push('DetailsPage', {item: item, shop: this.cartShop});
   }
 
   checkAmount() {

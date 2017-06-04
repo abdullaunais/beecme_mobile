@@ -18,16 +18,16 @@
 
 <ion-content no-padding class="page-app-settings">
 
-  <ion-list no-lines>
+  <ion-list no-lines inset>
 
     <ion-item (tap)="presentChangeLocationModal()">
-      <ion-icon name="pin" item-left></ion-icon>
+      <ion-icon name="pin" color="danger" item-left></ion-icon>
       Change Location
     </ion-item>
 
     <ion-item (tap)="loginOrLogout()">
-      <ion-icon name="contact" *ngIf="!isLogin" item-left></ion-icon>
-      <ion-icon name="exit" *ngIf="isLogin" item-left></ion-icon>
+      <ion-icon name="contact" color="primary" *ngIf="!isLogin" item-left></ion-icon>
+      <ion-icon name="exit" color="warning" *ngIf="isLogin" item-left></ion-icon>
       {{logTitle}}
     </ion-item>
 

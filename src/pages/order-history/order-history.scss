@@ -1,3 +1,67 @@
-page-order-history {
-
+.page-order-history {
+    ion-item {
+        padding-left: 0 !important;
+        ion-label {
+            margin-right: 0;
+        }
+        .item-inner {
+            padding-right: 0 !important;
+        }
+    }
+    .item-status-wrapper {
+        height: 2rem;
+        display: inline-flex;
+        align-items: center;
+        font-size: 2rem;
+        margin-right: 1rem;
+    }
+    .item-status {
+        font-size: 1rem;
+        padding-top: 0.1rem;
+        font-weight: 700;
+    }
+    .color-pending {
+        color: orange;
+    }
+    .color-completed {
+        color: $ui-theme-secondary;
+    }
+    .color-gold {
+        color: gold;
+    }
+    .item-action-button {
+        color: #333;
+        background: none;
+        box-shadow: none;
+    }
+    .item-col-scroll {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .item-image-wrapper {
+        margin: 0;
+        height: 8rem;
+        width: 8rem;
+    }
+    .item-content-wrapper {
+        padding: 1rem;
+        margin: 0;
+        font-size: 2rem;
+    }
+    .item-image {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: 50%;
+    }
+    .item-card {
+        height: 8rem;
+        background-color: #f5f5f5;
+        width: calc(100% - 1rem);
+    }
+    .item-badge-button {
+        display: block;
+        font-size: 1.5rem;
+    }
 }

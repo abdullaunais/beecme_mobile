@@ -16,7 +16,9 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any;
-  profileLabel: string;
+  activePage: any;
+
+  user: any;
   profilepic: string;
   isLogin: boolean = false;
   profileComponent: any;
@@ -27,11 +29,11 @@ export class MyApp {
   watchLogin: Subscription;
   watchCart: Subscription;
 
-  pages: Array<{ title: string, component: any, icon: string, devide: boolean }>;
+  pages: Array<{ title: string, component: any, color:string, icon: string, devide: boolean }>;
 
   constructor(
     public platform: Platform,
-    storage: Storage,
+    private storage: Storage,
     public menuCtrl: MenuController,
     public toastCtrl: ToastController,
     private splashScreen: SplashScreen,
@@ -40,6 +42,15 @@ export class MyApp {
     private network: Network
   ) {
     this.initializeApp();
+    // used for an example of ngFor and navigation
+    this.pages = [
+      { title: 'Categories', component: 'Categories', color: 'ui-theme', icon: 'apps', devide: false },
+      { title: 'My Cart', component: 'CartPage', color: 'green', icon: 'cart', devide: false },
+      { title: 'My Orders', component: 'OrderHistoryPage', color: 'primary', icon: 'cash', devide: true },
+      // { title: 'Sign In', component: 'UserLoginPage', color: 'danger', icon: 'person', devide: false },
+      { title: 'Account', component: 'UserProfilePage', color: 'danger', icon: 'person', devide: false },
+      { title: 'Settings', component: 'AppSettingsPage', color: 'blue-grey', icon: 'settings', devide: false }
+    ];
 
     storage.get('location.set').then((locationSet) => {
       if (!locationSet) {
@@ -54,7 +65,7 @@ export class MyApp {
           Variables.user.username = response.username;
           Variables.user.email = response.email;
           this.variables.setLogin(true);
-          this.profileLabel = Variables.user['username'];
+          this.user = response;
 
           if (response.profilePicture) {
             this.profilepic = response.profilePicture;
@@ -63,50 +74,32 @@ export class MyApp {
           }
 
         } else {
-          this.profileLabel = "";
+          this.user = {};
           this.profilepic = "assets/img/cover/profile_default.jpg";
           Variables.user.username = "";
           Variables.user.email = "";
           this.variables.setLogin(false);
         }
       } else {
-        this.profileLabel = "";
+        this.user = {};
         this.profilepic = "assets/img/cover/profile_default.jpg";
         Variables.user.username = "";
         Variables.user.email = "";
         this.variables.setLogin(false);
       }
 
-
-      if (this.isLogin) {
-        this.profileComponent = {
-          title: 'Profile', component: 'UserProfilePage', icon: 'person', devide: false
-        }
-      } else {
-        this.profileComponent = {
-          title: 'Sign In', component: 'UserLoginPage', icon: 'person', devide: false
-        }
-      }
-
-      // used for an example of ngFor and navigation
-      this.pages = [
-        { title: 'Categories', component: 'Categories', icon: 'apps', devide: false },
-        { title: 'My Cart', component: 'CartPage', icon: 'cart', devide: false },
-        { title: 'My Orders', component: 'OrderHistoryPage', icon: 'cash', devide: true },
-        this.profileComponent,
-        { title: 'Settings', component: 'AppSettingsPage', icon: 'settings', devide: false }
-      ];
+      // if (this.isLogin) {
+      //   this.profileComponent = {
+      //     title: 'Profile', component: 'UserProfilePage', color: 'ui-theme', icon: 'person', devide: false
+      //   }
+      // } else {
+      //   this.profileComponent = {
+      //     title: 'Sign In', component: 'UserLoginPage', color: 'ui-theme', icon: 'person', devide: false
+      //   }
+      // }
     });
 
-    storage.get('delivery.cartCount').then((data) => {
-      if (data)
-        if (!Number.isNaN(data))
-          this.variables.setCartCount(data);
-    });
-
-
-
-
+    
   }
 
   initializeApp() {
@@ -121,6 +114,12 @@ export class MyApp {
   }
 
   ionViewDidEnter() {
+    this.storage.get('delivery.cartCount').then((data) => {
+      if (data)
+        if (!Number.isNaN(data))
+          this.variables.setCartCount(data);
+    });
+
     this.connected = this.network.onConnect().subscribe(data => {
       console.log(data);
     }, error => console.error(error));
@@ -163,5 +162,10 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+    this.activePage = page;
+  }
+
+  public checkActivePage(page): boolean {
+    return page === this.activePage;
   }
 }

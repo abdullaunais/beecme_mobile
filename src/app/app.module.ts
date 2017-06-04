@@ -20,11 +20,11 @@ import { Network } from "@ionic-native/network";
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp, {
-      menuType: 'push',
+      menuType: 'reveal',
       // locationStrategy: 'path',
       platforms: {
         ios: {
-          menuType: 'push',
+          menuType: 'reveal',
         }
       }
     }),

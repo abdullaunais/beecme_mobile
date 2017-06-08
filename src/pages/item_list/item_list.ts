@@ -184,43 +184,49 @@ export class ItemList {
       buttons: [
         {
           text: '1',
-          role: '1',
+          cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(1, item);
           }
         },
         {
           text: '2',
+          cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(2, item);
           }
         },
         {
           text: '3',
+          cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(3, item);
           }
         },
         {
           text: '4',
+          cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(4, item);
           }
         },
         {
           text: '5',
+          cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(5, item);
           }
         },
         {
           text: 'More than 5',
+          cssClass: 'action-blue-btn',
           handler: () => {
             this.quantityPrompt(item);
           }
         },
         {
           text: 'Cancel',
+          cssClass: 'action-cancel-btn',
           role: 'cancel',
           handler: () => {
           }

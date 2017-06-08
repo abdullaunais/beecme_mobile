@@ -47,43 +47,49 @@ export class DetailsPage {
       buttons: [
         {
           text: '1',
-          role: '1',
+          cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(1);
           }
         },
         {
           text: '2',
+          cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(2);
           }
         },
         {
           text: '3',
+          cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(3);
           }
         },
         {
           text: '4',
+          cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(4);
           }
         },
         {
           text: '5',
+          cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(5);
           }
         },
         {
           text: 'More than 5',
+          cssClass: 'action-blue-btn',
           handler: () => {
             this.quantityPrompt();
           }
         },
         {
           text: 'Cancel',
+          cssClass: 'action-cancel-btn',
           role: 'cancel',
           handler: () => {
           }

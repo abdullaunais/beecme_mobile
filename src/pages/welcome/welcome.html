@@ -8,7 +8,7 @@
 <!--</ion-header>-->
 
 <ion-content class="page-welcome">
-  <div class="card-background-page">
+  <div class="card-background-page" style="background-image: url('assets/img/cover/welcome_background.jpg');">
 
     <ion-slides>
       <ion-slide style="height: 100vh;">
@@ -16,10 +16,7 @@
         <h4 class="welcomeHead"> Welcome to BeecMe </h4>
 
         <ion-scroll scrollY="true" class="welcomeDescription">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-          aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-          occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+          BeecMe is at the forefront of the online delivering industry in the GCC. Housing a wide variety of services from your kitchen needs to servicecs and maintenance, we make customer convenience our top priority. No matter what needs you are craving, find it on Beecme.com in KSA, Qatar, UAE and Oman.
         </ion-scroll>
         <ion-footer class="welcomeFooter">
           <button class="welcomeButton" (click)="goToSlide(1); lockSwipe();">GET STARTED</button>
@@ -45,7 +42,7 @@
             <ion-checkbox [(ngModel)]="isAgreedToTerms"></ion-checkbox>
             <ion-label>I Agree to the <span style="color:#2196F3;">Terms and Conditions</span></ion-label>
           </ion-item>
-            <button class="welcomeButton" (click)="checkIsAgreedToTerms()">PROCEED</button>
+            <button class="welcomeButton" style="margin-top:0.25rem;" (click)="checkIsAgreedToTerms()">PROCEED</button>
         </ion-footer>
       </ion-slide>
 
@@ -56,7 +53,7 @@
         </a>
         <img src="assets/img/ui_icons/location-marker-flat.png" width="50%" class="countrySelectIcon" alt="Location Icon" />
 
-        <h4 class="countryHead"> Select Location </h4>
+        <h4 class="countryHead"> Tell us know where you live </h4>
         <ion-list style="margin: 3rem;">
           <ion-item class="selectItem">
             <ion-label style="max-width:30vw;">Country</ion-label>

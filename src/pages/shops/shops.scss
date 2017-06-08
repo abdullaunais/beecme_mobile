@@ -25,8 +25,8 @@
         padding: 0 3vw;
     }
     .shop-card-content-title {
-        font-size: 5vw;
-        width: 100%;
+        font-size: 2rem;
+        width: 90%;
         white-space: nowrap;
         line-height: 1.0;
         text-overflow: ellipsis;
@@ -35,24 +35,42 @@
     }
     .shop-card-content-badge {
         margin-right: 4px;
-        color: $ui-theme;
+        color: $ui-theme-primary;
         background-color: white;
-        border: 1px solid $ui-theme;
-        font-size: 3vw;
+        border: 1px solid $ui-theme-primary;
+        font-size: 1rem;
     }
     .shop-card-content-button {
-        background-color: $ui-theme;
+        background-color: #eee;
         box-shadow: none;
-        color: white;
-         height: 3rem;
-        padding: 0;
-        font-size: 1.5rem; // border:1px solid $ui-theme;
+        color: #666;
+        margin: 0 0.5rem 0 0;
+        height: 2.5rem;
+        padding: 0 0.5rem 0 0;
+        border-radius: 2.5rem;
+        font-size: 1rem; // border:1px solid $ui-theme;
     }
     .shop-card-content-button-image {
-        height: 8vw;
-        width: 8vw;
-        border-right: 1px solid white;
-        padding: 1vw 1vw 1vw 1vw;
+        height: 2.5rem;
+        width: 2.5rem;
+        padding: 0.5rem;
+        border-radius: 100%;
+    }
+    .btn-primary {
+        background-color: $ui-theme-primary;
+        color: white;
+    }
+    .btn-secondary {
+        background-color: $ui-theme-secondary;
+        color: white;
+    }
+    .btn-warning {
+        background-color: $ui-theme-warning;
+        color: white;
+    }
+    .btn-danger {
+        background-color: $ui-theme-danger;
+        color: white;
     }
     .shop-card-content-label {
         font-size: 4vw;

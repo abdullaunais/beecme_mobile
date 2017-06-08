@@ -44,7 +44,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-    <ion-card *ngFor="let shop of shops; let i = index;" style="height: 18vh;" (click)="viewShop(shop);">
+  <ion-card *ngFor="let shop of shops; let i = index;" style="height: 18vh;" (click)="viewShop(shop);">
     <ion-row style="height: 18vh;">
       <ion-col col-4 class="shop-card-icon-col">
         <!--<image [defaultImage]="shop.profilePicture" [lazyLoad]="shop.profilePicture" [offset]="offset"></image>-->
@@ -54,17 +54,17 @@
       <ion-col col-8 class="shop-card-content-col">
         <ion-card-content class="shop-card-content">
           <ion-card-title class="shop-card-content-title">{{ toTitleCase(shop.username) }}</ion-card-title>
-           <ion-icon name="information-circle" item-right style="position: absolute; top: 0.5rem; right: 1rem; font-size: 2rem;"></ion-icon>
+          <ion-icon name="information-circle" color="ui-theme" item-right style="position: absolute; top: 0.5rem; right: 1rem; font-size: 2rem;"></ion-icon>
           <div style="margin-bottom: 1vh; white-space: nowrap; overflow: overlay;">
-            <ion-badge class="shop-card-content-badge" color="ui-theme" *ngFor="let keyword of shop.keywordsArray">{{ keyword.toLowerCase()  }}</ion-badge>
+            <ion-badge class="shop-card-content-badge" *ngFor="let keyword of shop.keywordsArray">{{ keyword.toLowerCase() }}</ion-badge>
           </div>
-          <div style="position: absolute; bottom: 1vh; white-space: nowrap; overflow: overlay;">
+          <div style="position: absolute; bottom: 1rem; left: 3vw; white-space: nowrap; overflow: overlay;">
             <button ion-button class="shop-card-content-button">
-                <img src="assets/img/ui_icons/icon_truck_white.png" class="shop-card-content-button-image"/>
+                <img src="assets/img/ui_icons/icon_truck_white.png" class="shop-card-content-button-image btn-warning"/>
                 &nbsp;{{ shop.deliveryCharge }} {{ shop.currency }}&nbsp;
             </button>
             <button ion-button class="shop-card-content-button">
-                <img src="assets/img/ui_icons/icon_meter_white.png" class="shop-card-content-button-image"/>
+                <img src="assets/img/ui_icons/icon_meter_white.png" class="shop-card-content-button-image btn-secondary"/>
                 &nbsp;{{ shop.minOrderAmt }} {{ shop.currency }}&nbsp;
             </button>
           </div>

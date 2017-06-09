@@ -44,8 +44,11 @@
                 <ion-card-content class="item-card-content">
                     <ion-card-title class="item-card-content-title">{{ toTitleCase(item.nameEn) }}</ion-card-title>
                     <p class="item-card-content-desc">{{ item.descriptionEn }}</p>
-                    <img src="assets/img/ui_icons/add_shopping_cart_green.svg" (click)="validateCart($event, item)" class="item-card-btn-cart">
-                    <ion-label class="item-card-content-price">{{ item.price }} SAR/{{ item.unit.toUpperCase() }}</ion-label>
+                    <img src="assets/img/ui_icons/add_shopping_cart_theme.svg" (click)="validateCart($event, item)" class="item-card-btn-cart">
+                    <ion-label class="item-card-content-price">
+                        <!--<ion-icon name="pricetag" color="ui-theme"></ion-icon>-->
+                        {{ item.price }} SAR/{{ item.unit.toUpperCase() }}
+                    </ion-label>
                 </ion-card-content>
             </ion-col>
         </ion-row>

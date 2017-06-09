@@ -1,5 +1,10 @@
 .page-welcome {
-  // background-color: $ui-theme;
+  background-color: $ui-theme;
+  ion-slide {
+    .slide-zoom {
+      height: 100%;
+    }
+  }
   .countrySelectIcon {
     height: 25vh;
     width: auto;
@@ -23,22 +28,19 @@
     text-align: center;
   }
   .welcomeDescription {
-    padding: 4vw;
-    margin: 4vw 8vw;
-    text-align: center;
+    padding: 0vw;
+    margin: 0vw 8vw;
     color: $ui-theme-accent; // background-color: #8dd234;
     font-weight: 300;
-    text-align: justify;
+    text-align: center;
     border-radius: 5px;
-    font-size: 1.5rem;
-    height: 50vh;
+    font-size: 1.4rem;
   }
   .checkboxTermsAndConditions {
     background-color: transparent;
     color: white;
     margin-left: 4vw;
-    margin-right: 4vw;
-    // font-size: 2rem;
+    margin-right: 4vw; // font-size: 2rem;
   }
   .welcomeFooter {
     // background-color: $ui-theme;

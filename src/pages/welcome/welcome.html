@@ -15,10 +15,13 @@
         <img src="assets/img/ui_icons/logo_no_background.png" width="50%" class="welcomeIcon" alt="Location Icon" />
         <h4 class="welcomeHead"> Welcome to BeecMe </h4>
 
-        <ion-scroll scrollY="true" class="welcomeDescription">
-          BeecMe is at the forefront of the online delivering industry in the GCC. Housing a wide variety of services from your kitchen needs to servicecs and maintenance, we make customer convenience our top priority. No matter what needs you are craving, find it on Beecme.com in KSA, Qatar, UAE and Oman.
-        </ion-scroll>
+
         <ion-footer class="welcomeFooter">
+          <div class="welcomeDescription">
+            BeecMe is at the forefront of the online delivering industry in the GCC. Housing a wide variety of services from your kitchen
+            needs to servicecs and maintenance, we make customer convenience our top priority. No matter what needs you are
+            craving, find it on Beecme.com in KSA, Qatar, UAE and Oman.
+          </div>
           <button class="welcomeButton" (click)="goToSlide(1); lockSwipe();">GET STARTED</button>
         </ion-footer>
       </ion-slide>
@@ -42,7 +45,7 @@
             <ion-checkbox [(ngModel)]="isAgreedToTerms"></ion-checkbox>
             <ion-label>I Agree to the <span style="color:#2196F3;">Terms and Conditions</span></ion-label>
           </ion-item>
-            <button class="welcomeButton" style="margin-top:0.25rem;" (click)="checkIsAgreedToTerms()">PROCEED</button>
+          <button class="welcomeButton" style="margin-top:0.25rem;" (click)="checkIsAgreedToTerms()">PROCEED</button>
         </ion-footer>
       </ion-slide>
 

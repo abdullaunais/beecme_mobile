@@ -22,11 +22,11 @@
             needs to servicecs and maintenance, we make customer convenience our top priority. No matter what needs you are
             craving, find it on Beecme.com in KSA, Qatar, UAE and Oman.
           </div>
-          <button class="welcomeButton" (click)="goToSlide(1); lockSwipe();">GET STARTED</button>
+          <button class="welcomeButton" (click)="checkIsAgreedToTerms();">GET STARTED</button>
         </ion-footer>
       </ion-slide>
 
-
+<!--
       <ion-slide style="height: 100vh;">
         <a class="btnSlideBack" (click)="unlockSwipe(); goToSlide(0);">
           <ion-icon name="arrow-back"> &nbsp;Back</ion-icon>
@@ -47,11 +47,11 @@
           </ion-item>
           <button class="welcomeButton" style="margin-top:0.25rem;" (click)="checkIsAgreedToTerms()">PROCEED</button>
         </ion-footer>
-      </ion-slide>
+      </ion-slide>-->
 
 
       <ion-slide>
-        <a class="btnSlideBack" (click)="goToSlide(1); lockSwipe();">
+        <a class="btnSlideBack" (click)="goToSlide(0); lockSwipe();">
           <ion-icon name="arrow-back"> &nbsp;Back</ion-icon>
         </a>
         <img src="assets/img/ui_icons/location-marker-flat.png" width="50%" class="countrySelectIcon" alt="Location Icon" />

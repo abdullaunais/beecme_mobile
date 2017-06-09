@@ -101,7 +101,7 @@ export class UserRegistrationPage {
   }
 
   registerUser() {
-    let alert = this.alertCtrl.create({
+    let confirmAlert = this.alertCtrl.create({
       title: 'Confim Signup',
       message: 'Do you wish to proceed signup?',
       cssClass: 'alert-style',
@@ -118,7 +118,6 @@ export class UserRegistrationPage {
           text: 'Yes',
           cssClass: 'alert-button-primary',
           handler: () => {
-            console.log('Yes clicked');
             this.showLoading("Registering...")
             let user = {
               "username": this.username,
@@ -154,10 +153,15 @@ export class UserRegistrationPage {
                       text: 'OK',
                       cssClass: 'alert-button-success',
                       handler: data => {
+                        let navTransition = prompt.dismiss();
                         if (this.redirectString === "redirect-deliveryschedule") {
-                          this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
+                          navTransition.then(() => {
+                            this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
+                          });
                         } else {
-                          this.navCtrl.push('UserLoginPage', null);
+                          navTransition.then(() => {
+                            this.navCtrl.push('UserLoginPage', null);
+                          });
                         }
                       }
                     }
@@ -181,10 +185,15 @@ export class UserRegistrationPage {
                         text: 'Login',
                         cssClass: 'alert-button-success',
                         handler: data => {
+                          let navTransition = prompt.dismiss();
                           if (this.redirectString === "redirect-deliveryschedule") {
-                            this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
+                            navTransition.then(() => {
+                              this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
+                            });
                           } else {
-                            this.navCtrl.push('UserLoginPage', null);
+                            navTransition.then(() => {
+                              this.navCtrl.push('UserLoginPage', null);
+                            });
                           }
                         }
                       }
@@ -231,7 +240,7 @@ export class UserRegistrationPage {
         }
       ]
     });
-    alert.present();
+    confirmAlert.present();
   }
 
   registerClick() {

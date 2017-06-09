@@ -3,7 +3,7 @@ import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { DeliveryService } from '../../providers/delivery-service';
 import { Storage } from '@ionic/storage';
 import { ViewChild } from '@angular/core';
-import { Slides, ToastController, IonicPage } from 'ionic-angular';
+import { Slides, ToastController, IonicPage, AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -42,7 +42,8 @@ export class Welcome {
     private delivery: DeliveryService,
     storage: Storage,
     public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public alertCtrl: AlertController
   ) {
     this.storage = storage;
     //  if (true){
@@ -53,6 +54,7 @@ export class Welcome {
   }
 
   ngAfterViewInit() {
+    this.lockSwipe();
     this.initialize();
   }
 
@@ -133,19 +135,45 @@ export class Welcome {
   }
 
   checkIsAgreedToTerms() {
-    if (this.isAgreedToTerms) {
-      this.goToSlide(2);
-      this.unlockSwipe();
-    } else {
-      let toast = this.toastCtrl.create({
-        message: "You should accept the terms and conditions before continuing",
-        showCloseButton: true,
-        closeButtonText: 'OK',
-        duration: 2000,
-        position: 'top'
-      });
-      toast.present();
-    }
+    // if (this.isAgreedToTerms) {
+    //   this.goToSlide(2);
+    //   this.unlockSwipe();
+    // } else {
+    //   let toast = this.toastCtrl.create({
+    //     message: "You should accept the terms and conditions before continuing",
+    //     showCloseButton: true,
+    //     closeButtonText: 'OK',
+    //     duration: 2000,
+    //     position: 'top'
+    //   });
+    //   toast.present();
+    // }
+
+    let termAlert = this.alertCtrl.create({
+      title: 'Terms and Conditions',
+      cssClass: 'alert-style',
+      message: 'By continuing, you are agreeing to our terms and conditions',
+      buttons: [
+        {
+          text: 'I Disagree',
+          cssClass: 'alert-button-danger-plain',
+          role: 'cancel',
+          handler: () => {
+            return;
+          }
+        },
+        {
+          text: 'I Agree',
+          cssClass: 'alert-button-primary',
+          handler: () => {
+            this.unlockSwipe();
+            this.goToSlide(1);
+            this.lockSwipe();
+          }
+        }
+      ]
+    });
+    termAlert.present();
   }
 
   goToSlide(num) {

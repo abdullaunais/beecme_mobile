@@ -34,7 +34,7 @@
 
     </ion-card-content>
 
-    <div (click)="showImages()"  style="height: 15rem; overflow: overlay; white-space: nowrap;">
+    <div (click)="showImages()" style="height: 15rem; overflow: overlay; white-space: nowrap;">
         <div style="display: inline-block;">
             <img *ngIf="item.img1" src="{{ item.img1 }}" class="item-image-scroll">
         </div>
@@ -64,6 +64,11 @@
             <ion-note item-right>{{ item.price }} SAR / {{ item.unit }}</ion-note>
         </ion-item>
     </ion-list>
+    <!--<ion-fab bottom right>
+        <button ion-fab color="ui-theme">
+            <ion-icon name="cart"></ion-icon>
+        </button>
+    </ion-fab>-->
 </ion-content>
 
 <ion-footer class="footer-details">
@@ -72,4 +77,3 @@
         &nbsp;&nbsp;ADD TO CART ( {{ item.price }} SAR / {{ item.unit }} )
     </button>
 </ion-footer>
-

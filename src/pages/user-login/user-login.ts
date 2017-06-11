@@ -247,4 +247,16 @@ export class UserLoginPage {
     });
     toast.present();
   }
+
+  forgotPwd() {
+    if (this.email) {
+      if (!this.loginForm.controls.formEmail.errors) {
+        this.navCtrl.push('ForgotPasswordPage', { email: this.email, redirectString: this.redirectString })
+      } else {
+        this.navCtrl.push('ForgotPasswordPage', { email: "", redirectString: this.redirectString })
+      }
+    } else {
+      this.navCtrl.push('ForgotPasswordPage', { email: "", redirectString: this.redirectString })
+    }
+  }
 }

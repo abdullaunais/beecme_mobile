@@ -22,6 +22,7 @@ export class UserService {
   REGISTER_URL = "/register";  // post
   GET_USER_URL = "/users/"; // +username, get
   AUTHENTICATE_LOGIN = "/auth" // post
+  FORGOT_PASSWORD = "/mails" // post
 
   constructor(public httpService: Http, public config: Config) {
     this.http = httpService;
@@ -60,6 +61,23 @@ export class UserService {
     let options = new RequestOptions({ headers: headers });
 
     let requestUrl: string = this.serviceRootUrl + this.AUTHENTICATE_LOGIN;
+    return this.http.post(requestUrl, body, options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  forgotPassword(email): Promise<any> {
+    let request = {
+      PASSWORD_RESET:1,
+      email: email,
+      subject: 1
+    };
+    let body = JSON.stringify(request);
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    let options = new RequestOptions({ headers: headers });
+
+    let requestUrl: string = this.serviceRootUrl + this.FORGOT_PASSWORD;
     return this.http.post(requestUrl, body, options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);

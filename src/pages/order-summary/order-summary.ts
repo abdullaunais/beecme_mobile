@@ -20,27 +20,19 @@ export class OrderSummaryPage {
   deliverySchedule: any;
   totalAmount: number;
 
-  storage: Storage;
   loading: any;
-  deliveryService: DeliveryService;
   checkoutComment: string = "";
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    deliveryService: DeliveryService,
-    storage: Storage,
+    private deliveryService: DeliveryService,
+    private storage: Storage,
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     private variables: Variables
   ) {
-    this.deliveryService = deliveryService;
-    this.storage = storage;
     this.totalAmount = 0;
     this.deliverySchedule = navParams.data;
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad OrderSummaryPage');
   }
 
   confirmOrder() {

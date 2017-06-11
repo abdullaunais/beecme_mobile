@@ -17,15 +17,12 @@ import { Storage } from "@ionic/storage";
   providers: [DeliveryService]
 })
 export class DeliverySchedulePage {
-
-  deliveryService : DeliveryService;
   schedules : Array<any>;
   deliverySchedule : any;
   city: any;
   loginParam: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, delivery: DeliveryService, storage: Storage, private toastCtrl: ToastController) {
-    this.deliveryService = delivery;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private deliveryService: DeliveryService, storage: Storage, private toastCtrl: ToastController) {
     this.loginParam = navParams.data;
     if(this.loginParam == "login-success") {
       this.presentToast("Login Success", 2000);
@@ -64,5 +61,4 @@ export class DeliverySchedulePage {
     });
     toast.present();
   }
-
 }

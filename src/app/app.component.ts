@@ -29,7 +29,7 @@ export class MyApp {
   watchLogin: Subscription;
   watchCart: Subscription;
 
-  pages: Array<{ title: string, component: any, color:string, icon: string, devide: boolean }>;
+  pages: Array<{ title:string, component:any, color:string, icon:string, devide:boolean }>;
 
   constructor(
     public platform: Platform,
@@ -44,12 +44,42 @@ export class MyApp {
     this.initializeApp();
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Categories', component: 'Categories', color: 'ui-theme', icon: 'apps', devide: false },
-      { title: 'My Cart', component: 'CartPage', color: 'green', icon: 'cart', devide: false },
-      { title: 'My Orders', component: 'OrderHistoryPage', color: 'primary', icon: 'cash', devide: true },
+      {
+        title: 'Categories',
+        component: 'Categories',
+        color: 'ui-theme',
+        icon: 'apps',
+        devide: false
+      },
+      {
+        title: 'My Cart',
+        component: 'CartPage',
+        color: 'green',
+        icon: 'cart',
+        devide: false
+      },
+      {
+        title: 'My Orders',
+        component: 'OrderHistoryPage',
+        color: 'primary',
+        icon: 'cash',
+        devide: true
+      },
       // { title: 'Sign In', component: 'UserLoginPage', color: 'danger', icon: 'person', devide: false },
-      { title: 'Account', component: 'UserProfilePage', color: 'danger', icon: 'person', devide: false },
-      { title: 'Settings', component: 'AppSettingsPage', color: 'blue-grey', icon: 'settings', devide: false }
+      {
+        title: 'Account',
+        component: 'UserProfilePage',
+        color: 'danger',
+        icon: 'person',
+        devide: false
+      },
+      {
+        title: 'Settings',
+        component: 'AppSettingsPage',
+        color: 'blue-grey',
+        icon: 'settings',
+        devide: false
+      }
     ];
 
     storage.get('location.set').then((locationSet) => {
@@ -99,7 +129,7 @@ export class MyApp {
       // }
     });
 
-    
+
   }
 
   initializeApp() {

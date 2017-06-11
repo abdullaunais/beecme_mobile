@@ -17,8 +17,6 @@ import { Subscription } from "rxjs/Subscription";
   providers: [DeliveryService]
 })
 export class Shops {
-
-  deliveryService: DeliveryService;
   category: any;
   city: any;
   shops: Array<any> = [];
@@ -36,9 +34,8 @@ export class Shops {
     public navCtrl: NavController,
     public navParams: NavParams,
     private variables: Variables,
-    delivery: DeliveryService
+    private deliveryService: DeliveryService
   ) {
-    this.deliveryService = delivery;
     this.category = navParams.data.category;
     this.city = navParams.data.city;
     this.isLoading = true;

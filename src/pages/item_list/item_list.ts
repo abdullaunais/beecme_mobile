@@ -25,9 +25,6 @@ export class ItemList {
   start: number = 0;
   offset: number = 20;
 
-  deliveryService: DeliveryService;
-  storage: Storage;
-
   cartCount: number;
   isLoading: boolean;
   noMoreItems: boolean;
@@ -35,15 +32,13 @@ export class ItemList {
   constructor(
     public navCtrl: NavController,
     private navParams: NavParams,
-    delivery: DeliveryService,
-    storage: Storage,
+    private deliveryService: DeliveryService,
+    private storage: Storage,
     public actionSheetCtrl: ActionSheetController,
     public alertCtrl: AlertController,
     private variables: Variables,
     private toastCtrl: ToastController
   ) {
-    this.deliveryService = delivery;
-    this.storage = storage;
     this.isLoading = true;
     this.noMoreItems = false;
     this.shop = navParams.data.shop;

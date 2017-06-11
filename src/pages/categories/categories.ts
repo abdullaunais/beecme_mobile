@@ -15,11 +15,9 @@ import { Subscription } from "rxjs/Subscription";
 export class Categories {
   filterText: string = '';
   selectedCity: any = null;
-  storage: Storage;
 
   categories: Array<any> = [];
   rows: Array<any> = [];
-  deliveryService: DeliveryService;
   selectedCategory: string;
 
   watchCart: Subscription;
@@ -30,12 +28,10 @@ export class Categories {
   constructor(
     public navCtrl: NavController,
     private navParams: NavParams,
-    delivery: DeliveryService,
+    private deliveryService: DeliveryService,
     storage: Storage,
     private variables: Variables
     ) {
-    this.deliveryService = delivery;
-    this.storage = storage;
     this.isLoading = true;
     this.isAvailable = true;
 

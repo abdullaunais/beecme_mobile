@@ -17,9 +17,6 @@ import { Variables } from "../../providers/variables";
   providers: [DeliveryService]
 })
 export class ChangeLocation {
-  deliveryService: DeliveryService;
-  storage: Storage;
-
   countries: Array<any> = [];
   provinces: Array<any> = [];
   cities: Array<any> = [];
@@ -46,15 +43,13 @@ export class ChangeLocation {
   constructor(
     public navCtrl: NavController,
     private navParams: NavParams,
-    delivery: DeliveryService,
-    storage: Storage,
+    private deliveryService: DeliveryService,
+    private storage: Storage,
     public loadingCtrl: LoadingController,
     public viewCtrl: ViewController,
     private variables: Variables,
     private alertCtrl: AlertController
   ) {
-    this.deliveryService = delivery;
-    this.storage = storage;
     this.alert = this.alertCtrl.create({
       title: 'Error',
       message: 'Unable to retrieve locations. Check your internet connection',

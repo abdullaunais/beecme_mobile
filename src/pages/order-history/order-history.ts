@@ -13,18 +13,14 @@ import { NavController, NavParams, IonicPage, ActionSheetController } from 'ioni
   templateUrl: 'order-history.html'
 })
 export class OrderHistoryPage {
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public actionSheetCtrl: ActionSheetController
-  ) {
-
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad OrderHistoryPage');
-  }
+  ) {}
+  // ionViewDidLoad() {
+  //   console.log('ionViewDidLoad OrderHistoryPage');
+  // }
 
   getActions(order: any) {
     let actionSheet = this.actionSheetCtrl.create({

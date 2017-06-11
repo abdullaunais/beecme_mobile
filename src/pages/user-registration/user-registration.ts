@@ -33,8 +33,6 @@ export class UserRegistrationPage {
   province: any;
   country: any;
 
-  storage: Storage;
-  userService: UserService;
   loading: any;
   redirectString: string;
   registerPressed: boolean = false;
@@ -57,16 +55,14 @@ export class UserRegistrationPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    storage: Storage,
-    userService: UserService,
+    private storage: Storage,
+    private userService: UserService,
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     private geolocation: Geolocation,
     public fb: FormBuilder,
     public toastCtrl: ToastController
   ) {
-    this.storage = storage;
-    this.userService = userService;
     this.redirectString = navParams.data;
     storage.get('location.city').then((city) => {
       if (city) {

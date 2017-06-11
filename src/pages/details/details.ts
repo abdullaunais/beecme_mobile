@@ -22,13 +22,12 @@ export class DetailsPage {
   item: any;
   shop: any;
   category: any;
-  storage: Storage;
 
   cartCount: number = 0;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    storage: Storage,
+    private storage: Storage,
     public actionSheetCtrl: ActionSheetController,
     public alertCtrl: AlertController,
     private variables: Variables,
@@ -37,7 +36,6 @@ export class DetailsPage {
     this.item = navParams.data.item;
     this.shop = navParams.data.shop;
     this.category = navParams.data.category;
-    this.storage = storage;
     this.variables.cartCount.subscribe(value => this.cartCount = value);
   }
 

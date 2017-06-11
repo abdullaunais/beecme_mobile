@@ -12,8 +12,6 @@ import { Slides, ToastController, IonicPage, AlertController } from 'ionic-angul
   providers: [DeliveryService]
 })
 export class Welcome {
-  storage: Storage;
-
   isAgreedToTerms: boolean = false;
 
   countries: Array<any> = [];
@@ -40,18 +38,11 @@ export class Welcome {
     public navCtrl: NavController,
     private navParams: NavParams,
     private delivery: DeliveryService,
-    storage: Storage,
+    private storage: Storage,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
     public alertCtrl: AlertController
-  ) {
-    this.storage = storage;
-    //  if (true){
-    //    swiperInstance.unlockSwipes();
-    //  } else {
-    //    swiperInstance.lockSwipes();
-    //  }
-  }
+  ) {}
 
   ngAfterViewInit() {
     this.lockSwipe();

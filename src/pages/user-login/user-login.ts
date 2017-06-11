@@ -18,14 +18,10 @@ import { FormBuilder, Validators } from '@angular/forms';
   providers: [UserService]
 })
 export class UserLoginPage {
-
-  userService: UserService;
-
   email: string;
   password: any;
 
   redirectString: string;
-  storage: Storage;
   loading: any;
 
   loginPressed: boolean = false;
@@ -44,21 +40,15 @@ export class UserLoginPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    userService: UserService,
-    storage: Storage,
+    private userService: UserService,
+    private storage: Storage,
     public loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     public fb: FormBuilder,
     private variables: Variables,
     public toastCtrl: ToastController
   ) {
-    this.userService = userService;
-    this.storage = storage;
     this.redirectString = navParams.data;
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UserLoginPage');
   }
 
   showLoading(content) {

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, IonicPage, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Variables } from "../../providers/variables";
+import { DeliveryService } from "../../providers/delivery-service";
 
 /*
   Generated class for the Cart page.
@@ -12,16 +13,19 @@ import { Variables } from "../../providers/variables";
 @IonicPage()
 @Component({
   selector: 'page-cart',
-  templateUrl: 'cart.html'
+  templateUrl: 'cart.html',
+  providers: [DeliveryService]
 })
 export class CartPage {
+  loading: any;
+  city: any;
 
   cartItems: Array<any>;
-  cartShop: any;
-  storage: Storage;
+  cartShop: any = {};
 
   cartIsEmpty: boolean = false;
   isLoading: boolean;
+  shopIsVisible: boolean;
   totalAmount: number = 0;
 
   checkoutComment: string = "";
@@ -29,24 +33,33 @@ export class CartPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    storage: Storage,
+    private storage: Storage,
     private variables: Variables,
     private toastCtrl: ToastController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController,
+    private deliveryService: DeliveryService
   ) {
     this.cartItems = [];
-    this.storage = storage;
     this.isLoading = true;
+    this.shopIsVisible = false;
+  }
 
-    storage.get('delivery.cart').then((cart) => {
-      console.info("CartItems --> ", cart);
+  ionViewDidEnter() {
+    // console.log('ionViewDidLoad Shops');
+    this.storage.get('delivery.cart').then((cart) => {
+      // console.info("CartItems --> ", cart);
       if (cart) {
         if (cart.length > 0) {
           this.cartItems = cart;
           this.cartIsEmpty = false;
           this.cartItems.forEach((item) => {
             this.totalAmount = this.totalAmount + (item.price * item.quantity);
-          })
+          });
+          this.storage.get('delivery.cartShop').then((cartShop) => {
+            this.cartShop = cartShop;
+            this.shopIsVisible = true;
+          });
         } else {
           this.cartItems = [];
           this.cartIsEmpty = true;
@@ -56,9 +69,12 @@ export class CartPage {
         this.cartIsEmpty = true;
       }
       this.isLoading = false;
-      this.storage.get('delivery.cartShop').then((cartShop) => {
-        this.cartShop = cartShop;
-      });
+    }).catch(err => {
+      // console.log("Its screwed man");
+      //ignore
+    });
+    this.storage.get('location.city').then((city) => {
+      this.city = city;
     });
   }
 
@@ -76,12 +92,13 @@ export class CartPage {
     this.storage.set('delivery.cartCount', this.cartItems.length);
     if (this.cartItems.length === 0) {
       this.storage.set('delivery.cartShop', {});
+      this.shopIsVisible = false;
     }
     this.variables.setCartCount(this.cartItems.length);
   }
 
   viewItem(item) {
-    this.navCtrl.push('DetailsPage', {item: item, shop: this.cartShop});
+      this.navCtrl.push('DetailsPage', { item: item, shop: this.cartShop, category: {} });
   }
 
   checkAmount() {
@@ -89,7 +106,7 @@ export class CartPage {
       if (cartShop) {
         if (cartShop.userId) {
           if (this.totalAmount < cartShop.minOrderAmt) {
-            this.presentToast("You should have at least "+ cartShop.minOrderAmt +" worth items in this shop to checkout. Add some more items", 2000);
+            this.presentToast("You should have at least " + cartShop.minOrderAmt + " worth items in this shop to checkout. Add some more items", 2000);
             return;
           } else {
             this.checkout();
@@ -110,10 +127,11 @@ export class CartPage {
         { name: 'comment', placeholder: 'Comment' },
       ],
       buttons: [
-        { 
+        {
           text: 'Cancel',
           cssClass: 'alert-button-danger-plain',
-          handler: data => { } },
+          handler: data => { }
+        },
         {
           text: 'Checkout',
           cssClass: 'alert-button-primary',
@@ -123,11 +141,11 @@ export class CartPage {
 
             this.storage.get('user.login').then((auth) => {
               if (auth) {
-                this.navCtrl.push('DeliverySchedulePage', this.checkoutComment);
+                this.navCtrl.push('OrderSummaryPage', { comment: this.checkoutComment });
               } else {
                 // DeliverySchedulePage - testing
                 // UserLoginPage - original
-                this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
+                this.navCtrl.push('UserLoginPage', { comment: this.checkoutComment, redirect: "redirect-deliveryschedule" });
               }
             });
           }
@@ -135,6 +153,17 @@ export class CartPage {
       ]
     });
     prompt.present();
+  }
+
+  showLoading(content) {
+    this.loading = this.loadingCtrl.create({
+      content: content,
+    });
+    this.loading.present();
+  }
+
+  hideLoading() {
+    this.loading.dismiss();
   }
 
   presentToast(message, duration) {

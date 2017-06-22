@@ -4,7 +4,7 @@
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header class="page-cart-header">
 
   <ion-navbar color="ui-theme">
     <button ion-button menuToggle>
@@ -17,17 +17,30 @@
 
 
 <ion-content class="page-cart">
+
   <div style="display: flex; justify-content: space-between;">
     <ion-label *ngIf="cartItems.length === 0 && !isLoading" style="text-align: center; width: 100%; color: #999;">No Items in Cart.</ion-label>
     <ion-spinner *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
   </div>
+
+  <ion-card ion-item no-lines class="cart-status" *ngIf="shopIsVisible">
+    <ion-avatar item-left>
+      <img [src]="cartShop.profilePicture">
+    </ion-avatar>
+    <h2 style="color: #fff; font-weight: 700;">{{cartShop.username}}</h2>
+    <div class="item-status-wrapper">
+      <ion-icon name="cart"></ion-icon>
+      <div class="item-status">&nbsp;CURRENTLY ACTIVE</div>
+    </div>
+  </ion-card>
+
   <ion-card *ngFor="let item of cartItems; let i = index;">
     <ion-row>
       <ion-col col-4 class="item-card-icon-col" no-padding>
-        <img class="item-card-icon" src="{{ item.img1 }}" />
+        <img class="item-card-icon" [src]="item.img1" />
       </ion-col>
       <ion-col class="item-card-content-col" no-padding>
-        <ion-card-content class="item-card-content"  style="padding: 1rem;">
+        <ion-card-content class="item-card-content" style="padding: 1rem;">
           <ion-card-title class="item-card-content-title" no-margin no-padding>
             {{ toTitleCase(item.nameEn) }}
           </ion-card-title>
@@ -36,33 +49,18 @@
           </ion-label>-->
         </ion-card-content>
         <!--<div style="width: 100%; height: 1px; background-color: #eee;"></div>-->
-        <ion-card-content class="item-card-content-desc" style="padding: 0.4rem 2rem 0 0.8rem; font-size:1.2rem;">
-          Quantity :
-          <ion-badge style="font-size:1.2rem;">{{ item.quantity }} {{ item.unit.toUpperCase() }}(S)</ion-badge>
+        <ion-card-content class="item-card-content-desc" style="padding: 0.4rem 2rem 0 0.8rem;">
+          <!--Quantity :-->
+          <ion-badge style="font-size:1.2rem;">{{ item.quantity + " " + item.unit }}{{ (item.quantity > 1) ? "s" : "" }}</ion-badge>
         </ion-card-content>
         <!--<div style="width: 100%; height: 1px; background-color: #eee;"></div>-->
         <ion-card-content style="padding: 0.8rem 2rem 0 0.8rem;">
           <p class="item-card-content-desc" no-margin>
-            Comment : <br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#666;"><i>"{{ item.comment }}"</i></span>
+            Comment : <br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#666;"><i>"{{ item.commentDtl }}"</i></span>
           </p>
         </ion-card-content>
       </ion-col>
     </ion-row>
-    <!--<hr style="margin: 0;"/>-->
-    <!--<ion-row>
-      <ion-col width-25 no-padding></ion-col>
-      <ion-col no-padding text-center>
-      <ion-list>
-        <ion-item>
-          <ion-label>Quantity</ion-label>
-          <ion-select>
-            <ion-option value="2" selected="true">{{ item.cartQuantity }}</ion-option>
-          </ion-select>
-        </ion-item>
-      </ion-list>
-      </ion-col>
-      <ion-col width-25></ion-col>
-    </ion-row>-->
     <hr style="margin: 0;" />
     <ion-row no-padding>
       <ion-col text-center style="padding:0">
@@ -85,11 +83,17 @@
       </ion-col>
     </ion-row>
   </ion-card>
+
+  <!--<ion-fab top right edge>
+    <button color="ui-theme-dark" ion-fab (click)="checkAmount()">
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+    </button>
+  </ion-fab>-->
 </ion-content>
 
 <ion-footer class="footer-cart" *ngIf="cartItems.length > 0">
   <button ion-button full clear (click)="checkAmount()" class="button-checkout"> 
-    <ion-icon name="checkmark-circle-outline"></ion-icon>
-    &nbsp;&nbsp;CHECKOUT ( Total {{totalAmount}} SAR )
+    <ion-icon name="checkmark-circle"></ion-icon>
+    &nbsp;&nbsp;CHECKOUT ( TOTAL {{totalAmount}} SAR )
   </button>
 </ion-footer>

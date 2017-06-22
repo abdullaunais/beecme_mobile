@@ -1,18 +1,67 @@
 .page-details {
-  .item-image-main {
-    width: 100%;
-    height: 30rem;
-    width: 100%;
-    border: 0;
-    object-fit: cover;
+  ion-label {
+    margin: 0;
   }
-
+  ion-avatar {
+    img {
+      object-fit: cover;
+    }
+  }
+  .scroll {
+    height: 100%
+  }
+  #map {
+    width: 100%;
+    height: 100%;
+  }
+  .header-image {
+    height: 40vh;
+    background-size: cover;
+    background-position: 50% center;
+  }
+  .main-content {
+    width: 100%;
+    background-color: #E8EAF6;
+  }
+  .item-status-wrapper {
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    font-size: 2rem;
+    margin-right: 1rem;
+  }
+  .item-status {
+    font-size: 1rem;
+    padding-top: 0.1rem;
+    font-weight: 700;
+  }
+  .item-action-button {
+    color: #333;
+    background: none;
+    box-shadow: none;
+    margin: 0;
+  }
+  .color-secondary {
+    color: $ui-theme-secondary;
+  }
+  .color-gold {
+    color: gold;
+  }
+  .color-primary {
+    color: $ui-theme-primary;
+  }
+  .item-title {
+    font-size: 2rem;
+    background-color: transparent;
+  }
   .item-description-paragraph {
-    height: 8rem;
-    overflow: overlay;
-    white-space: pre-line;
-  }
-  //.item-description-overlay {
+    height: 7rem;
+    font-size: 1.4rem;
+    line-height: 1.4rem;
+    margin-top: 3rem;
+    color: #666;
+    text-align: center;
+  } //.item-description-overlay {
   //  width: 100%;
   //  text-align: center;
   //  position: absolute;
@@ -21,40 +70,47 @@
   //  -webkit-box-shadow: 0 0 10px #fff;
   //  box-shadow:         0 0 10px #fff;
   //}
-
+  .btn-cart-add {
+    height: 3.5rem;
+    margin: 0;
+  }
   .item-image-scroll {
     height: 14rem;
     width: auto;
     background-color: #eeeeee;
-    margin:0;
-    border-radius:0;
+    margin: 0;
+    border-radius: 0;
     display: inline-block;
   }
 }
 
 .footer-details {
   .button-cart {
-    height:5rem;
+    height: 5rem;
     background-color: $ui-theme;
     border-color: $ui-theme;
     color: #fff;
-    margin:0;
+    margin: 0;
   }
 }
 
-//
-//.scroll-content {
-//  background: #fff;
-//}
-//
-//ion-navbar .toolbar-background {
-//  background: transparent;
-//}
-//
-//ion-content .scroll-content {
-//  margin-top:0px !important;
-//}
-//
-//.header-md::after {
-//  height: 0px;
-//}
+.details-header {
+  .toolbar {
+    position: absolute;
+    .toolbar-background {
+      background: transparent;
+      border-width: 0 !important;
+      transition: background-color 0.5s ease-in-out;
+    }
+    .bar-button {
+      text-shadow: 1px 1px 5px #999;
+    }
+    .toolbar-title {
+      color: #fff;
+      text-shadow: 1px 1px 5px #999;
+    }
+  }
+  .btn-edit-image {
+    text-shadow: 0px 0px 5px #bbb;
+  }
+}

@@ -1,7 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Content, ActionSheetController, AlertController, ToastController, IonicPage } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams, ActionSheetController, AlertController, ToastController, IonicPage, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Variables } from "../../providers/variables";
+import { DeliveryService } from "../../providers/delivery-service";
 
 /*
   Generated class for the Details page.
@@ -12,18 +13,19 @@ import { Variables } from "../../providers/variables";
 @IonicPage()
 @Component({
   selector: 'page-details',
-  templateUrl: 'details.html'
+  templateUrl: 'details.html',
+  providers: [DeliveryService]
 })
 export class DetailsPage {
-
-  @ViewChild(Content) content: Content;
-  headerShow: boolean = false;
-
   item: any;
   shop: any;
   category: any;
 
   cartCount: number = 0;
+  offsetHeight: number;
+
+  isLoading: boolean;
+  loading: any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -31,12 +33,36 @@ export class DetailsPage {
     public actionSheetCtrl: ActionSheetController,
     public alertCtrl: AlertController,
     private variables: Variables,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController,
+    private deliveryService: DeliveryService
   ) {
     this.item = navParams.data.item;
     this.shop = navParams.data.shop;
     this.category = navParams.data.category;
     this.variables.cartCount.subscribe(value => this.cartCount = value);
+    this.initialize();
+  }
+
+  initialize() {
+    if (!this.category.nameEn) {
+      // this.showLoading("Please wait...");
+      this.storage.get("location.city").then(city => {
+        this.deliveryService.getCategories(city.id).then(categoryList => {
+          let json = JSON.stringify(categoryList);
+          let catArray = JSON.parse(json);
+          catArray.forEach(element => {
+            if (element.categoryId === this.item.category) {
+              this.category = element;
+            }
+          });
+          // this.hideLoading();
+        }).catch(err => {
+          // this.hideLoading();
+          this.presentToast("Error when fetching category", 2000);
+        });
+      });
+    }
   }
 
   selectQuantity() {
@@ -106,10 +132,11 @@ export class DetailsPage {
         { name: 'quantity', placeholder: 'Quantity' },
       ],
       buttons: [
-        { 
+        {
           text: 'Cancel',
           cssClass: 'alert-button-danger-plain',
-          handler: data => { } },
+          handler: data => { }
+        },
         {
           text: 'Add',
           cssClass: 'alert-button-primary',
@@ -147,13 +174,14 @@ export class DetailsPage {
         {
           text: 'Cancel',
           cssClass: 'alert-button-danger-plain',
-          handler: data => { } },
+          handler: data => { }
+        },
         {
           text: 'Add',
           cssClass: 'alert-button-primary',
           handler: data => {
             // if (this.item.qty >= quantity) {
-            this.item.comment = data.comment;
+            this.item.commentDtl = data.comment;
             this.item.quantity = quantity;
             this.storage.get('delivery.cart').then((cart) => {
               let cartItems: Array<any> = cart;
@@ -195,7 +223,7 @@ export class DetailsPage {
     prompt.present();
   }
 
-    validateCart() {
+  validateCart() {
     this.storage.get('delivery.cartShop').then((cartShop) => {
       if (cartShop) {
         if (cartShop.userId) {
@@ -244,6 +272,43 @@ export class DetailsPage {
     this.navCtrl.push('ImageSliderPage', this.item);
   }
 
+  showShopInfo() {
+    return;
+  }
+
+  ngAfterViewInit() {
+    this.offsetHeight = document.getElementById('nav-content').offsetHeight;
+    this.refreshPicture();
+  }
+
+  refreshPicture() {
+    if (this.item.img1) {
+      document.getElementById('headerImage').style.backgroundImage = "url(" + this.item.img1 + ")";
+    } else {
+      document.getElementById('headerImage').style.backgroundImage = "url('assets/img/cover/profile_default_grey.jpg')";
+    }
+  }
+
+  checkScroll(event) {
+    let yOffset = document.getElementById('item-content').offsetTop;
+    if (event.scrollTop > yOffset - this.offsetHeight) {
+      document.getElementById('header-content').classList.remove("details-header");
+    } else {
+      document.getElementById('header-content').classList.add("details-header");
+    }
+  }
+
+  showLoading(content) {
+    this.loading = this.loadingCtrl.create({
+      content: content,
+    });
+    this.loading.present();
+  }
+
+  hideLoading() {
+    this.loading.dismiss();
+  }
+
   presentToast(message, duration) {
     let toast = this.toastCtrl.create({
       message: message,
@@ -256,9 +321,6 @@ export class DetailsPage {
 
   goToCart() {
     this.navCtrl.push('CartPage');
-  }
-
-  ngAfterViewInit() {
   }
 
   toTitleCase(str) {

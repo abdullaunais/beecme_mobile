@@ -1,26 +1,57 @@
+.page-order-summary-header {}
+
 .page-order-summary {
-    background-color: $ui-theme;
-    .confirmHead {
-        color: white;
-        font-size: 2.5rem;
-        text-align: center;
-        margin-top: 10%;
+    ion-label {
+        margin: 0;
     }
-    .confirmItem {
-        margin-bottom: 0.5rem;
-        padding: 0;
-        border-radius: 6px;
+    .item-status-wrapper {
+        height: 2rem;
+        display: inline-flex;
+        align-items: center;
+        font-size: 2rem;
+        margin-right: 1rem;
     }
-    .confirm-button {
-        height: 2.5rem;
-        background-color: #fff;
-        font-size: 1.6rem;
+    .item-status-head {
+        color: #222;
+        font-weight: 700;
+        width: 70vw;
+        overflow: hidden;
+        white-space: nowrap;
     }
-    .card-background-page {
-        ion-card {
-            position: relative;
-            text-align: center;
-            height: 10em;
-        }
+    .item-status {
+        font-size: 1rem;
+        padding-top: 0.1rem;
+        font-weight: 700;
     }
+    .list-content-desc {
+        color: $ui-theme-primary;
+    }
+    .item-price-badge {
+        padding: 0.6rem 0.8rem;
+        margin: 0.3rem 0.5rem 0.3rem 0px !important;
+        border-radius: 1.2rem;
+    }
+    .color-primary {
+        color: $ui-theme-primary;
+    }
+    .color-secondary {
+        color: $ui-theme-secondary;
+    }
+}
+
+.summeryFooter {
+    background-color: #fafafa;
+    .summeryButton {
+        background-color: $ui-theme-dark;
+        width: 92vw;
+        border-radius: 5px;
+        height: 8vh;
+        color: #fff;
+        font-weight: 700;
+        margin: 1.5rem;
+    }
+}
+
+.summeryFooter::before {
+    background-image: url('');
 }

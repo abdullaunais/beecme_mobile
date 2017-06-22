@@ -249,7 +249,7 @@ export class ItemList {
           cssClass: 'alert-button-primary',
           handler: data => {
             // if (this.item.qty >= quantity) {
-            item.comment = data.comment;
+            item.commentDtl = data.comment;
             item.quantity = quantity;
             this.storage.get('delivery.cart').then((cart) => {
               let cartItems: Array<any> = cart;

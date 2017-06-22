@@ -9,7 +9,7 @@
         <ion-buttons end>
             <button ion-button icon-only (click)="openCart()">
                 <ion-icon name="cart"></ion-icon>
-                <ion-badge *ngIf="cartCount > 0" color="danger" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
+                <ion-badge *ngIf="cartCount > 0" color="primary" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
             </button>
             <button ion-button icon-only (click)="showSearch()" *ngIf="!searchVisible">
                 <ion-icon name="search"></ion-icon>

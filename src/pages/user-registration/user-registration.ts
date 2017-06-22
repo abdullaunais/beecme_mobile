@@ -93,7 +93,7 @@ export class UserRegistrationPage {
   }
 
   goToLogin() {
-    this.navCtrl.setRoot('UserLoginPage', null, { animate: true, direction: "forward" });
+    this.navCtrl.pop();
   }
 
   registerUser() {
@@ -120,7 +120,7 @@ export class UserRegistrationPage {
               "email": this.email,
               "password": this.password,
               "phone": this.phone,
-              "address": this.address1 + " " + this.address2,
+              "address": this.address1 + "\n" + this.address2,
               "country": this.country.id,
               "province": this.province.id,
               "city": this.city.id,
@@ -133,9 +133,7 @@ export class UserRegistrationPage {
               let json = JSON.stringify(data);
               let response = JSON.parse(json);
               // this.rows = Array.from(Array(Math.ceil(this.categories.length / 2)).keys());
-              console.info(response);
-              this.storage.set('user.data', user);
-              this.storage.set('user.login', true);
+              // console.info(response);
               this.hideLoading();
 
               if (response.code === 1) {
@@ -149,15 +147,11 @@ export class UserRegistrationPage {
                       text: 'OK',
                       cssClass: 'alert-button-success',
                       handler: data => {
-                        let navTransition = prompt.dismiss();
                         if (this.redirectString === "redirect-deliveryschedule") {
-                          navTransition.then(() => {
-                            this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
-                          });
+                          this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
                         } else {
-                          navTransition.then(() => {
-                            this.navCtrl.push('UserLoginPage', null);
-                          });
+                          this.navCtrl.push('UserLoginPage', null);
+
                         }
                       }
                     }

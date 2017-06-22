@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, IonicPage, Events } from 'ionic-angular';
 import { Storage } from "@ionic/storage";
 import { Variables } from "../../providers/variables";
 
@@ -27,7 +27,8 @@ export class AppSettingsPage {
     storage: Storage,
     private variables: Variables,
     public modalCtrl: ModalController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    public events: Events
   ) {
     this.storage = storage;
     this.variables.login.subscribe(value => this.isLogin = value);
@@ -48,10 +49,13 @@ export class AppSettingsPage {
   loginOrLogout() {
     if (this.isLogin) {
       this.storage.set("user.login", false).then((res1) => {
-        this.storage.set("user.data", {}).then((res2) => {
-          this.variables.setLogin(false);
-          Variables.user = {};
-          this.navCtrl.setRoot('Categories', null);
+        this.storage.set("user.authToken", null).then((res2) => {
+          this.storage.set("user.data", {}).then((res3) => {
+            this.variables.setLogin(false);
+            Variables.user = {};
+            this.events.publish("user:change");
+            this.navCtrl.setRoot('Categories', null);
+          });
         });
       });
     } else {

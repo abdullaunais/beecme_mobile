@@ -1,5 +1,5 @@
 import { Component, ViewChildren } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController, IonicPage, ToastController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, IonicPage, ToastController, Events } from 'ionic-angular';
 import { UserService } from '../../providers/user-service';
 import { Storage } from '@ionic/storage';
 import { Variables } from "../../providers/variables";
@@ -46,9 +46,10 @@ export class UserLoginPage {
     private alertCtrl: AlertController,
     public fb: FormBuilder,
     private variables: Variables,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public events: Events
   ) {
-    this.redirectString = navParams.data;
+    this.redirectString = navParams.data.redirect;
   }
 
   showLoading(content) {
@@ -63,12 +64,10 @@ export class UserLoginPage {
   }
 
   goToRegister() {
-    this.navCtrl.setRoot('UserRegistrationPage', this.redirectString, { animate: true, direction: "forward" });
+    this.navCtrl.push('UserRegistrationPage', this.redirectString, { animate: true, direction: "forward" });
   }
 
   loginUser() {
-    console.info(this.email);
-    console.info(this.password);
     if (!this.email && !this.password) {
       return;
     }
@@ -77,32 +76,36 @@ export class UserLoginPage {
     this.userService.authenticate(this.email, this.password).then((data) => {
       let json = JSON.stringify(data);
       let response = JSON.parse(json);
+
       // let capitalizeFirstChar = (string) => { return string.charAt(0).toUpperCase() + string.substring(1) };
 
-      console.log(response);
-      if (response.status === 201 || response.status === 200) {
-        // login success
-        // this.storage.get('user.data').then((user) => {
-        // });
-        let userData = JSON.parse(response['_body']);
-        console.info(userData);
-        this.storage.set("user.data", userData);
-        this.storage.set("user.login", true);
-        this.variables.setLogin(true);
-        Variables.user.username = userData.username;
-        Variables.user.email = userData.email;
+      // login success
+      // this.storage.get('user.data').then((user) => {
+      // });
+      let userData = response;
+      console.info(userData);
+      this.storage.set("user.data", userData);
+      this.storage.set("user.login", true);
+      this.storage.set("user.authToken", userData.authToken);
+      this.variables.setLogin(true);
+      Variables.user.username = userData.username;
+      Variables.user.email = userData.email;
 
-        this.hideLoading();
+      this.hideLoading();
 
-        if (this.redirectString === "redirect-deliveryschedule") {
-          this.navCtrl.push('DeliverySchedulePage', "login-success", { animate: true, direction: "forward" });
-        } else {
-          this.navCtrl.setRoot('Categories', null, { animate: true, direction: "forward" });
-        }
-      } else if (JSON.parse(response['_body']).message === "invalid credentials") {
+      if (this.redirectString === "redirect-deliveryschedule") {
+        this.navCtrl.setRoot('OrderSummaryPage', { comment: this.navParams.data.comment }, { animate: true, direction: "forward" });
+      } else if (this.redirectString === "redirect-accountpage") {
+        this.navCtrl.setRoot('UserProfilePage');
+      } else {
+        this.events.publish("user:change");
+        this.navCtrl.setRoot('Categories', null, { animate: true, direction: "forward" });
+      }
+    }).catch(err => {
+      if (err.status === 401) {
         this.hideLoading();
         let alert = this.alertCtrl.create({
-          title: this.toTitleCase(JSON.parse(response['_body']).message),
+          title: this.toTitleCase(JSON.parse(err['_body']).message),
           message: 'Please check your login details',
           cssClass: 'alert-style',
           buttons: [
@@ -110,14 +113,13 @@ export class UserLoginPage {
               text: 'OK',
               cssClass: 'alert-button-danger',
               handler: () => {
-                //ignore
+                this.hideLoading();
               }
             }
           ]
         });
         alert.present();
       } else {
-        this.hideLoading();
         let alert = this.alertCtrl.create({
           title: "Login Error",
           message: 'Error occurred while logging in.',
@@ -127,16 +129,14 @@ export class UserLoginPage {
               text: 'OK',
               cssClass: 'alert-button-danger',
               handler: () => {
-                //ignore
+                this.hideLoading();
               }
             }
           ]
         });
         alert.present();
+
       }
-    }, (err) => {
-      console.log(err);
-      this.hideLoading();
     });
   }
 

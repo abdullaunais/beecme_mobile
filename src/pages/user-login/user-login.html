@@ -8,17 +8,17 @@
       <!--<ion-label class="register-section-label">Login Details</ion-label>-->
 
       <ion-item class="registerItem" #formitem style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
-        <ion-input type="email" formControlName="formEmail" (blur)="inputBlur()" #forminput class="registerInput" placeholder="Email"></ion-input>
+        <ion-input type="email" formControlName="formEmail" (ionBlur)="inputBlur()" #forminput class="registerInput" placeholder="Email"></ion-input>
         <ion-icon name="at" color="ui-theme-dark" class="registerInputIcon" item-left></ion-icon>
       </ion-item>
 
       <ion-item class="registerItem" #formitem style="border-top-left-radius: 0; border-top-right-radius: 0;">
-        <ion-input type="password" formControlName="formPassword" (blur)="inputBlur()" #forminput class="registerInput" placeholder="Password"></ion-input>
+        <ion-input type="password" formControlName="formPassword" (ionBlur)="inputBlur()" #forminput class="registerInput" placeholder="Password"></ion-input>
         <ion-icon name="key" color="ui-theme-dark" class="registerInputIcon" item-left></ion-icon>
       </ion-item>
 
 
-      <button ion-button full clear (click)="forgotPwd()" class="forgot-button">
+      <button ion-button type="button" full clear (click)="forgotPwd()" class="forgot-button">
         Forgot Password?
       </button>
 

@@ -32,6 +32,7 @@ export class Shops {
 
   constructor(
     public navCtrl: NavController,
+    // public menuCtrl: MenuController,
     public navParams: NavParams,
     private variables: Variables,
     private deliveryService: DeliveryService
@@ -40,7 +41,6 @@ export class Shops {
     this.city = navParams.data.city;
     this.isLoading = true;
     this.noMoreShops = false;
-    this.initialize();
   }
 
   ionViewWillEnter() {
@@ -49,6 +49,10 @@ export class Shops {
 
   ionViewWillLeave() {
     this.watchCart.unsubscribe();
+  }
+
+  ionViewDidEnter() {
+    this.initialize();
   }
 
   initialize() {
@@ -138,10 +142,22 @@ export class Shops {
     this.navCtrl.push('CartPage', null);
   }
 
+  // openMenu() {
+  //   this.menuCtrl.open();
+  // }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Shops');
+  shopDetails(e: Event) {
+    if (!e) var e = window.event;
+    e.cancelBubble = true;
+    if (e.stopPropagation) e.stopPropagation();
+
+    console.log("Shop Details");
   }
+
+
+  // ionViewDidLoad() {
+  //   console.log('ionViewDidLoad Shops');
+  // }
 
   toTitleCase(str) {
     return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });

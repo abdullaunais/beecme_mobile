@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DeliveryService } from '../../providers/delivery-service';
 import { Variables } from "../../providers/variables";
@@ -13,7 +13,6 @@ import { Subscription } from "rxjs/Subscription";
   providers: [DeliveryService]
 })
 export class Categories {
-  filterText: string = '';
   selectedCity: any = null;
 
   categories: Array<any> = [];
@@ -27,33 +26,36 @@ export class Categories {
 
   constructor(
     public navCtrl: NavController,
+    public toastCtrl: ToastController,
     private navParams: NavParams,
     private deliveryService: DeliveryService,
-    storage: Storage,
+    private storage: Storage,
     private variables: Variables
-    ) {
+  ) {
     this.isLoading = true;
     this.isAvailable = true;
+  }
 
-    if (!navParams.data.locationSet) {
-      storage.get('location.city').then((city) => {
+  ionViewWillEnter() {
+    this.watchCart = this.variables.cartCount.subscribe(value => this.cartCount = value);
+  }
+
+  ionViewWillLeave() {
+    this.watchCart.unsubscribe();
+  }
+
+  ionViewDidEnter() {
+    if (!this.navParams.data.locationSet) {
+      this.storage.get('location.city').then((city) => {
         if (city) {
           this.selectedCity = city;
           this.initialize();
         }
       });
     } else {
-      this.selectedCity = navParams.data.city;
+      this.selectedCity = this.navParams.data.city;
       this.initialize();
     }
-  }
-
-  ionViewWillEnter() {
-    this.watchCart = this.variables.cartCount.subscribe(value => this.cartCount = value); 
-  }
-
-  ionViewWillLeave() {
-    this.watchCart.unsubscribe();
   }
 
   initialize() {
@@ -63,7 +65,7 @@ export class Categories {
       if (this.categories) {
         if (this.categories.length > 1) {
           this.categories.splice(0, 1);
-          this.rows = Array.from(Array(Math.ceil(this.categories.length / 2)).keys());
+          // this.rows = Array.from(Array(Math.ceil(this.categories.length / 2)).keys());
           this.isAvailable = true;
         } else {
           this.isAvailable = false;
@@ -73,9 +75,15 @@ export class Categories {
       }
       this.isLoading = false;
     }).catch(err => {
-      // this.isAvailable = false;
-      // this.isLoading = false;
+      this.isLoading = false;
+      this.presentToast("Unable to fetch categories. Check your internet connection.", 2000);
     });
+  }
+
+  panEvent(event, category) {
+    console.log(event);
+    let size = event.velocityY*100;
+    document.getElementById('cat'+ category.categoryId).style.backgroundSize = size + "%";
   }
 
   openCart() {
@@ -83,7 +91,16 @@ export class Categories {
   }
 
   openCategory(category) {
-    this.navCtrl.push('Shops', { category:  category, city: this.selectedCity});
+    this.navCtrl.push('Shops', { category: category, city: this.selectedCity });
   }
 
+  presentToast(message, duration) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      showCloseButton: true,
+      closeButtonText: 'OK',
+      duration: duration
+    });
+    toast.present();
+  }
 }

@@ -17,17 +17,30 @@
 
 
 <ion-content class="page-order-history">
+  <div style="display: flex; justify-content: space-between;">
+    <ion-label *ngIf="orders.length === 0 && !isLoading" style="text-align: center; width: 100%; color: #999;">No Orders Available. Place an order first</ion-label>
+    <ion-spinner *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
+  </div>
+
+  <ion-refresher (ionRefresh)="refreshList($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-list>
 
-    <ion-item *ngFor="let order of [1]">
+    <ion-item *ngFor="let order of orders" style="border-top:none;">
       <div ion-item no-lines>
         <ion-avatar item-left>
-          <img src="http://3.bp.blogspot.com/-i8MzYJoPA-I/TdOAGlIihLI/AAAAAAAAAAo/fLrYoplR0Y4/s1600/14545_180378498723_155866468723_2757005_3010537_n.jpg">
+          <img src="assets/img/cover/profile_default_grey.jpg">
         </ion-avatar>
-        <h2>Order from FoodCity</h2>
-        <div class="item-status-wrapper">
+        <h2>Order from Shop</h2>
+        <div class="item-status-wrapper" *ngIf="order.status === 0">
           <ion-icon name="time" color="warning"></ion-icon>
           <div class="item-status color-pending">&nbsp;PENDING</div>
+        </div>
+        <div class="item-status-wrapper">
+          <ion-icon name="star" color="gold"></ion-icon>
+          <div class="item-status color-gold">&nbsp;NOT RATED</div>
         </div>
         <ion-note item-end>
           <button ion-button round icon-only (click)="getActions(order);" class="item-action-button">
@@ -37,18 +50,21 @@
       </div>
 
       <ion-row padding-left no-margin nowrap align-items-stretch class="item-col-scroll">
-        <ion-col col-6 no-padding no-margin *ngFor="let j of [1,2,3]">
+        <ion-col col-6 no-padding no-margin *ngFor="let item of order.orderDetails">
           <ion-card margin-bottom class="item-card">
             <div style="display:flex;" no-padding no-margin>
               <div item-left no-margin class="item-image-wrapper">
-                <div class="item-image" style="background-image: url('http://www.tips2stayhealthy.com/wp-content/uploads/2016/03/fish.jpeg');"></div>
+                <div class="item-image" style="background-image: url('assets/img/ui_icons/add_shopping_cart_theme.svg');"></div>
               </div>
               <div item-left no-margin class="item-content-wrapper">
-                <button ion-button color="primary" no-margin no-padding clear small class="item-badge-button">
-                <ion-icon name="pricetag"></ion-icon>&nbsp;50 SAR
+                <button style="color:#999; margin-top:0;" ion-button no-margin no-padding clear small class="item-badge-button">
+                  {{ toTitleCase(item.nameEn) }}
                 </button>
                 <button ion-button color="danger" no-margin no-padding clear small class="item-badge-button">
-                  <ion-icon name="cart"></ion-icon>&nbsp;3 KG(S)
+                  <ion-icon name="cart"></ion-icon>&nbsp;{{item.quantity + " " + item.unit }}{{ (item.quantity > 1) ? "s" : "" }}
+                </button>
+                <button ion-button color="primary" no-margin no-padding clear small class="item-badge-button">
+                  <ion-icon name="pricetag"></ion-icon>&nbsp;{{item.price*item.quantity}} {{order.orderHeader.currency}}
                 </button>
               </div>
             </div>
@@ -56,14 +72,11 @@
         </ion-col>
       </ion-row>
 
-      <p style="font-family: monospace, serif; margin-left:2rem;"><i>"Send me all of em together"</i></p>
+      <p style="font-family: monospace, serif; margin-left:2rem;"><i>{{order.orderHeader.comment}}</i></p>
     </ion-item>
 
 
-
-
-
-    <ion-item *ngFor="let order of [1, 2, 3]">
+    <!--<ion-item *ngFor="let order of [1]">
       <div ion-item no-lines>
         <ion-avatar item-left>
           <img src="https://seeklogo.com/images/B/Burger_King-logo-EB00FAD8D3-seeklogo.com.png">
@@ -105,7 +118,7 @@
       </ion-row>
 
       <p style="font-family: monospace, serif; margin-left:2rem;"><i>"This is the commend you added"</i></p>
-    </ion-item>
+    </ion-item>-->
 
 
   </ion-list>

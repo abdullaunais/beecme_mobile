@@ -8,6 +8,13 @@
             padding-right: 0 !important;
         }
     }
+    .loading-spinner {
+        width: 5rem;
+        height: 5rem;
+        text-align: center;
+        margin: 2rem auto;
+        display: block;
+    }
     .item-status-wrapper {
         height: 2rem;
         display: inline-flex;
@@ -45,7 +52,7 @@
         width: 8rem;
     }
     .item-content-wrapper {
-        padding: 1rem;
+        padding: 0.5rem;
         margin: 0;
         font-size: 2rem;
     }
@@ -62,6 +69,9 @@
     }
     .item-badge-button {
         display: block;
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+        margin-top: -0.8rem;
+        max-width: 22vw;
+        text-transform: capitalize;
     }
 }

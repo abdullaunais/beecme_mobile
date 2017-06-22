@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, Renderer } from '@angular/core';
 import { NavController, NavParams, AlertController, IonicPage, LoadingController, ToastController, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -18,6 +18,7 @@ declare var google;
   providers: [UserService, Geolocation]
 })
 export class UserProfilePage {
+  authToken: any;
   userAddressElement: any;
   loading: any;
   offsetHeight: number;
@@ -39,7 +40,8 @@ export class UserProfilePage {
     public modalCtrl: ModalController,
     private storage: Storage,
     private geolocation: Geolocation,
-    private userService: UserService
+    private userService: UserService,
+    private renderer: Renderer
   ) { }
 
 
@@ -68,7 +70,7 @@ export class UserProfilePage {
       this.user.latitude = resp.coords.latitude;
       this.user.longitude = resp.coords.longitude;
 
-      this.userService.updateUser(this.user).then((updateResponse) => {
+      this.userService.updateUser(this.user, this.authToken).then((updateResponse) => {
         if (updateResponse.code === 1) {
           this.storage.set('user.data', this.user);
           let alert = this.alertCtrl.create({
@@ -103,63 +105,88 @@ export class UserProfilePage {
   }
 
   ngOnInit() {
+    this.showLoading("Please wait...");
     this.storage.get("user.login").then((login) => {
       if (login) {
         this.storage.get("user.data").then((userData) => {
-          this.user = userData;
-          this.userAddressElement = this.user.address.replace(/(?:\r\n|\r|\n)/g, '<br />');
-          console.log(this.user);
-          this.isLoading = false;
+          this.user.profilePicture = userData.profilePicture;
+          this.storage.get("user.authToken").then(token => {
+            this.authToken = token;
+          });
+          this.userService.getUserDetails(userData.userId, userData.authToken).then(res => {
+            let json = JSON.stringify(res);
+            this.user = JSON.parse(json);
+            this.userAddressElement = this.user.address.replace(/(?:\r\n|\r|\n)/g, '<br />');
+            this.isLoading = false;
+            this.refreshProfilePicture();
+            this.loadMap();
+            this.hideLoading();
+          }).catch(err => {
+            this.hideLoading();
+            this.presentToast("Error fetching user data", 2000);
+          });
         })
       } else {
+        this.hideLoading();
+        this.navCtrl.setRoot('UserLoginPage', {redirect: "redirect-accountpage"});
         return;
       }
     });
+  }
+
+  ngAfterViewInit() {
+    this.offsetHeight = document.getElementById('nav-content').offsetHeight;
+    this.loadMap();
+    this.refreshProfilePicture();
+  }
+
+  refreshProfilePicture() {
+    if (this.user.profilePicture) {
+      document.getElementById('headerImage').style.backgroundImage = "url(" + this.user.profilePicture + ")";
+    } else {
+      document.getElementById('headerImage').style.backgroundImage = "url('assets/img/cover/profile_default_grey.jpg')";
+    }
   }
 
   checkScroll(event) {
     let yOffset = document.getElementById('profile-content').offsetTop;
     if (event.scrollTop > yOffset - this.offsetHeight) {
       document.getElementById('header-content').classList.remove("profile-header");
+      // document.getElementById('header-content').classList.add("profile-header-image");
     } else {
       document.getElementById('header-content').classList.add("profile-header");
+      // document.getElementById('header-content').classList.remove("profile-header-image");
     }
   }
 
   choosePhoto() {
-    
+
   }
 
   presentUpdateModal(property: string) {
-    let updateProfileModal = this.modalCtrl.create('UpdateProfile', {property: property});
+    let updateProfileModal = this.modalCtrl.create('UpdateProfile', { property: property, user: this.user });
     updateProfileModal.present();
     updateProfileModal.onDidDismiss((data) => {
       if (data.success) {
-        // let alert = this.alertCtrl.create({
-        //   title: 'Success',
-        //   cssClass: 'alert-style',
-        //   message: 'Location Changed. Your cart and the login data is reset.',
-        //   buttons: [
-        //     {
-        //       text: 'OK',
-        //       cssClass: 'alert-button-success',
-        //       handler: () => {
-        //         //ignore
-        //       }
-        //     }
-        //   ]
-        // });
-        // alert.present();
+        this.user = data.user;
+        this.userAddressElement = this.user.address.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        let alert = this.alertCtrl.create({
+          title: 'Success',
+          cssClass: 'alert-style',
+          message: property + ' change success.',
+          buttons: [
+            {
+              text: 'OK',
+              cssClass: 'alert-button-success',
+              handler: () => {
+                //ignore
+              }
+            }
+          ]
+        });
+        alert.present();
       }
     });
-  }
-
-
-  ionViewDidEnter() {
-    this.offsetHeight = document.getElementById('nav-content').offsetHeight;
-    setTimeout(() => {
-      this.loadMap();
-    }, 500);
   }
 
   showLoading(content) {
@@ -179,7 +206,7 @@ export class UserProfilePage {
       showCloseButton: true,
       closeButtonText: 'OK',
       duration: duration,
-      position: 'top'
+      position: 'bottom'
     });
     toast.present();
   }

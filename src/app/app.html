@@ -32,11 +32,11 @@
   </ion-header>
 
   <ion-content>
-    <ion-list style="margin-top: 0.5rem;" no-lines>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" [ngStyle]="{'border-bottom': p.seperate ? '1px solid #eee' : '0px'}" [class.active-menu]="checkActivePage(p)">
+    <ion-list no-lines>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" [ngStyle]="{'padding-top': p.component === 'Categories' ? '0.4rem' : 'auto', 'border-top': p.devide ? '1px solid #eee' : '0px'}"[class.active-menu]="checkActivePage(p)">
         <ion-icon [name]="p.icon" [color]="p.color" item-left></ion-icon>
         {{p.title}}
-        <ion-badge color="danger" *ngIf="p.title == 'My Cart' && cartCount > 0" style="margin-left: 1rem;">{{cartCount}} {{ cartCount > 1 ? "items" : "item"}}</ion-badge>
+        <ion-badge color="primary" *ngIf="p.title == 'My Cart' && cartCount > 0" style="margin-left: 1rem;">{{cartCount}} {{ cartCount > 1 ? "items" : "item"}}</ion-badge>
       </button>
     </ion-list>
   </ion-content>

@@ -11,7 +11,6 @@ import { Config } from "../providers/config";
 import { Variables } from "../providers/variables";
 import { Network } from "@ionic-native/network";
 
-
 @NgModule({
   declarations: [
     MyApp
@@ -20,7 +19,7 @@ import { Network } from "@ionic-native/network";
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp, {
-      menuType: 'reveal',
+      menuType: 'push',
       // locationStrategy: 'path',
       platforms: {
         ios: {

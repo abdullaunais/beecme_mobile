@@ -41,8 +41,12 @@
       border-width: 0 !important;
       transition: background-color 0.5s ease-in-out;
     }
+    .bar-button {
+      text-shadow: 1px 1px 5px #999;
+    }
     .toolbar-title {
       color: #fff;
+      text-shadow: 1px 1px 5px #999;
     }
   }
   .btn-edit-image {

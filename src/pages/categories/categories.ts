@@ -80,11 +80,11 @@ export class Categories {
     });
   }
 
-  panEvent(event, category) {
-    console.log(event);
-    let size = event.velocityY*100;
-    document.getElementById('cat'+ category.categoryId).style.backgroundSize = size + "%";
-  }
+  // panEvent(event, category) {
+  //   console.log(event);
+  //   let size = event.velocityY*100;
+  //   document.getElementById('cat'+ category.categoryId).style.backgroundSize = size + "%";
+  // }
 
   openCart() {
     this.navCtrl.push('CartPage', null);

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ViewController, AlertController, IonicPage } from 'ionic-angular';
-import { DeliveryService } from "../../providers/delivery-service";
+import { NavController, NavParams, LoadingController, ViewController, AlertController, IonicPage, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { Variables } from "../../providers/variables";
+import { DeliveryService } from "../../../providers/delivery-service";
+import { Variables } from "../../../providers/variables";
 
 /**
  * Generated class for the ChangeLocation page.
@@ -48,7 +48,8 @@ export class ChangeLocation {
     public loadingCtrl: LoadingController,
     public viewCtrl: ViewController,
     private variables: Variables,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    public events: Events
   ) {
     this.alert = this.alertCtrl.create({
       title: 'Error',
@@ -117,13 +118,14 @@ export class ChangeLocation {
       this.storage.set('location.set', true);
       this.storage.set('user.data', {});
       this.storage.set('user.login', false);
-      this.storage.set('user.auth', null);
+      this.storage.set('user.authToken', null);
 
       this.storage.set('delivery.cart', []);
       this.storage.set('delivery.cartCount', 0);
 
       this.variables.setCartCount(0);
       this.variables.setLogin(false);
+      this.events.publish("user:change");
     }
     this.viewCtrl.dismiss({ success: true });
   }

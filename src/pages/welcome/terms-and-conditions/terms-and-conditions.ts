@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, ViewController } from 'ionic-angular';
 
 /*
   Generated class for the TermsAndConditions page.
@@ -14,7 +14,11 @@ import { NavController, NavParams, IonicPage } from 'ionic-angular';
 })
 export class TermsAndConditions {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private viewCtrl: ViewController
+    ) {
   }
 
   ionViewDidLoad() {

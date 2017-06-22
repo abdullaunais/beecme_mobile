@@ -24,7 +24,8 @@ export class DeliveryService {
   CATEGORIES_URL = "/categories";
   ITEM_URL = "/items";
   SCHEDULES_URL = "/schedules";
-  ADD_ORDER = "/carts";
+  ORDER_URL = "/carts";
+  REVIEW_URL = "/reviews"
 
   constructor(public httpService: Http, public config: Config) {
     this.http = httpService;
@@ -56,9 +57,16 @@ export class DeliveryService {
       .catch(this.handleError);
   }
 
-  getItemByShop(userId, start, offset): Promise<any> {
-    let queryParams = "?type=17&value=" + userId + "&start=" + start + "&offset=" + offset;
+  getItemByShop(shopId, start, offset): Promise<any> {
+    let queryParams = "?type=17&value=" + shopId + "&start=" + start + "&offset=" + offset;
     let requestUrl: string = this.serviceRootUrl + this.ITEM_URL + queryParams;
+    return this.http.get(requestUrl, this.options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  findItem(itemCode) {
+    let requestUrl: string = this.serviceRootUrl + this.ITEM_URL + "/" + itemCode;
     return this.http.get(requestUrl, this.options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
@@ -79,6 +87,14 @@ export class DeliveryService {
       .catch(this.handleError);
   }
 
+  getOrders(userId, start, offset): Promise<any> {
+    let queryParams = "?type=32&value=" + userId + "&start=" + start + "&offset=" + offset;
+    let requestUrl: string = this.serviceRootUrl + this.ORDER_URL + queryParams;
+    return this.http.get(requestUrl, this.options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
   addOrder(order, authToken): Promise<any> {
     let body = JSON.stringify(order);
     let headers = new Headers();
@@ -86,7 +102,20 @@ export class DeliveryService {
     headers.append('Authorization', authToken)
     let options = new RequestOptions({ headers: headers });
 
-    let requestUrl: string = this.serviceRootUrl + this.ADD_ORDER;
+    let requestUrl: string = this.serviceRootUrl + this.ORDER_URL;
+    return this.http.post(requestUrl, body, options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  sendReview(review, authToken) {
+    let body = JSON.stringify(review, authToken);
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', authToken)
+    let options = new RequestOptions({ headers: headers });
+
+    let requestUrl: string = this.serviceRootUrl + this.REVIEW_URL;
     return this.http.post(requestUrl, body, options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);

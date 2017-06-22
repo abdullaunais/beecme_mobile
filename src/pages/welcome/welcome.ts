@@ -3,7 +3,7 @@ import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { DeliveryService } from '../../providers/delivery-service';
 import { Storage } from '@ionic/storage';
 import { ViewChild } from '@angular/core';
-import { Slides, ToastController, IonicPage, AlertController } from 'ionic-angular';
+import { Slides, ToastController, IonicPage, AlertController, ModalController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -41,8 +41,9 @@ export class Welcome {
     private storage: Storage,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
-    public alertCtrl: AlertController
-  ) {}
+    public alertCtrl: AlertController,
+    private modalCtrl: ModalController
+  ) { }
 
   ngAfterViewInit() {
     this.lockSwipe();
@@ -50,7 +51,7 @@ export class Welcome {
   }
 
   initialize() {
-    this.showLoading("Loading...");
+    this.showLoading("Fetching data...");
     this.delivery.getLocation(this.type, this.value, this.start, this.offset)
       .then((data) => {
         let json = JSON.stringify(data);
@@ -59,6 +60,7 @@ export class Welcome {
       }).catch((err) => {
         console.log("Error ", err);
         this.hideLoading();
+        this.presentToast("Unable to fetch data. Please check your internet connection", 3000);
       });
   }
 
@@ -74,6 +76,7 @@ export class Welcome {
       }).catch((err) => {
         console.log("Error ", err);
         this.hideLoading();
+        this.presentToast("Unable to fetch data. Please check your internet connection", 3000);
       });
     this.countrySet = true;
   }
@@ -86,6 +89,10 @@ export class Welcome {
       let json = JSON.stringify(data);
       this.cities = JSON.parse(json);
       this.hideLoading();
+    }).catch(err => {
+      console.log("Error ", err);
+      this.hideLoading();
+      this.presentToast("Unable to fetch data. Please check your internet connection", 3000);
     });
     this.provinceSet = true;
   }
@@ -100,7 +107,7 @@ export class Welcome {
       this.storage.set('location.set', true);
       this.storage.set('user.data', {});
       this.storage.set('user.login', false);
-      this.storage.set('user.auth', null);
+      this.storage.set('user.authToken', null);
 
       this.storage.set('delivery.cart', []);
       this.storage.set('delivery.cartCount', 0);
@@ -125,20 +132,18 @@ export class Welcome {
     this.loading.dismiss();
   }
 
+  presentToast(message, duration) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      showCloseButton: true,
+      closeButtonText: 'OK',
+      duration: duration,
+      position: 'top'
+    });
+    toast.present();
+  }
+
   checkIsAgreedToTerms() {
-    // if (this.isAgreedToTerms) {
-    //   this.goToSlide(2);
-    //   this.unlockSwipe();
-    // } else {
-    //   let toast = this.toastCtrl.create({
-    //     message: "You should accept the terms and conditions before continuing",
-    //     showCloseButton: true,
-    //     closeButtonText: 'OK',
-    //     duration: 2000,
-    //     position: 'top'
-    //   });
-    //   toast.present();
-    // }
 
     let termAlert = this.alertCtrl.create({
       title: 'Terms and Conditions',
@@ -146,8 +151,15 @@ export class Welcome {
       message: 'By continuing, you are agreeing to our terms and conditions',
       buttons: [
         {
+          text: 'View Terms & Conditions',
+          // cssClass: 'alert-button-primary-plain',
+          handler: () => {
+            this.presentTermsModal();
+          }
+        },
+        {
           text: 'I Disagree',
-          cssClass: 'alert-button-danger-plain',
+          // cssClass: 'alert-button-danger-plain',
           role: 'cancel',
           handler: () => {
             return;
@@ -155,7 +167,7 @@ export class Welcome {
         },
         {
           text: 'I Agree',
-          cssClass: 'alert-button-primary',
+          // cssClass: 'alert-button-primary-plain',
           handler: () => {
             this.unlockSwipe();
             this.goToSlide(1);
@@ -166,6 +178,14 @@ export class Welcome {
     });
     termAlert.present();
   }
+
+   presentTermsModal() {
+    let updateProfileModal = this.modalCtrl.create('TermsAndConditions');
+    updateProfileModal.present();
+    updateProfileModal.onDidDismiss((data) => {
+    });
+  }
+
 
   goToSlide(num) {
     this.slides.slideTo(num, 500);

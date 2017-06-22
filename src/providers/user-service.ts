@@ -20,7 +20,8 @@ export class UserService {
   serviceRootUrl: string;
 
   REGISTER_URL = "/register";  // post
-  GET_USER_URL = "/users/"; // +username, get
+  GET_USER_URL = "/users"; // +username, get
+  UPDATE_USER_URL = "/users"; // +email/reset
   AUTHENTICATE_LOGIN = "/auth" // post
   FORGOT_PASSWORD = "/mails" // post
 
@@ -43,9 +44,27 @@ export class UserService {
       .catch(this.handleError);
   }
 
-  getUserDetails(email): Promise<any> {
-    let requestUrl: string = this.serviceRootUrl + this.GET_USER_URL + "/" + email;
-    return this.http.get(requestUrl, this.options).toPromise()
+  getUserDetails(userId, authToken): Promise<any> {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', authToken);
+    let options = new RequestOptions({ headers: headers });
+
+    let requestUrl: string = this.serviceRootUrl + this.GET_USER_URL + "/" + userId;
+    return this.http.get(requestUrl, options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  updateUser(user, authToken): Promise<any> {
+    let body = JSON.stringify(user);
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', authToken);
+    let options = new RequestOptions({ headers: headers });
+
+    let requestUrl: string = this.serviceRootUrl + this.UPDATE_USER_URL + "/" + user.email + "/reset";
+    return this.http.put(requestUrl, body, options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
@@ -68,7 +87,7 @@ export class UserService {
 
   forgotPassword(email): Promise<any> {
     let request = {
-      PASSWORD_RESET:1,
+      PASSWORD_RESET: 1,
       email: email,
       subject: 1
     };

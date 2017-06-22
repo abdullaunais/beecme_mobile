@@ -1,0 +1,75 @@
+<!--
+  Generated template for the UpdateProfile page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar [color]="(updateProperty === 'Name') ? 'ui-theme' : (updateProperty === 'Phone') ? 'secondary' : (updateProperty === 'Address') ? 'primary' : 'ui-theme'">
+    <ion-title>Change {{updateProperty}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="viewCtrl.dismiss({success: false});">
+              <ion-icon name="close"></ion-icon>
+         </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="page-update-profile" padding>
+  <form [formGroup]="usernameForm" ion-card (ngSubmit)="validateName($event)" *ngIf="updateProperty === 'Name'">
+    <!--<ion-item-divider color="light">Enter Name</ion-item-divider>-->
+    <ion-card>
+      <ion-item class="update-item" #formitem>
+        <ion-input type="text" formControlName="formUsername" #forminput placeholder="Enter Name"></ion-input>
+        <ion-icon name="person" color="ui-theme" item-left></ion-icon>
+      </ion-item>
+
+      <button ion-button block type="submit" color="ui-theme" class="update-button">
+        <ion-icon name="create"></ion-icon>
+        &nbsp;&nbsp;UPDATE
+    </button>
+    </ion-card>
+  </form>
+
+  <form [formGroup]="phoneForm" ion-card (ngSubmit)="validatePhone($event)" *ngIf="updateProperty === 'Phone'">
+    <!--<ion-item-divider color="light">Enter Name</ion-item-divider>-->
+    <ion-card>
+      <ion-item class="update-item" #formitem>
+        <ion-input type="text" formControlName="formPhone" #forminput placeholder="Enter Phone"></ion-input>
+        <ion-icon name="call" color="secondary" item-left></ion-icon>
+      </ion-item>
+
+      <button ion-button block type="submit" color="secondary" class="update-button">
+        <ion-icon name="create"></ion-icon>
+        &nbsp;&nbsp;UPDATE
+    </button>
+    </ion-card>
+  </form>
+
+  <form [formGroup]="addressForm" ion-card (ngSubmit)="validateAddress($event)" *ngIf="updateProperty === 'Address'">
+    <!--<ion-item-divider color="light">Enter Name</ion-item-divider>-->
+    <ion-card>
+      <ion-item>
+        <ion-icon name="home" color="primary" item-left></ion-icon>
+        <ion-input type="text" placeholder="Enter Address" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" formControlName="formAddress" #forminput placeholder="Line 1"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" formControlName="formAddress2" #forminput placeholder="Line 2"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" formControlName="formAddress3" #forminput placeholder="Line 3"></ion-input>
+      </ion-item>
+
+      <button ion-button block type="submit" color="primary" class="update-button">
+        <ion-icon name="create"></ion-icon>
+        &nbsp;&nbsp;UPDATE
+    </button>
+    </ion-card>
+  </form>
+</ion-content>

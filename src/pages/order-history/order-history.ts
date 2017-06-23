@@ -48,6 +48,7 @@ export class OrderHistoryPage {
           if (orderRes['cartlist']) {
             if (orderRes['cartlist'].length > 0) {
               this.orders = orderRes['cartlist'];
+              console.log(this.orders);
               // this.getItems();
             } else {
               this.orders = [];
@@ -84,16 +85,16 @@ export class OrderHistoryPage {
     });
   }
 
-  getItems() {
-    this.orders.forEach(order => {
-      order.orderDetails.forEach(detail => {
-        this.deliveryService.findItem(detail.itemCode).then(item => {
-          detail.itemCode = item;
-        });
-      });
-    });
-    console.log(this.orders);
-  }
+  // getItems() {
+    // this.orders.forEach(order => {
+    //   order.orderDetails.forEach(detail => {
+    //     this.deliveryService.findItem(detail.itemCode).then(item => {
+    //       detail.itemCode = item;
+    //     });
+    //   });
+    // });
+    // console.log(this.orders);
+  // }
 
   paginate(infiniteScroll) {
     this.noMoreItems = false;

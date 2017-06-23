@@ -157,13 +157,8 @@
         color: white;
         background: none;
         box-shadow: none;
-    } // .profile-label {
-    //     top: 1.5rem;
-    //     left: 3rem;
-    //     color: #fff;
-    //     border-radius: 3px;
-    //     padding: 0.5rem;
-    //     font-weight: 700;
-    //     background-color: #f53d3d;
-    // }
+    }
+    .scroll-content {
+        overflow: hidden;
+    }
 }

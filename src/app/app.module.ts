@@ -10,12 +10,10 @@ import { MyApp } from './app.component';
 import { Config } from "../providers/config";
 import { Variables } from "../providers/variables";
 import { Network } from "@ionic-native/network";
-import { ParallaxHeader } from "../directives/parallax-header/parallax-header";
 
 @NgModule({
   declarations: [
-    MyApp,
-    ParallaxHeader
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -33,7 +31,7 @@ import { ParallaxHeader } from "../directives/parallax-header/parallax-header";
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, StatusBar, SplashScreen, Config, Variables, Network]
 })

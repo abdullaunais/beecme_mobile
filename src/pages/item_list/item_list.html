@@ -37,8 +37,8 @@
 
     <ion-card *ngFor="let item of items; let i = index;" style="height: 10rem;" (click)="viewDetails(item);">
         <ion-row style="height: 10rem;">
-            <ion-col col-3 class="item-card-icon-col">
-                <img class="item-card-icon" src="{{item.img1}}" cache="true" onerror="errorUpdateUrl($event, i)"/>
+            <ion-col col-3 class="item-card-icon-col" [ngStyle]="{'background-image': 'url(' + item.img1 + ')'}">
+                <!--<img class="item-card-icon" src="{{item.img1}}" cache="true" onerror="errorUpdateUrl($event, i)"/>-->
             </ion-col>
             <ion-col col-9 class="item-card-content-col">
                 <ion-card-content class="item-card-content">

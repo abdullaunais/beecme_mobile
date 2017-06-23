@@ -20,10 +20,10 @@
     </div>
 
 
-    <ion-card ion-button *ngFor="let category of categories" id="cat{{category.categoryId}}" [ngStyle]="{'background-image': 'url(' + category.imageEn + ')'}" (click)="openCategory(category)">
+    <ion-card *ngFor="let category of categories" id="cat{{category.categoryId}}" [ngStyle]="{'background-image': 'url(' + category.imageEn + ')'}" (click)="openCategory(category)">
         <!--<img [src]="category.imageEn" style="margin-top: -8%;"/>-->
-        <div class="card-title">{{ category.nameEn }}</div>
-        <div class="card-subtitle" ion-item>{{ category.descriptionEn }}</div>
+        <div ion-item class="card-title">{{ category.nameEn }}</div>
+        <div ion-item class="card-subtitle" ion-item>{{ category.descriptionEn }}</div>
     </ion-card>
 
 

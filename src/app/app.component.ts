@@ -18,6 +18,7 @@ export class MyApp {
   rootPage: any;
   activePage: any;
 
+  city: any;
   user: any;
   profilepic: string;
   isLogin: boolean = false;
@@ -99,6 +100,10 @@ export class MyApp {
     });
 
     this.refreshUser();
+
+    storage.get('location.city').then((city) => {
+      this.city = city;
+    });
   }
 
   refreshUser() {
@@ -181,7 +186,7 @@ export class MyApp {
     this.disconnected.unsubscribe();
     this.watchLogin.unsubscribe();
     this.watchCart.unsubscribe();
-    this.events.unsubscribe("user:change");    
+    this.events.unsubscribe("user:change");
   }
 
   displayNetworkUpdate(connectionState: string) {
@@ -205,10 +210,10 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    if(page.component === 'CartPage') {
-      this.nav.setRoot(page.component);
+    if (page.component === 'Categories') {
+      this.nav.setRoot(page.component, {city: this.city});
     } else {
-      this.nav.push(page.component);
+      this.nav.push(page.component, {city: this.city});
     }
     this.activePage = page;
   }

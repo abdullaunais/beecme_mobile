@@ -20,11 +20,13 @@ export class DetailsPage {
   item: any;
   shop: any;
   category: any;
+  city: any;
 
   cartCount: number = 0;
   offsetHeight: number;
 
   isLoading: boolean;
+  catLoading: boolean;
   loading: any;
 
   constructor(public navCtrl: NavController,
@@ -38,14 +40,17 @@ export class DetailsPage {
     private deliveryService: DeliveryService
   ) {
     this.item = navParams.data.item;
+    console.log(this.item);
     this.shop = navParams.data.shop;
     this.category = navParams.data.category;
+    this.city = navParams.data.city;
     this.variables.cartCount.subscribe(value => this.cartCount = value);
     this.initialize();
   }
 
   initialize() {
     if (!this.category.nameEn) {
+      this.catLoading = true;
       // this.showLoading("Please wait...");
       this.storage.get("location.city").then(city => {
         this.deliveryService.getCategories(city.id).then(categoryList => {
@@ -56,9 +61,9 @@ export class DetailsPage {
               this.category = element;
             }
           });
-          // this.hideLoading();
+          this.catLoading = false;
         }).catch(err => {
-          // this.hideLoading();
+          this.catLoading = false;
           this.presentToast("Error when fetching category", 2000);
         });
       });
@@ -272,8 +277,16 @@ export class DetailsPage {
     this.navCtrl.push('ImageSliderPage', this.item);
   }
 
-  showShopInfo() {
-    return;
+  goToShop() {
+    if (!this.catLoading) {
+      this.navCtrl.push('ItemList', { shop: this.shop, city: this.city, category: this.category });
+    }
+  }
+
+  goToCategory() {
+    if (!this.catLoading) {
+      this.navCtrl.push('Shops', { city: this.city, category: this.category });
+    }
   }
 
   ngAfterViewInit() {
@@ -320,7 +333,7 @@ export class DetailsPage {
   }
 
   goToCart() {
-    this.navCtrl.push('CartPage');
+    this.navCtrl.push('CartPage', { city: this.city });
   }
 
   toTitleCase(str) {

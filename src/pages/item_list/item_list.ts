@@ -240,10 +240,11 @@ export class ItemList {
         { name: 'comment', placeholder: 'Comment' },
       ],
       buttons: [
-        { 
+        {
           text: 'Cancel',
           cssClass: 'alert-button-danger-plain',
-          handler: data => { } },
+          handler: data => { }
+        },
         {
           text: 'ADD',
           cssClass: 'alert-button-primary',
@@ -301,10 +302,11 @@ export class ItemList {
         { name: 'quantity', placeholder: 'Quantity' },
       ],
       buttons: [
-        { 
+        {
           text: 'Cancel',
           cssClass: 'alert-button-danger-plain',
-          handler: data => { } },
+          handler: data => { }
+        },
         {
           text: 'Add',
           cssClass: 'alert-button-primary',
@@ -332,11 +334,11 @@ export class ItemList {
   }
 
   viewDetails(item) {
-    this.navCtrl.push('DetailsPage', { item: item, shop: this.shop, category: this.category }, { animate: true, direction: "forward" });
+    this.navCtrl.push('DetailsPage', { item: item, shop: this.shop, category: this.category, city: this.city }, { animate: true, direction: "forward" });
   }
 
   openCart() {
-    this.navCtrl.push('CartPage', null, { animate: true, direction: "forward" });
+    this.navCtrl.push('CartPage', { city: this.city }, { animate: true, direction: "forward" });
   }
 
   presentToast(message, duration) {

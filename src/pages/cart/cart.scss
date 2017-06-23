@@ -1,7 +1,7 @@
 .page-cart-header {}
 
 .page-cart-header::after {
-  background-image: none;
+  // background-image: none;
 }
 
 .page-cart {
@@ -17,6 +17,7 @@
     height: 4rem;
     background-color: #fff;
     font-size: 1.2rem;
+    margin: 0;
   }
   .loading-spinner {
     width: 5rem;
@@ -36,7 +37,7 @@
   }
   .item-card-icon {
     width: 100%;
-    height: 13rem;
+    height: 12rem;
     object-fit: cover;
   }
   .card-content-md {

@@ -87,7 +87,7 @@ export class Categories {
   // }
 
   openCart() {
-    this.navCtrl.push('CartPage', null);
+    this.navCtrl.push('CartPage', {city: this.selectedCity});
   }
 
   openCategory(category) {

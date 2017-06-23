@@ -49,14 +49,14 @@
           </ion-label>-->
         </ion-card-content>
         <!--<div style="width: 100%; height: 1px; background-color: #eee;"></div>-->
-        <ion-card-content class="item-card-content-desc" style="padding: 0.4rem 2rem 0 0.8rem;">
+        <ion-card-content class="item-card-content-desc" style="padding: 0rem 2rem 0 0.8rem;">
           <!--Quantity :-->
           <ion-badge style="font-size:1.2rem;">{{ item.quantity + " " + item.unit }}{{ (item.quantity > 1) ? "s" : "" }}</ion-badge>
         </ion-card-content>
         <!--<div style="width: 100%; height: 1px; background-color: #eee;"></div>-->
-        <ion-card-content style="padding: 0.8rem 2rem 0 0.8rem;">
+        <ion-card-content style="padding: 0.4rem 2rem 0 1rem;">
           <p class="item-card-content-desc" no-margin>
-            Comment : <br>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#666;"><i>"{{ item.commentDtl }}"</i></span>
+            <ion-icon name="quote" color="dark"></ion-icon>&nbsp;&nbsp;<span style="color:#666;"><i>"{{ item.commentDtl }}"</i></span>
           </p>
         </ion-card-content>
       </ion-col>

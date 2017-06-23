@@ -1,30 +1,38 @@
 .profile-header-categories {}
 
 .page-categories {
+  .item{
+    background-color: transparent;
+  }
   background-color: #E8EAF6;
   ion-card {
     position: relative;
     text-align: center;
     height: 24vh;
     background-size: cover;
+    object-fit: cover;
     background-position: 50%;
   }
   .card-title {
     position: absolute;
-    top: 30%;
-    font-size: 1.8em;
-    width: 100%;
+    top: 25%;
+    text-align: center;
+    font-size: 2.4rem;
+    display:block;
+    width:100%;
     font-weight: bold;
     color: #fff;
     text-shadow: 2px 4px 10px #000;
   }
   .card-subtitle {
-    font-size: 1.0em;
+    font-size: 1.2rem;
     position: absolute;
+    // margin-top:1rem;
+    text-align: center;
     top: 45%;
     background-color: transparent;
-    padding: 0 15%;
-    width: 100%;
+    display:block;
+    width:100%;
     color: #fff;
     text-shadow: 2px 2px 6px #000;
   }

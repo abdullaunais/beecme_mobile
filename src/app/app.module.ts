@@ -10,10 +10,12 @@ import { MyApp } from './app.component';
 import { Config } from "../providers/config";
 import { Variables } from "../providers/variables";
 import { Network } from "@ionic-native/network";
+import { ParallaxHeader } from "../directives/parallax-header/parallax-header";
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    ParallaxHeader
   ],
   imports: [
     BrowserModule,

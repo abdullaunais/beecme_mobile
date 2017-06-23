@@ -98,7 +98,7 @@ export class CartPage {
   }
 
   viewItem(item) {
-      this.navCtrl.push('DetailsPage', { item: item, shop: this.cartShop, category: {} });
+      this.navCtrl.push('DetailsPage', { item: item, shop: this.cartShop, city: this.city, category: {} });
   }
 
   checkAmount() {

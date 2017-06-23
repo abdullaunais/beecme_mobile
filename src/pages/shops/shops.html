@@ -50,12 +50,12 @@
         <!--<image [defaultImage]="shop.profilePicture" [lazyLoad]="shop.profilePicture" [offset]="offset"></image>-->
         <!--<ion-img class="shop-card-icon" [src]="shop.profilePicture"></ion-img>-->
         <img class="shop-card-icon" src="{{shop.profilePicture}}"/>
-        <ion-spinner></ion-spinner>
+        <!--<ion-spinner></ion-spinner>-->
       </ion-col>
       <ion-col col-8 class="shop-card-content-col">
         <ion-card-content class="shop-card-content">
           <ion-card-title class="shop-card-content-title">{{ toTitleCase(shop.username) }}</ion-card-title>
-          <ion-icon name="information-circle" color="ui-theme" (click)="shopDetails($event)" item-right style="position: absolute; top: 0.5rem; right: 1rem; font-size: 2rem;"></ion-icon>
+          <ion-icon name="information-circle" color="ui-theme" (click)="shopDetails($event)" item-right style="position: absolute; top: 0.5rem; right: 1rem; font-size: 1.8rem;"></ion-icon>
           <div style="margin-bottom: 1vh; white-space: nowrap; overflow: overlay;">
             <ion-badge class="shop-card-content-badge" *ngFor="let keyword of shop.keywordsArray">{{ keyword.toLowerCase() }}</ion-badge>
           </div>

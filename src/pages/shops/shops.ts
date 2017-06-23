@@ -139,7 +139,7 @@ export class Shops {
   }
 
   openCart() {
-    this.navCtrl.push('CartPage', null);
+    this.navCtrl.push('CartPage', { city: this.city });
   }
 
   // openMenu() {

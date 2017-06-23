@@ -11,12 +11,12 @@
                 <ion-icon name="cart"></ion-icon>
                 <ion-badge *ngIf="cartCount > 0" color="primary" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
             </button>
-            <button ion-button icon-only (click)="showSearch()" *ngIf="!searchVisible">
+            <!--<button ion-button icon-only (click)="showSearch()" *ngIf="!searchVisible">
                 <ion-icon name="search"></ion-icon>
             </button>
             <button ion-button icon-only (click)="hideSearch()" *ngIf="searchVisible">
                 <ion-icon name="close"></ion-icon>
-            </button>
+            </button>-->
         </ion-buttons>
     </ion-navbar>
     <ion-searchbar class="item-searchbar" *ngIf="searchVisible" (animated)="true" placeholder="Comming Soon..." [(ngModel)]="searchQuery"

@@ -50,6 +50,7 @@ export class UserProfilePage {
     let mapOptions = {
       center: latLng,
       zoom: 18,
+      disableDefaultUI: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
@@ -60,8 +61,8 @@ export class UserProfilePage {
   }
 
   updateLocation() {
+    this.showLoading("Updating Location...");
     this.geolocation.getCurrentPosition().then((resp) => {
-      this.showLoading("Updating...");
       // resp.coords.latitude
       // resp.coords.longitude
       // console.info("Latitude -- ", resp.coords.latitude);
@@ -97,15 +98,15 @@ export class UserProfilePage {
         console.error(err);
         this.hideLoading();
       });
-
     }).catch((error) => {
       console.log('Error getting location', error);
+      this.hideLoading();
       this.presentToast("Error getting location", 2000);
     });
   }
 
   ngOnInit() {
-    this.showLoading("Please wait...");
+    // this.showLoading("Please wait...");
     this.storage.get("user.login").then((login) => {
       if (login) {
         this.storage.get("user.data").then((userData) => {
@@ -120,14 +121,14 @@ export class UserProfilePage {
             this.isLoading = false;
             this.refreshProfilePicture();
             this.loadMap();
-            this.hideLoading();
+            // this.hideLoading();
           }).catch(err => {
-            this.hideLoading();
+            // this.hideLoading();
             this.presentToast("Error fetching user data", 2000);
           });
         })
       } else {
-        this.hideLoading();
+        // this.hideLoading();
         this.navCtrl.setRoot('UserLoginPage', {redirect: "redirect-accountpage"});
         return;
       }

@@ -59,7 +59,7 @@ export class AppSettingsPage {
         });
       });
     } else {
-      this.navCtrl.setRoot('UserLoginPage', null);
+      this.navCtrl.push('UserLoginPage', null);
     }
   }
 

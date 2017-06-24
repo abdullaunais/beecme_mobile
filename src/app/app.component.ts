@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController, ToastController, Events } from 'ionic-angular';
+import { Nav, Platform, MenuController, ToastController, Events, PopoverController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
@@ -37,6 +37,7 @@ export class MyApp {
     private storage: Storage,
     public menuCtrl: MenuController,
     public toastCtrl: ToastController,
+    public popoverCtrl: PopoverController,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private variables: Variables,
@@ -70,7 +71,7 @@ export class MyApp {
       // { title: 'Sign In', component: 'UserLoginPage', color: 'danger', icon: 'person', devide: false },
       {
         title: 'Account',
-        component: 'UserProfilePage',
+        component: 'UserLoginPage',
         color: 'danger',
         icon: 'person',
         devide: false
@@ -197,24 +198,63 @@ export class MyApp {
     }).present();
   }
 
+  // presentPopover(myEvent: Event) {
+  //   if (!myEvent) var myEvent = window.event;
+  //   myEvent.cancelBubble = true;
+  //   if (myEvent.stopPropagation) myEvent.stopPropagation();
+    
+  //   let popover = this.popoverCtrl.create('ProfilePopoverPage', { login: this.isLogin, user: this.user});
+  //   popover.present({
+  //     ev: myEvent
+  //   });
+  // }
+
   loginOrProfile() {
+    let profileComp = {
+      title: 'Profile',
+      component: 'UserProfilePage',
+      color: 'danger',
+      icon: 'person',
+      devide: false
+    };
+    let loginComp = {
+      title: 'Login',
+      component: 'UserLoginPage',
+      color: 'danger',
+      icon: 'person',
+      devide: false
+    }
     if (this.isLogin) {
-      this.nav.push('UserProfilePage', null, { animation: 'ios-transition' });
+      this.openPage(profileComp);
       this.menuCtrl.close();
     } else {
-      this.nav.push('UserLoginPage');
+      this.openPage(loginComp);
       this.menuCtrl.close();
     }
   }
 
   openPage(page) {
+    // if (this.activePage) {
+    //   if (page.component === this.activePage.component && page.component === 'UserProfilePage') {
+    //     this.menuCtrl.close();
+    //     return;
+    //   }
+    // }
+    if (page.title === 'Account') {
+      if (this.isLogin) {
+        page.component = 'UserProfilePage';
+      } else {
+        page.component = 'UserLoginPage';
+      }
+    }
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     if (page.component === 'Categories') {
-      this.nav.setRoot(page.component, {city: this.city});
+      this.nav.setRoot(page.component, { city: this.city });
     } else {
-      this.nav.push(page.component, {city: this.city});
+      this.nav.push(page.component, { city: this.city });
     }
+
     this.activePage = page;
   }
 

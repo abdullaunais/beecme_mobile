@@ -23,7 +23,7 @@
 <ion-content class="page-user-profile" parallax-header (ionScroll)="checkScroll($event)">
   <div class="header-image" id="headerImage" #headerImage>
     <div style="display: block; justify-content: space-between; width:100%; height: 40vh; line-height: 40vh; text-align:center;">
-      <ion-spinner *ngIf="isLoading" class="loading-spinner" color="light"></ion-spinner>
+      <ion-spinner *ngIf="isLoading" class="loading-spinner-head" color="light"></ion-spinner>
     </div>
   </div>
 
@@ -41,6 +41,7 @@
         </div>
         <ion-icon class="btn-icon-edit" color="blue-grey" item-end></ion-icon>
       </ion-item>
+      <ion-spinner *ngIf="isLoading" class="loading-spinner" color="warning"></ion-spinner>
     </ion-list>
 
     <ion-list (tap)="presentUpdateModal('Name');" no-lines margin-left margin-top margin-right style="border-top: 1px solid #eee;margin-bottom:0.2rem;">
@@ -55,6 +56,7 @@
         </div>
         <ion-icon name="create" class="btn-icon-edit" color="blue-grey" item-end></ion-icon>
       </ion-item>
+      <ion-spinner *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
     </ion-list>
 
     <ion-list (tap)="presentUpdateModal('Phone');" no-lines margin-left margin-right style="border-top: 1px solid #eee; margin-bottom:0.2rem;">
@@ -69,6 +71,7 @@
         </div>
         <ion-icon name="create" class="btn-icon-edit" color="blue-grey" item-end></ion-icon>
       </ion-item>
+      <ion-spinner *ngIf="isLoading" class="loading-spinner" color="secondary"></ion-spinner>
     </ion-list>
 
     <ion-list (tap)="presentUpdateModal('Address');" no-lines margin-left margin-right style="border-top: 1px solid #eee;">
@@ -82,6 +85,7 @@
         </div>
         <ion-icon name="create" class="btn-icon-edit" color="blue-grey" item-end></ion-icon>
       </ion-item>
+      <ion-spinner *ngIf="isLoading" class="loading-spinner" color="primary"></ion-spinner>
     </ion-list>
 
     <ion-list (tap)="updateLocation();" no-lines margin-left margin-right style="border-top: 1px solid #eee; margin-bottom:5vh;">

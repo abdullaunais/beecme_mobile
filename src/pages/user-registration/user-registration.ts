@@ -1,10 +1,11 @@
-import { Component, ViewChildren } from '@angular/core';
+import { Component, ViewChildren, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, ToastController, IonicPage } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { UserService } from "../../providers/user-service";
 import { Geolocation } from '@ionic-native/geolocation';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 
+declare var google;
 /*
   Generated class for the UserRegistration page.
 
@@ -27,7 +28,8 @@ export class UserRegistrationPage {
   phone: string;
   password: any;
   address1: string;
-  address2: string;
+  address2: string = "";
+  address3: string = "";
 
   city: any;
   province: any;
@@ -38,7 +40,12 @@ export class UserRegistrationPage {
   registerPressed: boolean = false;
   errorColored: boolean = false;
   validationArray: Array<any> = [];
+  map: any;
+  marker: any;
 
+  isLocated: boolean = false;
+
+  @ViewChild('map') mapElement: ElementRef;
   @ViewChildren('forminput') formInputs;
   @ViewChildren('formitem') formItems;
   getItems = () => {
@@ -51,6 +58,7 @@ export class UserRegistrationPage {
     formPassword: ["", [Validators.required, Validators.minLength(6)]],
     formAddress1: ["", [Validators.required, Validators.minLength(2)]],
     formAddress2: ["", []],
+    formAddress3: ["", []],
   });
   constructor(
     public navCtrl: NavController,
@@ -80,14 +88,23 @@ export class UserRegistrationPage {
       }
     });
 
+    this.updateLocation();
+  }
+
+  updateLocation() {
     this.geolocation.getCurrentPosition().then((resp) => {
       // resp.coords.latitude
       // resp.coords.longitude
-      console.info("Latitude -- ", resp.coords.latitude);
+      // console.info("Latitude -- ", resp.coords.latitude);
       this.latitude = resp.coords.latitude;
-      console.info("Longitude -- ", resp.coords.longitude);
+      // console.info("Longitude -- ", resp.coords.longitude);
       this.longitude = resp.coords.longitude;
+      this.isLocated = true;
+      setTimeout(() => {
+        this.loadMap();
+      }, 500);
     }).catch((error) => {
+      this.isLocated = false;
       console.log('Error getting location', error);
     });
   }
@@ -97,103 +114,136 @@ export class UserRegistrationPage {
   }
 
   registerUser() {
-    let confirmAlert = this.alertCtrl.create({
-      title: 'Confim Signup',
-      message: 'Do you wish to proceed signup?',
-      cssClass: 'alert-style',
-      buttons: [
-        {
-          text: 'Cancel',
-          cssClass: 'alert-button-danger-plain',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
+    if (!this.isLocated) {
+      let locationAlert = this.alertCtrl.create({
+        title: 'Location Update Failed',
+        message: 'We could not detect your current location. Please enable your location and grant permissions to the app when requested.',
+        cssClass: 'alert-style',
+        buttons: [
+          {
+            text: 'OK',
+            cssClass: 'alert-button-danger',
+            handler: data => {
+              this.updateLocation();
+            }
           }
-        },
-        {
-          text: 'Yes',
-          cssClass: 'alert-button-primary',
-          handler: () => {
-            this.showLoading("Registering...")
-            let user = {
-              "username": this.username,
-              "email": this.email,
-              "password": this.password,
-              "phone": this.phone,
-              "address": this.address1 + "\n" + this.address2,
-              "country": this.country.id,
-              "province": this.province.id,
-              "city": this.city.id,
-              "longitude": this.longitude,
-              "latitude": this.latitude,
-              "type": "1",
-              "notificationSend": "0"
-            };
-            this.userService.registerUser(user).then((data) => {
-              let json = JSON.stringify(data);
-              let response = JSON.parse(json);
-              // this.rows = Array.from(Array(Math.ceil(this.categories.length / 2)).keys());
-              // console.info(response);
-              this.hideLoading();
+        ]
+      });
+      locationAlert.present();
+    } else {
+      let confirmAlert = this.alertCtrl.create({
+        title: 'Confim Signup',
+        message: 'Do you wish to proceed signup?',
+        cssClass: 'alert-style',
+        buttons: [
+          {
+            text: 'Cancel',
+            cssClass: 'alert-button-danger-plain',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          },
+          {
+            text: 'Yes',
+            cssClass: 'alert-button-primary',
+            handler: () => {
+              this.showLoading("Registering...")
+              let user = {
+                "username": this.username,
+                "email": this.email,
+                "password": this.password,
+                "phone": this.phone,
+                "address": this.address1 + "\n" + this.address2 + "\n" + this.address3,
+                "country": this.country.id,
+                "province": this.province.id,
+                "city": this.city.id,
+                "longitude": this.longitude,
+                "latitude": this.latitude,
+                "type": "1",
+                "notificationSend": "0"
+              };
+              this.userService.registerUser(user).then((data) => {
+                let json = JSON.stringify(data);
+                let response = JSON.parse(json);
+                // this.rows = Array.from(Array(Math.ceil(this.categories.length / 2)).keys());
+                // console.info(response);
+                this.hideLoading();
 
-              if (response.code === 1) {
-                // register success
-                let prompt = this.alertCtrl.create({
-                  title: 'Registration Success',
-                  message: "Please Login with the details provided.",
-                  cssClass: 'alert-style',
-                  buttons: [
-                    {
-                      text: 'OK',
-                      cssClass: 'alert-button-success',
-                      handler: data => {
-                        if (this.redirectString === "redirect-deliveryschedule") {
-                          this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
-                        } else {
-                          this.navCtrl.push('UserLoginPage', null);
-
-                        }
-                      }
-                    }
-                  ]
-                });
-                prompt.present();
-              } else if (response.code < 0) {
-                if (response.message === "Request failed. Code already exists") {
+                if (response.code === 1) {
+                  // register success
                   let prompt = this.alertCtrl.create({
-                    title: 'Already Registered',
-                    message: "This email is already been registered. Login with your account instead?",
+                    title: 'Registration Success',
+                    message: "Please Login with the details provided.",
                     cssClass: 'alert-style',
                     buttons: [
                       {
-                        text: 'Cancel',
-                        cssClass: 'alert-button-danger',
-                        handler: data => {
-                        }
-                      },
-                      {
-                        text: 'Login',
+                        text: 'OK',
                         cssClass: 'alert-button-success',
                         handler: data => {
-                          let navTransition = prompt.dismiss();
                           if (this.redirectString === "redirect-deliveryschedule") {
-                            navTransition.then(() => {
-                              this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
-                            });
+                            this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
                           } else {
-                            navTransition.then(() => {
-                              this.navCtrl.push('UserLoginPage', null);
-                            });
+                            this.navCtrl.push('UserLoginPage', null);
+
                           }
                         }
                       }
                     ]
                   });
                   prompt.present();
+                } else if (response.code < 0) {
+                  if (response.message === "Request failed. Code already exists") {
+                    let prompt = this.alertCtrl.create({
+                      title: 'Already Registered',
+                      message: "This email is already been registered. Login with your account instead?",
+                      cssClass: 'alert-style',
+                      buttons: [
+                        {
+                          text: 'Cancel',
+                          cssClass: 'alert-button-danger',
+                          handler: data => {
+                          }
+                        },
+                        {
+                          text: 'Login',
+                          cssClass: 'alert-button-success',
+                          handler: data => {
+                            let navTransition = prompt.dismiss();
+                            if (this.redirectString === "redirect-deliveryschedule") {
+                              navTransition.then(() => {
+                                this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
+                              });
+                            } else {
+                              navTransition.then(() => {
+                                this.navCtrl.push('UserLoginPage', null);
+                              });
+                            }
+                          }
+                        }
+                      ]
+                    });
+                    prompt.present();
+                  } else {
+                    let prompt = this.alertCtrl.create({
+                      title: 'Registeration Failed',
+                      message: response.message,
+                      cssClass: 'alert-style',
+                      buttons: [
+                        {
+                          text: 'OK',
+                          cssClass: 'alert-button-danger',
+                          handler: data => {
+                          }
+                        }
+                      ]
+                    });
+                    prompt.present();
+                  }
                 } else {
                   let prompt = this.alertCtrl.create({
-                    title: 'Registeration Failed',
-                    message: response.message,
+                    title: 'Registration Failed',
+                    message: "Something went wrong when registering your account.",
                     cssClass: 'alert-style',
                     buttons: [
                       {
@@ -206,31 +256,31 @@ export class UserRegistrationPage {
                   });
                   prompt.present();
                 }
-              } else {
-                let prompt = this.alertCtrl.create({
-                  title: 'Registration Failed',
-                  message: "Something went wrong when registering your account.",
-                  cssClass: 'alert-style',
-                  buttons: [
-                    {
-                      text: 'OK',
-                      cssClass: 'alert-button-danger',
-                      handler: data => {
-                      }
-                    }
-                  ]
-                });
-                prompt.present();
-              }
-            }, (err) => {
-              this.hideLoading();
-              console.log("Error - ", err);
-            });
+              }, (err) => {
+                this.hideLoading();
+                console.log("Error - ", err);
+              });
+            }
           }
-        }
-      ]
+        ]
+      });
+      confirmAlert.present();
+    }
+  }
+
+  loadMap() {
+    let latLng = new google.maps.LatLng(this.latitude, this.longitude);
+    let mapOptions = {
+      center: latLng,
+      zoom: 18,
+      disableDefaultUI: true,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    this.marker = new google.maps.Marker({
+      position: latLng,
+      map: this.map
     });
-    confirmAlert.present();
   }
 
   registerClick() {
@@ -356,6 +406,7 @@ export class UserRegistrationPage {
       this.password = this.registerForm.value.formPassword;
       this.address1 = this.registerForm.value.formAddress1;
       this.address2 = this.registerForm.value.formAddress2;
+      this.address3 = this.registerForm.value.formAddress3;
       if (this.registerPressed) {
         this.registerUser();
       }

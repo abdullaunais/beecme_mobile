@@ -10,7 +10,6 @@
     margin-bottom: 1rem;
     font-size: 1.5rem;
   }
-
   .register-section-label {
     font-size: 1.8rem;
     color: #fff;
@@ -18,11 +17,9 @@
   }
   .registerItem {
     margin-top: -1px;
-    padding:2px;
-    // border-top:1px solid #eee;
+    padding: 2px; // border-top:1px solid #eee;
     // border-radius: 4px;
   }
-
   .registerInputIcon {
     padding-left: 2rem;
   }
@@ -30,7 +27,17 @@
     padding: 0.2rem 0;
     font-size: 1.6rem;
   }
-
+  .item-map {
+    min-height: auto;
+    padding: 0;
+    .item-inner {
+      padding-right: 0;
+      margin: 0 1rem 1rem 1rem !important;
+      .label {
+        margin:0;
+      }
+    }
+  }
   .registerHead {
     color: white;
     font-size: 2.5rem;
@@ -49,18 +56,17 @@
     border-bottom-color: transparent !important;
     box-shadow: none !important;
     margin-left: 1rem !important;
-}
-.center-input-text {
-  input {
-    text-align: center;
   }
-  .validation-error {
+  .center-input-text {
     input {
-      background-color: #f00;
+      text-align: center;
     }
-  }
-}
-  // ion-list .item .item-inner {
+    .validation-error {
+      input {
+        background-color: #f00;
+      }
+    }
+  } // ion-list .item .item-inner {
   //   border-bottom: 2px solid #5DA2AD;
   // }
 }

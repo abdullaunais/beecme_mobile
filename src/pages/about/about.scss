@@ -1,3 +1,12 @@
 .page-about {
     background-color: #E8EAF6;
+    .aboutDescription {
+        color: #666;
+        text-align: justify;
+        margin:4rem 2rem; 
+    }
+    .versionText {
+        color: $ui-theme;
+        text-align: center;
+    }
 }

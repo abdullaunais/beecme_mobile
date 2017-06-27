@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, ModalController } from 'ionic-angular';
 import { DeliveryService } from "../../providers/delivery-service";
 import { Variables } from "../../providers/variables";
 import { Subscription } from "rxjs/Subscription";
@@ -32,7 +32,7 @@ export class Shops {
 
   constructor(
     public navCtrl: NavController,
-    // public menuCtrl: MenuController,
+    private modalCtrl: ModalController,
     public navParams: NavParams,
     private variables: Variables,
     private deliveryService: DeliveryService
@@ -146,12 +146,17 @@ export class Shops {
   //   this.menuCtrl.open();
   // }
 
-  shopDetails(e: Event) {
+  shopDetails(e: Event, shop) {
     if (!e) var e = window.event;
     e.cancelBubble = true;
     if (e.stopPropagation) e.stopPropagation();
 
-    console.log("Shop Details");
+    let detailsModal = this.modalCtrl.create('ShopDetailsPage', {shop: shop});
+    detailsModal.present();
+    detailsModal.onDidDismiss((data) => {
+      if (data) {
+      }
+    });
   }
 
 

@@ -9,7 +9,7 @@
   <ion-navbar [color]="(rating===0) ? 'gold' : (rating<2) ? 'danger' : (rating<4) ? 'gold' : 'green'">
     <ion-title>Add Review</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="viewCtrl.dismiss({success: false});">
+      <button ion-button icon-only (tap)="viewCtrl.dismiss({success: false});">
               <ion-icon name="close"></ion-icon>
          </button>
     </ion-buttons>

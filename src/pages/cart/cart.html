@@ -70,13 +70,13 @@
         </button>
       </ion-col>
       <ion-col text-center style="padding:0">
-        <button ion-button color="ui-theme" clear small class="btnCartAction" (click)="viewItem(item)">
+        <button ion-button color="ui-theme" clear small class="btnCartAction" (tap)="viewItem(item)">
           <ion-icon name="bookmark" style="font-size: 2.5rem;"></ion-icon>
           &nbsp;View
         </button>
       </ion-col>
       <ion-col text-center style="padding:0">
-        <button ion-button color="danger" clear small class="btnCartAction" (click)="removeItem(item)">
+        <button ion-button color="danger" clear small class="btnCartAction" (tap)="removeItem(item)">
           <ion-icon name="trash" style="font-size: 2.5rem;"></ion-icon>
           &nbsp;Remove
         </button>
@@ -85,14 +85,14 @@
   </ion-card>
 
   <!--<ion-fab top right edge>
-    <button color="ui-theme-dark" ion-fab (click)="checkAmount()">
+    <button color="ui-theme-dark" ion-fab (tap)="checkAmount()">
       <ion-icon name="checkmark-circle-outline"></ion-icon>
     </button>
   </ion-fab>-->
 </ion-content>
 
 <ion-footer class="footer-cart" *ngIf="cartItems.length > 0">
-  <button ion-button full clear (click)="checkAmount()" class="button-checkout"> 
+  <button ion-button full clear (tap)="checkAmount()" class="button-checkout"> 
     <ion-icon name="checkmark-circle"></ion-icon>
     &nbsp;&nbsp;CHECKOUT ( TOTAL {{totalAmount}} SAR )
   </button>

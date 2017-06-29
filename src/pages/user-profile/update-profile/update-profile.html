@@ -9,7 +9,7 @@
   <ion-navbar [color]="(updateProperty === 'Name') ? 'ui-theme' : (updateProperty === 'Phone') ? 'secondary' : (updateProperty === 'Address') ? 'primary' : 'ui-theme'">
     <ion-title>Change {{updateProperty}}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="viewCtrl.dismiss({success: false});">
+      <button ion-button icon-only (tap)="viewCtrl.dismiss({success: false});">
               <ion-icon name="close"></ion-icon>
          </button>
     </ion-buttons>

@@ -3,7 +3,7 @@
   <form [formGroup]="loginForm" (ngSubmit)="validate($event)">
     <ion-list style="margin: 3rem;">
 
-      <button type="button" (click)="goToRegister()" class="login-button-register">Don't have an account? <b>Signup</b> </button>
+      <button type="button" (tap)="goToRegister()" class="login-button-register">Don't have an account? <b>Signup</b> </button>
 
       <!--<ion-label class="register-section-label">Login Details</ion-label>-->
 
@@ -18,11 +18,11 @@
       </ion-item>
 
 
-      <button ion-button type="button" full clear (click)="forgotPwd()" class="forgot-button">
+      <button ion-button type="button" full clear (tap)="forgotPwd()" class="forgot-button">
         Forgot Password?
       </button>
 
-      <button ion-button full clear type="submit" (click)="loginClick()" class="register-button">
+      <button ion-button full clear type="submit" (tap)="loginClick()" class="register-button">
         <ion-icon name="key"></ion-icon>
         &nbsp;&nbsp;Login
       </button>

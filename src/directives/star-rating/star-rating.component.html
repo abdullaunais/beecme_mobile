@@ -2,7 +2,7 @@
     (focus)="onFocus($event)" (mouseleave)="onStarHover(0)">
     <div *ngIf="labelVisible" class="label-value">{{labelText}}</div>
     <div class="star-container">
-        <div class="star" (mouseenter)="onStarHover(star)" *ngFor="let star of stars" (click)="onStarClicked(star)">
+        <div class="star" (mouseenter)="onStarHover(star)" *ngFor="let star of stars" (tap)="onStarClicked(star)">
             <i *ngIf="!svgVisible()" class="star-empty {{classEmpty}}"></i>
             <i *ngIf="!svgVisible()" class="star-empty {{classHalf}}"></i>
             <i *ngIf="!svgVisible()" class="star-filled {{classFilled}}"></i>

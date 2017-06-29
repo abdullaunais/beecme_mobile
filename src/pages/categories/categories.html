@@ -5,7 +5,7 @@
     </button>
         <ion-title>Categories</ion-title>
         <ion-buttons end>
-            <button ion-button icon-only (click)="openCart()">
+            <button ion-button icon-only (tap)="openCart()">
                 <ion-icon name="cart"></ion-icon>
                 <ion-badge *ngIf="cartCount > 0" color="primary" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
             </button>
@@ -20,7 +20,7 @@
     </div>
 
 
-    <ion-card *ngFor="let category of categories" id="cat{{category.categoryId}}" [ngStyle]="{'background-image': 'url(' + category.imageEn + ')'}" (click)="openCategory(category)">
+    <ion-card *ngFor="let category of categories" id="cat{{category.categoryId}}" [ngStyle]="{'background-image': 'url(' + category.imageEn + ')'}" (tap)="openCategory(category)">
         <!--<img [src]="category.imageEn" style="margin-top: -8%;"/>-->
         <div ion-item class="card-title">{{ category.nameEn }}</div>
         <div ion-item class="card-subtitle" ion-item>{{ category.descriptionEn }}</div>

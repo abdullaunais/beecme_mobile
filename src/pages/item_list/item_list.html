@@ -7,14 +7,14 @@
         </ion-buttons>
         <ion-title ng-style="color:white;">{{ shop.username }}</ion-title>
         <ion-buttons end>
-            <button ion-button icon-only (click)="openCart()">
+            <button ion-button icon-only (tap)="openCart()">
                 <ion-icon name="cart"></ion-icon>
                 <ion-badge *ngIf="cartCount > 0" color="primary" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
             </button>
-            <!--<button ion-button icon-only (click)="showSearch()" *ngIf="!searchVisible">
+            <!--<button ion-button icon-only (tap)="showSearch()" *ngIf="!searchVisible">
                 <ion-icon name="search"></ion-icon>
             </button>
-            <button ion-button icon-only (click)="hideSearch()" *ngIf="searchVisible">
+            <button ion-button icon-only (tap)="hideSearch()" *ngIf="searchVisible">
                 <ion-icon name="close"></ion-icon>
             </button>-->
         </ion-buttons>

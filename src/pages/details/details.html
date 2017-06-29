@@ -14,7 +14,7 @@
         <!--<ion-icon name="arrow-round-back"></ion-icon>-->
         <!--</button>-->
         <ion-buttons end>
-            <button ion-button icon-only (click)="goToCart()">
+            <button ion-button icon-only (tap)="goToCart()">
                 <ion-icon name="cart"></ion-icon>
                 <ion-badge *ngIf="cartCount > 0" color="primary" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
             </button>
@@ -32,7 +32,7 @@
         <ion-card-content>
             <div ion-item no-lines class="item-title">
                 {{ toTitleCase(item.nameEn) }}
-                <button ion-button color="ui-theme" (click)="validateCart()" item-end class="btn-cart-add">
+                <button ion-button color="ui-theme" (tap)="validateCart()" item-end class="btn-cart-add">
                     <ion-icon name="cart"></ion-icon>&nbsp;&nbsp;{{ item.price }} {{shop.currency}}/{{ item.unit }}
                 </button>
             </div>
@@ -60,7 +60,7 @@
             <i>{{ item.comment }}</i>
         </div>
 
-        <div (click)="showImages()" style="height: 15rem; overflow: overlay; white-space: nowrap;">
+        <div (tap)="showImages()" style="height: 15rem; overflow: overlay; white-space: nowrap;">
             <div style="display: inline-block;">
                 <img *ngIf="item.img1" src="{{ item.img1 }}" class="item-image-scroll">
             </div>
@@ -72,7 +72,7 @@
             </div>
         </div>
         <ion-list style="margin:2rem 0;background-color: transparent;">
-            <div ion-item no-lines (click)="goToCategory();" style="border-top:1px solid #ddd; background-color: transparent;">
+            <div ion-item no-lines (tap)="goToCategory();" style="border-top:1px solid #ddd; background-color: transparent;">
                 <ion-avatar item-left *ngIf="!catLoading">
                     <img [src]="category.imageEn">
                 </ion-avatar>
@@ -90,7 +90,7 @@
                     <ion-spinner *ngIf="catLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
                 </div>
             </div>
-            <div ion-item no-lines (click)="goToShop();" style="border-top:1px solid #ddd; background-color: transparent;">
+            <div ion-item no-lines (tap)="goToShop();" style="border-top:1px solid #ddd; background-color: transparent;">
                 <ion-avatar item-left *ngIf="!catLoading">
                     <img [src]="shop.profilePicture">
                 </ion-avatar>
@@ -113,14 +113,14 @@
         </ion-list>
     </div>
     <ion-fab bottom right style="margin: 0.5rem;">
-        <button ion-fab color="ui-theme" (click)="validateCart()">
+        <button ion-fab color="ui-theme" (tap)="validateCart()">
             <ion-icon name="cart"></ion-icon>
         </button>
     </ion-fab>
 </ion-content>
 
 <!--<ion-footer class="footer-details">
-    <button ion-button full clear (click)="validateCart()" class="button-cart">
+    <button ion-button full clear (tap)="validateCart()" class="button-cart">
         <ion-icon name="cart"></ion-icon>
         &nbsp;&nbsp;ADD TO CART ( {{ item.price }} SAR / {{ item.unit }} )
     </button>

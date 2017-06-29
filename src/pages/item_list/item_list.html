@@ -24,7 +24,7 @@
     </ion-searchbar>
 </ion-header>
 
-<ion-content class="page-item_list">
+<ion-content class="page-item_list" #container>
 
     <div style="display: flex; justify-content: space-between;">
         <ion-label *ngIf="items.length === 0 && !isLoading" style="text-align: center; width: 100%; color: #999;">No {{ category.nameEn }} Available. Please try a different category</ion-label>
@@ -37,7 +37,7 @@
 
     <ion-card *ngFor="let item of items; let i = index;" style="height: 10rem;" (click)="viewDetails(item);">
         <ion-row style="height: 10rem;">
-            <ion-col col-3 class="item-card-icon-col" [defaultImage]="category.imageEn" [lazyLoad]="item.img1" [offset]="offset">
+            <ion-col col-3 class="item-card-icon-col" [defaultImage]="category.imageEn" [lazyLoad]="item.img1" [offset]="offset" [scrollObservable]="container.ionScroll">
                 <!--<img class="item-card-icon" src="{{item.img1}}" cache="true" onerror="errorUpdateUrl($event, i)"/>-->
             </ion-col>
             <ion-col col-9 class="item-card-content-col">

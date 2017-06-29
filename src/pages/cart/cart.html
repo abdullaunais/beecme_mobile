@@ -16,7 +16,7 @@
 </ion-header>
 
 
-<ion-content class="page-cart">
+<ion-content class="page-cart" #container>
 
   <div style="display: flex; justify-content: space-between;">
     <ion-label *ngIf="cartItems.length === 0 && !isLoading" style="text-align: center; width: 100%; color: #999;">No Items in Cart.</ion-label>
@@ -36,7 +36,7 @@
 
   <ion-card *ngFor="let item of cartItems; let i = index;">
     <ion-row>
-      <ion-col col-4 class="item-card-icon-col" [defaultImage]="cartShop.profilePicture" [lazyLoad]="item.img1" no-padding>
+      <ion-col col-4 class="item-card-icon-col" [defaultImage]="cartShop.profilePicture" [lazyLoad]="item.img1" [scrollObservable]="container.ionScroll" no-padding>
         <!--<img class="item-card-icon" [src]="item.img1" />-->
       </ion-col>
       <ion-col class="item-card-content-col" no-padding>

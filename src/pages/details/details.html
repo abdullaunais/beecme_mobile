@@ -55,7 +55,7 @@
             </div>
         </ion-card-content>
 
-        <div class="item-comment-paragraph">
+        <div class="item-comment-paragraph" *ngIf="item.comment">
             <ion-icon name="quote" color="dark"></ion-icon>&nbsp;&nbsp;
             <i>{{ item.comment }}</i>
         </div>

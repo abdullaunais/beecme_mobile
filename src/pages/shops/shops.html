@@ -33,7 +33,7 @@
 
   <ion-card *ngFor="let shop of shops; let i = index;" style="height: 18vh;" (click)="viewShop(shop);">
     <ion-row style="height: 18vh;">
-      <ion-col col-4 class="shop-card-icon-col" [ngStyle]="{'background-image': 'url(' + shop.profilePicture + ')'}">
+      <ion-col col-4 class="shop-card-icon-col" [defaultImage]="category.imageEn" [lazyLoad]="shop.profilePicture" [offset]="offset">
         <!--<image [defaultImage]="shop.profilePicture" [lazyLoad]="shop.profilePicture" [offset]="offset"></image>-->
         <!--<ion-img class="shop-card-icon" [src]="shop.profilePicture"></ion-img>-->
         <!--<img class="shop-card-icon" src="{{shop.profilePicture}}"/>-->

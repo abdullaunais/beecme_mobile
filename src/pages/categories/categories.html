@@ -20,7 +20,7 @@
     </div>
 
 
-    <ion-card *ngFor="let category of categories" id="cat{{category.categoryId}}" [ngStyle]="{'background-image': 'url(' + category.imageEn + ')'}" (tap)="openCategory(category)">
+    <ion-card *ngFor="let category of categories" id="cat{{category.categoryId}}" [defaultImage]="defaultImage" [lazyLoad]="category.imageEn" (tap)="openCategory(category)">
         <!--<img [src]="category.imageEn" style="margin-top: -8%;"/>-->
         <div ion-item class="card-title">{{ category.nameEn }}</div>
         <div ion-item class="card-subtitle" ion-item>{{ category.descriptionEn }}</div>

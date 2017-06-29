@@ -18,6 +18,7 @@ export class Categories {
   categories: Array<any> = [];
   rows: Array<any> = [];
   selectedCategory: string;
+  defaultImage = "assets/img/cover/cover.webp";
 
   watchCart: Subscription;
   cartCount: number = 0;

@@ -298,7 +298,7 @@ export class DetailsPage {
     if (this.item.img1) {
       document.getElementById('headerImage').style.backgroundImage = "url(" + this.item.img1 + ")";
     } else {
-      document.getElementById('headerImage').style.backgroundImage = "url('assets/img/cover/profile_default_grey.jpg')";
+      document.getElementById('headerImage').style.backgroundImage = "url('assets/img/cover/profile_default_grey.webp')";
     }
   }
 

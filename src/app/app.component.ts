@@ -120,12 +120,12 @@ export class MyApp {
           if (response.profilePicture) {
             this.profilepic = response.profilePicture;
           } else {
-            this.profilepic = "assets/img/cover/profile_default.jpg";
+            this.profilepic = "assets/img/cover/profile_default.webp";
           }
 
         } else {
           this.user = {};
-          this.profilepic = "assets/img/cover/profile_default.jpg";
+          this.profilepic = "assets/img/cover/profile_default.webp";
           Variables.user.username = "";
           Variables.user.email = "";
           Variables.user.address = "";
@@ -133,7 +133,7 @@ export class MyApp {
         }
       } else {
         this.user = {};
-        this.profilepic = "assets/img/cover/profile_default.jpg";
+        this.profilepic = "assets/img/cover/profile_default.webp";
         Variables.user.username = "";
         Variables.user.email = "";
         Variables.user.address = "";

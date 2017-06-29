@@ -145,7 +145,7 @@ export class UserProfilePage {
     if (this.user.profilePicture) {
       document.getElementById('headerImage').style.backgroundImage = "url(" + this.user.profilePicture + ")";
     } else {
-      document.getElementById('headerImage').style.backgroundImage = "url('assets/img/cover/profile_default_grey.jpg')";
+      document.getElementById('headerImage').style.backgroundImage = "url('assets/img/cover/profile_default_grey.webp')";
     }
   }
 

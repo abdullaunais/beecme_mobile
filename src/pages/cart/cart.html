@@ -36,7 +36,7 @@
 
   <ion-card *ngFor="let item of cartItems; let i = index;">
     <ion-row>
-      <ion-col col-4 class="item-card-icon-col" [ngStyle]="{'background-image': 'url(' + item.img1 + ')'}" no-padding>
+      <ion-col col-4 class="item-card-icon-col" [defaultImage]="cartShop.profilePicture" [lazyLoad]="item.img1" no-padding>
         <!--<img class="item-card-icon" [src]="item.img1" />-->
       </ion-col>
       <ion-col class="item-card-content-col" no-padding>
@@ -48,12 +48,9 @@
             {{ item.descriptionEn }}
           </ion-label>-->
         </ion-card-content>
-        <!--<div style="width: 100%; height: 1px; background-color: #eee;"></div>-->
         <ion-card-content class="item-card-content-desc" style="padding: 0rem 2rem 0 0.8rem;">
-          <!--Quantity :-->
           <ion-badge style="font-size:1.2rem;">{{ item.quantity + " " + item.unit }}{{ (item.quantity > 1) ? "s" : "" }}</ion-badge>
         </ion-card-content>
-        <!--<div style="width: 100%; height: 1px; background-color: #eee;"></div>-->
         <ion-card-content style="padding: 0.4rem 2rem 2rem 1rem;">
           <p class="item-card-content-desc" no-margin>
             <ion-icon name="quote" color="dark"></ion-icon>&nbsp;&nbsp;<span style="color:#666;"><i>"{{ item.commentDtl }}"</i></span>

@@ -23,8 +23,8 @@
         <div ion-item class="card-title">{{ category.nameEn }}</div>
         <div ion-item class="card-subtitle" ion-item>{{ category.descriptionEn }}</div>
     </ion-card>
-    <div style="display: block; margin-top: 40vmin;" *ngIf="isError && !isLoading">
+    <div style="display: block; margin-top: 45vmin;" *ngIf="isError && !isLoading">
         <ion-label style="text-align: center; width: 100%; color: #999;">Could not connect to server.</ion-label>
-        <button style="display:block; margin:0 auto; padding: 1rem 2rem; border-radius: 0.5rem;" (tap)="retryServer();">Try Again</button>
+        <button style="display:block; margin:0 auto; padding: 1rem 2rem; border-radius: 0.5rem;" (tap)="retryServer();">TRY AGAIN</button>
     </div>
 </ion-content>

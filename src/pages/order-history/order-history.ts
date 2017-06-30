@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage, ActionSheetController, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { DeliveryService } from "../../providers/delivery-service";
 import { Storage } from '@ionic/storage';
+import { StatusBar } from "@ionic-native/status-bar";
 /*
   Generated class for the OrderHistory page.
 
@@ -32,7 +33,8 @@ export class OrderHistoryPage {
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
     private deliveryService: DeliveryService,
-    private storage: Storage
+    private storage: Storage,
+    private statusBar: StatusBar
   ) {
     this.initialize();
   }

@@ -75,35 +75,35 @@ export class DetailsPage {
       title: 'Select Quantity',
       buttons: [
         {
-          text: '1',
+          text: '1 ' + this.item.unit,
           cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(1);
           }
         },
         {
-          text: '2',
+          text: '2 ' + this.item.unit,
           cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(2);
           }
         },
         {
-          text: '3',
+          text: '3 ' + this.item.unit,
           cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(3);
           }
         },
         {
-          text: '4',
+          text: '4 ' + this.item.unit,
           cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(4);
           }
         },
         {
-          text: '5',
+          text: '5 ' + this.item.unit,
           cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(5);
@@ -168,64 +168,31 @@ export class DetailsPage {
   // }
 
   addToCart(quantity) {
-    let prompt = this.alertCtrl.create({
-      title: 'Enter Comment',
-      message: "",
-      cssClass: 'alert-style',
-      inputs: [
-        { name: 'comment', placeholder: 'Comment' },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          cssClass: 'alert-button-danger-plain',
-          handler: data => { }
-        },
-        {
-          text: 'Add',
-          cssClass: 'alert-button-primary',
-          handler: data => {
-            // if (this.item.qty >= quantity) {
-            this.item.commentDtl = data.comment;
-            this.item.quantity = quantity;
-            this.storage.get('delivery.cart').then((cart) => {
-              let cartItems: Array<any> = cart;
-              let prevCart = cartItems.filter(x => x.itemCode == this.item.itemCode);
-              if (prevCart && prevCart.length > 0) {
-                let index = cartItems.findIndex(x => x.itemCode == this.item.itemCode);
-                cartItems[index] = this.item
-                this.storage.set("delivery.cart", cartItems).then(res => {
-                  this.storage.set("delivery.cartCount", cartItems.length).then(res => {
-                    this.storage.set("delivery.cartShop", this.shop).then(res => {
-                      this.variables.setCartCount(cartItems.length);
-                    });
-                  });
-                });
-              } else {
-                cartItems.push(this.item);
-                this.storage.set('delivery.cart', cartItems).then((response) => {
-                  this.storage.set('delivery.cartCount', cartItems.length).then((res) => {
-                    this.storage.set("delivery.cartShop", this.shop).then(res => {
-                      this.variables.setCartCount(cartItems.length);
-                    });
-                  });
-                });
-              }
-
+    this.item.quantity = quantity;
+    this.storage.get('delivery.cart').then((cart) => {
+      let cartItems: Array<any> = cart;
+      let prevCart = cartItems.filter(x => x.itemCode == this.item.itemCode);
+      if (prevCart && prevCart.length > 0) {
+        let index = cartItems.findIndex(x => x.itemCode == this.item.itemCode);
+        cartItems[index] = this.item
+        this.storage.set("delivery.cart", cartItems).then(res => {
+          this.storage.set("delivery.cartCount", cartItems.length).then(res => {
+            this.storage.set("delivery.cartShop", this.shop).then(res => {
+              this.variables.setCartCount(cartItems.length);
             });
-            // } else {
-            //   let alert = this.alertCtrl.create({
-            //     title: 'Cant add more than the available amount!',
-            //     subTitle: 'Please select a quantity that is available',
-            //     buttons: ['OK']
-            //   });
-            //   alert.present();
-            // }
-          }
-        }
-      ]
+          });
+        });
+      } else {
+        cartItems.push(this.item);
+        this.storage.set('delivery.cart', cartItems).then((response) => {
+          this.storage.set('delivery.cartCount', cartItems.length).then((res) => {
+            this.storage.set("delivery.cartShop", this.shop).then(res => {
+              this.variables.setCartCount(cartItems.length);
+            });
+          });
+        });
+      }
     });
-    prompt.present();
   }
 
   validateCart() {

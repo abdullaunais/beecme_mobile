@@ -45,7 +45,7 @@ export class CartPage {
     this.shopIsVisible = false;
   }
 
-  ionViewDidEnter() {
+  ionViewDidLoad() {
     // console.log('ionViewDidLoad Shops');
     this.storage.get('delivery.cart').then((cart) => {
       // console.info("CartItems --> ", cart);
@@ -98,7 +98,7 @@ export class CartPage {
   }
 
   viewItem(item) {
-      this.navCtrl.push('DetailsPage', { item: item, shop: this.cartShop, city: this.city, category: {} });
+    this.navCtrl.push('DetailsPage', { item: item, shop: this.cartShop, city: this.city, category: {} });
   }
 
   checkAmount() {
@@ -147,6 +147,35 @@ export class CartPage {
                 // UserLoginPage - original
                 this.navCtrl.push('UserLoginPage', { comment: this.checkoutComment, redirect: "redirect-deliveryschedule" });
               }
+            });
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  addComment(index) {
+    let prompt = this.alertCtrl.create({
+      title: 'Enter Comment',
+      message: "",
+      cssClass: 'alert-style',
+      inputs: [
+        { name: 'comment', placeholder: 'Comment' },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          cssClass: 'alert-button-danger-plain',
+          handler: data => { }
+        },
+        {
+          text: 'ADD',
+          cssClass: 'alert-button-primary',
+          handler: data => {
+            // if (this.item.qty >= quantity) {
+            this.cartItems[index].commentDtl = data.comment;
+            this.storage.set("delivery.cart", this.cartItems).then(res => {
             });
           }
         }

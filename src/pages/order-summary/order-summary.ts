@@ -20,7 +20,7 @@ import { Subscription } from "rxjs/Subscription";
 export class OrderSummaryPage {
   cartShop: any = {};
   user: any = {};
-  userAddressElement : string;
+  userAddressElement: string;
   cartItems: Array<any> = [];
   isLoading: boolean;
   totalAmount: number;
@@ -96,7 +96,7 @@ export class OrderSummaryPage {
             "userId": user.userId,
             "shopId": this.cartShop.userId,
             "comment": this.checkoutComment,
-            "currency":  this.cartShop.currency,
+            "currency": this.cartShop.currency,
 
           },
           "orderDetails": cartItems
@@ -118,6 +118,7 @@ export class OrderSummaryPage {
                   handler: () => {
                     this.storage.set('delivery.cart', []).then((cart) => {
                       this.storage.set('delivery.cartCount', 0).then((count) => {
+                        this.variables.setCartCount(0);
                         this.navCtrl.setRoot('Categories', null);
                       });
                     });
@@ -163,7 +164,7 @@ export class OrderSummaryPage {
     this.loading.dismiss();
   }
 
-    presentToast(message, duration) {
+  presentToast(message, duration) {
     let toast = this.toastCtrl.create({
       message: message,
       showCloseButton: true,

@@ -37,8 +37,7 @@
 
     <ion-card *ngFor="let item of items; let i = index;" style="height: 10rem;" (click)="viewDetails(item);">
         <ion-row style="height: 10rem;">
-            <ion-col col-3 class="item-card-icon-col" [defaultImage]="category.imageEn" [lazyLoad]="item.img1" [offset]="offset" [scrollObservable]="container.ionScroll">
-                <!--<img class="item-card-icon" src="{{item.img1}}" cache="true" onerror="errorUpdateUrl($event, i)"/>-->
+            <ion-col col-3 class="item-card-icon-col" [lazyLoad]="item.img1" [offset]="offset" [scrollObservable]="container.ionScroll">
             </ion-col>
             <ion-col col-9 class="item-card-content-col">
                 <ion-card-content class="item-card-content">
@@ -46,7 +45,6 @@
                     <p class="item-card-content-desc">{{ item.descriptionEn }}</p>
                     <img src="assets/img/ui_icons/add_shopping_cart_theme.svg" (click)="validateCart($event, item)" class="item-card-btn-cart">
                     <ion-label class="item-card-content-price">
-                        <!--<ion-icon name="pricetag" color="ui-theme"></ion-icon>-->
                         {{ item.price }} SAR/{{ item.unit.toUpperCase() }}
                     </ion-label>
                 </ion-card-content>
@@ -62,28 +60,4 @@
     <ion-infinite-scroll (ionInfinite)="paginate($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
-
-    <!--<ion-list>-->
-
-    <!--<ion-item>-->
-
-    <!--<ion-thumbnail item-left>-->
-    <!--<img src="../../assets/img/items/F001.jpg">-->
-    <!--</ion-thumbnail>-->
-    <!--<h2>{{ item.title }}</h2>-->
-    <!--<p>{{ item.desc }}</p>-->
-    <!--<button ion-button clear item-right>View</button>-->
-    <!--</ion-item>-->
-
-    <!--<ion-item>-->
-
-    <!--<ion-thumbnail item-left>-->
-    <!--<img src="../../assets/img/items/F001.jpg">-->
-    <!--</ion-thumbnail>-->
-    <!--<h2>{{ item.title }}</h2>-->
-    <!--<p>{{ item.desc }}</p>-->
-    <!--<button ion-button clear item-right>View</button>-->
-    <!--</ion-item>-->
-
-    <!--</ion-list>-->
 </ion-content>

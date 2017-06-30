@@ -15,33 +15,16 @@
 
 <ion-content class="page-categories" #container>
     <div style="display: flex; justify-content: space-between;">
-        <ion-label *ngIf="!isAvailable && !isLoading" style="margin-top: 6rem; text-align: center; width: 100%; color: #fff;">No Categories Available.</ion-label>
+        <ion-label *ngIf="!isAvailable && !isLoading" style="margin-top: 6rem; text-align: center; width: 100%; color: #999;">No Categories Available.</ion-label>
         <ion-spinner *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
     </div>
-
-
-    <ion-card *ngFor="let category of categories" id="cat{{category.categoryId}}" [defaultImage]="defaultImage" [lazyLoad]="category.imageEn" [scrollObservable]="container.ionScroll" (tap)="openCategory(category)">
-        <!--<img [src]="category.imageEn" style="margin-top: -8%;"/>-->
+    <ion-card *ngFor="let category of categories" id="cat{{category.categoryId}}" [defaultImage]="defaultImage" [lazyLoad]="category.imageEn"
+        [scrollObservable]="container.ionScroll" (tap)="openCategory(category)">
         <div ion-item class="card-title">{{ category.nameEn }}</div>
         <div ion-item class="card-subtitle" ion-item>{{ category.descriptionEn }}</div>
     </ion-card>
-
-
-    <!--
-    <div class="card-background-page" style="margin-top: 6rem; margin-right: 1rem; margin-left: 1rem;">
-        <ion-card class="section-devider">Categories</ion-card>
-        <ion-grid>
-            <ion-row *ngFor="let i of rows">
-                <ion-col *ngFor="let category of categories | slice:(i*2):(i+1)*2">
-                    <ion-card class="category-card-grid" (tap)="openCategory(category)">
-                        <img class="card-image" src="{{ category.imageEn }}"/>
-                        <img class="card-image-grid" src="assets/img/categories/{{ category.nameEn.toLowerCase() }}.png" />
-                        <div class="card-title-grid">{{ category.nameEn }}</div>
-                        <div class="card-devider-grid"></div>
-                        <div class="card-subtitle-grid">{{ category.descriptionEn }}</div>
-                    </ion-card>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </div>-->
+    <div style="display: block; margin-top: 40vmin;" *ngIf="isError && !isLoading">
+        <ion-label style="text-align: center; width: 100%; color: #999;">Could not connect to server.</ion-label>
+        <button style="display:block; margin:0 auto; padding: 1rem 2rem; border-radius: 0.5rem;" (tap)="retryServer();">Try Again</button>
+    </div>
 </ion-content>

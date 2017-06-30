@@ -12,6 +12,7 @@
     background-size: cover;
     object-fit: cover;
     background-position: 50%;
+    // background-color: #eee;
   }
   .card-title {
     position: absolute;
@@ -22,7 +23,7 @@
     width:100%;
     font-weight: bold;
     color: #fff;
-    text-shadow: 2px 4px 10px #000;
+    text-shadow: 1px 2px 5px #000;
   }
   .card-subtitle {
     font-size: 1.2rem;
@@ -34,7 +35,7 @@
     display:block;
     width:100%;
     color: #fff;
-    text-shadow: 2px 2px 6px #000;
+    text-shadow: 1px 1px 3px #000;
   }
   .loading-spinner {
     width: 5rem;

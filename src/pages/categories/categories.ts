@@ -18,12 +18,13 @@ export class Categories {
   categories: Array<any> = [];
   rows: Array<any> = [];
   selectedCategory: string;
-  defaultImage = "assets/img/cover/cover.webp";
+  defaultImage: string = "assets/img/ui_icons/loading-loop-cover.webp";
 
   watchCart: Subscription;
   cartCount: number = 0;
   isLoading: boolean;
   isAvailable: boolean;
+  isError: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -35,6 +36,7 @@ export class Categories {
   ) {
     this.isLoading = true;
     this.isAvailable = true;
+    this.isError = false;
   }
 
   ionViewWillEnter() {
@@ -59,6 +61,13 @@ export class Categories {
     }
   }
 
+  retryServer() {
+    this.isLoading = true;
+    this.isAvailable = true;
+    this.isError = false;
+    this.initialize();
+  }
+
   initialize() {
     this.deliveryService.getCategories(this.selectedCity.id).then((data) => {
       let json = JSON.stringify(data);
@@ -68,24 +77,21 @@ export class Categories {
           this.categories.splice(0, 1);
           // this.rows = Array.from(Array(Math.ceil(this.categories.length / 2)).keys());
           this.isAvailable = true;
+          this.isError = false;
         } else {
           this.isAvailable = false;
+          this.isError = false;
         }
       } else {
         this.isAvailable = false;
+        this.isError = false;
       }
       this.isLoading = false;
     }).catch(err => {
       this.isLoading = false;
-      this.presentToast("Unable to fetch categories. Check your internet connection.", 2000);
+      this.isError = true;
     });
   }
-
-  // panEvent(event, category) {
-  //   console.log(event);
-  //   let size = event.velocityY*100;
-  //   document.getElementById('cat'+ category.categoryId).style.backgroundSize = size + "%";
-  // }
 
   openCart() {
     this.navCtrl.push('CartPage', {city: this.selectedCity});

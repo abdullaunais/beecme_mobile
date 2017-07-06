@@ -31,9 +31,9 @@
     <ion-item *ngFor="let order of orders" style="border-top:none;">
       <div ion-item no-lines>
         <ion-avatar item-left>
-          <img src="assets/img/cover/profile_default_grey.webp">
+          <img [src]="order.shop.profilePicture" class="shop-profilePic">
         </ion-avatar>
-        <h2>Order from Shop</h2>
+        <h2 style="text-overflow: ellipsis; overflow: hidden;">Order from {{order.shop.username}}</h2>
         <div class="item-status-wrapper" *ngIf="order.status === 0">
           <ion-icon name="time" color="warning"></ion-icon>
           <div class="item-status color-pending">&nbsp;PENDING</div>
@@ -54,7 +54,7 @@
           <ion-card margin-bottom class="item-card">
             <div style="display:flex;" no-padding no-margin>
               <div item-left no-margin class="item-image-wrapper">
-                <div class="item-image" style="background-image: url('assets/img/cover/cover.webp');"></div>
+                <div class="item-image" [ngStyle]="{'background-image': 'url(' + item.img1 + ')'}"></div>
               </div>
               <div item-left no-margin class="item-content-wrapper">
                 <button style="color:#999; margin-top:0;" ion-button no-margin no-padding clear small class="item-badge-button">

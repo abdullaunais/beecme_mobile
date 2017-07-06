@@ -76,6 +76,10 @@ export class OrderFeedback {
     }
   };
 
+  ionViewWillLeave() {
+    this.statusBar.backgroundColorByHexString('#4527A0');
+  }
+
   validateReview() {
     let isValid: boolean = true;
     let message: string = "";
@@ -125,7 +129,7 @@ export class OrderFeedback {
 
   cancelView() {
     this.statusBar.backgroundColorByHexString('#4527A0');
-    this.viewCtrl.dismiss({success: false});
+    this.viewCtrl.dismiss({ success: false });
   }
 
   showLoading(content) {

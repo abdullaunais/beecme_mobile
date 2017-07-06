@@ -77,30 +77,30 @@ export class UserLoginPage {
       let json = JSON.stringify(data);
       let response = JSON.parse(json);
 
-      // let capitalizeFirstChar = (string) => { return string.charAt(0).toUpperCase() + string.substring(1) };
-
-      // login success
-      // this.storage.get('user.data').then((user) => {
-      // });
       let userData = response;
       console.info(userData);
-      this.storage.set("user.data", userData);
-      this.storage.set("user.login", true);
-      this.storage.set("user.authToken", userData.authToken);
-      this.variables.setLogin(true);
-      Variables.user.username = userData.username;
-      Variables.user.email = userData.email;
+      this.storage.set("user.login", true).then(res1 => {
+        this.storage.set("user.data", userData).then(res2 => {
+          this.storage.set("user.authToken", userData.authToken).then(res3 => {
+            this.variables.setLogin(true);
+            Variables.user.username = userData.username;
+            Variables.user.email = userData.email;
 
-      this.hideLoading();
+            this.hideLoading();
 
-      if (this.redirectString === "redirect-deliveryschedule") {
-        this.navCtrl.setRoot('OrderSummaryPage', { comment: this.navParams.data.comment }, { animate: true, direction: "forward" });
-      } else if (this.redirectString === "redirect-accountpage") {
-        this.navCtrl.setRoot('UserProfilePage');
-      } else {
-        this.events.publish("user:change");
-        this.navCtrl.setRoot('Categories', null, { animate: true, direction: "forward" });
-      }
+            this.events.publish("user:change");
+            if (this.redirectString === "redirect-deliveryschedule") {
+              this.navCtrl.setRoot('OrderSummaryPage', { comment: this.navParams.data.comment }, { animate: true, direction: "forward" });
+            } else if (this.redirectString === "redirect-accountpage") {
+              this.navCtrl.setRoot('UserProfilePage', null, { animate: true, direction: "forward" });
+            } else if (this.redirectString === "redirect-orderhistory") {
+              this.navCtrl.setRoot('OrderHistoryPage', null, { animate: true, direction: "forward" });
+            } else {
+              this.navCtrl.setRoot('Categories', null, { animate: true, direction: "forward" });
+            }
+          });
+        });
+      });
     }).catch(err => {
       if (err.status === 401) {
         this.hideLoading();

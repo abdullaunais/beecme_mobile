@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage, ActionSheetController, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { DeliveryService } from "../../providers/delivery-service";
 import { Storage } from '@ionic/storage';
-import { StatusBar } from "@ionic-native/status-bar";
 /*
   Generated class for the OrderHistory page.
 
@@ -33,14 +32,11 @@ export class OrderHistoryPage {
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
     private deliveryService: DeliveryService,
-    private storage: Storage,
-    private statusBar: StatusBar
+    private storage: Storage
   ) {
     this.initialize();
   }
-  // ionViewDidLoad() {
-  //   console.log('ionViewDidLoad OrderHistoryPage');
-  // }
+
   initialize() {
     this.isLoading = true;
     this.storage.get("user.data").then(user => {
@@ -63,6 +59,9 @@ export class OrderHistoryPage {
           //ignore
           this.isLoading = false;
         });
+      } else {
+        this.isLoading = false;
+        this.navCtrl.push('UserLoginPage', { redirect: "redirect-orderhistory"});
       }
     }).catch(err => {
       //ignore

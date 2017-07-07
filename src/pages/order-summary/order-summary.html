@@ -25,7 +25,8 @@
     <ion-spinner *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
   </div>
 
-  <div ion-item no-lines margin-left margin-right margin-top style="background-color: #E8EAF6;margin: 0;padding: 0.5rem 3rem;">
+  <div ion-item no-lines margin-left margin-right margin-top style="background-color: #E8EAF6;margin: 0;padding: 0.5rem 3rem;"
+    *ngIf="!isLoading">
     <ion-avatar item-left>
       <img [src]="cartShop.profilePicture">
     </ion-avatar>
@@ -36,17 +37,15 @@
     </div>
   </div>
 
-  <ion-list no-lines margin-left margin-right style="border-top: 1px solid #eee;">
+  <ion-list no-lines margin-left margin-right style="border-top: 1px solid #eee; margin-bottom: 2rem;">
     <ion-item>
       <ion-icon name="list-box" color="blue-grey" item-start></ion-icon>
       <div style="font-weight: 700;">Order Details</div>
     </ion-item>
-    <ion-item>
-      <div *ngFor="let item of cartItems" class="color-primary" style="padding-left: 3rem;">
-        {{ toTitleCase(item.nameEn) }}
-        <ion-badge name="list-box" color="blue-grey" class="item-price-badge" item-start>{{ item.quantity + " " +  item.unit.toUpperCase() + " X " + item.price + " " + cartShop.currency }}</ion-badge>
-        <span class="content-span">{{item.price*item.quantity}} {{cartShop.currency }}</span>
-      </div>
+    <ion-item class="price-calc-item" *ngFor="let item of cartItems">
+      <ion-label item-left class="price-calc-label"> {{ toTitleCase(item.nameEn) }}</ion-label>
+      <ion-badge class="item-price-badge" item-left>{{ item.quantity + " " + item.unit.toUpperCase() + " X " + item.price + " " + cartShop.currency }}</ion-badge>
+      <ion-label item-right class="price-calc-label" style="text-align:right">{{item.price*item.quantity}} {{cartShop.currency }}</ion-label>
     </ion-item>
   </ion-list>
 
@@ -55,29 +54,29 @@
       <ion-icon name="pricetag" color="primary" item-start></ion-icon>
       <div style="font-weight: 700;">Total Price</div>
     </ion-item>
-    <ion-item>
-      <div class="color-primary" style="padding:0.5rem 0 0.5rem 3rem;">
-        Item Total
-        <span class="content-span">{{totalAmount}} {{cartShop.currency }}</span>
-      </div>
-      <div class="color-primary" style="border-bottom:1px solid #ddd;padding:0.5rem 0 1rem 3rem;">
-        Delivery Fee
-        <span class="content-span">{{cartShop.deliveryCharge}} {{cartShop.currency }}</span>
-      </div>
-      <div class="color-primary" style="margin: 0.4rem 0;padding:0.5rem 0 0.5rem 3rem;">
-        Total Cost
-        <span class="content-span">{{totalAmount + cartShop.deliveryCharge}} {{cartShop.currency }}</span>
-      </div>
+    <ion-item class="price-calc-item">
+      <ion-label item-left class="price-calc-label">Item Total</ion-label>
+      <ion-label item-right class="price-calc-label" style="text-align:right">{{totalAmount}} {{cartShop.currency }}</ion-label>
+    </ion-item>
+    <ion-item class="price-calc-item">
+      <ion-label item-left class="price-calc-label">Delivery Fee</ion-label>
+      <ion-label item-right class="price-calc-label" style="text-align:right">{{cartShop.deliveryCharge}} {{cartShop.currency }}</ion-label>
+    </ion-item>
+    <ion-item class="price-calc-item" style="min-height:1px;">
+      <div style="width:100%; height:1px; background-color: #eee;"></div>
+    </ion-item>
+    <ion-item class="price-calc-item">
+      <ion-label item-left class="price-calc-label"><b>Total Cost</b></ion-label>
+      <ion-label item-right class="price-calc-label" style="text-align:right"><b>{{totalAmount + cartShop.deliveryCharge}} {{cartShop.currency }}</b></ion-label>
     </ion-item>
   </ion-list>
 
-  <ion-list no-lines margin-left margin-right margin-top style="border-top: 1px solid #eee;">
+  <ion-list no-lines margin-left margin-right margin-top style="border-top: 1px solid #eee; margin-bottom: 2rem;">
     <ion-item>
       <ion-icon name="pin" color="danger" item-start></ion-icon>
-      <div style="font-weight: 700;">Delivery Address</div>
+      <div style="font-weight: 700;">Delivery Address ( {{address.nickName}} )</div>
     </ion-item>
-    <ion-item class="address-item">
-      <ion-icon item-start></ion-icon>
+    <ion-item class="price-calc-item">
       <div class="list-content-desc" [innerHTML]="userAddressElement"></div>
     </ion-item>
   </ion-list>
@@ -95,14 +94,9 @@
     <ion-item>
       <ion-icon name="quote" color="secondary" item-start></ion-icon>
       <div style="font-weight: 700;">Comment</div>
-
-      <!--<ion-icon name="rose" item-end></ion-icon>-->
     </ion-item>
-    <ion-item>
-      <ion-icon item-start></ion-icon>
-      <div class="list-content-desc">
-        <i>{{ checkoutComment }}</i>
-      </div>
+    <ion-item class="price-calc-item">
+      <ion-label item-left class="price-calc-label"><i>{{ checkoutComment }}</i></ion-label>
     </ion-item>
   </ion-list>
 

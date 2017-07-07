@@ -46,8 +46,6 @@ export class OrderHistoryPage {
           if (orderRes['cartlist']) {
             if (orderRes['cartlist'].length > 0) {
               this.orders = orderRes['cartlist'];
-              console.log(this.orders);
-              // this.getItems();
             } else {
               this.orders = [];
             }
@@ -56,7 +54,6 @@ export class OrderHistoryPage {
           }
           this.isLoading = false;
         }).catch(err => {
-          //ignore
           this.isLoading = false;
         });
       } else {
@@ -64,7 +61,6 @@ export class OrderHistoryPage {
         this.navCtrl.push('UserLoginPage', { redirect: "redirect-orderhistory"});
       }
     }).catch(err => {
-      //ignore
       this.isLoading = false;
     });
   }
@@ -75,7 +71,6 @@ export class OrderHistoryPage {
         let orderArray = orderRes['cartlist'];
         if (orderArray.length > 0) {
           this.orders = orderArray;
-          // this.getItems();
         } else {
           this.orders = [];
         }
@@ -85,17 +80,6 @@ export class OrderHistoryPage {
       refresher.complete();
     });
   }
-
-  // getItems() {
-    // this.orders.forEach(order => {
-    //   order.orderDetails.forEach(detail => {
-    //     this.deliveryService.findItem(detail.itemCode).then(item => {
-    //       detail.itemCode = item;
-    //     });
-    //   });
-    // });
-    // console.log(this.orders);
-  // }
 
   paginate(infiniteScroll) {
     this.noMoreItems = false;
@@ -123,14 +107,12 @@ export class OrderHistoryPage {
 
   getActions(order: any) {
     let actionSheet = this.actionSheetCtrl.create({
-      // title: 'Select Quantity',
       buttons: [
         {
           text: 'Send Review',
           icon: 'star',
           cssClass: 'action-feedback-btn',
           handler: () => {
-            // console.log('Feedback Clicked');
             this.reviewPrompt(order);
           }
         },

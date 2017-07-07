@@ -37,17 +37,7 @@ export class Categories {
     this.isLoading = true;
     this.isAvailable = true;
     this.isError = false;
-  }
 
-  ionViewWillEnter() {
-    this.watchCart = this.variables.cartCount.subscribe(value => this.cartCount = value);
-  }
-
-  ionViewWillLeave() {
-    this.watchCart.unsubscribe();
-  }
-
-  ionViewDidEnter() {
     if (!this.navParams.data.locationSet) {
       this.storage.get('location.city').then((city) => {
         if (city) {
@@ -59,6 +49,14 @@ export class Categories {
       this.selectedCity = this.navParams.data.city;
       this.initialize();
     }
+  }
+
+  ionViewWillEnter() {
+    this.watchCart = this.variables.cartCount.subscribe(value => this.cartCount = value);
+  }
+
+  ionViewWillLeave() {
+    this.watchCart.unsubscribe();
   }
 
   retryServer() {
@@ -94,7 +92,7 @@ export class Categories {
   }
 
   openCart() {
-    this.navCtrl.push('CartPage', {city: this.selectedCity});
+    this.navCtrl.push('CartPage', { city: this.selectedCity });
   }
 
   openCategory(category) {

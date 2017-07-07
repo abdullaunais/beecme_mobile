@@ -22,23 +22,25 @@
         font-weight: 700;
     }
     .list-content-desc {
+        line-height: 2.6rem;
         color: $ui-theme-primary;
     }
     .item-price-badge {
-        padding: 0.5rem 0.8rem;
-        margin: 0.3rem 0rem 0.3rem 0.5rem !important;
+        padding: 0.5rem 0.6rem;
+        margin: 0 !important;
         border-radius: 1.2rem;
+        background-color: #eee;
+        color:#888;
     }
-    .content-span {
-        position: absolute;
-        right: 1rem;
-        font-size: 1.6rem;
-        line-height: 2.8rem;
+    .price-calc-item {
+        margin:0;
+        padding:0;
+        padding-left:4rem;
+        color: $ui-theme-primary;
+        min-height: 3rem;
     }
-    .address-item {
-        .item-inner {
-            margin-left:0 !important;
-        }
+    .price-calc-label {
+        margin:0;
     }
     .color-primary {
         color: $ui-theme-primary;

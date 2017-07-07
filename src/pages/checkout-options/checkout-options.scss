@@ -1,0 +1,25 @@
+.page-checkout-options {
+      background-color: #E8EAF6;
+      .input-checkout-comment {
+            padding: 0 2rem;
+            color: #666;
+            font-size: 1.7rem;
+      }
+      textarea {
+            margin:0;
+            margin-bottom: 2rem;
+      }
+}
+
+.checkoutOptionsFooter {
+    background-color: #E8EAF6;
+    .checkoutOptionsButton {
+        background-color: $ui-theme-dark;
+        width: 92vw;
+        border-radius: 5px;
+        height: 8vh;
+        color: #fff;
+        font-weight: 700;
+        margin: 1.5rem;
+    }
+}

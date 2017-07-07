@@ -34,10 +34,6 @@
   <ion-card *ngFor="let shop of shops; let i = index;" style="height: 18vh;" (click)="viewShop(shop);">
     <ion-row style="height: 18vh;">
       <ion-col col-4 class="shop-card-icon-col" [lazyLoad]="shop.profilePicture" [offset]="offset" [scrollObservable]="container.ionScroll">
-        <!--<image [defaultImage]="shop.profilePicture" [lazyLoad]="shop.profilePicture" [offset]="offset"></image>-->
-        <!--<ion-img class="shop-card-icon" [src]="shop.profilePicture"></ion-img>-->
-        <!--<img class="shop-card-icon" src="{{shop.profilePicture}}"/>-->
-        <!--<ion-spinner></ion-spinner>-->
       </ion-col>
       <ion-col col-8 class="shop-card-content-col">
         <ion-card-content class="shop-card-content">

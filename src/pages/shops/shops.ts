@@ -41,6 +41,7 @@ export class Shops {
     this.city = navParams.data.city;
     this.isLoading = true;
     this.noMoreShops = false;
+    this.initialize();
   }
 
   ionViewWillEnter() {
@@ -49,10 +50,6 @@ export class Shops {
 
   ionViewWillLeave() {
     this.watchCart.unsubscribe();
-  }
-
-  ionViewDidEnter() {
-    this.initialize();
   }
 
   initialize() {
@@ -142,10 +139,6 @@ export class Shops {
     this.navCtrl.push('CartPage', { city: this.city });
   }
 
-  // openMenu() {
-  //   this.menuCtrl.open();
-  // }
-
   shopDetails(e: Event, shop) {
     if (!e) var e = window.event;
     e.cancelBubble = true;
@@ -158,11 +151,6 @@ export class Shops {
       }
     });
   }
-
-
-  // ionViewDidLoad() {
-  //   console.log('ionViewDidLoad Shops');
-  // }
 
   toTitleCase(str) {
     return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });

@@ -63,6 +63,10 @@ export class AppSettingsPage {
     }
   }
 
+  manageAddress() {
+    this.navCtrl.push('ManageAddressPage');
+  }
+
   presentChangeLocationModal() {
     let changeLocationModal = this.modalCtrl.create('ChangeLocation');
     changeLocationModal.present();

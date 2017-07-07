@@ -25,6 +25,11 @@
       Change Location
     </ion-item>
 
+    <ion-item (tap)="manageAddress()" class="no-background"  *ngIf="isLogin">
+      <ion-icon name="home" color="primary" item-left></ion-icon>
+      My Address
+    </ion-item>
+
     <ion-item (tap)="loginOrLogout()" class="no-background">
       <ion-icon name="contact" color="primary" *ngIf="!isLogin" item-left></ion-icon>
       <ion-icon name="exit" color="warning" *ngIf="isLogin" item-left></ion-icon>

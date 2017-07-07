@@ -24,6 +24,7 @@ export class UserService {
   UPDATE_USER_URL = "/users"; // +email/reset
   AUTHENTICATE_LOGIN = "/auth" // post
   FORGOT_PASSWORD = "/mails" // post
+  ADDRESS_URL = "/users/address" //+userId
 
   constructor(public httpService: Http, public config: Config) {
     this.http = httpService;
@@ -98,6 +99,18 @@ export class UserService {
 
     let requestUrl: string = this.serviceRootUrl + this.FORGOT_PASSWORD;
     return this.http.post(requestUrl, body, options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getAddressList(userId, authToken): Promise<any> {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', authToken);
+    let options = new RequestOptions({ headers: headers });
+
+    let requestUrl: string = this.serviceRootUrl + this.ADDRESS_URL + "/" + userId;
+    return this.http.get(requestUrl, options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }

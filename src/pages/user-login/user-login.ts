@@ -90,7 +90,7 @@ export class UserLoginPage {
 
             this.events.publish("user:change");
             if (this.redirectString === "redirect-deliveryschedule") {
-              this.navCtrl.setRoot('OrderSummaryPage', { comment: this.navParams.data.comment }, { animate: true, direction: "forward" });
+              this.navCtrl.setRoot('CheckoutOptionsPage', null, { animate: true, direction: "forward" });
             } else if (this.redirectString === "redirect-accountpage") {
               this.navCtrl.setRoot('UserProfilePage', null, { animate: true, direction: "forward" });
             } else if (this.redirectString === "redirect-orderhistory") {
@@ -135,7 +135,6 @@ export class UserLoginPage {
           ]
         });
         alert.present();
-
       }
     });
   }

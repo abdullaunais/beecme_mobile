@@ -12,7 +12,6 @@
     </button>
     <ion-title>Cart</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
@@ -48,7 +47,7 @@
           <ion-badge style="font-size:1.3rem;">{{ item.quantity + " " + item.unit.toUpperCase() + " X "}}{{item.price + " " + cartShop.currency}}</ion-badge>
         </ion-card-content>
         <ion-card-content style="padding: 0.4rem 2rem 2rem 1rem;">
-          <p class="item-card-content-desc" no-margin  *ngIf="item.commentDtl">
+          <p class="item-card-content-desc" no-margin *ngIf="item.commentDtl">
             <ion-icon name="quote" color="dark"></ion-icon>&nbsp;&nbsp;<span style="color:#666;"><i>"{{ item.commentDtl }}"</i></span>
           </p>
           <button class="comment-button" *ngIf="!item.commentDtl" (tap)="addComment(i);">
@@ -88,9 +87,6 @@
   <div style="width:100%; height:5rem; display:block;"></div>
 </ion-content>
 
-<ion-footer class="footer-cart" *ngIf="cartItems.length > 0">
-  <button ion-button full clear (tap)="checkAmount()" class="button-checkout"> 
-    <ion-icon name="checkmark-circle"></ion-icon>
-    &nbsp;&nbsp;CHECKOUT ( TOTAL {{totalAmount}} SAR )
-  </button>
+<ion-footer class="cartFooter"  *ngIf="cartItems.length > 0">
+  <button class="cartButton" full (tap)="checkAmount();">CHECKOUT (  {{totalAmount}} SAR )</button>
 </ion-footer>

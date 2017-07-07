@@ -43,10 +43,13 @@ export class Welcome {
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     private modalCtrl: ModalController
-  ) { }
+  ) {}
 
   ngAfterViewInit() {
     this.lockSwipe();
+  }
+
+  ionViewDidEnter() {
     this.initialize();
   }
 

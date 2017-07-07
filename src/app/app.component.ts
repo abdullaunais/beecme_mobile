@@ -254,7 +254,7 @@ export class MyApp {
     } else {
       this.nav.push(page.component, { city: this.city });
     }
-
+    this.menuCtrl.close();
     this.activePage = page;
   }
 

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController, IonicPage, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, IonicPage } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Variables } from "../../providers/variables";
-import { DeliveryService } from "../../providers/delivery-service";
 
 /*
   Generated class for the Cart page.
@@ -14,7 +13,6 @@ import { DeliveryService } from "../../providers/delivery-service";
 @Component({
   selector: 'page-cart',
   templateUrl: 'cart.html',
-  providers: [DeliveryService]
 })
 export class CartPage {
   loading: any;
@@ -28,17 +26,13 @@ export class CartPage {
   shopIsVisible: boolean;
   totalAmount: number = 0;
 
-  checkoutComment: string = "";
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private storage: Storage,
     private variables: Variables,
     private toastCtrl: ToastController,
-    private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController,
-    private deliveryService: DeliveryService
+    private alertCtrl: AlertController
   ) {
     this.cartItems = [];
     this.isLoading = true;
@@ -46,9 +40,7 @@ export class CartPage {
   }
 
   ionViewDidLoad() {
-    // console.log('ionViewDidLoad Shops');
     this.storage.get('delivery.cart').then((cart) => {
-      // console.info("CartItems --> ", cart);
       if (cart) {
         if (cart.length > 0) {
           this.cartItems = cart;
@@ -70,7 +62,6 @@ export class CartPage {
       }
       this.isLoading = false;
     }).catch(err => {
-      // console.log("Its screwed man");
       //ignore
     });
     this.storage.get('location.city').then((city) => {
@@ -79,11 +70,7 @@ export class CartPage {
   }
 
   removeItem(item) {
-    this.cartItems.splice(
-      this.cartItems.findIndex(
-        (elem) => elem.itemCode === item.itemCode
-      ), 1
-    );
+    this.cartItems.splice(this.cartItems.findIndex((elem) => elem.itemCode === item.itemCode), 1);
     this.totalAmount = 0;
     this.cartItems.forEach((item) => {
       this.totalAmount = this.totalAmount + (item.price * item.quantity);
@@ -119,40 +106,13 @@ export class CartPage {
   }
 
   checkout() {
-    let prompt = this.alertCtrl.create({
-      title: 'Checkout Comment',
-      message: "",
-      cssClass: 'alert-style',
-      inputs: [
-        { name: 'comment', placeholder: 'Comment' },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          cssClass: 'alert-button-danger-plain',
-          handler: data => { }
-        },
-        {
-          text: 'Checkout',
-          cssClass: 'alert-button-primary',
-          handler: data => {
-            this.checkoutComment = data.comment;
-            Variables.checkoutComment = this.checkoutComment;
-
-            this.storage.get('user.login').then((auth) => {
-              if (auth) {
-                this.navCtrl.push('OrderSummaryPage', { comment: this.checkoutComment });
-              } else {
-                // DeliverySchedulePage - testing
-                // UserLoginPage - original
-                this.navCtrl.push('UserLoginPage', { comment: this.checkoutComment, redirect: "redirect-deliveryschedule" });
-              }
-            });
-          }
-        }
-      ]
+    this.storage.get('user.login').then((auth) => {
+      if (auth) {
+        this.navCtrl.push('CheckoutOptionsPage');
+      } else {
+        this.navCtrl.push('UserLoginPage', { redirect: "redirect-deliveryschedule" });
+      }
     });
-    prompt.present();
   }
 
   addComment(index) {
@@ -173,7 +133,6 @@ export class CartPage {
           text: 'ADD',
           cssClass: 'alert-button-primary',
           handler: data => {
-            // if (this.item.qty >= quantity) {
             this.cartItems[index].commentDtl = data.comment;
             this.storage.set("delivery.cart", this.cartItems).then(res => {
             });
@@ -182,17 +141,6 @@ export class CartPage {
       ]
     });
     prompt.present();
-  }
-
-  showLoading(content) {
-    this.loading = this.loadingCtrl.create({
-      content: content,
-    });
-    this.loading.present();
-  }
-
-  hideLoading() {
-    this.loading.dismiss();
   }
 
   presentToast(message, duration) {

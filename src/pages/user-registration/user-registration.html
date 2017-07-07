@@ -33,60 +33,34 @@
             <!--<ion-option value="lk">+94</ion-option>-->
           </ion-label>
         </ion-item>
-        <!--<ion-item class="registerItem">-->
-        <!--&lt;!&ndash;<ion-label floating>Username</ion-label>&ndash;&gt;-->
-        <!--&lt;!&ndash;<ion-label>Country Code</ion-label>&ndash;&gt;-->
-        <!--<ion-select class="registerInput" [(ngModel)]="countryCode">-->
-        <!--<ion-option value="sa" selected="true">🇸🇦 &nbsp;+966</ion-option>-->
-        <!--<ion-option value="lk">+94 🇸🇦</ion-option>-->
-        <!--</ion-select>-->
-        <!--<ion-input type="tel" class="registerInput"  placeholder="Phone"></ion-input>-->
-        <!--</ion-item>-->
         <ion-item class="registerItem" #formitem style="border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
           <ion-input type="password" formControlName="formPassword" (blur)="inputBlur()" #forminput class="registerInput" placeholder="Password"></ion-input>
           <ion-icon name="key" color="ui-theme-dark" class="registerInputIcon" item-left></ion-icon>
         </ion-item>
       </ion-item-group>
 
-      <!--<ion-label class="register-section-label" style="margin-top:3rem;">Delivery Address</ion-label>-->
-
       <ion-item-group>
         <ion-item-divider color="light" style="border-top-left-radius: 5px; border-top-right-radius: 5px; margin-top:2rem;">Delivery Address</ion-item-divider>
         <ion-item class="registerItem" #formitem>
           <ion-input type="text" class="registerInput" formControlName="formAddress1" (blur)="inputBlur()" #forminput placeholder="Address Line 1"></ion-input>
           <ion-icon name="home" color="ui-theme-dark" class="registerInputIcon" item-left>
-            <!--<ion-badge color="ui-theme" class="badge badge-assertive header-badge" style="top: -15px !important; left: -15px !important;">1</ion-badge>-->
           </ion-icon>
         </ion-item>
         <ion-item class="registerItem" #formitem>
           <ion-input type="text" class="registerInput" formControlName="formAddress2" (blur)="inputBlur()" #forminput placeholder="Address Line 2"></ion-input>
           <ion-icon name="home" color="ui-theme-dark" class="registerInputIcon" style="opacity:0" item-left>
-            <!--<ion-badge color="ui-theme" class="badge badge-assertive header-badge" style="top: -15px !important; left: -15px !important;">2</ion-badge>-->
           </ion-icon>
         </ion-item>
         <ion-item class="registerItem" #formitem>
           <ion-input type="text" class="registerInput" formControlName="formAddress3" (blur)="inputBlur()" #forminput placeholder="Address Line 3"></ion-input>
           <ion-icon name="home" color="ui-theme-dark" class="registerInputIcon" style="opacity:0" item-left>
-            <!--<ion-badge color="ui-theme" class="badge badge-assertive header-badge" style="top: -15px !important; left: -15px !important;">2</ion-badge>-->
           </ion-icon>
         </ion-item>
-        <!--<ion-grid no-padding style="margin-top:2rem;">
-          <ion-row>
-            <ion-col style="background-color: #fff; padding:0 0.5rem; border-top-left-radius: 5px;border-bottom-left-radius: 5px;" no-padding>
-              <ion-input type="text" class="registerInput center-input-text" disabled placeholder="Latitude"></ion-input>
-            </ion-col>
-            <ion-col style="background-color: #fff; padding:0 0.5rem; border-bottom-right-radius: 5px;border-top-right-radius: 5px; margin-left:-1px;"
-              no-padding>
-              <ion-input type="text" class="registerInput center-input-text" disabled placeholder="Longitude"></ion-input>
-            </ion-col>
-          </ion-row>
-        </ion-grid>-->
-        <!--<ion-list no-lines>-->
+
         <ion-item class="registerItem" [ngStyle]="{'border-bottom-left-radius': (isLocated) ?'0px' : '5px', 'border-bottom-right-radius': (isLocated) ?'0px' : '5px'}" #formitem>
           <ion-label class="registerInput" style="padding-left: 1rem; color: #9a9a9a;">Location</ion-label>
           <ion-icon name="pin" color="ui-theme-dark" class="registerInputIcon" style="padding-left: 2.2rem; padding-right: 0.2rem;"
             item-left>
-            <!--<ion-badge color="ui-theme" class="badge badge-assertive header-badge" style="top: -15px !important; left: -15px !important;">2</ion-badge>-->
           </ion-icon>
         </ion-item>
         <ion-item *ngIf="isLocated" class="item-map" style="border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">

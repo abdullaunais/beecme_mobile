@@ -28,11 +28,6 @@ export class UpdateProfile {
   public phoneForm = this.fb.group({
     formPhone: ["", [Validators.required, Validators.minLength(9)]]
   });
-    public addressForm = this.fb.group({
-    formAddress: ["", [Validators.required, Validators.minLength(2)]],
-    formAddress2: ["", []],
-    formAddress3: ["", []]
-  });
 
   constructor(
     public navCtrl: NavController,
@@ -103,36 +98,6 @@ export class UpdateProfile {
     }
   }
 
-  validateAddress() {
-    let isValid: boolean = true;
-    let message: string = "";
-
-    if (this.addressForm.controls.formAddress.errors) {
-      if (this.addressForm.controls.formAddress.errors.required) {
-        isValid = false;
-        message = "Address is required";
-      } else if (this.addressForm.controls.formAddress.errors.minlength) {
-        isValid = false;
-        message = "Address should be at least 4 charaters long";
-      }
-    }
-
-    if (!isValid) {
-      this.presentToast(message, 2000);
-      return;
-    } else {
-      delete this.user.password;
-      this.user.address = this.addressForm.value.formAddress;
-      if(this.addressForm.value.formAddress2) {
-        this.user.address += "\n" + this.addressForm.value.formAddress2;
-      }
-      if(this.addressForm.value.formAddress3) {
-        this.user.address += "\n" + this.addressForm.value.formAddress3;
-      }
-      this.updateUser();
-    }
-  }
-
   updateUser() {
     this.showLoading("Updating...");
     this.userService.updateUser(this.user, this.authToken).then(res => {
@@ -169,7 +134,6 @@ export class UpdateProfile {
   hideLoading() {
     this.loading.dismiss();
   }
-
 
   presentToast(message, duration) {
     let toast = this.toastCtrl.create({

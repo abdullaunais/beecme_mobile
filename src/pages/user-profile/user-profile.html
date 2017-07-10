@@ -74,30 +74,5 @@
       <ion-spinner *ngIf="isLoading" class="loading-spinner" color="secondary"></ion-spinner>
     </ion-list>
 
-    <ion-list (tap)="presentUpdateModal('Address');" no-lines margin-left margin-right style="border-top: 1px solid #eee;">
-      <ion-item>
-        <ion-icon name="home" color="primary" item-start></ion-icon>
-        <div style="font-weight: 700;">Address</div>
-      </ion-item>
-      <ion-item style="min-height:auto;" *ngIf="!isLoading">
-        <ion-icon style="min-height: auto;" item-start></ion-icon>
-        <div class="list-content-desc" [innerHTML]="userAddressElement">
-        </div>
-        <ion-icon name="create" class="btn-icon-edit" color="blue-grey" item-end></ion-icon>
-      </ion-item>
-      <ion-spinner *ngIf="isLoading" class="loading-spinner" color="primary"></ion-spinner>
-    </ion-list>
-
-    <ion-list (tap)="updateLocation();" no-lines margin-left margin-right style="border-top: 1px solid #eee; margin-bottom:5vh;">
-      <ion-item>
-        <ion-icon name="pin" color="danger" item-start></ion-icon>
-        <div style="font-weight: 700;">Location</div>
-        <ion-icon name="locate" color="blue-grey" item-end></ion-icon>
-      </ion-item>
-      <ion-item class="item-map">
-        <div #map id="map" style="height:40vh; width:100%; margin-top:1rem;"></div>
-      </ion-item>
-    </ion-list>
-
   </div>
 </ion-content>

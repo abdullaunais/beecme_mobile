@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar [color]="(updateProperty === 'Name') ? 'ui-theme' : (updateProperty === 'Phone') ? 'secondary' : (updateProperty === 'Address') ? 'primary' : 'ui-theme'">
+  <ion-navbar [color]="(updateProperty === 'Name') ? 'ui-theme' : (updateProperty === 'Phone') ? 'secondary' :  'ui-theme'">
     <ion-title>Change {{updateProperty}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (tap)="viewCtrl.dismiss({success: false});">
@@ -49,27 +49,4 @@
     </ion-card>
   </form>
 
-  <form [formGroup]="addressForm" ion-card (ngSubmit)="validateAddress($event)" *ngIf="updateProperty === 'Address'">
-    <!--<ion-item-divider color="light">Enter Name</ion-item-divider>-->
-    <ion-card>
-      <ion-item>
-        <ion-icon name="home" color="primary" item-left></ion-icon>
-        <ion-input type="text" placeholder="Enter Address" readonly></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input type="text" formControlName="formAddress" #forminput placeholder="Line 1"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input type="text" formControlName="formAddress2" #forminput placeholder="Line 2"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input type="text" formControlName="formAddress3" #forminput placeholder="Line 3"></ion-input>
-      </ion-item>
-
-      <button ion-button block type="submit" color="primary" class="update-button">
-        <ion-icon name="create"></ion-icon>
-        &nbsp;&nbsp;UPDATE
-    </button>
-    </ion-card>
-  </form>
 </ion-content>

@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, IonicPage, LoadingController, ToastController, ModalController } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NavController, NavParams, AlertController, IonicPage, ToastController, ModalController, Events, ActionSheetController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { UserService } from "../../providers/user-service";
 /*
-  Generated class for the UserProfile page.
+  Generated class for the UserProfilePage.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 */
 @IonicPage()
@@ -15,6 +15,7 @@ import { UserService } from "../../providers/user-service";
   providers: [UserService]
 })
 export class UserProfilePage {
+  @ViewChild('img') img1: ElementRef;
   authToken: any;
   loading: any;
   offsetHeight: number;
@@ -22,19 +23,24 @@ export class UserProfilePage {
 
   hideNav: boolean = false;
   isLoading: boolean = true;
+  isError: boolean = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     public modalCtrl: ModalController,
+    public actionSheetCtrl: ActionSheetController,
+    private loadingCtrl: LoadingController,
     private storage: Storage,
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+    public events: Events
+  ) {
+    this.initialize();
+  }
 
-  ngOnInit() {
+  initialize() {
     this.storage.get("user.login").then((login) => {
       if (login) {
         this.storage.get("user.data").then((userData) => {
@@ -46,38 +52,75 @@ export class UserProfilePage {
             let json = JSON.stringify(res);
             this.user = JSON.parse(json);
             this.isLoading = false;
-            this.refreshProfilePicture();
+            this.isError = false;
           }).catch(err => {
-            this.presentToast("Error fetching user data", 2000);
+            this.isLoading = false;
+            this.isError = true;
           });
-        })
+        }).catch(getErr => {
+          this.isLoading = false;
+          this.isError = true;
+        });
       } else {
         this.navCtrl.setRoot('UserLoginPage', { redirect: "redirect-accountpage" });
         return;
       }
+    }).catch(loginErr => {
+      this.isLoading = false;
+      this.isError = true;
+      this.navCtrl.setRoot('UserLoginPage', { redirect: "redirect-accountpage" });
     });
   }
 
-  ngAfterViewInit() {
-    this.offsetHeight = document.getElementById('nav-content').offsetHeight;
-    this.refreshProfilePicture();
-  }
-
-  refreshProfilePicture() {
-    if (this.user.profilePicture) {
-      document.getElementById('headerImage').style.backgroundImage = "url(" + this.user.profilePicture + ")";
-    } else {
-      document.getElementById('headerImage').style.backgroundImage = "url('assets/img/cover/profile_default_grey.webp')";
-    }
-  }
-
-  checkScroll(event) {
-    let yOffset = document.getElementById('profile-content').offsetTop;
-    if (event.scrollTop > yOffset - this.offsetHeight) {
-      document.getElementById('header-content').classList.remove("profile-header");
-    } else {
-      document.getElementById('header-content').classList.add("profile-header");
-    }
+  editProfile() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'What to update?',
+      buttons: [
+        {
+          text: 'Edit Profile Picture',
+          icon: 'image',
+          cssClass: 'action-theme-btn',
+          handler: () => {
+            this.triggerFileUpload(this.img1.nativeElement);
+          }
+        },
+        {
+          text: 'Edit Name',
+          icon: 'person',
+          cssClass: 'action-blue-btn',
+          handler: () => {
+            this.presentUpdateModal('Name');
+          }
+        },
+        {
+          text: 'Edit Phone',
+          icon: 'call',
+          cssClass: 'action-green-btn',
+          handler: () => {
+            this.presentUpdateModal('Phone');
+          }
+        },
+        {
+          text: 'Manage Address',
+          icon: 'home',
+          cssClass: 'action-blue-grey-btn',
+          handler: () => {
+            setTimeout(() => {
+              this.navCtrl.push('ManageAddressPage');
+            }, 200);
+          }
+        },
+        {
+          text: 'Cancel',
+          icon: 'close-circle',
+          cssClass: 'action-cancel-btn',
+          role: 'cancel',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
   triggerFileUpload(img: HTMLInputElement) {
@@ -85,6 +128,7 @@ export class UserProfilePage {
   }
 
   chooseImage(img: HTMLInputElement) {
+    this.showLoading("Uploading...");
     let fileCount = img.files.length;
     let formData = new FormData(); // HTMLFormElement
     if (fileCount > 0) { // a file was selected
@@ -95,28 +139,33 @@ export class UserProfilePage {
     formData.append('userId', this.user.userId)
     this.userService.uploadPicture(this.user.userId, this.authToken, formData).then(res => {
       if (res.code === 1) {
-          this.userService.getUserDetails(this.user.userId, this.user.authToken).then(res => {
-            let json = JSON.stringify(res);
-            this.user = JSON.parse(json);
-            this.storage.get('user.data').then(userObj => {
-              if(userObj) {
-                userObj.profilePicture = this.user.profilePicture;
-                this.storage.set('user.data', userObj).then(res => {
-                  this.refreshProfilePicture();
-                  this.presentToast("Profile picture updated.", 2000);
-                }).catch(userSetErr => {
-                  // ignore
-                });
-              }
-            }).catch(getDataErr => {
-              // ignore
-            });
-          }).catch(getUsrErr => {
-            // ignore
+        this.userService.getUserDetails(this.user.userId, this.user.authToken).then(res => {
+          let json = JSON.stringify(res);
+          this.user = JSON.parse(json);
+          this.storage.get('user.data').then(userObj => {
+            if (userObj) {
+              userObj.profilePicture = this.user.profilePicture;
+              this.storage.set('user.data', userObj).then(res => {
+                // this.refreshProfilePicture();
+                this.hideLoading();
+                this.events.publish("user:change");
+                this.presentToast("Profile picture updated.", 2000);
+              }).catch(userSetErr => {
+                this.hideLoading();
+              });
+            }
+          }).catch(getDataErr => {
+            this.hideLoading();
           });
+        }).catch(getUsrErr => {
+          this.hideLoading();
+        });
+      } else {
+        this.hideLoading();
+        this.presentToast("Error profile update.", 2000);
       }
     }).catch(err => {
-      // console.log(JSON.stringify(err));
+      this.hideLoading();
     });
   }
 
@@ -143,6 +192,12 @@ export class UserProfilePage {
         alert.present();
       }
     });
+  }
+
+  retryServer() {
+    this.isError = false;
+    this.isLoading = true;
+    this.initialize();
   }
 
   showLoading(content) {

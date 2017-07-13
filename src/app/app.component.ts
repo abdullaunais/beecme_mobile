@@ -22,7 +22,6 @@ export class MyApp {
   user: any;
   profilepic: string;
   isLogin: boolean = false;
-  profileComponent: any;
   cartCount: number;
 
   connected: Subscription;
@@ -256,6 +255,10 @@ export class MyApp {
     }
     this.menuCtrl.close();
     this.activePage = page;
+  }
+
+  profilePicError(event) {
+    event.target.src = "assets/img/cover/profile_default.webp";
   }
 
   public checkActivePage(page): boolean {

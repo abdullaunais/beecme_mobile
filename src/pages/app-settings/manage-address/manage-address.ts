@@ -46,6 +46,10 @@ export class ManageAddressPage {
     return addressString.replace(/(?:\r\n|\r|\n)/g, '<br />');
   }
 
+  toggleNew() {
+    this.createAddress = !this.createAddress;
+  }
+
   initialize() {
     this.userService.getAddressList(this.user.userId, this.user.authToken).then(data => {
       let json = JSON.stringify(data);

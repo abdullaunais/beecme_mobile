@@ -3,6 +3,7 @@ import { NavController, NavParams, LoadingController, ViewController, IonicPage,
 import { Storage } from '@ionic/storage';
 import { FormBuilder, Validators } from "@angular/forms";
 import { UserService } from "../../../providers/user-service";
+import { StatusBar } from "@ionic-native/status-bar";
 
 /**
  * Generated class for the ChangeLocation page.
@@ -37,17 +38,33 @@ export class UpdateProfile {
     private toastCtrl: ToastController,
     public viewCtrl: ViewController,
     public fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private statusBar: StatusBar
   ) {
     this.user = navParams.data.user;
     this.updateProperty = navParams.data.property;
     storage.get("user.authToken").then(token => {
       this.authToken = token;
     });
+    if (this.updateProperty === "Name") {
+      this.statusBar.backgroundColorByHexString('#1557c7');
+    } else if (this.updateProperty === "Phone") {
+      this.statusBar.backgroundColorByHexString('#0ec343');
+    }
+    this.usernameForm.setValue({
+      formUsername: this.user.username
+    });
+    this.phoneForm.setValue({
+      formPhone: this.user.phone
+    });
   }
 
   ionViewDidEnter() {
     this.viewCtrl.showBackButton(true);
+  }
+
+  ionViewWillLeave() {
+    this.statusBar.backgroundColorByHexString('#4527A0');
   }
 
   validateName() {
@@ -96,6 +113,11 @@ export class UpdateProfile {
       this.user.phone = this.phoneForm.value.formPhone;
       this.updateUser();
     }
+  }
+
+  cancelView() {
+    this.statusBar.backgroundColorByHexString('#4527A0');
+    this.viewCtrl.dismiss({ success: false });
   }
 
   updateUser() {

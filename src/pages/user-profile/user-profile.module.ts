@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { UserProfilePage } from "./user-profile";
-import { ParallaxHeader } from "./parallax-header";
+import { LazyLoadImageModule } from "ng-lazyload-image";
 
 @NgModule({
   declarations: [
-    UserProfilePage,
-    ParallaxHeader
+    UserProfilePage
   ],
   imports: [
-    IonicPageModule.forChild(UserProfilePage)
+    IonicPageModule.forChild(UserProfilePage),
+    LazyLoadImageModule
   ],
   exports: [
     UserProfilePage

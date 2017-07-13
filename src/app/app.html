@@ -3,7 +3,7 @@
 
     <div style="background-image:url('assets/img/cover/cover.webp');" class="cover-pic">
     <img src="assets/img/cover/cover.webp" style="vertical-align: top;width: 100%; z-index: -100; opacity: 0;">
-      <img [attr.src]="profilepic" alt="Cover" class="profile-pic" />
+      <img [attr.src]="profilepic" (error)="profilePicError($event);" alt="Cover" class="profile-pic" />
 
       <div ion-item no-lines class="profile-detail-item">
         <div *ngIf="isLogin">{{ user.username }}</div>

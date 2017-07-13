@@ -18,8 +18,8 @@
   <ion-card style="padding:0.5rem; margin-bottom: 0;">
     <ion-list no-lines style="margin:0">
       <ion-item>
-        <ion-icon name="add-circle" [color]="(createAddress) ? 'primary' : 'dark'" item-start></ion-icon>
-        <ion-label>Add New Address</ion-label>
+        <ion-icon name="add-circle" (tap)="toggleNew();" [color]="(createAddress) ? 'primary' : 'blue-grey'" item-start></ion-icon>
+        <ion-label  [color]="(createAddress) ? 'primary' : 'blue-grey'" (tap)="toggleNew();">Add New Address</ion-label>
         <ion-toggle [(ngModel)]="createAddress"></ion-toggle>
       </ion-item>
     </ion-list>

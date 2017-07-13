@@ -6,10 +6,10 @@
 -->
 <ion-header>
 
-  <ion-navbar [color]="(updateProperty === 'Name') ? 'ui-theme' : (updateProperty === 'Phone') ? 'secondary' :  'ui-theme'">
+  <ion-navbar [color]="(updateProperty === 'Name') ? 'primary' : (updateProperty === 'Phone') ? 'secondary' :  'ui-theme'">
     <ion-title>Change {{updateProperty}}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (tap)="viewCtrl.dismiss({success: false});">
+      <button ion-button icon-only (tap)="cancelView();">
               <ion-icon name="close"></ion-icon>
          </button>
     </ion-buttons>
@@ -24,12 +24,12 @@
     <ion-card>
       <ion-item class="update-item" #formitem>
         <ion-input type="text" formControlName="formUsername" #forminput placeholder="Enter Name"></ion-input>
-        <ion-icon name="person" color="ui-theme" item-left></ion-icon>
+        <ion-icon name="person" color="primary" item-left></ion-icon>
       </ion-item>
 
-      <button ion-button block type="submit" color="ui-theme" class="update-button">
+      <button ion-button block type="submit" color="primary" class="update-button">
         <ion-icon name="create"></ion-icon>
-        &nbsp;&nbsp;UPDATE
+        &nbsp;&nbsp;SAVE
     </button>
     </ion-card>
   </form>
@@ -44,7 +44,7 @@
 
       <button ion-button block type="submit" color="secondary" class="update-button">
         <ion-icon name="create"></ion-icon>
-        &nbsp;&nbsp;UPDATE
+        &nbsp;&nbsp;SAVE
     </button>
     </ion-card>
   </form>

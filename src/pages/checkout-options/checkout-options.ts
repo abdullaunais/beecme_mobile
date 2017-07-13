@@ -103,6 +103,10 @@ export class CheckoutOptionsPage {
 
   }
 
+  toggleNew() {
+    this.createAddress = !this.createAddress;
+  }
+
   showLoading(content) {
     this.loading = this.loadingCtrl.create({
       content: content,

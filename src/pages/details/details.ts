@@ -40,7 +40,6 @@ export class DetailsPage {
     private deliveryService: DeliveryService
   ) {
     this.item = navParams.data.item;
-    console.log(this.item);
     this.shop = navParams.data.shop;
     this.category = navParams.data.category;
     this.city = navParams.data.city;
@@ -113,7 +112,9 @@ export class DetailsPage {
           text: 'More than 5',
           cssClass: 'action-blue-btn',
           handler: () => {
-            this.quantityPrompt();
+            setTimeout(() => {
+              this.quantityPrompt();
+            }, 300);
           }
         },
         {
@@ -133,9 +134,11 @@ export class DetailsPage {
       title: 'Enter Quantity',
       message: "",
       cssClass: 'alert-style',
-      inputs: [
-        { name: 'quantity', placeholder: 'Quantity' },
-      ],
+      inputs: [{
+        name: 'quantity',
+        placeholder: 'Quantity',
+        type: 'number'
+      }],
       buttons: [
         {
           text: 'Cancel',

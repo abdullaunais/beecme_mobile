@@ -12,7 +12,7 @@
     </button>
     <ion-title ng-style="color:white;">Profile</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (tap)="choosePhoto()" class="btn-edit-image">
+      <button ion-button icon-only (tap)="triggerFileUpload(img);" class="btn-edit-image">
         <ion-icon name="image"></ion-icon>
       </button>
     </ion-buttons>
@@ -67,12 +67,13 @@
       <ion-item style="min-height:auto;" *ngIf="!isLoading">
         <ion-icon style="min-height: auto;" item-start></ion-icon>
         <div class="list-content-desc">
-          +94 {{ (user.phone) ? user.phone : 'Not Specified' }}
+          {{ (user.phone) ? '+94 ' + user.phone : 'Not Specified' }}
         </div>
         <ion-icon name="create" class="btn-icon-edit" color="blue-grey" item-end></ion-icon>
       </ion-item>
       <ion-spinner *ngIf="isLoading" class="loading-spinner" color="secondary"></ion-spinner>
     </ion-list>
 
+    <input type="file" id="picSelect" #img name="picSelect" style="opacity: 0;" accept="image/*" (change)="chooseImage(img)" multiple="false" />
   </div>
 </ion-content>

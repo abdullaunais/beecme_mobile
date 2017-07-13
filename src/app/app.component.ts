@@ -202,7 +202,7 @@ export class MyApp {
   //   if (!myEvent) var myEvent = window.event;
   //   myEvent.cancelBubble = true;
   //   if (myEvent.stopPropagation) myEvent.stopPropagation();
-    
+
   //   let popover = this.popoverCtrl.create('ProfilePopoverPage', { login: this.isLogin, user: this.user});
   //   popover.present({
   //     ev: myEvent
@@ -234,12 +234,12 @@ export class MyApp {
   }
 
   openPage(page) {
-    // if (this.activePage) {
-    //   if (page.component === this.activePage.component && page.component === 'UserProfilePage') {
-    //     this.menuCtrl.close();
-    //     return;
-    //   }
-    // }
+    if (this.nav.getActive().id === page.component) {
+      return;
+    }
+
+    // if (this.nav.getViewById(page.component)) { }
+
     if (page.title === 'Account') {
       if (this.isLogin) {
         page.component = 'UserProfilePage';

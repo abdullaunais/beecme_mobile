@@ -1,8 +1,7 @@
-import { Component, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, IonicPage, LoadingController, ToastController, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { UserService } from "../../providers/user-service";
-
 /*
   Generated class for the UserProfile page.
 
@@ -32,8 +31,7 @@ export class UserProfilePage {
     private toastCtrl: ToastController,
     public modalCtrl: ModalController,
     private storage: Storage,
-    private userService: UserService,
-    private renderer: Renderer
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -54,7 +52,7 @@ export class UserProfilePage {
           });
         })
       } else {
-        this.navCtrl.setRoot('UserLoginPage', {redirect: "redirect-accountpage"});
+        this.navCtrl.setRoot('UserLoginPage', { redirect: "redirect-accountpage" });
         return;
       }
     });
@@ -77,15 +75,49 @@ export class UserProfilePage {
     let yOffset = document.getElementById('profile-content').offsetTop;
     if (event.scrollTop > yOffset - this.offsetHeight) {
       document.getElementById('header-content').classList.remove("profile-header");
-      // document.getElementById('header-content').classList.add("profile-header-image");
     } else {
       document.getElementById('header-content').classList.add("profile-header");
-      // document.getElementById('header-content').classList.remove("profile-header-image");
     }
   }
 
-  choosePhoto() {
+  triggerFileUpload(img: HTMLInputElement) {
+    img.click();
+  }
 
+  chooseImage(img: HTMLInputElement) {
+    let fileCount = img.files.length;
+    let formData = new FormData(); // HTMLFormElement
+    if (fileCount > 0) { // a file was selected
+      for (let i = 0; i < fileCount; i++) {
+        formData.append('profilePicture', img.files.item(i));
+      }
+    }
+    formData.append('userId', this.user.userId)
+    this.userService.uploadPicture(this.user.userId, this.authToken, formData).then(res => {
+      if (res.code === 1) {
+          this.userService.getUserDetails(this.user.userId, this.user.authToken).then(res => {
+            let json = JSON.stringify(res);
+            this.user = JSON.parse(json);
+            this.storage.get('user.data').then(userObj => {
+              if(userObj) {
+                userObj.profilePicture = this.user.profilePicture;
+                this.storage.set('user.data', userObj).then(res => {
+                  this.refreshProfilePicture();
+                  this.presentToast("Profile picture updated.", 2000);
+                }).catch(userSetErr => {
+                  // ignore
+                });
+              }
+            }).catch(getDataErr => {
+              // ignore
+            });
+          }).catch(getUsrErr => {
+            // ignore
+          });
+      }
+    }).catch(err => {
+      // console.log(JSON.stringify(err));
+    });
   }
 
   presentUpdateModal(property: string) {

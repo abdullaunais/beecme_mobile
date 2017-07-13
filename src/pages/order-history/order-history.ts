@@ -18,7 +18,7 @@ import { Variables } from "../../providers/variables";
 })
 export class OrderHistoryPage {
   start: number = 0;
-  offset: number = 20;
+  offset: number = 5;
 
   orders: Array<any> = [];
   user: any = {};

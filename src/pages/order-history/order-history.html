@@ -81,6 +81,13 @@
       <p style="font-family: monospace, serif; margin-left:2rem;"><i>{{order.orderHeader.comment}}</i></p>
     </ion-item>
 
+    <div style="display: flex; justify-content: space-between;">
+      <ion-label *ngIf="noMoreItems" style="text-align: center; width: 100%; color: #999;">No more items</ion-label>
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="paginate($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 
     <!--<ion-item *ngFor="let order of [1]">
       <div ion-item no-lines>

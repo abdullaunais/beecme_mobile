@@ -1,8 +1,6 @@
-<ion-menu [content]="content" style="background-color: #efefef;" class="menu-app">
+<ion-menu side="left" [content]="content" class="menu-app" persistent="true">
   <ion-header (tap)="loginOrProfile()" class="menu-header">
-    <!--<ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>-->
+
     <div style="background-image:url('assets/img/cover/cover.webp');" class="cover-pic">
     <img src="assets/img/cover/cover.webp" style="vertical-align: top;width: 100%; z-index: -100; opacity: 0;">
       <img [attr.src]="profilepic" alt="Cover" class="profile-pic" />
@@ -10,7 +8,6 @@
       <div ion-item no-lines class="profile-detail-item">
         <div *ngIf="isLogin">{{ user.username }}</div>
         <div *ngIf="isLogin" class="profile-status-wrapper">
-          <!--<ion-icon name="at"></ion-icon>-->
           <div class="profile-status">{{ user.email }}</div>
         </div>
 
@@ -23,12 +20,8 @@
         </ion-note>
       </div>
 
-
     </div>
 
-    <!--<ion-label class="profile-label" *ngIf="!isLogin">LOGIN</ion-label>
-    <ion-label class="profile-label" [style.left]="'2rem'" *ngIf="isLogin">{{ profileLabel }}</ion-label>-->
-    <!--<ion-label style="position: absolute; top: 12rem; left: 3rem; color: #fff;">0770040302</ion-label>-->
   </ion-header>
 
   <ion-content>

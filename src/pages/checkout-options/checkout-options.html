@@ -6,6 +6,9 @@
 -->
 <ion-header>
   <ion-navbar color="ui-theme">
+    <button ion-button menuToggle showWhen="android">
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Checkout Options</ion-title>
   </ion-navbar>
 </ion-header>
@@ -46,7 +49,7 @@
         <ion-input style="color: #666;" [(ngModel)]="nickname" placeholder="Nickname"></ion-input>
       </ion-item>
       <ion-item *ngIf="createAddress">
-        <ion-input style="color: #666;" [(ngModel)]="address"  placeholder="Street"></ion-input>
+        <ion-input style="color: #666;" [(ngModel)]="address" placeholder="Street"></ion-input>
       </ion-item>
       <ion-item *ngIf="createAddress">
         <ion-label style="font-size: 1.2rem;  color: #999;">{{locationLabel}}</ion-label>
@@ -58,5 +61,5 @@
 </ion-content>
 
 <ion-footer class="checkoutOptionsFooter">
-  <button class="checkoutOptionsButton" full (tap)="checkout();">PROCEED</button>
+  <button class="checkoutOptionsButton" (tap)="checkout();">PROCEED</button>
 </ion-footer>

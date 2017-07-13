@@ -7,6 +7,9 @@
 <ion-header class="page-order-summary-header">
 
   <ion-navbar color="ui-theme">
+    <button ion-button menuToggle showWhen="android">
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Order</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (tap)="openCart()">
@@ -103,5 +106,5 @@
 </ion-content>
 
 <ion-footer class="summeryFooter">
-  <button class="summeryButton" full (tap)="confirmOrder();">PLACE ORDER</button>
+  <button class="summeryButton" (tap)="confirmOrder();">PLACE ORDER</button>
 </ion-footer>

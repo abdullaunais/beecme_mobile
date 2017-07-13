@@ -7,7 +7,7 @@
 <ion-header class="profile-header" id="header-content">
 
   <ion-navbar color="ui-theme" id="nav-content">
-    <button ion-button menuToggle> 
+    <button ion-button menuToggle showWhen="android"> 
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title ng-style="color:white;">Profile</ion-title>
@@ -67,7 +67,7 @@
       <ion-item style="min-height:auto;" *ngIf="!isLoading">
         <ion-icon style="min-height: auto;" item-start></ion-icon>
         <div class="list-content-desc">
-          +966-{{ (user.phone) ? user.phone : 'Not Specified' }}
+          +94 {{ (user.phone) ? user.phone : 'Not Specified' }}
         </div>
         <ion-icon name="create" class="btn-icon-edit" color="blue-grey" item-end></ion-icon>
       </ion-item>

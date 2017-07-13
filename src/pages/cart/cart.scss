@@ -70,11 +70,14 @@
     background-color: #E8EAF6;
     .cartButton {
         background-color: $ui-theme-dark;
-        width: 92vw;
+        width: 96vw;
         border-radius: 5px;
         height: 8vh;
         color: #fff;
         font-weight: 700;
-        margin: 1.5rem;
+        margin: 2vmin;
     }
+}
+.cartFooter::before {
+  background-image: none;
 }

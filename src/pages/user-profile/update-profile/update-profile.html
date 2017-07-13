@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar [color]="(updateProperty === 'Name') ? 'ui-theme' : (updateProperty === 'Phone') ? 'secondary' :  'ui-theme'">
+    <button ion-button menuToggle showWhen="android">
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Change {{updateProperty}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (tap)="viewCtrl.dismiss({success: false});">

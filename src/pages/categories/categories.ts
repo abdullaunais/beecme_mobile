@@ -88,6 +88,7 @@ export class Categories {
     }).catch(err => {
       this.isLoading = false;
       this.isError = true;
+      console.log(err);
     });
   }
 

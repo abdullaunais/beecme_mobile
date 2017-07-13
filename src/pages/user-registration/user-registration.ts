@@ -40,7 +40,7 @@ export class UserRegistrationPage {
   public registerForm = this.fb.group({
     formUsername: ["", [Validators.required, Validators.minLength(4)]],
     formEmail: ["", [Validators.required, Validators.minLength(6), Validators.email]],
-    formPhone: ["", [Validators.required, Validators.minLength(9)]],
+    formPhone: ["", [Validators.required, Validators.minLength(9), Validators.maxLength(10)]],
     formPassword: ["", [Validators.required, Validators.minLength(6)]],
   });
   constructor(
@@ -232,50 +232,44 @@ export class UserRegistrationPage {
     }
 
     if (this.registerForm.controls.formEmail.errors) {
+      isValid = false;
+      formIndex = 1;
       if (this.registerForm.controls.formEmail.errors.required) {
-        isValid = false;
         message = "Email is required";
-        formIndex = 1;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
-
       } else if (this.registerForm.controls.formEmail.errors.minlength) {
-        isValid = false;
         message = "Email is not a valid format";
-        formIndex = 1;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       } else if (this.registerForm.controls.formEmail.errors.email) {
-        isValid = false;
         message = "Email is not a valid format";
-        formIndex = 1;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       }
     }
 
     if (this.registerForm.controls.formPhone.errors) {
+      isValid = false;
+      formIndex = 2;
       if (this.registerForm.controls.formPhone.errors.required) {
-        isValid = false;
         message = "Phone is required";
-        formIndex = 2;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       } else if (this.registerForm.controls.formPhone.errors.minlength) {
-        isValid = false;
-        message = "Phone should be at least 9 charaters long";
-        formIndex = 2;
+        message = "Phone should have at least 9 numbers";
+        this.validationArray.push({ message: message, valid: isValid, index: formIndex });
+      } else if (this.registerForm.controls.formPhone.errors.maxlength) {
+        message = "Phone cannot be more than 10 numbers";
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       }
     }
 
 
     if (this.registerForm.controls.formPassword.errors) {
+      isValid = false;
+      formIndex = 3;
       if (this.registerForm.controls.formPassword.errors.required) {
-        isValid = false;
         message = "Password is required";
-        formIndex = 3;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       } else if (this.registerForm.controls.formPassword.errors.minlength) {
-        isValid = false;
         message = "Password should be at least 6 charaters long";
-        formIndex = 3;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       }
     }

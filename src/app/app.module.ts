@@ -18,15 +18,7 @@ import { Network } from "@ionic-native/network";
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp, {
-      menuType: 'push',
-      // locationStrategy: 'path',
-      platforms: {
-        ios: {
-          menuType: 'reveal',
-        }
-      }
-    }),
+    IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
   ],
   bootstrap: [IonicApp],

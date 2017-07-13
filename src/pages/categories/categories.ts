@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage, ToastController } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DeliveryService } from '../../providers/delivery-service';
 import { Variables } from "../../providers/variables";
@@ -28,7 +28,6 @@ export class Categories {
 
   constructor(
     public navCtrl: NavController,
-    public toastCtrl: ToastController,
     private navParams: NavParams,
     private deliveryService: DeliveryService,
     private storage: Storage,
@@ -98,15 +97,5 @@ export class Categories {
 
   openCategory(category) {
     this.navCtrl.push('Shops', { category: category, city: this.selectedCity });
-  }
-
-  presentToast(message, duration) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      showCloseButton: true,
-      closeButtonText: 'OK',
-      duration: duration
-    });
-    toast.present();
   }
 }

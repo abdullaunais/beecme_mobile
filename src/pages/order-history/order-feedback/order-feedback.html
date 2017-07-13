@@ -7,9 +7,6 @@
 <ion-header>
 
   <ion-navbar [color]="(rating===0) ? 'gold' : (rating<2) ? 'danger' : (rating<4) ? 'gold' : 'green'">
-    <button ion-button menuToggle showWhen="android">
-      <ion-icon name="menu"></ion-icon>
-    </button>
     <ion-title>Add Review</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (tap)="cancelView();">

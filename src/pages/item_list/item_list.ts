@@ -35,7 +35,7 @@ export class ItemList {
     private deliveryService: DeliveryService,
     private storage: Storage,
     public actionSheetCtrl: ActionSheetController,
-    public alertCtrl: AlertController,
+    private alertCtrl: AlertController,
     private variables: Variables,
     private toastCtrl: ToastController
   ) {
@@ -216,7 +216,9 @@ export class ItemList {
           text: 'More than 5',
           cssClass: 'action-blue-btn',
           handler: () => {
-            this.quantityPrompt(item);
+            setTimeout(() => {
+              this.quantityPrompt(item);
+            }, 300);
           }
         },
         {
@@ -264,21 +266,26 @@ export class ItemList {
   quantityPrompt(item) {
     let prompt = this.alertCtrl.create({
       title: 'Enter Quantity',
-      message: "",
+      message: "Quantity should be a valid number",
       cssClass: 'alert-style',
-      inputs: [
-        { name: 'quantity', placeholder: 'Quantity' },
-      ],
+      inputs: [{
+        name: 'quantity',
+        placeholder: 'Quantity',
+        type: 'number'
+      }],
       buttons: [
         {
           text: 'Cancel',
+          role: 'cancel',
           cssClass: 'alert-button-danger-plain',
-          handler: data => { }
+          handler: data => {
+          }
         },
         {
           text: 'Add',
           cssClass: 'alert-button-primary',
           handler: data => {
+            console.log('Add Clicked!');
             if (data.quantity) {
               if (!Number.isNaN(data.quantity) && data.quantity > 0) {
                 this.addToCart(data.quantity, item);

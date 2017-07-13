@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage, ActionSheetController, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { DeliveryService } from "../../providers/delivery-service";
 import { Storage } from '@ionic/storage';
+import { Subscription } from "rxjs/Subscription";
+import { Variables } from "../../providers/variables";
 /*
   Generated class for the OrderHistory page.
 
@@ -23,6 +25,8 @@ export class OrderHistoryPage {
 
   isLoading: boolean;
   noMoreItems: boolean;
+  watchCart: Subscription;
+  cartCount: number = 0;
 
   constructor(
     public navCtrl: NavController,
@@ -32,7 +36,8 @@ export class OrderHistoryPage {
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
     private deliveryService: DeliveryService,
-    private storage: Storage
+    private storage: Storage,
+    private variables: Variables
   ) {
     this.initialize();
   }
@@ -58,11 +63,19 @@ export class OrderHistoryPage {
         });
       } else {
         this.isLoading = false;
-        this.navCtrl.push('UserLoginPage', { redirect: "redirect-orderhistory"});
+        this.navCtrl.push('UserLoginPage', { redirect: "redirect-orderhistory" });
       }
     }).catch(err => {
       this.isLoading = false;
     });
+  }
+
+  ionViewWillEnter() {
+    this.watchCart = this.variables.cartCount.subscribe(value => this.cartCount = value);
+  }
+
+  ionViewWillLeave() {
+    this.watchCart.unsubscribe();
   }
 
   refreshList(refresher) {
@@ -153,6 +166,10 @@ export class OrderHistoryPage {
     });
   }
 
+  openCart() {
+    this.navCtrl.push('CartPage');
+  }
+
   presentToast(message, duration) {
     let toast = this.toastCtrl.create({
       message: message,
@@ -162,7 +179,7 @@ export class OrderHistoryPage {
     });
     toast.present();
   }
-  
+
   toTitleCase(str) {
     return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
   }

@@ -41,11 +41,7 @@ export class AppSettingsPage {
       }
     });
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AppSettingsPage');
-  }
-
+  
   loginOrLogout() {
     if (this.isLogin) {
       this.storage.set("user.login", false).then((res1) => {

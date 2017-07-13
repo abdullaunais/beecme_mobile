@@ -12,15 +12,23 @@
     }
     .shop-card-icon-col {
         padding: 0;
-        width: 100%;
-        height: 100%;
         background-size: cover;
         background-position: 50% 50%;
         background-repeat: no-repeat;
         background-color: #C5CAE9;
+         -webkit-flex: 0 0 29%;
+        -ms-flex: 0 0 29%;
+        flex: 0 0 29%;
+        width: 29%;
+        max-width: 29%;
     }
     .shop-card-content-col {
         padding: 0;
+        -webkit-flex: 0 0 69%;
+        -ms-flex: 0 0 69%;
+        flex: 0 0 69%;
+        width: 69%;
+        max-width: 69%;
     }
     .shop-card-icon {
         width: 100%;
@@ -32,7 +40,7 @@
     }
     .shop-card-content-title {
         font-size: 1.8rem;
-        width: 90%;
+        width: 92%;
         white-space: nowrap;
         line-height: 1.8rem;
         margin: 0;
@@ -52,14 +60,15 @@
         box-shadow: none;
         color: #666;
         margin: 0 0.3rem 0 0;
-        height: 2.5rem;
+        height: 2.3rem;
+        line-height: 2.3rem;
         padding: 0 0.4rem 0 0;
         border-radius: 1rem;
         font-size: 1rem; // border:1px solid $ui-theme;
     }
     .shop-card-content-button-image {
-        height: 2.5rem;
-        width: 2.5rem;
+        height: 2.3rem;
+        width: 2.3rem;
         padding: 0.5rem;
         border-radius: 100%;
     }

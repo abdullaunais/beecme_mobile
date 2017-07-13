@@ -22,9 +22,19 @@
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-color: #C5CAE9;
+    -webkit-flex: 0 0 27%;
+    -ms-flex: 0 0 27%;
+    flex: 0 0 27%;
+    width: 27%;
+    max-width: 27%;
   }
   .item-card-content-col {
     padding: 0;
+    -webkit-flex: 0 0 73%;
+    -ms-flex: 0 0 73%;
+    flex: 0 0 73%;
+    width: 73%;
+    max-width: 73%;
   }
   .item-card-icon {
     width: 100%;

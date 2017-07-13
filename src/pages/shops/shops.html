@@ -29,18 +29,18 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-card *ngFor="let shop of shops; let i = index;" style="height: 18vh;" (click)="viewShop(shop);">
-    <ion-row style="height: 18vh;">
+  <ion-card *ngFor="let shop of shops; let i = index;" style="min-height: 15vh; height:auto;" (click)="viewShop(shop);">
+    <ion-row style="min-height: 15vh; height:auto;">
       <ion-col col-4 class="shop-card-icon-col" [lazyLoad]="shop.profilePicture" [offset]="offset" [scrollObservable]="container.ionScroll">
       </ion-col>
       <ion-col col-8 class="shop-card-content-col">
         <ion-card-content class="shop-card-content">
           <ion-card-title class="shop-card-content-title">{{ toTitleCase(shop.username) }}</ion-card-title>
-          <ion-icon name="information-circle" color="ui-theme" (click)="shopDetails($event, shop)" item-right style="position: absolute; top: 0.5rem; right: 1rem; font-size: 1.8rem;"></ion-icon>
+          <ion-icon name="information-circle" color="ui-theme" (click)="shopDetails($event, shop)" item-right style="position: absolute; top: 0.2rem; right: 0.4rem;padding: 0;font-size: 2.2rem;"></ion-icon>
           <div style="margin-bottom: 1vh; white-space: nowrap; overflow: overlay;">
             <ion-badge class="shop-card-content-badge" *ngFor="let keyword of shop.keywordsArray">{{ keyword.toLowerCase() }}</ion-badge>
           </div>
-          <div style="position: absolute; bottom: 1rem; left: 3vw; white-space: nowrap; overflow: overlay;">
+          <div style="margin: 1rem 0;">
             <button ion-button class="shop-card-content-button">
                 <img src="assets/img/ui_icons/icon_truck_white.png" class="shop-card-content-button-image btn-danger"/>
                 &nbsp;{{ shop.deliveryCharge }} {{ shop.currency }}&nbsp;
@@ -53,6 +53,7 @@
         </ion-card-content>
       </ion-col>
     </ion-row>
+    <div style="display: table;  clear: both;"></div>
   </ion-card>
 
   <div style="display: flex; justify-content: space-between;">

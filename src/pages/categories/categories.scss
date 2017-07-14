@@ -1,45 +1,44 @@
 .page-categories {
-  .item{
-    background-color: transparent;
-  }
-  background-color: #E8EAF6;
-  ion-card {
-    position: relative;
-    text-align: center;
-    height: 24vh;
-    background-size: cover;
-    object-fit: cover;
-    background-position: 50%;
-    // background-color: #eee;
-  }
-  .card-title {
-    position: absolute;
-    top: 25%;
-    text-align: center;
-    font-size: 2.4rem;
-    display:block;
-    text-transform: uppercase;
-    width:100%;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 1px 2px 5px #000;
-  }
-  .card-subtitle {
-    font-size: 1.3rem;
-    position: absolute;
-    text-align: center;
-    top: 45%;
-    background-color: transparent;
-    display:block;
-    width:100%;
-    color: #fff;
-    text-shadow: 1px 1px 3px #000;
-  }
-  .loading-spinner {
-    width: 5rem;
-    height: 5rem;
-    text-align: center;
-    margin: 2rem auto;
-    display: block;
-  }
+    .item {
+        background-color: transparent;
+    }
+    background-color: #E8EAF6;
+    ion-card {
+        position: relative;
+        text-align: center;
+        height: 24vh;
+        background-size: cover;
+        object-fit: cover;
+        background-position: 50%; // background-color: #eee;
+    }
+    .card-title {
+        position: absolute;
+        top: 25%;
+        text-align: center;
+        font-size: 2.4rem;
+        display: block;
+        text-transform: uppercase;
+        width: 100%;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 1px 2px 5px #000;
+    }
+    .card-subtitle {
+        font-size: 1.3rem;
+        position: absolute;
+        text-align: center;
+        top: 45%;
+        background-color: transparent;
+        display: block;
+        width: 100%;
+        color: #fff;
+        text-shadow: 1px 1px 3px #000;
+    }
+    .loading-spinner {
+        width: 5rem;
+        height: 5rem;
+        text-align: center;
+        margin: 2rem auto;
+        display: block;
+    }
 }

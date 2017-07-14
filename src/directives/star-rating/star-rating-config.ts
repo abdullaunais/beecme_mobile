@@ -14,9 +14,9 @@ import {
  */
 @Injectable()
 export class StarRatingConfig {
-  classEmpty: string = "default-s-e-icon";
-  classHalf: string = "default-s-h-icon";
-  classFilled: string = "default-s-f-icon";
+  classEmpty: string = "def-icon";
+  classHalf: string = "default-sh-icon";
+  classFilled: string = "default-sf-icon";
   numOfStars: number = 5;
   size: starRatingSizes = "medium";
   speed: starRatingSpeed = "noticeable";
@@ -24,9 +24,9 @@ export class StarRatingConfig {
   starType: starRatingStarTypes = "svg";
   assetsPath: string = "assets/images/";
   svgPath: string = this.assetsPath + "star-rating.icons.svg";
-  svgEmptySymbolId: string = "s-e";
-  svgHalfSymbolId: string = "s-h";
-  svgFilledSymbolId: string = "s-f";
+  svgEmptySymbolId: string = "se";
+  svgHalfSymbolId: string = "sh";
+  svgFilledSymbolId: string = "sf";
   svgPathEmpty: string = this.svgPath + "#" + this.svgEmptySymbolId;
   svgPathHalf: string = this.svgPath + "#" + this.svgHalfSymbolId;
   svgPathFilled: string = this.svgPath + "#" + this.svgFilledSymbolId;

@@ -1,4 +1,81 @@
 .page-shop-details {
-    background-color: #E8EAF6;
-    .profile-pic {}
+    background-color: #fff;
+    .profile-pic {
+        height: 48vmin;
+        background-size: cover;
+        background-position: 50% 50%;
+    }
+    .shop-card-content-badge {
+        margin-right: 4px;
+        color: $ui-theme-primary;
+        background-color: white;
+        border: 1px solid $ui-theme-primary;
+        font-size: 1rem;
+    }
+}
+
+.shop-details-header {
+    .toolbar {
+        position: absolute;
+        .toolbar-background {
+            background: transparent;
+        }
+        .toolbar-title {
+            color: #fff;
+        }
+    }
+}
+
+ion-modal.shop-details-popup {
+@media (min-height: 500px) {
+    ion-backdrop {
+      visibility: visible;
+    }
+  }
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-index-overlay;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  contain: strict;
+  .modal-wrapper {
+    &,
+    .ion-page,
+    .ion-page .content,
+    .ion-page .content .scroll-content {
+      contain: content;
+      position: relative;
+      top: auto;
+      left: auto;
+    }
+
+    z-index: $z-index-overlay-wrapper;
+    display: flex;
+    overflow: hidden;
+
+    flex-direction: column;
+
+    min-width: $alert-min-width;
+    max-height: $alert-max-height;
+
+    opacity: 0;
+
+    height: auto;
+    width: 84vw;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: $alert-md-box-shadow;
+
+    .ion-page .content {
+      background-color: #fff;
+    }
+  }
 }

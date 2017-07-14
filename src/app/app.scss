@@ -13,7 +13,7 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 .back-button-md {
-    display:none !important;
+    display: none !important;
 }
 
 .toolbar-ios {
@@ -101,18 +101,23 @@
 .action-feedback-btn {
     color: gold !important;
 }
+
 .action-cancel-btn {
     color: $ui-theme-danger !important;
 }
+
 .action-theme-btn {
     color: $ui-theme !important;
 }
+
 .action-blue-btn {
     color: $ui-theme-primary !important;
 }
+
 .action-green-btn {
     color: $ui-theme-secondary !important;
 }
+
 .action-blue-grey-btn {
     color: color($colors, 'blue-grey') !important;
 }

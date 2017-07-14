@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
@@ -19,9 +19,11 @@ export class ShopDetailsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private viewCtrl: ViewController,
+    public renderer: Renderer
   ) {
     this.shop = navParams.data.shop;
     console.log(this.shop);
+    this.renderer.setElementClass(viewCtrl.pageRef().nativeElement, 'shop-details-popup', true);
   }
 
   ionViewDidLoad() {

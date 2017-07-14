@@ -1,14 +1,14 @@
 .page-checkout-options {
-      background-color: #E8EAF6;
-      .input-checkout-comment {
-            padding: 0 2rem;
-            color: #666;
-            font-size: 1.7rem;
-      }
-      textarea {
-            margin:0;
-            margin-bottom: 2rem;
-      }
+    background-color: #E8EAF6;
+    .input-checkout-comment {
+        padding: 0 2rem;
+        color: #666;
+        font-size: 1.7rem;
+    }
+    textarea {
+        margin: 0;
+        margin-bottom: 2rem;
+    }
 }
 
 .checkoutOptionsFooter {
@@ -23,7 +23,7 @@
         margin: 2vmin;
     }
 }
-.checkoutOptionsFooter::before {
-  background-image: none;
-}
 
+.checkoutOptionsFooter::before {
+    background-image: none;
+}

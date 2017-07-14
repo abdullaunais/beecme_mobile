@@ -1,59 +1,59 @@
 .page-user-login {
-  background-color: $ui-theme;
-  .login-button-register {
-    color: white;
-    background-color: $ui-theme-dark;
-    text-align: center;
-    width: 100%;
-    height: 4rem;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-  }
-  .register-section-label {
-    font-size: 1.8rem;
-    color: #fff;
-    margin-left: 0.2rem;
-  }
-  .registerItem {
-    margin-bottom: -1px;
-    padding: 0;
-    border-radius: 6px;
-  }
-  .registerInputIcon {
-    padding-left: 2rem;
-  }
-  .registerInput {
-    padding: 0.5rem;
-  }
-  .registerHead {
-    color: white;
-    font-size: 2.5rem;
-    text-align: center;
-    margin-top: 10%;
-  }
-  .forgot-button {
-    height: 3rem;
-    color: #fff;
-    background-color:  transparent;
-    border-radius: 5px;
-    font-size: 1.4rem;
-  }
-  .register-button {
-    height: 5rem;
-    color: #fff;
-    background-color:  $ui-theme-dark;
-    margin-top: 3rem;
-    border-radius: 5px;
-    font-size: 1.6rem;
-  } // ion-list .item .item-inner {
-  //   border-bottom: 2px solid #5DA2AD;
-  // }
-  .item-inner {
-    border-bottom-color: transparent !important;
-    box-shadow: none !important;
-    margin-left: 1rem !important;
-  }
+    background-color: $ui-theme;
+    .login-button-register {
+        color: white;
+        background-color: $ui-theme-dark;
+        text-align: center;
+        width: 100%;
+        height: 4rem;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+    .register-section-label {
+        font-size: 1.8rem;
+        color: #fff;
+        margin-left: 0.2rem;
+    }
+    .registerItem {
+        margin-bottom: -1px;
+        padding: 0;
+        border-radius: 6px;
+    }
+    .registerInputIcon {
+        padding-left: 2rem;
+    }
+    .registerInput {
+        padding: 0.5rem;
+    }
+    .registerHead {
+        color: white;
+        font-size: 2.5rem;
+        text-align: center;
+        margin-top: 10%;
+    }
+    .forgot-button {
+        height: 3rem;
+        color: #fff;
+        background-color: transparent;
+        border-radius: 5px;
+        font-size: 1.4rem;
+    }
+    .register-button {
+        height: 5rem;
+        color: #fff;
+        background-color: $ui-theme-dark;
+        margin-top: 3rem;
+        border-radius: 5px;
+        font-size: 1.6rem;
+    } // ion-list .item .item-inner {
+    //   border-bottom: 2px solid #5DA2AD;
+    // }
+    .item-inner {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+        margin-left: 1rem !important;
+    }
 }
 
 // .footer-user-registration {

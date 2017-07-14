@@ -1,18 +1,18 @@
-<div id="{{id}}" class="rating {{getComponentClassNames()}}" tabindex="0" (keydown)="onKeyDown($event)" (blur)="onBlur($event)"
+<div id="{{id}}" class="r {{getComponentClassNames()}}" tabindex="0" (keydown)="onKeyDown($event)" (blur)="onBlur($event)"
     (focus)="onFocus($event)" (mouseleave)="onStarHover(0)">
-    <div *ngIf="labelVisible" class="label-value">{{labelText}}</div>
-    <div class="s-c">
+    <div *ngIf="labelVisible" class="lv">{{labelText}}</div>
+    <div class="sc">
         <div class="star" (mouseenter)="onStarHover(star)" *ngFor="let star of stars" (tap)="onStarClicked(star)">
-            <i *ngIf="!svgVisible()" class="s-e {{classEmpty}}"></i>
-            <i *ngIf="!svgVisible()" class="s-e {{classHalf}}"></i>
-            <i *ngIf="!svgVisible()" class="s-f {{classFilled}}"></i>
-            <svg *ngIf="svgVisible()" class="s-e default-s-e-icon">
+            <i *ngIf="!svgVisible()" class="se {{classEmpty}}"></i>
+            <i *ngIf="!svgVisible()" class="se {{classHalf}}"></i>
+            <i *ngIf="!svgVisible()" class="sf {{classFilled}}"></i>
+            <svg *ngIf="svgVisible()" class="se def-icon">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" [attr.xlink:href]="pathEmpty"></use>
             </svg>
-            <svg *ngIf="svgVisible()" class="s-h default-s-h-icon">
+            <svg *ngIf="svgVisible()" class="sh default-sh-icon">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" [attr.xlink:href]="pathHalf"></use>
             </svg>
-            <svg *ngIf="svgVisible()" class="s-f default-s-f-icon">
+            <svg *ngIf="svgVisible()" class="sf default-sf-icon">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" [attr.xlink:href]="pathFilled"></use>
             </svg>
         </div>

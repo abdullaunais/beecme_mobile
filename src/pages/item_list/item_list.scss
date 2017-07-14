@@ -1,89 +1,89 @@
 .item-searchbar {
-  background-color: $ui-theme;
+    background-color: $ui-theme;
 }
 
 .page-item_list {
-  background-color: #E8EAF6;
-  ion-img img {
-    object-fit: cover;
-    height: 100%;
-  }
-  .loading-spinner {
-    width: 5rem;
-    height: 5rem;
-    text-align: center;
-    margin: 2rem auto;
-  }
-  .item-card-icon-col {
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-color: #C5CAE9;
-    -webkit-flex: 0 0 27%;
-    -ms-flex: 0 0 27%;
-    flex: 0 0 27%;
-    width: 27%;
-    max-width: 27%;
-  }
-  .item-card-content-col {
-    padding: 0;
-    -webkit-flex: 0 0 73%;
-    -ms-flex: 0 0 73%;
-    flex: 0 0 73%;
-    width: 73%;
-    max-width: 73%;
-  }
-  .item-card-icon {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .item-card-content {
-    padding: 0rem 1rem;
-  }
-  .item-card-content-title {
-    font-size: 2rem;
-    width: 55vw;
-    white-space: nowrap;
-    line-height: 1.0;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    position: relative;
-  }
-  .item-card-content-desc {
-    color: #666;
-    font-weight: normal;
-    font-size: 1.4rem;
-    line-height: 1.4rem;
-    height: 2.8rem;
-    overflow: hidden;
-    width: 40vw;
-    text-overflow: ellipsis;
-    white-space: pre-line;
-    position: relative;
-  }
-  .item-card-btn-cart {
-    width: 3rem;
-    height: 5rem;
-    position: absolute;
-    right: 2vw;
-    top: 0;
-  }
-  .item-card-content-price {
-    text-align: right;
-    color: $ui-theme;
-    font-size: 1.2rem;
-    font-weight: 700;
-    overflow: hidden;
-    position: absolute;
-    right: 2vw;
-    bottom: 2vw;
-    margin: 0;
-    border: 1px solid #673ab7;
-    border-radius: 4px;
-    padding: 0 0.5rem;
-  }
+    background-color: #E8EAF6;
+    ion-img img {
+        object-fit: cover;
+        height: 100%;
+    }
+    .loading-spinner {
+        width: 5rem;
+        height: 5rem;
+        text-align: center;
+        margin: 2rem auto;
+    }
+    .item-card-icon-col {
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-color: #C5CAE9;
+        -webkit-flex: 0 0 27%;
+        -ms-flex: 0 0 27%;
+        flex: 0 0 27%;
+        width: 27%;
+        max-width: 27%;
+    }
+    .item-card-content-col {
+        padding: 0;
+        -webkit-flex: 0 0 73%;
+        -ms-flex: 0 0 73%;
+        flex: 0 0 73%;
+        width: 73%;
+        max-width: 73%;
+    }
+    .item-card-icon {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .item-card-content {
+        padding: 0rem 1rem;
+    }
+    .item-card-content-title {
+        font-size: 2rem;
+        width: 55vw;
+        white-space: nowrap;
+        line-height: 1.0;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        position: relative;
+    }
+    .item-card-content-desc {
+        color: #666;
+        font-weight: normal;
+        font-size: 1.4rem;
+        line-height: 1.4rem;
+        height: 2.8rem;
+        overflow: hidden;
+        width: 40vw;
+        text-overflow: ellipsis;
+        white-space: pre-line;
+        position: relative;
+    }
+    .item-card-btn-cart {
+        width: 3rem;
+        height: 5rem;
+        position: absolute;
+        right: 2vw;
+        top: 0;
+    }
+    .item-card-content-price {
+        text-align: right;
+        color: $ui-theme;
+        font-size: 1.2rem;
+        font-weight: 700;
+        overflow: hidden;
+        position: absolute;
+        right: 2vw;
+        bottom: 2vw;
+        margin: 0;
+        border: 1px solid #673ab7;
+        border-radius: 4px;
+        padding: 0 0.5rem;
+    }
 }

@@ -40,7 +40,14 @@
       </ion-item>
     </ion-item-group>
 
-    <ion-item-group>
+    <div style="display: flex; justify-content: space-between;">
+      <ion-spinner *ngIf="isLoading" class="loading-spinner" color="primary"></ion-spinner>
+    </div>
+    <div style="display: block; margin-top: 5vmin; padding-top: 5vmin; border-top:1px solid #ddd;" *ngIf="isError && !isLoading">
+      <ion-label style="text-align: center; width: 100%; color: #999;">Could not connect to server.</ion-label>
+      <button style="display:block; margin:0 auto; padding: 1rem 2rem; border-radius: 0.5rem;" (tap)="retryServer();">TRY AGAIN</button>
+    </div>
+    <ion-item-group *ngIf="!isLoading && !isError ">
       <ion-item-divider color="light" style="border-radius: 0.5rem;">
         Moved to new Location?
         <ion-icon name="locate" color="primary" item-left></ion-icon>
@@ -52,13 +59,13 @@
           <ion-option *ngFor="let country of countries" [value]="country">{{ country.nameEn }}</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="countrySet" style="padding:0 2rem;">
+      <ion-item *ngIf="countrySet" class="setting-item" style="padding:0 2rem;">
         <ion-label>Province</ion-label>
         <ion-select [(ngModel)]="selectedProvince" (ionChange)="provinceChanged()" interface="action-sheet" okText="Select" cancelText="Cancel">
           <ion-option *ngFor="let province of provinces" [value]="province">{{ province.nameEn }}</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="countrySet && provinceSet" style="padding:0 2rem;">
+      <ion-item *ngIf="countrySet && provinceSet" class="setting-item" style="padding:0 2rem;">
         <ion-label>City</ion-label>
         <ion-select [(ngModel)]="selectedCity" (ionChange)="cityChanged()" interface="action-sheet" okText="Select" cancelText="Cancel">
           <ion-option *ngFor="let city of cities" [value]="city">{{ city.nameEn }}</ion-option>

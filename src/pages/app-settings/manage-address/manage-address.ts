@@ -17,6 +17,7 @@ import { Storage } from '@ionic/storage';
 })
 export class ManageAddressPage {
   isLoading: boolean;
+  isError: boolean;
   createAddress: boolean = false;
   locationLabel: string = "";
   addressList: Array<any> = [];
@@ -35,6 +36,7 @@ export class ManageAddressPage {
     private userService: UserService
   ) {
     this.isLoading = true;
+    this.isError = false;
     this.storage.get('user.data').then(user => {
       this.user = user;
       this.initialize();
@@ -50,7 +52,13 @@ export class ManageAddressPage {
     this.createAddress = !this.createAddress;
   }
 
+  retryServer() {
+    this.initialize();
+  }
+
   initialize() {
+    this.isLoading = true;
+    this.isError = false;
     this.userService.getAddressList(this.user.userId, this.user.authToken).then(data => {
       let json = JSON.stringify(data);
       this.addressList = JSON.parse(json);
@@ -68,11 +76,13 @@ export class ManageAddressPage {
         }).catch(err => {
           this.isLoading = false;
         });
+        this.isError = false;
       }).catch(err => {
         this.isLoading = false;
       });
     }).catch(err => {
       this.isLoading = false;
+      this.isError = true;
     });
   }
 }

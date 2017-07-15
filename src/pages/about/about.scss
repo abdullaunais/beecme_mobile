@@ -3,7 +3,12 @@
     .aboutDescription {
         color: #666;
         text-align: justify;
-        margin: 4rem 2rem;
+        margin: 3rem 1rem;
+    }
+    .aboutFootNote {
+        color: #888;
+        text-align: center;
+        margin: 3rem 1rem 1rem 1rem;
     }
     .versionText {
         color: $ui-theme;

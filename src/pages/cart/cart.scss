@@ -70,12 +70,12 @@
     background-color: #E8EAF6;
     .cartButton {
         background-color: $ui-theme-dark;
-        width: 96vw;
+        width: calc(100vmin - 2rem);
         border-radius: 5px;
         height: 8vh;
         color: #fff;
         font-weight: 700;
-        margin: 2vmin;
+        margin: 1rem;
     }
 }
 

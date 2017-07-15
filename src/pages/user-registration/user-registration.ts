@@ -294,10 +294,11 @@ export class UserRegistrationPage {
       this.registerPressed = false;
       return;
     } else {
-      this.username = this.registerForm.value.formUsername;
+      this.username = this.registerForm.value.formUsername.replace(/[^A-Za-z0-9_'-]/gi, '');
       this.email = this.registerForm.value.formEmail;
       this.phone = this.registerForm.value.formPhone;
       this.password = this.registerForm.value.formPassword;
+
       if (this.registerPressed) {
         this.registerUser();
       }

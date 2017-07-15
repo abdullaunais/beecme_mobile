@@ -18,7 +18,7 @@
 <ion-content class="page-cart" #container>
 
   <div style="display: flex; justify-content: space-between;">
-    <ion-label *ngIf="cartItems.length === 0 && !isLoading" style="text-align: center; width: 100%; color: #999;">No Items in Cart.</ion-label>
+    <ion-label *ngIf="cartIsEmpty && !isLoading" style="text-align: center; width: 100%; color: #999;">No Items in Cart.</ion-label>
     <ion-spinner *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
   </div>
 
@@ -85,14 +85,9 @@
     </ion-row>
   </ion-grid>
 
-  <!--<ion-fab top right edge>
-    <button color="ui-theme-dark" ion-fab (tap)="checkAmount()">
-      <ion-icon name="checkmark-circle-outline"></ion-icon>
-    </button>
-  </ion-fab>-->
-  <div style="width:100%; height:6rem; display:block;"></div>
+  <div style="width:100%; height:7rem; display:block;"></div>
 </ion-content>
 
 <ion-footer class="cartFooter" *ngIf="cartItems.length > 0" no-shadow>
-  <button class="cartButton" (tap)="checkAmount();">CHECKOUT (  {{totalAmount}} SAR )</button>
+  <button class="cartButton" (tap)="checkAmount();">CHECKOUT (  {{totalAmount}} {{ cartShop.currency }} )</button>
 </ion-footer>

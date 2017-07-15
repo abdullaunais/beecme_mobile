@@ -26,7 +26,7 @@ export class CartPage {
   loading: any;
   city: any;
 
-  cartItems: Array<any>;
+  cartItems: Array<any> = [];
   cartShop: any = {};
 
   cartIsEmpty: boolean = false;
@@ -42,7 +42,6 @@ export class CartPage {
     private toastCtrl: ToastController,
     private alertCtrl: AlertController
   ) {
-    this.cartItems = [];
     this.isLoading = true;
     this.shopIsVisible = false;
   }
@@ -59,6 +58,8 @@ export class CartPage {
             this.cartItems.forEach((item) => {
               this.totalAmount = this.totalAmount + (item.price * item.quantity);
             });
+          }).catch(shopErr => {
+            this.shopIsVisible = false;
           });
         } else {
           this.cartItems = [];
@@ -70,7 +71,7 @@ export class CartPage {
       }
       this.isLoading = false;
     }).catch(err => {
-      //ignore
+      this.isLoading = false;
     });
     this.storage.get('location.city').then((city) => {
       this.city = city;

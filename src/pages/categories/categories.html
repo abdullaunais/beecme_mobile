@@ -29,6 +29,7 @@
             </ion-col>
         </ion-row>
     </ion-grid>
+    <div style="height:1rem; width:100%;"></div>
     <div style="display: block; margin-top: 45vmin;" *ngIf="isError && !isLoading">
         <ion-label style="text-align: center; width: 100%; color: #999;">Could not connect to server.</ion-label>
         <button style="display:block; margin:0 auto; padding: 1rem 2rem; border-radius: 0.5rem;" (tap)="retryServer();">TRY AGAIN</button>

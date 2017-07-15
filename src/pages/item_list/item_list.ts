@@ -3,12 +3,20 @@ import { NavController, NavParams, Content, ActionSheetController, AlertControll
 import { DeliveryService } from "../../providers/delivery-service";
 import { Storage } from '@ionic/storage';
 import { Variables } from "../../providers/variables";
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @IonicPage()
 @Component({
   selector: 'item_list',
   templateUrl: 'item_list.html',
-  providers: [DeliveryService]
+  providers: [DeliveryService],
+  animations: [
+    trigger('fadeInOut', [
+      state('void', style({ opacity: '0' })),
+      state('*', style({ opacity: '1' })),
+      transition('void <=> *', animate('150ms ease-in'))
+    ])
+  ]
 })
 export class ItemList {
 
@@ -41,9 +49,9 @@ export class ItemList {
   ) {
     this.isLoading = true;
     this.noMoreItems = false;
-    this.shop = navParams.data.shop;
-    this.city = navParams.data.city;
-    this.category = navParams.data.category;
+    this.shop = this.navParams.data.shop;
+    this.city = this.navParams.data.city;
+    this.category = this.navParams.data.category;
     this.variables.cartCount.subscribe(value => this.cartCount = value);
 
     this.initialize();

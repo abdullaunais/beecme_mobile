@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController, IonicPage } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Variables } from "../../providers/variables";
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 /*
   Generated class for the Cart page.
@@ -13,6 +14,13 @@ import { Variables } from "../../providers/variables";
 @Component({
   selector: 'page-cart',
   templateUrl: 'cart.html',
+  animations: [
+    trigger('fadeInOut', [
+      state('void', style({ opacity: '0' })),
+      state('*', style({ opacity: '1' })),
+      transition('void <=> *', animate('150ms ease-in'))
+    ])
+  ]
 })
 export class CartPage {
   loading: any;
@@ -43,14 +51,14 @@ export class CartPage {
     this.storage.get('delivery.cart').then((cart) => {
       if (cart) {
         if (cart.length > 0) {
-          this.cartItems = cart;
-          this.cartIsEmpty = false;
-          this.cartItems.forEach((item) => {
-            this.totalAmount = this.totalAmount + (item.price * item.quantity);
-          });
           this.storage.get('delivery.cartShop').then((cartShop) => {
             this.cartShop = cartShop;
             this.shopIsVisible = true;
+            this.cartItems = cart;
+            this.cartIsEmpty = false;
+            this.cartItems.forEach((item) => {
+              this.totalAmount = this.totalAmount + (item.price * item.quantity);
+            });
           });
         } else {
           this.cartItems = [];

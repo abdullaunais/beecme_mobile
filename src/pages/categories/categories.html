@@ -20,7 +20,7 @@
     </div>
     <ion-grid no-margin no-padding>
         <ion-row responsive-sm no-margin no-padding>
-            <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let category of categories"  (tap)="openCategory(category)" no-margin no-padding>
+            <ion-col col-12 col-md-6 col-xl-4 *ngFor="let category of categories"  (tap)="openCategory(category)" no-margin no-padding>
                 <ion-card id="cat{{category.categoryId}}" [defaultImage]="defaultImage" [lazyLoad]="category.imageEn"
                     [scrollObservable]="container.ionScroll">
                     <div ion-item class="card-title">{{ category.nameEn }}</div>

@@ -54,11 +54,11 @@ export class UserRegistrationPage {
     public toastCtrl: ToastController
   ) {
     this.redirectString = navParams.data;
-    storage.get('location.city').then((city) => {
+    this.storage.get('location.city').then((city) => {
       this.city = city;
-      storage.get('location.province').then((province) => {
+      this.storage.get('location.province').then((province) => {
         this.province = province;
-        storage.get('location.country').then((country) => {
+        this.storage.get('location.country').then((country) => {
           this.country = country;
         });
       });

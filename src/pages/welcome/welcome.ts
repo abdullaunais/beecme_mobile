@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { DeliveryService } from '../../providers/delivery-service';
 import { Storage } from '@ionic/storage';
 import { ViewChild } from '@angular/core';
@@ -36,7 +36,6 @@ export class Welcome {
 
   constructor(
     public navCtrl: NavController,
-    private navParams: NavParams,
     private delivery: DeliveryService,
     private storage: Storage,
     public loadingCtrl: LoadingController,

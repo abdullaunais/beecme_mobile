@@ -41,9 +41,9 @@ export class UpdateProfile {
     private userService: UserService,
     private statusBar: StatusBar
   ) {
-    this.user = navParams.data.user;
-    this.updateProperty = navParams.data.property;
-    storage.get("user.authToken").then(token => {
+    this.user = this.navParams.data.user;
+    this.updateProperty = this.navParams.data.property;
+    this.storage.get("user.authToken").then(token => {
       this.authToken = token;
     });
     if (this.updateProperty === "Name") {

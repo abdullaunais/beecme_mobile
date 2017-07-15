@@ -26,8 +26,7 @@ export class ShopDetailsPage {
     this.renderer.setElementClass(viewCtrl.pageRef().nativeElement, 'shop-details-popup', true);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ShopDetailsPage');
+  closeModal() {
+   this. viewCtrl.dismiss();
   }
-
 }

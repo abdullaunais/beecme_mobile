@@ -36,7 +36,6 @@ export class CheckoutOptionsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private loadingCtrl: LoadingController,
-    private variables: Variables,
     private storage: Storage,
     private userService: UserService
   ) {

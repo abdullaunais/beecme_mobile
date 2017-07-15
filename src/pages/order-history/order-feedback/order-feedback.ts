@@ -43,8 +43,8 @@ export class OrderFeedback {
     private storage: Storage,
     private statusBar: StatusBar
   ) {
-    this.order = navParams.data.order;
-    storage.get("user.authToken").then(token => {
+    this.order = this.navParams.data.order;
+    this.storage.get("user.authToken").then(token => {
       this.authToken = token;
     });
     this.statusBar.backgroundColorByHexString('#edc800');

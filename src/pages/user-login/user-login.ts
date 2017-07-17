@@ -165,34 +165,28 @@ export class UserLoginPage {
     // console.log(this.formItems['_results']);
 
     if (this.loginForm.controls.formEmail.errors) {
+      isValid = false;
+      formIndex = 0;
       if (this.loginForm.controls.formEmail.errors.required) {
-        isValid = false;
         message = "Email is required";
-        formIndex = 0;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       } else if (this.loginForm.controls.formEmail.errors.minlength) {
-        isValid = false;
-        message = "Email is not a valid format";
-        formIndex = 0;
+        message = "Email is not a valid format";;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       } else if (this.loginForm.controls.formEmail.errors.email) {
-        isValid = false;
         message = "Email is not a valid format";
-        formIndex = 0;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       }
     }
 
     if (this.loginForm.controls.formPassword.errors) {
+      isValid = false;
+      formIndex = 1;
       if (this.loginForm.controls.formPassword.errors.required) {
-        isValid = false;
         message = "Password is required";
-        formIndex = 1;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       } else if (this.loginForm.controls.formPassword.errors.minlength) {
-        isValid = false;
         message = "Password should be at least 6 charaters long";
-        formIndex = 1;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       }
     }

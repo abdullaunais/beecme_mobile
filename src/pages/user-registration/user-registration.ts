@@ -1,8 +1,9 @@
 import { Component, ViewChildren } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController, ToastController, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, ToastController, IonicPage, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { UserService } from "../../providers/user-service";
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { Variables } from "../../providers/variables";
 
 /*
   Generated class for the UserRegistration page.
@@ -37,8 +38,9 @@ export class UserRegistrationPage {
   getItems = () => {
     console.log(this.formItems.toArray().map(x => x.nativeElement));
   }
+
   public registerForm = this.fb.group({
-    formUsername: ["", [Validators.required, Validators.minLength(4)]],
+    formUsername: ["", [Validators.required, Validators.minLength(4), Validators.pattern(/^[a-zA-Z ]{2,30}$/)]],
     formEmail: ["", [Validators.required, Validators.minLength(6), Validators.email]],
     formPhone: ["", [Validators.required, Validators.minLength(9), Validators.maxLength(10)]],
     formPassword: ["", [Validators.required, Validators.minLength(6)]],
@@ -51,7 +53,9 @@ export class UserRegistrationPage {
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public fb: FormBuilder,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    private variables: Variables,
+    public events: Events
   ) {
     this.redirectString = navParams.data;
     this.storage.get('location.city').then((city) => {
@@ -102,30 +106,56 @@ export class UserRegistrationPage {
             this.userService.registerUser(user).then((data) => {
               let json = JSON.stringify(data);
               let response = JSON.parse(json);
+
               this.hideLoading();
 
               if (response.code === 1) {
                 // register success
-                let prompt = this.alertCtrl.create({
-                  title: 'Registration Success',
-                  message: "Please Login with the details provided.",
-                  cssClass: 'alert-style',
-                  buttons: [
-                    {
-                      text: 'OK',
-                      cssClass: 'alert-button-success',
-                      handler: data => {
-                        if (this.redirectString === "redirect-deliveryschedule") {
-                          this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
-                        } else {
-                          this.navCtrl.push('UserLoginPage', null);
 
-                        }
-                      }
-                    }
-                  ]
+                this.userService.authenticate(this.email, this.password).then(user => {
+
+                  let jsonObj = JSON.stringify(user);
+                  let userRes = JSON.parse(jsonObj);
+
+                  let userData = userRes;
+                  console.info(userData);
+                  this.storage.set("user.login", true).then(res1 => {
+                    this.storage.set("user.data", userData).then(res2 => {
+                      this.storage.set("user.authToken", userData.authToken).then(res3 => {
+                        this.variables.setLogin(true);
+                        Variables.user.username = userData.username;
+                        Variables.user.email = userData.email;
+
+                        this.hideLoading();
+                        this.events.publish("user:change");
+
+                        let prompt = this.alertCtrl.create({
+                          title: 'Success',
+                          message: "You have successfully registered with BeecMe.",
+                          cssClass: 'alert-style',
+                          buttons: [
+                            {
+                              text: 'OK',
+                              cssClass: 'alert-button-success',
+                              handler: data => {
+                                if (this.redirectString === "redirect-deliveryschedule") {
+                                  this.navCtrl.setRoot('CheckoutOptionsPage', null, { animate: true, direction: "forward" });
+                                } else if (this.redirectString === "redirect-accountpage") {
+                                  this.navCtrl.setRoot('UserProfilePage', null, { animate: true, direction: "forward" });
+                                } else if (this.redirectString === "redirect-orderhistory") {
+                                  this.navCtrl.setRoot('OrderHistoryPage', null, { animate: true, direction: "forward" });
+                                } else {
+                                  this.navCtrl.setRoot('Categories', null, { animate: true, direction: "forward" });
+                                }
+                              }
+                            }
+                          ]
+                        });
+                        prompt.present();
+                      });
+                    });
+                  });
                 });
-                prompt.present();
               } else if (response.code < 0) {
                 if (response.message === "Request failed. Code already exists") {
                   let prompt = this.alertCtrl.create({
@@ -218,15 +248,16 @@ export class UserRegistrationPage {
     this.validationArray = [];
     console.log(this.formItems['_results']);
     if (this.registerForm.controls.formUsername.errors) {
+      isValid = false;
+      formIndex = 0;
       if (this.registerForm.controls.formUsername.errors.required) {
-        isValid = false;
         message = "Name is required";
-        formIndex = 0;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       } else if (this.registerForm.controls.formUsername.errors.minlength) {
-        isValid = false;
         message = "Name should be at least 4 charaters long";
-        formIndex = 0;
+        this.validationArray.push({ message: message, valid: isValid, index: formIndex });
+      } else if (this.registerForm.controls.formUsername.errors.pattern) {
+        message = "Name is not in a valid format";
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       }
     }

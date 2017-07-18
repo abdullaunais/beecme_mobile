@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, MenuController, ToastController, Events } from 'ionic-angular';
+import { Nav, Platform, MenuController, ToastController, Events, PopoverController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
@@ -18,10 +18,10 @@ export class MyApp {
   rootPage: any;
   activePage: any;
 
+  city: any;
   user: any;
   profilepic: string;
   isLogin: boolean = false;
-  profileComponent: any;
   cartCount: number;
 
   connected: Subscription;
@@ -36,6 +36,7 @@ export class MyApp {
     private storage: Storage,
     public menuCtrl: MenuController,
     public toastCtrl: ToastController,
+    public popoverCtrl: PopoverController,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private variables: Variables,
@@ -69,7 +70,7 @@ export class MyApp {
       // { title: 'Sign In', component: 'UserLoginPage', color: 'danger', icon: 'person', devide: false },
       {
         title: 'Account',
-        component: 'UserProfilePage',
+        component: 'UserLoginPage',
         color: 'danger',
         icon: 'person',
         devide: false
@@ -99,6 +100,10 @@ export class MyApp {
     });
 
     this.refreshUser();
+
+    storage.get('location.city').then((city) => {
+      this.city = city;
+    });
   }
 
   refreshUser() {
@@ -114,12 +119,12 @@ export class MyApp {
           if (response.profilePicture) {
             this.profilepic = response.profilePicture;
           } else {
-            this.profilepic = "assets/img/cover/profile_default.jpg";
+            this.profilepic = "assets/img/cover/profile_default.webp";
           }
 
         } else {
           this.user = {};
-          this.profilepic = "assets/img/cover/profile_default.jpg";
+          this.profilepic = "assets/img/cover/profile_default.webp";
           Variables.user.username = "";
           Variables.user.email = "";
           Variables.user.address = "";
@@ -127,7 +132,7 @@ export class MyApp {
         }
       } else {
         this.user = {};
-        this.profilepic = "assets/img/cover/profile_default.jpg";
+        this.profilepic = "assets/img/cover/profile_default.webp";
         Variables.user.username = "";
         Variables.user.email = "";
         Variables.user.address = "";
@@ -181,7 +186,7 @@ export class MyApp {
     this.disconnected.unsubscribe();
     this.watchLogin.unsubscribe();
     this.watchCart.unsubscribe();
-    this.events.unsubscribe("user:change");    
+    this.events.unsubscribe("user:change");
   }
 
   displayNetworkUpdate(connectionState: string) {
@@ -192,25 +197,68 @@ export class MyApp {
     }).present();
   }
 
+  // presentPopover(myEvent: Event) {
+  //   if (!myEvent) var myEvent = window.event;
+  //   myEvent.cancelBubble = true;
+  //   if (myEvent.stopPropagation) myEvent.stopPropagation();
+
+  //   let popover = this.popoverCtrl.create('ProfilePopoverPage', { login: this.isLogin, user: this.user});
+  //   popover.present({
+  //     ev: myEvent
+  //   });
+  // }
+
   loginOrProfile() {
+    let profileComp = {
+      title: 'Profile',
+      component: 'UserProfilePage',
+      color: 'danger',
+      icon: 'person',
+      devide: false
+    };
+    let loginComp = {
+      title: 'Login',
+      component: 'UserLoginPage',
+      color: 'danger',
+      icon: 'person',
+      devide: false
+    }
     if (this.isLogin) {
-      this.nav.push('UserProfilePage', null, { animation: 'ios-transition' });
+      this.openPage(profileComp);
       this.menuCtrl.close();
     } else {
-      this.nav.push('UserLoginPage');
+      this.openPage(loginComp);
       this.menuCtrl.close();
     }
   }
 
   openPage(page) {
+    if (this.nav.getActive().id === page.component) {
+      return;
+    }
+
+    // if (this.nav.getViewById(page.component)) { }
+
+    if (page.title === 'Account') {
+      if (this.isLogin) {
+        page.component = 'UserProfilePage';
+      } else {
+        page.component = 'UserLoginPage';
+      }
+    }
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    if(page.component === 'CartPage') {
-      this.nav.setRoot(page.component);
+    if (page.component === 'Categories') {
+      this.nav.setRoot(page.component, { city: this.city });
     } else {
-      this.nav.push(page.component);
+      this.nav.push(page.component, { city: this.city });
     }
+    this.menuCtrl.close();
     this.activePage = page;
+  }
+
+  profilePicError(event) {
+    event.target.src = "assets/img/cover/profile_default.webp";
   }
 
   public checkActivePage(page): boolean {

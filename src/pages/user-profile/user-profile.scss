@@ -1,55 +1,73 @@
 .page-user-profile {
-  ion-label {
-    margin: 0;
-  }
-  .scroll {
-    height: 100%
-  }
-  #map {
-    width: 100%;
-    height: 100%;
-  }
-  .header-image {
-    height: 40vh;
-    background-position: 50% center;
-  }
-  .main-content {
-    width: 100%;
-    background-color: white;
-  }
-  .btn-icon-edit {
-    font-size: 2.4rem;
-    min-height: auto;
-  }
-  .list-content-desc {
-    color: $ui-theme-primary;
-  }
-  .item-map {
-    min-height: auto;
-    padding: 0;
-    .item-inner {
-      padding-right: 0;
+    background-color: #200;
+    .cover-background {
+        position: fixed;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        opacity: .5;
+        background-color: #200;
+        background-size: cover;
     }
-  }
+    .cover-content {
+        position: fixed;
+        left: 0;
+        right: 0;
+        margin: 0 4rem;
+        z-index: 9999;
+    }
+    .profile-pic-border {
+        margin: 10rem auto 2rem;
+        padding: 2vmin;
+        display: block;
+        position: relative;
+        width: 46vmin;
+        height: 46vmin;
+        background-color: $ui-theme;
+        border-radius: 100%;
+        z-index: 1;
+    }
+    .profile-pic {
+        height: 42vmin;
+        width: 42vmin;
+        border-radius: 100%;
+        object-fit: cover;
+        z-index: 2;
+        background-color: #eee;
+        box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.4);
+    }
+    .profile-pic-edit {
+        width: 12vmin;
+        height: 12vmin;
+        position: absolute;
+        right: 0rem;
+        bottom: 0rem;
+        border-radius: 100%;
+        z-index: 0;
+        background-color: $ui-theme;
+        box-shadow: none;
+        font-size: 1.8rem;
+    }
+    .loading-spinner {
+        width: 5rem;
+        height: 5rem;
+        text-align: center;
+        margin: 2rem auto;
+        display: block;
+    }
 }
 
 .profile-header {
-  .toolbar {
-    position: absolute;
-    .toolbar-background {
-      background: transparent;
-      border-width: 0 !important;
-      transition: background-color 0.5s ease-in-out;
+    .toolbar {
+        position: absolute;
+        .toolbar-background {
+            background: transparent;
+        }
+        .toolbar-title {
+            color: #fff;
+        }
     }
-    .bar-button {
-      text-shadow: 1px 1px 5px #999;
-    }
-    .toolbar-title {
-      color: #fff;
-      text-shadow: 1px 1px 5px #999;
-    }
-  }
-  .btn-edit-image {
-    text-shadow: 0px 0px 5px #bbb;
-  }
 }

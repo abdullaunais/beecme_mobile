@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ViewController, AlertController, IonicPage, Events } from 'ionic-angular';
+import { NavController, LoadingController, ViewController,  IonicPage, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DeliveryService } from "../../../providers/delivery-service";
 import { Variables } from "../../../providers/variables";
@@ -38,31 +38,18 @@ export class ChangeLocation {
   start: number = 0;
   offset: number = 20;
 
+  isLoading: boolean;
+  isError: boolean;
   loading: any;
-  alert: any;
   constructor(
     public navCtrl: NavController,
-    private navParams: NavParams,
     private deliveryService: DeliveryService,
     private storage: Storage,
     public loadingCtrl: LoadingController,
     public viewCtrl: ViewController,
     private variables: Variables,
-    private alertCtrl: AlertController,
     public events: Events
   ) {
-    this.alert = this.alertCtrl.create({
-      title: 'Error',
-      message: 'Unable to retrieve locations. Check your internet connection',
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            //ignore
-          }
-        }
-      ]
-    });
     this.storage.get("location.set").then((set) => {
       if (set) {
         this.storage.get("location.country").then((country) => {
@@ -76,16 +63,21 @@ export class ChangeLocation {
   }
 
   initialize() {
-    this.showLoading("Loading...");
+    this.isLoading = true;
+    this.isError = false;
     this.deliveryService.getLocation(this.type, this.value, this.start, this.offset).then((data) => {
       let json = JSON.stringify(data);
       this.countries = JSON.parse(json);
-      this.hideLoading();
+      this.isLoading = false;
+      this.isError = false;
+    }).catch(err => {
+      this.isLoading = false;
+      this.isError = true;
     });
   }
 
   countryChanged() {
-    this.showLoading("Please wait...");
+    this.showLoading("Fetching Provinces...");
     this.type = 22;
     this.value = this.selectedCountry.id;
     this.deliveryService.getLocation(this.type, this.value, this.start, this.offset).then((data) => {
@@ -97,7 +89,7 @@ export class ChangeLocation {
   }
 
   provinceChanged() {
-    this.showLoading("Please wait...");
+    this.showLoading("Fetching Cities...");
     this.type = 24;
     this.value = this.selectedProvince.id;
     this.deliveryService.getLocation(this.type, this.value, this.start, this.offset).then((data) => {
@@ -130,8 +122,8 @@ export class ChangeLocation {
     this.viewCtrl.dismiss({ success: true });
   }
 
-  showConnectionError() {
-    this.alert.present();
+  retryServer() {
+    this.initialize();
   }
 
   showLoading(content) {

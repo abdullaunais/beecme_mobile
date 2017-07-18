@@ -13,18 +13,17 @@ import { NavController, NavParams, IonicPage } from 'ionic-angular';
   templateUrl: 'image-slider.html'
 })
 export class ImageSliderPage {
-  item:any;
+  item: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.item = navParams.data;
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ImageSlilderPage');
   }
 
   closeImages() {
     this.navCtrl.pop();
   }
 
+  toTitleCase(str) {
+    return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+  }
 }

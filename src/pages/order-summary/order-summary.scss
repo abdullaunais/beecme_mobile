@@ -1,5 +1,3 @@
-.page-order-summary-header {}
-
 .page-order-summary {
     ion-label {
         margin: 0;
@@ -24,12 +22,25 @@
         font-weight: 700;
     }
     .list-content-desc {
+        line-height: 2.6rem;
         color: $ui-theme-primary;
     }
     .item-price-badge {
-        padding: 0.6rem 0.8rem;
-        margin: 0.3rem 0.5rem 0.3rem 0px !important;
+        padding: 0.5rem 0.6rem;
+        margin: 0 !important;
         border-radius: 1.2rem;
+        background-color: #eee;
+        color: #888;
+    }
+    .price-calc-item {
+        margin: 0;
+        padding: 0;
+        padding-left: 4rem;
+        color: $ui-theme-primary;
+        min-height: 3rem;
+    }
+    .price-calc-label {
+        margin: 0;
     }
     .color-primary {
         color: $ui-theme-primary;
@@ -40,15 +51,15 @@
 }
 
 .summeryFooter {
-    background-color: #fafafa;
+    background-color: #fff;
     .summeryButton {
         background-color: $ui-theme-dark;
-        width: 92vw;
+        width: calc(100vmin - 2rem);
         border-radius: 5px;
         height: 8vh;
         color: #fff;
         font-weight: 700;
-        margin: 1.5rem;
+        margin: 1rem;
     }
 }
 

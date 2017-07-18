@@ -3,6 +3,7 @@ import { NavController, NavParams, LoadingController, ViewController, IonicPage,
 import { Storage } from '@ionic/storage';
 import { FormBuilder, Validators } from "@angular/forms";
 import { UserService } from "../../../providers/user-service";
+import { StatusBar } from "@ionic-native/status-bar";
 
 /**
  * Generated class for the ChangeLocation page.
@@ -28,11 +29,6 @@ export class UpdateProfile {
   public phoneForm = this.fb.group({
     formPhone: ["", [Validators.required, Validators.minLength(9)]]
   });
-    public addressForm = this.fb.group({
-    formAddress: ["", [Validators.required, Validators.minLength(2)]],
-    formAddress2: ["", []],
-    formAddress3: ["", []]
-  });
 
   constructor(
     public navCtrl: NavController,
@@ -42,17 +38,33 @@ export class UpdateProfile {
     private toastCtrl: ToastController,
     public viewCtrl: ViewController,
     public fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private statusBar: StatusBar
   ) {
-    this.user = navParams.data.user;
-    this.updateProperty = navParams.data.property;
-    storage.get("user.authToken").then(token => {
+    this.user = this.navParams.data.user;
+    this.updateProperty = this.navParams.data.property;
+    this.storage.get("user.authToken").then(token => {
       this.authToken = token;
+    });
+    if (this.updateProperty === "Name") {
+      this.statusBar.backgroundColorByHexString('#1557c7');
+    } else if (this.updateProperty === "Phone") {
+      this.statusBar.backgroundColorByHexString('#0ec343');
+    }
+    this.usernameForm.setValue({
+      formUsername: this.user.username
+    });
+    this.phoneForm.setValue({
+      formPhone: this.user.phone
     });
   }
 
   ionViewDidEnter() {
     this.viewCtrl.showBackButton(true);
+  }
+
+  ionViewWillLeave() {
+    this.statusBar.backgroundColorByHexString('#4527A0');
   }
 
   validateName() {
@@ -103,34 +115,9 @@ export class UpdateProfile {
     }
   }
 
-  validateAddress() {
-    let isValid: boolean = true;
-    let message: string = "";
-
-    if (this.addressForm.controls.formAddress.errors) {
-      if (this.addressForm.controls.formAddress.errors.required) {
-        isValid = false;
-        message = "Address is required";
-      } else if (this.addressForm.controls.formAddress.errors.minlength) {
-        isValid = false;
-        message = "Address should be at least 4 charaters long";
-      }
-    }
-
-    if (!isValid) {
-      this.presentToast(message, 2000);
-      return;
-    } else {
-      delete this.user.password;
-      this.user.address = this.addressForm.value.formAddress;
-      if(this.addressForm.value.formAddress2) {
-        this.user.address += "\n" + this.addressForm.value.formAddress2;
-      }
-      if(this.addressForm.value.formAddress3) {
-        this.user.address += "\n" + this.addressForm.value.formAddress3;
-      }
-      this.updateUser();
-    }
+  cancelView() {
+    this.statusBar.backgroundColorByHexString('#4527A0');
+    this.viewCtrl.dismiss({ success: false });
   }
 
   updateUser() {
@@ -169,7 +156,6 @@ export class UpdateProfile {
   hideLoading() {
     this.loading.dismiss();
   }
-
 
   presentToast(message, duration) {
     let toast = this.toastCtrl.create({

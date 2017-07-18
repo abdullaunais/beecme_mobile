@@ -14,37 +14,22 @@ import {
  */
 @Injectable()
 export class StarRatingConfig {
-
-  classEmpty: string = "default-star-empty-icon";
-
-  classHalf: string = "default-star-half-icon";
-
-  classFilled: string = "default-star-filled-icon";
-
+  classEmpty: string = "def-icon";
+  classHalf: string = "default-sh-icon";
+  classFilled: string = "default-sf-icon";
   numOfStars: number = 5;
-
   size: starRatingSizes = "medium";
-
   speed: starRatingSpeed = "noticeable";
-
   labelPosition: starRatingPosition = "left";
-
   starType: starRatingStarTypes = "svg";
-
   assetsPath: string = "assets/images/";
-
-
   svgPath: string = this.assetsPath + "star-rating.icons.svg";
-  svgEmptySymbolId: string = "star-empty";
-  svgHalfSymbolId: string = "star-half";
-  svgFilledSymbolId: string = "star-filled";
-
+  svgEmptySymbolId: string = "se";
+  svgHalfSymbolId: string = "sh";
+  svgFilledSymbolId: string = "sf";
   svgPathEmpty: string = this.svgPath + "#" + this.svgEmptySymbolId;
-
   svgPathHalf: string = this.svgPath + "#" + this.svgHalfSymbolId;
-
   svgPathFilled: string = this.svgPath + "#" + this.svgFilledSymbolId;
-
   getColor(rating: number, numOfStars: number, staticColor?: starRatingColor): starRatingColor {
     rating = rating || 0;
 
@@ -73,6 +58,4 @@ export class StarRatingConfig {
   getHalfStarVisible(rating: number): boolean {
     return Math.abs(rating % 1) > 0;
   }
-
-
 }

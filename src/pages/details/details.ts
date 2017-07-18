@@ -20,11 +20,13 @@ export class DetailsPage {
   item: any;
   shop: any;
   category: any;
+  city: any;
 
   cartCount: number = 0;
   offsetHeight: number;
 
   isLoading: boolean;
+  catLoading: boolean;
   loading: any;
 
   constructor(public navCtrl: NavController,
@@ -40,12 +42,14 @@ export class DetailsPage {
     this.item = navParams.data.item;
     this.shop = navParams.data.shop;
     this.category = navParams.data.category;
+    this.city = navParams.data.city;
     this.variables.cartCount.subscribe(value => this.cartCount = value);
     this.initialize();
   }
 
   initialize() {
     if (!this.category.nameEn) {
+      this.catLoading = true;
       // this.showLoading("Please wait...");
       this.storage.get("location.city").then(city => {
         this.deliveryService.getCategories(city.id).then(categoryList => {
@@ -56,9 +60,9 @@ export class DetailsPage {
               this.category = element;
             }
           });
-          // this.hideLoading();
+          this.catLoading = false;
         }).catch(err => {
-          // this.hideLoading();
+          this.catLoading = false;
           this.presentToast("Error when fetching category", 2000);
         });
       });
@@ -70,35 +74,35 @@ export class DetailsPage {
       title: 'Select Quantity',
       buttons: [
         {
-          text: '1',
+          text: '1 ' + this.item.unit,
           cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(1);
           }
         },
         {
-          text: '2',
+          text: '2 ' + this.item.unit,
           cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(2);
           }
         },
         {
-          text: '3',
+          text: '3 ' + this.item.unit,
           cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(3);
           }
         },
         {
-          text: '4',
+          text: '4 ' + this.item.unit,
           cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(4);
           }
         },
         {
-          text: '5',
+          text: '5 ' + this.item.unit,
           cssClass: 'action-blue-btn',
           handler: () => {
             this.addToCart(5);
@@ -108,7 +112,9 @@ export class DetailsPage {
           text: 'More than 5',
           cssClass: 'action-blue-btn',
           handler: () => {
-            this.quantityPrompt();
+            setTimeout(() => {
+              this.quantityPrompt();
+            }, 300);
           }
         },
         {
@@ -128,9 +134,11 @@ export class DetailsPage {
       title: 'Enter Quantity',
       message: "",
       cssClass: 'alert-style',
-      inputs: [
-        { name: 'quantity', placeholder: 'Quantity' },
-      ],
+      inputs: [{
+        name: 'quantity',
+        placeholder: 'Quantity',
+        type: 'number'
+      }],
       buttons: [
         {
           text: 'Cancel',
@@ -163,64 +171,31 @@ export class DetailsPage {
   // }
 
   addToCart(quantity) {
-    let prompt = this.alertCtrl.create({
-      title: 'Enter Comment',
-      message: "",
-      cssClass: 'alert-style',
-      inputs: [
-        { name: 'comment', placeholder: 'Comment' },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          cssClass: 'alert-button-danger-plain',
-          handler: data => { }
-        },
-        {
-          text: 'Add',
-          cssClass: 'alert-button-primary',
-          handler: data => {
-            // if (this.item.qty >= quantity) {
-            this.item.commentDtl = data.comment;
-            this.item.quantity = quantity;
-            this.storage.get('delivery.cart').then((cart) => {
-              let cartItems: Array<any> = cart;
-              let prevCart = cartItems.filter(x => x.itemCode == this.item.itemCode);
-              if (prevCart && prevCart.length > 0) {
-                let index = cartItems.findIndex(x => x.itemCode == this.item.itemCode);
-                cartItems[index] = this.item
-                this.storage.set("delivery.cart", cartItems).then(res => {
-                  this.storage.set("delivery.cartCount", cartItems.length).then(res => {
-                    this.storage.set("delivery.cartShop", this.shop).then(res => {
-                      this.variables.setCartCount(cartItems.length);
-                    });
-                  });
-                });
-              } else {
-                cartItems.push(this.item);
-                this.storage.set('delivery.cart', cartItems).then((response) => {
-                  this.storage.set('delivery.cartCount', cartItems.length).then((res) => {
-                    this.storage.set("delivery.cartShop", this.shop).then(res => {
-                      this.variables.setCartCount(cartItems.length);
-                    });
-                  });
-                });
-              }
-
+    this.item.quantity = quantity;
+    this.storage.get('delivery.cart').then((cart) => {
+      let cartItems: Array<any> = cart;
+      let prevCart = cartItems.filter(x => x.itemCode == this.item.itemCode);
+      if (prevCart && prevCart.length > 0) {
+        let index = cartItems.findIndex(x => x.itemCode == this.item.itemCode);
+        cartItems[index] = this.item
+        this.storage.set("delivery.cart", cartItems).then(res => {
+          this.storage.set("delivery.cartCount", cartItems.length).then(res => {
+            this.storage.set("delivery.cartShop", this.shop).then(res => {
+              this.variables.setCartCount(cartItems.length);
             });
-            // } else {
-            //   let alert = this.alertCtrl.create({
-            //     title: 'Cant add more than the available amount!',
-            //     subTitle: 'Please select a quantity that is available',
-            //     buttons: ['OK']
-            //   });
-            //   alert.present();
-            // }
-          }
-        }
-      ]
+          });
+        });
+      } else {
+        cartItems.push(this.item);
+        this.storage.set('delivery.cart', cartItems).then((response) => {
+          this.storage.set('delivery.cartCount', cartItems.length).then((res) => {
+            this.storage.set("delivery.cartShop", this.shop).then(res => {
+              this.variables.setCartCount(cartItems.length);
+            });
+          });
+        });
+      }
     });
-    prompt.present();
   }
 
   validateCart() {
@@ -272,8 +247,16 @@ export class DetailsPage {
     this.navCtrl.push('ImageSliderPage', this.item);
   }
 
-  showShopInfo() {
-    return;
+  goToShop() {
+    if (!this.catLoading) {
+      this.navCtrl.push('ItemList', { shop: this.shop, city: this.city, category: this.category });
+    }
+  }
+
+  goToCategory() {
+    if (!this.catLoading) {
+      this.navCtrl.push('Shops', { city: this.city, category: this.category });
+    }
   }
 
   ngAfterViewInit() {
@@ -285,7 +268,7 @@ export class DetailsPage {
     if (this.item.img1) {
       document.getElementById('headerImage').style.backgroundImage = "url(" + this.item.img1 + ")";
     } else {
-      document.getElementById('headerImage').style.backgroundImage = "url('assets/img/cover/profile_default_grey.jpg')";
+      document.getElementById('headerImage').style.backgroundImage = "url('assets/img/cover/profile_default_grey.webp')";
     }
   }
 
@@ -320,7 +303,7 @@ export class DetailsPage {
   }
 
   goToCart() {
-    this.navCtrl.push('CartPage');
+    this.navCtrl.push('CartPage', { city: this.city });
   }
 
   toTitleCase(str) {

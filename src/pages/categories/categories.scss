@@ -1,38 +1,52 @@
-.profile-header-categories {}
-
 .page-categories {
-  background-color: #E8EAF6;
-  ion-card {
-    position: relative;
-    text-align: center;
-    height: 24vh;
-    background-size: cover;
-    background-position: 50%;
-  }
-  .card-title {
-    position: absolute;
-    top: 30%;
-    font-size: 1.8em;
-    width: 100%;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 2px 4px 10px #000;
-  }
-  .card-subtitle {
-    font-size: 1.0em;
-    position: absolute;
-    top: 45%;
-    background-color: transparent;
-    padding: 0 15%;
-    width: 100%;
-    color: #fff;
-    text-shadow: 2px 2px 6px #000;
-  }
-  .loading-spinner {
-    width: 5rem;
-    height: 5rem;
-    text-align: center;
-    margin: 2rem auto;
-    display: block;
-  }
+    .item {
+        background-color: transparent;
+    }
+    background-color: #E8EAF6;
+    ion-card {
+        position: relative;
+        text-align: center;
+        height: 40vmin;
+        background-size: cover;
+        object-fit: cover;
+        background-position: 50%; // background-color: #eee;
+        margin-bottom: 0;
+        margin-right: 0;
+    }
+    .card-title {
+        margin-top: 15vmin;
+        text-align: center;
+        font-size: 2.4rem;
+        display: block;
+        text-transform: uppercase;
+        width: 100%;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 1px 2px 5px #000;
+        min-height: auto;
+        .label {
+            margin: 0;
+        }
+    }
+    .card-subtitle {
+        margin: 0.5rem auto 0 auto;
+        font-size: 1.3rem;
+        text-align: center;
+        background-color: transparent;
+        display: block;
+        width: 85%;
+        color: #fff;
+        text-shadow: 1px 1px 3px #000;
+        min-height: auto;
+        .label {
+            margin: 0;
+        }
+    }
+    .loading-spinner {
+        width: 5rem;
+        height: 5rem;
+        text-align: center;
+        margin: 2rem auto;
+        display: block;
+    }
 }

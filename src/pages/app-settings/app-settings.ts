@@ -41,11 +41,7 @@ export class AppSettingsPage {
       }
     });
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AppSettingsPage');
-  }
-
+  
   loginOrLogout() {
     if (this.isLogin) {
       this.storage.set("user.login", false).then((res1) => {
@@ -59,8 +55,12 @@ export class AppSettingsPage {
         });
       });
     } else {
-      this.navCtrl.setRoot('UserLoginPage', null);
+      this.navCtrl.push('UserLoginPage', null);
     }
+  }
+
+  manageAddress() {
+    this.navCtrl.push('ManageAddressPage');
   }
 
   presentChangeLocationModal() {

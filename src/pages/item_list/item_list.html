@@ -1,22 +1,20 @@
 <ion-header>
     <ion-navbar color="ui-theme">
-        <ion-buttons start>
-            <button ion-button menuToggle>
+        <button ion-button menuToggle showWhen="android">
                 <ion-icon name="menu"></ion-icon>
             </button>
-        </ion-buttons>
         <ion-title ng-style="color:white;">{{ shop.username }}</ion-title>
         <ion-buttons end>
-            <button ion-button icon-only (click)="openCart()">
+            <button ion-button icon-only (tap)="openCart()">
                 <ion-icon name="cart"></ion-icon>
                 <ion-badge *ngIf="cartCount > 0" color="primary" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
             </button>
-            <button ion-button icon-only (click)="showSearch()" *ngIf="!searchVisible">
+            <!--<button ion-button icon-only (tap)="showSearch()" *ngIf="!searchVisible">
                 <ion-icon name="search"></ion-icon>
             </button>
-            <button ion-button icon-only (click)="hideSearch()" *ngIf="searchVisible">
+            <button ion-button icon-only (tap)="hideSearch()" *ngIf="searchVisible">
                 <ion-icon name="close"></ion-icon>
-            </button>
+            </button>-->
         </ion-buttons>
     </ion-navbar>
     <ion-searchbar class="item-searchbar" *ngIf="searchVisible" (animated)="true" placeholder="Comming Soon..." [(ngModel)]="searchQuery"
@@ -24,7 +22,7 @@
     </ion-searchbar>
 </ion-header>
 
-<ion-content class="page-item_list">
+<ion-content class="page-item_list" #container>
 
     <div style="display: flex; justify-content: space-between;">
         <ion-label *ngIf="items.length === 0 && !isLoading" style="text-align: center; width: 100%; color: #999;">No {{ category.nameEn }} Available. Please try a different category</ion-label>
@@ -35,55 +33,34 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
 
-    <ion-card *ngFor="let item of items; let i = index;" style="height: 10rem;" (click)="viewDetails(item);">
-        <ion-row style="height: 10rem;">
-            <ion-col col-3 class="item-card-icon-col">
-                <img class="item-card-icon" src="{{item.img1}}" cache="true" onerror="errorUpdateUrl($event, i)"/>
-            </ion-col>
-            <ion-col col-9 class="item-card-content-col">
-                <ion-card-content class="item-card-content">
-                    <ion-card-title class="item-card-content-title">{{ toTitleCase(item.nameEn) }}</ion-card-title>
-                    <p class="item-card-content-desc">{{ item.descriptionEn }}</p>
-                    <img src="assets/img/ui_icons/add_shopping_cart_theme.svg" (click)="validateCart($event, item)" class="item-card-btn-cart">
-                    <ion-label class="item-card-content-price">
-                        <!--<ion-icon name="pricetag" color="ui-theme"></ion-icon>-->
-                        {{ item.price }} SAR/{{ item.unit.toUpperCase() }}
-                    </ion-label>
-                </ion-card-content>
+    <ion-grid no-margin no-padding>
+        <ion-row responsive-sm no-margin no-padding>
+            <ion-col col-12 col-sm-6 col-lg-4 [@fadeInOut] *ngFor="let item of items; let i = index;" no-margin no-padding>
+                <ion-card style="height: 10rem; margin-bottom: 0; margin-right: 0;" (click)="viewDetails(item);">
+                    <ion-row style="height: 10rem;">
+                        <ion-col col-3 class="item-card-icon-col" [lazyLoad]="item.img1" [offset]="offset" [scrollObservable]="container.ionScroll">
+                        </ion-col>
+                        <ion-col col-9 class="item-card-content-col">
+                            <ion-card-content class="item-card-content">
+                                <ion-card-title class="item-card-content-title">{{ toTitleCase(item.nameEn) }}</ion-card-title>
+                                <p class="item-card-content-desc">{{ item.descriptionEn }}</p>
+                                <img src="assets/img/ui_icons/add_shopping_cart_theme.svg" (click)="validateCart($event, item)" class="item-card-btn-cart">
+                                <ion-label class="item-card-content-price">
+                                    {{ item.price }} SAR/{{ item.unit.toUpperCase() }}
+                                </ion-label>
+                            </ion-card-content>
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
             </ion-col>
         </ion-row>
-    </ion-card>
+    </ion-grid>
 
     <div style="display: flex; justify-content: space-between;">
         <ion-label *ngIf="noMoreItems" style="text-align: center; width: 100%; color: #999;">No more items</ion-label>
     </div>
 
-
     <ion-infinite-scroll (ionInfinite)="paginate($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
-
-    <!--<ion-list>-->
-
-    <!--<ion-item>-->
-
-    <!--<ion-thumbnail item-left>-->
-    <!--<img src="../../assets/img/items/F001.jpg">-->
-    <!--</ion-thumbnail>-->
-    <!--<h2>{{ item.title }}</h2>-->
-    <!--<p>{{ item.desc }}</p>-->
-    <!--<button ion-button clear item-right>View</button>-->
-    <!--</ion-item>-->
-
-    <!--<ion-item>-->
-
-    <!--<ion-thumbnail item-left>-->
-    <!--<img src="../../assets/img/items/F001.jpg">-->
-    <!--</ion-thumbnail>-->
-    <!--<h2>{{ item.title }}</h2>-->
-    <!--<p>{{ item.desc }}</p>-->
-    <!--<button ion-button clear item-right>View</button>-->
-    <!--</ion-item>-->
-
-    <!--</ion-list>-->
 </ion-content>

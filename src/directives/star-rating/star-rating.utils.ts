@@ -1,7 +1,5 @@
 import {starRatingColor} from "./star-rating-struct";
 export class StarRatingUtils {
-    //Static methods
-    ///////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * getStarsArray

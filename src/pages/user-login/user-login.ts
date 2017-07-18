@@ -77,30 +77,30 @@ export class UserLoginPage {
       let json = JSON.stringify(data);
       let response = JSON.parse(json);
 
-      // let capitalizeFirstChar = (string) => { return string.charAt(0).toUpperCase() + string.substring(1) };
-
-      // login success
-      // this.storage.get('user.data').then((user) => {
-      // });
       let userData = response;
       console.info(userData);
-      this.storage.set("user.data", userData);
-      this.storage.set("user.login", true);
-      this.storage.set("user.authToken", userData.authToken);
-      this.variables.setLogin(true);
-      Variables.user.username = userData.username;
-      Variables.user.email = userData.email;
+      this.storage.set("user.login", true).then(res1 => {
+        this.storage.set("user.data", userData).then(res2 => {
+          this.storage.set("user.authToken", userData.authToken).then(res3 => {
+            this.variables.setLogin(true);
+            Variables.user.username = userData.username;
+            Variables.user.email = userData.email;
 
-      this.hideLoading();
+            this.hideLoading();
 
-      if (this.redirectString === "redirect-deliveryschedule") {
-        this.navCtrl.setRoot('OrderSummaryPage', { comment: this.navParams.data.comment }, { animate: true, direction: "forward" });
-      } else if (this.redirectString === "redirect-accountpage") {
-        this.navCtrl.setRoot('UserProfilePage');
-      } else {
-        this.events.publish("user:change");
-        this.navCtrl.setRoot('Categories', null, { animate: true, direction: "forward" });
-      }
+            this.events.publish("user:change");
+            if (this.redirectString === "redirect-deliveryschedule") {
+              this.navCtrl.setRoot('CheckoutOptionsPage', null, { animate: true, direction: "forward" });
+            } else if (this.redirectString === "redirect-accountpage") {
+              this.navCtrl.setRoot('UserProfilePage', null, { animate: true, direction: "forward" });
+            } else if (this.redirectString === "redirect-orderhistory") {
+              this.navCtrl.setRoot('OrderHistoryPage', null, { animate: true, direction: "forward" });
+            } else {
+              this.navCtrl.setRoot('Categories', null, { animate: true, direction: "forward" });
+            }
+          });
+        });
+      });
     }).catch(err => {
       if (err.status === 401) {
         this.hideLoading();
@@ -135,7 +135,6 @@ export class UserLoginPage {
           ]
         });
         alert.present();
-
       }
     });
   }
@@ -166,34 +165,28 @@ export class UserLoginPage {
     // console.log(this.formItems['_results']);
 
     if (this.loginForm.controls.formEmail.errors) {
+      isValid = false;
+      formIndex = 0;
       if (this.loginForm.controls.formEmail.errors.required) {
-        isValid = false;
         message = "Email is required";
-        formIndex = 0;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       } else if (this.loginForm.controls.formEmail.errors.minlength) {
-        isValid = false;
-        message = "Email is not a valid format";
-        formIndex = 0;
+        message = "Email is not a valid format";;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       } else if (this.loginForm.controls.formEmail.errors.email) {
-        isValid = false;
         message = "Email is not a valid format";
-        formIndex = 0;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       }
     }
 
     if (this.loginForm.controls.formPassword.errors) {
+      isValid = false;
+      formIndex = 1;
       if (this.loginForm.controls.formPassword.errors.required) {
-        isValid = false;
         message = "Password is required";
-        formIndex = 1;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       } else if (this.loginForm.controls.formPassword.errors.minlength) {
-        isValid = false;
         message = "Password should be at least 6 charaters long";
-        formIndex = 1;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       }
     }

@@ -1,99 +1,55 @@
-<!--
-  Generated template for the UserProfile page.
+<ion-header class="profile-header">
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header class="profile-header" id="header-content">
-
-  <ion-navbar color="ui-theme" id="nav-content">
+  <ion-navbar color="ui-theme">
     <button ion-button menuToggle> 
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title ng-style="color:white;">Profile</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="choosePhoto()" class="btn-edit-image">
-        <ion-icon name="image"></ion-icon>
-      </button>
-    </ion-buttons>
+    <!-- <ion-buttons end>
+      <button ion-button icon-only [disabled]="isLoading" (click)="editProfile()" style="color: white;">
+              <ion-icon name="create"></ion-icon>
+          </button>
+    </ion-buttons> -->
   </ion-navbar>
 </ion-header>
 
 
-<ion-content class="page-user-profile" parallax-header (ionScroll)="checkScroll($event)">
-  <div class="header-image" id="headerImage" #headerImage>
-    <div style="display: block; justify-content: space-between; width:100%; height: 40vh; line-height: 40vh; text-align:center;">
-      <ion-spinner *ngIf="isLoading" class="loading-spinner" color="light"></ion-spinner>
+<ion-content no-padding class="page-user-profile">
+  <div class="cover-background" style="background-image:url('assets/img/cover/welcome_background.webp');">
+  </div>
+  <div class="cover-content" #container>
+    <div class="profile-pic-border">
+      <div *ngIf="isLoading && !isError" class="profile-pic" style="display: block; justify-content: space-between; width:100%; line-height: 42vmin; text-align:center;">
+        <ion-spinner class="loading-spinner" style="margin:auto; height:42vmin; width:3rem;" color="dark"></ion-spinner>
+      </div>
+      <img *ngIf="!isLoading" [defaultImage]="'assets/img/cover/profile_default.webp'" [lazyLoad]="user.profilePicture"  [scrollObservable]="container.ionScroll" class="profile-pic" />
+      <div class="profile-pic-edit" ion-button (tap)="triggerFileUpload(img);">
+        <ion-icon name="image" style="margin: 0;"></ion-icon>
+      </div>
     </div>
-  </div>
 
-  <div class="main-content" id="profile-content" no-padding>
+    <div style="text-align:center; margin-top: 7rem;">
+      <div *ngIf="isLoading" style="display: block; justify-content: space-between; width:100%; height: 5vh; line-height: 5vh; text-align:center;">
+        <ion-spinner class="loading-spinner" color="light"></ion-spinner>
+      </div>
+      <h1 style="color:#fff; margin:0;" *ngIf="!isLoading && user.username"> {{user.username}} </h1>
+      <h6 style="color:#fff;font-weight: 400;margin:0;" *ngIf="!isLoading && user.email"> {{user.email}} </h6>
+      <h6 style="color:#fff;font-weight: 300;margin: 1rem 0;" *ngIf="!isLoading && user.phone"> +94 {{user.phone}} </h6>
+    </div>
 
-    <ion-list no-lines margin-left margin-right style="margin-bottom:0.2rem; margin-top:1rem;">
-      <ion-item>
-        <ion-icon name="at" color="warning" item-start></ion-icon>
-        <div style="font-weight: 700;">Email</div>
-      </ion-item>
-      <ion-item style="min-height:auto;" *ngIf="!isLoading">
-        <ion-icon style="min-height: auto;" item-start></ion-icon>
-        <div class="list-content-desc">
-          {{user.email}}
-        </div>
-        <ion-icon class="btn-icon-edit" color="blue-grey" item-end></ion-icon>
-      </ion-item>
-    </ion-list>
-
-    <ion-list (tap)="presentUpdateModal('Name');" no-lines margin-left margin-top margin-right style="border-top: 1px solid #eee;margin-bottom:0.2rem;">
-      <ion-item>
-        <ion-icon name="person" color="ui-theme" item-start></ion-icon>
-        <div style="font-weight: 700;">Name</div>
-      </ion-item>
-      <ion-item style="min-height:auto;" *ngIf="!isLoading">
-        <ion-icon style="min-height: auto;" item-start></ion-icon>
-        <div class="list-content-desc">
-          {{user.username}}
-        </div>
-        <ion-icon name="create" class="btn-icon-edit" color="blue-grey" item-end></ion-icon>
-      </ion-item>
-    </ion-list>
-
-    <ion-list (tap)="presentUpdateModal('Phone');" no-lines margin-left margin-right style="border-top: 1px solid #eee; margin-bottom:0.2rem;">
-      <ion-item>
-        <ion-icon name="call" color="secondary" item-start></ion-icon>
-        <div style="font-weight: 700;">Phone</div>
-      </ion-item>
-      <ion-item style="min-height:auto;" *ngIf="!isLoading">
-        <ion-icon style="min-height: auto;" item-start></ion-icon>
-        <div class="list-content-desc">
-          +966-{{ (user.phone) ? user.phone : 'Not Specified' }}
-        </div>
-        <ion-icon name="create" class="btn-icon-edit" color="blue-grey" item-end></ion-icon>
-      </ion-item>
-    </ion-list>
-
-    <ion-list (tap)="presentUpdateModal('Address');" no-lines margin-left margin-right style="border-top: 1px solid #eee;">
-      <ion-item>
-        <ion-icon name="home" color="primary" item-start></ion-icon>
-        <div style="font-weight: 700;">Address</div>
-      </ion-item>
-      <ion-item style="min-height:auto;" *ngIf="!isLoading">
-        <ion-icon style="min-height: auto;" item-start></ion-icon>
-        <div class="list-content-desc" [innerHTML]="userAddressElement">
-        </div>
-        <ion-icon name="create" class="btn-icon-edit" color="blue-grey" item-end></ion-icon>
-      </ion-item>
-    </ion-list>
-
-    <ion-list (tap)="updateLocation();" no-lines margin-left margin-right style="border-top: 1px solid #eee; margin-bottom:5vh;">
-      <ion-item>
-        <ion-icon name="pin" color="danger" item-start></ion-icon>
-        <div style="font-weight: 700;">Location</div>
-        <ion-icon name="locate" color="blue-grey" item-end></ion-icon>
-      </ion-item>
-      <ion-item class="item-map">
-        <div #map id="map" style="height:40vh; width:100%; margin-top:1rem;"></div>
-      </ion-item>
-    </ion-list>
+    <div style="display: block; margin-top: 8rem;" *ngIf="isError && !isLoading">
+      <ion-label style="text-align: center; width: 100%; color: #eee;">Could not connect to server.</ion-label>
+      <button style="display:block; color: #673ab7; margin:0 auto; padding: 1rem 2rem; border-radius: 0.5rem;" (tap)="retryServer();">TRY AGAIN</button>
+    </div>
 
   </div>
+  <input type="file" id="picSelect" #img name="picSelect" style="opacity: 0;" accept="image/*" (change)="chooseImage(img)"
+    multiple="false" />
+  <div style="display: table;  clear: both;"></div>
+
+  <ion-fab bottom right style="margin: 0.5rem;">
+    <button ion-fab color="light" [disabled]="isLoading" (click)="editProfile()">
+            <ion-icon name="create" color="ui-theme"></ion-icon>
+        </button>
+  </ion-fab>
 </ion-content>

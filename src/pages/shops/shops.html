@@ -6,35 +6,20 @@
 -->
 <ion-header>
   <ion-navbar color="ui-theme">
-    <ion-buttons start>
-      <button ion-button menuToggle>
+    <button ion-button menuToggle showWhen="android">
                 <ion-icon name="menu"></ion-icon>
             </button>
-    </ion-buttons>
     <ion-title ng-style="color:white;">{{ category.nameEn }} Shops</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="openCart()">
+      <button ion-button icon-only (tap)="openCart()">
                 <ion-icon name="cart"></ion-icon>
                 <ion-badge *ngIf="cartCount > 0" color="primary" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
             </button>
-      <!--<button ion-button icon-only (click)="showSearch()" *ngIf="!searchVisible">
-                <ion-icon name="search"></ion-icon>
-            </button>
-            <button ion-button icon-only (click)="hideSearch()" *ngIf="searchVisible">
-                <ion-icon name="close"></ion-icon>
-            </button>-->
     </ion-buttons>
   </ion-navbar>
-  <!--<ion-searchbar class="shop-searchbar" *ngIf="searchVisible"
-                   (animated)="true" placeholder="Comming Soon..."
-                   [(ngModel)]="searchQuery"
-                   [showCancelButton]="true"
-                   (ionInput)="onSearchTextEntered($event)"
-                   (ionCancel)="onSearchCancel($event)">
-    </ion-searchbar>-->
 </ion-header>
 
-<ion-content class="page-shops">
+<ion-content class="page-shops" #container>
   <div style="display: flex; justify-content: space-between;">
     <ion-label *ngIf="shops.length === 0 && !isLoading" style="text-align: center; width: 100%; color: #999; white-space: inherit; margin: 8vw;">No Shops available under {{ category.nameEn }}. Please try a different category</ion-label>
     <ion-spinner *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
@@ -44,35 +29,38 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-card *ngFor="let shop of shops; let i = index;" style="height: 18vh;" (click)="viewShop(shop);">
-    <ion-row style="height: 18vh;">
-      <ion-col col-4 class="shop-card-icon-col">
-        <!--<image [defaultImage]="shop.profilePicture" [lazyLoad]="shop.profilePicture" [offset]="offset"></image>-->
-        <!--<ion-img class="shop-card-icon" [src]="shop.profilePicture"></ion-img>-->
-        <img class="shop-card-icon" src="{{shop.profilePicture}}"/>
-        <ion-spinner></ion-spinner>
-      </ion-col>
-      <ion-col col-8 class="shop-card-content-col">
-        <ion-card-content class="shop-card-content">
-          <ion-card-title class="shop-card-content-title">{{ toTitleCase(shop.username) }}</ion-card-title>
-          <ion-icon name="information-circle" color="ui-theme" (click)="shopDetails($event)" item-right style="position: absolute; top: 0.5rem; right: 1rem; font-size: 2rem;"></ion-icon>
-          <div style="margin-bottom: 1vh; white-space: nowrap; overflow: overlay;">
-            <ion-badge class="shop-card-content-badge" *ngFor="let keyword of shop.keywordsArray">{{ keyword.toLowerCase() }}</ion-badge>
-          </div>
-          <div style="position: absolute; bottom: 1rem; left: 3vw; white-space: nowrap; overflow: overlay;">
-            <button ion-button class="shop-card-content-button">
+  <ion-grid no-margin no-padding>
+    <ion-row responsive-sm no-margin no-padding>
+      <ion-col col-12 col-md-6 col-xl-4 no-margin no-padding *ngFor="let shop of shops; let i = index;">
+        <ion-card style="min-height: 15vh; height:auto; margin-bottom: 0;" (click)="viewShop(shop);">
+          <ion-row style="min-height: 15vh; height:auto;">
+            <ion-col col-4 class="shop-card-icon-col" [lazyLoad]="shop.profilePicture" [offset]="offset" [scrollObservable]="container.ionScroll">
+            </ion-col>
+            <ion-col col-8 class="shop-card-content-col">
+              <ion-card-content class="shop-card-content">
+                <ion-card-title class="shop-card-content-title">{{ toTitleCase(shop.username) }}</ion-card-title>
+                <ion-icon name="information-circle" color="ui-theme" (click)="shopDetails($event, shop)" item-right style="position: absolute; top: 0.2rem; right: 0.4rem;padding: 0;font-size: 2.2rem;"></ion-icon>
+                <div style="margin-bottom: 1vh; white-space: nowrap; overflow: overlay;">
+                  <ion-badge class="shop-card-content-badge" *ngFor="let keyword of shop.keywordsArray">{{ keyword.toLowerCase() }}</ion-badge>
+                </div>
+                <div style="margin: 1rem 0;">
+                  <button ion-button class="shop-card-content-button" style="background-color: #ffc7c7;">
                 <img src="assets/img/ui_icons/icon_truck_white.png" class="shop-card-content-button-image btn-danger"/>
                 &nbsp;{{ shop.deliveryCharge }} {{ shop.currency }}&nbsp;
             </button>
-            <button ion-button class="shop-card-content-button">
+                  <button ion-button class="shop-card-content-button" style="background-color: #ffe6ba;">
                 <img src="assets/img/ui_icons/icon_meter_white.png" class="shop-card-content-button-image btn-warning"/>
                 &nbsp;{{ shop.minOrderAmt }} {{ shop.currency }}&nbsp;
             </button>
-          </div>
-        </ion-card-content>
+                </div>
+              </ion-card-content>
+            </ion-col>
+          </ion-row>
+          <div style="display: table;  clear: both;"></div>
+        </ion-card>
       </ion-col>
     </ion-row>
-  </ion-card>
+  </ion-grid>
 
   <div style="display: flex; justify-content: space-between;">
     <ion-label *ngIf="noMoreShops" style="text-align: center; width: 100%; color: #999;">No more shops</ion-label>

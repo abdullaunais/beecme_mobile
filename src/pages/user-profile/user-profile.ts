@@ -1,111 +1,46 @@
-import { Component, ViewChild, ElementRef, Renderer } from '@angular/core';
-import { NavController, NavParams, AlertController, IonicPage, LoadingController, ToastController, ModalController } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NavController, NavParams, AlertController, IonicPage, ToastController, ModalController, Events, ActionSheetController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { Geolocation } from '@ionic-native/geolocation';
 import { UserService } from "../../providers/user-service";
-
-declare var google;
 /*
-  Generated class for the UserProfile page.
+  Generated class for the UserProfilePage.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 */
 @IonicPage()
 @Component({
   selector: 'page-user-profile',
   templateUrl: 'user-profile.html',
-  providers: [UserService, Geolocation]
+  providers: [UserService]
 })
 export class UserProfilePage {
+  @ViewChild('img') img1: ElementRef;
   authToken: any;
-  userAddressElement: any;
   loading: any;
   offsetHeight: number;
   user: any = {}
 
   hideNav: boolean = false;
   isLoading: boolean = true;
-
-  @ViewChild('map') mapElement: ElementRef;
-  map: any;
-  marker: any;
+  isError: boolean = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     public modalCtrl: ModalController,
+    public actionSheetCtrl: ActionSheetController,
+    private loadingCtrl: LoadingController,
     private storage: Storage,
-    private geolocation: Geolocation,
     private userService: UserService,
-    private renderer: Renderer
-  ) { }
-
-
-  loadMap() {
-    let latLng = new google.maps.LatLng(this.user.latitude, this.user.longitude);
-    let mapOptions = {
-      center: latLng,
-      zoom: 18,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-    this.marker = new google.maps.Marker({
-      position: latLng,
-      map: this.map
-    });
+    public events: Events
+  ) {
+    this.initialize();
   }
 
-  updateLocation() {
-    this.geolocation.getCurrentPosition().then((resp) => {
-      this.showLoading("Updating...");
-      // resp.coords.latitude
-      // resp.coords.longitude
-      // console.info("Latitude -- ", resp.coords.latitude);
-      // console.info("Longitude -- ", resp.coords.longitude);
-      delete this.user.password;
-      this.user.latitude = resp.coords.latitude;
-      this.user.longitude = resp.coords.longitude;
-
-      this.userService.updateUser(this.user, this.authToken).then((updateResponse) => {
-        if (updateResponse.code === 1) {
-          this.storage.set('user.data', this.user);
-          let alert = this.alertCtrl.create({
-            title: "Location Updated",
-            message: 'New Delivery Location is updated.',
-            cssClass: 'alert-style',
-            buttons: [
-              {
-                text: 'OK',
-                cssClass: 'alert-button-success',
-                handler: () => {
-                  this.hideLoading();
-                  this.loadMap();
-                }
-              }
-            ]
-          });
-          alert.present();
-        } else {
-          this.hideLoading();
-          this.presentToast("Error in location update", 2000);
-        }
-      }).catch(err => {
-        console.error(err);
-        this.hideLoading();
-      });
-
-    }).catch((error) => {
-      console.log('Error getting location', error);
-      this.presentToast("Error getting location", 2000);
-    });
-  }
-
-  ngOnInit() {
-    this.showLoading("Please wait...");
+  initialize() {
     this.storage.get("user.login").then((login) => {
       if (login) {
         this.storage.get("user.data").then((userData) => {
@@ -116,51 +51,122 @@ export class UserProfilePage {
           this.userService.getUserDetails(userData.userId, userData.authToken).then(res => {
             let json = JSON.stringify(res);
             this.user = JSON.parse(json);
-            this.userAddressElement = this.user.address.replace(/(?:\r\n|\r|\n)/g, '<br />');
             this.isLoading = false;
-            this.refreshProfilePicture();
-            this.loadMap();
-            this.hideLoading();
+            this.isError = false;
           }).catch(err => {
-            this.hideLoading();
-            this.presentToast("Error fetching user data", 2000);
+            this.isLoading = false;
+            this.isError = true;
           });
-        })
+        }).catch(getErr => {
+          this.isLoading = false;
+          this.isError = true;
+        });
       } else {
-        this.hideLoading();
-        this.navCtrl.setRoot('UserLoginPage', {redirect: "redirect-accountpage"});
+        this.navCtrl.setRoot('UserLoginPage', { redirect: "redirect-accountpage" });
         return;
       }
+    }).catch(loginErr => {
+      this.isLoading = false;
+      this.isError = true;
+      this.navCtrl.setRoot('UserLoginPage', { redirect: "redirect-accountpage" });
     });
   }
 
-  ngAfterViewInit() {
-    this.offsetHeight = document.getElementById('nav-content').offsetHeight;
-    this.loadMap();
-    this.refreshProfilePicture();
+  editProfile() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'What to update?',
+      buttons: [
+        {
+          text: 'Edit Profile Picture',
+          icon: 'image',
+          cssClass: 'action-theme-btn',
+          handler: () => {
+            this.triggerFileUpload(this.img1.nativeElement);
+          }
+        },
+        {
+          text: 'Edit Name',
+          icon: 'person',
+          cssClass: 'action-blue-btn',
+          handler: () => {
+            this.presentUpdateModal('Name');
+          }
+        },
+        {
+          text: 'Edit Phone',
+          icon: 'call',
+          cssClass: 'action-green-btn',
+          handler: () => {
+            this.presentUpdateModal('Phone');
+          }
+        },
+        {
+          text: 'Manage Address',
+          icon: 'home',
+          cssClass: 'action-blue-grey-btn',
+          handler: () => {
+            setTimeout(() => {
+              this.navCtrl.push('ManageAddressPage');
+            }, 200);
+          }
+        },
+        {
+          text: 'Cancel',
+          icon: 'close-circle',
+          cssClass: 'action-cancel-btn',
+          role: 'cancel',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
-  refreshProfilePicture() {
-    if (this.user.profilePicture) {
-      document.getElementById('headerImage').style.backgroundImage = "url(" + this.user.profilePicture + ")";
-    } else {
-      document.getElementById('headerImage').style.backgroundImage = "url('assets/img/cover/profile_default_grey.jpg')";
+  triggerFileUpload(img: HTMLInputElement) {
+    img.click();
+  }
+
+  chooseImage(img: HTMLInputElement) {
+    this.showLoading("Uploading...");
+    let fileCount = img.files.length;
+    let formData = new FormData(); // HTMLFormElement
+    if (fileCount > 0) { // a file was selected
+      for (let i = 0; i < fileCount; i++) {
+        formData.append('profilePicture', img.files.item(i));
+      }
     }
-  }
-
-  checkScroll(event) {
-    let yOffset = document.getElementById('profile-content').offsetTop;
-    if (event.scrollTop > yOffset - this.offsetHeight) {
-      document.getElementById('header-content').classList.remove("profile-header");
-      // document.getElementById('header-content').classList.add("profile-header-image");
-    } else {
-      document.getElementById('header-content').classList.add("profile-header");
-      // document.getElementById('header-content').classList.remove("profile-header-image");
-    }
-  }
-
-  choosePhoto() {
-
+    formData.append('userId', this.user.userId)
+    this.userService.uploadPicture(this.user.userId, this.authToken, formData).then(res => {
+      if (res.code === 1) {
+        this.userService.getUserDetails(this.user.userId, this.user.authToken).then(res => {
+          let json = JSON.stringify(res);
+          this.user = JSON.parse(json);
+          this.storage.get('user.data').then(userObj => {
+            if (userObj) {
+              userObj.profilePicture = this.user.profilePicture;
+              this.storage.set('user.data', userObj).then(res => {
+                // this.refreshProfilePicture();
+                this.hideLoading();
+                this.events.publish("user:change");
+                this.presentToast("Profile picture updated.", 2000);
+              }).catch(userSetErr => {
+                this.hideLoading();
+              });
+            }
+          }).catch(getDataErr => {
+            this.hideLoading();
+          });
+        }).catch(getUsrErr => {
+          this.hideLoading();
+        });
+      } else {
+        this.hideLoading();
+        this.presentToast("Error profile update.", 2000);
+      }
+    }).catch(err => {
+      this.hideLoading();
+    });
   }
 
   presentUpdateModal(property: string) {
@@ -169,7 +175,6 @@ export class UserProfilePage {
     updateProfileModal.onDidDismiss((data) => {
       if (data.success) {
         this.user = data.user;
-        this.userAddressElement = this.user.address.replace(/(?:\r\n|\r|\n)/g, '<br />');
         let alert = this.alertCtrl.create({
           title: 'Success',
           cssClass: 'alert-style',
@@ -187,6 +192,12 @@ export class UserProfilePage {
         alert.present();
       }
     });
+  }
+
+  retryServer() {
+    this.isError = false;
+    this.isLoading = true;
+    this.initialize();
   }
 
   showLoading(content) {

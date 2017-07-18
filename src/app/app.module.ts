@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MyApp } from './app.component';
 import { Config } from "../providers/config";
@@ -18,16 +19,9 @@ import { Network } from "@ionic-native/network";
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp, {
-      menuType: 'push',
-      // locationStrategy: 'path',
-      platforms: {
-        ios: {
-          menuType: 'reveal',
-        }
-      }
-    }),
-    IonicStorageModule.forRoot(),
+    BrowserAnimationsModule,
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

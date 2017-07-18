@@ -7,7 +7,7 @@ import { UpdateProfile } from "./update-profile";
     UpdateProfile,
   ],
   imports: [
-    IonicPageModule.forChild(UpdateProfile),
+    IonicPageModule.forChild(UpdateProfile)
   ],
   exports: [
     UpdateProfile

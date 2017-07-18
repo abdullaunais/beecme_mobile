@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage, ActionSheetController, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { DeliveryService } from "../../providers/delivery-service";
 import { Storage } from '@ionic/storage';
+import { Subscription } from "rxjs/Subscription";
+import { Variables } from "../../providers/variables";
 /*
   Generated class for the OrderHistory page.
 
@@ -16,13 +18,15 @@ import { Storage } from '@ionic/storage';
 })
 export class OrderHistoryPage {
   start: number = 0;
-  offset: number = 20;
+  offset: number = 5;
 
   orders: Array<any> = [];
   user: any = {};
 
   isLoading: boolean;
   noMoreItems: boolean;
+  watchCart: Subscription;
+  cartCount: number = 0;
 
   constructor(
     public navCtrl: NavController,
@@ -32,13 +36,12 @@ export class OrderHistoryPage {
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
     private deliveryService: DeliveryService,
-    private storage: Storage
+    private storage: Storage,
+    private variables: Variables
   ) {
     this.initialize();
   }
-  // ionViewDidLoad() {
-  //   console.log('ionViewDidLoad OrderHistoryPage');
-  // }
+
   initialize() {
     this.isLoading = true;
     this.storage.get("user.data").then(user => {
@@ -48,7 +51,6 @@ export class OrderHistoryPage {
           if (orderRes['cartlist']) {
             if (orderRes['cartlist'].length > 0) {
               this.orders = orderRes['cartlist'];
-              // this.getItems();
             } else {
               this.orders = [];
             }
@@ -57,14 +59,23 @@ export class OrderHistoryPage {
           }
           this.isLoading = false;
         }).catch(err => {
-          //ignore
           this.isLoading = false;
         });
+      } else {
+        this.isLoading = false;
+        this.navCtrl.push('UserLoginPage', { redirect: "redirect-orderhistory" });
       }
     }).catch(err => {
-      //ignore
       this.isLoading = false;
     });
+  }
+
+  ionViewWillEnter() {
+    this.watchCart = this.variables.cartCount.subscribe(value => this.cartCount = value);
+  }
+
+  ionViewWillLeave() {
+    this.watchCart.unsubscribe();
   }
 
   refreshList(refresher) {
@@ -73,7 +84,6 @@ export class OrderHistoryPage {
         let orderArray = orderRes['cartlist'];
         if (orderArray.length > 0) {
           this.orders = orderArray;
-          // this.getItems();
         } else {
           this.orders = [];
         }
@@ -82,17 +92,6 @@ export class OrderHistoryPage {
       }
       refresher.complete();
     });
-  }
-
-  getItems() {
-    this.orders.forEach(order => {
-      order.orderDetails.forEach(detail => {
-        this.deliveryService.findItem(detail.itemCode).then(item => {
-          detail.itemCode = item;
-        });
-      });
-    });
-    console.log(this.orders);
   }
 
   paginate(infiniteScroll) {
@@ -121,14 +120,12 @@ export class OrderHistoryPage {
 
   getActions(order: any) {
     let actionSheet = this.actionSheetCtrl.create({
-      // title: 'Select Quantity',
       buttons: [
         {
           text: 'Send Review',
           icon: 'star',
           cssClass: 'action-feedback-btn',
           handler: () => {
-            // console.log('Feedback Clicked');
             this.reviewPrompt(order);
           }
         },
@@ -169,6 +166,10 @@ export class OrderHistoryPage {
     });
   }
 
+  openCart() {
+    this.navCtrl.push('CartPage');
+  }
+
   presentToast(message, duration) {
     let toast = this.toastCtrl.create({
       message: message,
@@ -178,7 +179,7 @@ export class OrderHistoryPage {
     });
     toast.present();
   }
-  
+
   toTitleCase(str) {
     return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
   }

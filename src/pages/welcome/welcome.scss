@@ -1,109 +1,109 @@
 .page-welcome {
-  background-color: $ui-theme;
-  ion-slide {
-    .slide-zoom {
-      height: 100%;
+    background-color: $ui-theme;
+    ion-slide {
+        .slide-zoom {
+            height: 100%;
+        }
     }
-  }
-  .countrySelectIcon {
-    height: 25vh;
-    width: auto;
-    margin: 8vh auto;
-    display: block;
-  }
-  .countryHead {
-    color: $ui-theme-accent;
-    text-align: center;
-    margin-top: 10%;
-  }
-  .welcomeIcon {
-    height: 20vh;
-    width: auto;
-    margin: 3vh auto;
-    display: block;
-  }
-  .welcomeHead {
-    color: $ui-theme-accent;
-    font-size: 2rem;
-    text-align: center;
-  }
-  .welcomeDescription {
-    padding: 0vw;
-    margin: 0vw 8vw;
-    color: $ui-theme-accent; // background-color: #8dd234;
-    font-weight: 300;
-    text-align: center;
-    border-radius: 5px;
-    font-size: 1.4rem;
-  }
-  .checkboxTermsAndConditions {
-    background-color: transparent;
-    color: white;
-    margin-left: 4vw;
-    margin-right: 4vw; // font-size: 2rem;
-  }
-  .welcomeFooter {
-    // background-color: $ui-theme;
-  }
-  .welcomeFooter::before {
-    background-image: url('');
-  }
-  .welcomeButton {
-    background-color: white;
-    width: 88vw;
-    border-radius: 5px;
-    height: 8vh;
-    color: $ui-theme-dark;
-    font-weight: 700;
-    margin: 2rem;
-  }
-  .selectInput {
-    padding: 3vh;
-    min-width: 50vw;
-    text-align: right;
-  }
-  .selectItem {
-    margin-bottom: 0.5rem;
-    border-radius: 6px;
-  }
-  .toolbar-background {
-    background-color: #007aff;
-  }
-  .toolbar-title,
-  .bar-buttons {
-    color: white;
-  }
-  .btnSlideBack {
-    float: left;
-    margin: 3vh 6vw;
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: $ui-theme-accent;
-  }
-  .card-image {}
-  .card-background-page {
-    background-size: 100%;
-    background-position: 50%;
-    ion-card {
-      position: relative;
-      text-align: center;
-      height: 10em;
+    .countrySelectIcon {
+        height: 25vh;
+        width: auto;
+        margin: 8vh auto;
+        display: block;
     }
-    .card-title {
-      position: absolute;
-      top: 25%;
-      font-size: 2.0em;
-      width: 100%;
-      font-weight: bold;
-      color: #fff;
+    .countryHead {
+        color: $ui-theme-accent;
+        text-align: center;
+        margin-top: 10%;
     }
-    .card-subtitle {
-      font-size: 1.0em;
-      position: absolute;
-      top: 52%;
-      width: 100%;
-      color: #fff;
+    .welcomeIcon {
+        height: 20vh;
+        width: auto;
+        margin: 6vh auto 0 auto;
+        display: block;
     }
-  }
+    .welcomeHead {
+        color: $ui-theme-accent;
+        font-size: 2rem;
+        text-align: center;
+    }
+    .welcomeDescription {
+        padding: 0vw;
+        margin: 0vw 8vw;
+        color: $ui-theme-accent; // background-color: #8dd234;
+        font-weight: 300;
+        text-align: center;
+        border-radius: 5px;
+        font-size: 1.4rem;
+    }
+    .checkboxTermsAndConditions {
+        background-color: transparent;
+        color: white;
+        margin-left: 4vw;
+        margin-right: 4vw; // font-size: 2rem;
+    }
+    .welcomeFooter {
+        // background-color: $ui-theme;
+    }
+    .welcomeFooter::before {
+        background-image: url('');
+    }
+    .welcomeButton {
+        background-color: white;
+        width: 88vw;
+        border-radius: 5px;
+        height: 8vh;
+        color: $ui-theme-dark;
+        font-weight: 700;
+        margin: 2rem;
+    }
+    .selectInput {
+        padding: 3vh;
+        min-width: 50vw;
+        text-align: right;
+    }
+    .selectItem {
+        margin-bottom: 0.5rem;
+        border-radius: 6px;
+    }
+    .toolbar-background {
+        background-color: #007aff;
+    }
+    .toolbar-title,
+    .bar-buttons {
+        color: white;
+    }
+    .btnSlideBack {
+        float: left;
+        margin: 3vh 6vw;
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: $ui-theme-accent;
+    }
+    .card-image {}
+    .card-background-page {
+        background-size: 100%;
+        background-position: 50%;
+        ion-card {
+            position: relative;
+            text-align: center;
+            height: 10em;
+        }
+        .card-title {
+            position: absolute;
+            top: 25%;
+            font-size: 2.0em;
+            width: 100%;
+            font-weight: bold;
+            color: #fff;
+        }
+        .card-subtitle {
+            font-size: 1.0em;
+            position: absolute;
+            top: 52%;
+            width: 100%;
+            color: #fff;
+        }
+    }
 }

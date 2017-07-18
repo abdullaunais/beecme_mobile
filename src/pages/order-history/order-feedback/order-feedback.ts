@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { DeliveryService } from "../../../providers/delivery-service";
 import { IStarRatingOnClickEvent, IStarRatingOnRatingChangeEven } from "../../../directives/star-rating/star-rating-struct";
+import { StatusBar } from "@ionic-native/status-bar";
 
 
 /**
@@ -39,25 +40,45 @@ export class OrderFeedback {
     public viewCtrl: ViewController,
     private loadingCtrl: LoadingController,
     private deliveryService: DeliveryService,
-    private storage: Storage
+    private storage: Storage,
+    private statusBar: StatusBar
   ) {
-    this.order = navParams.data.order;
-    storage.get("user.authToken").then(token => {
+    this.order = this.navParams.data.order;
+    this.storage.get("user.authToken").then(token => {
       this.authToken = token;
     });
+    this.statusBar.backgroundColorByHexString('#edc800');
   }
 
   onClick = ($event: IStarRatingOnClickEvent) => {
     console.log('onClick $event: ', $event);
     this.onClickResult = $event;
     this.rating = $event.rating;
+    if (this.rating === 1) {
+      this.statusBar.backgroundColorByHexString('#db3838');
+    } else if (this.rating < 4) {
+      this.statusBar.backgroundColorByHexString('#edc800');
+    } else {
+      this.statusBar.backgroundColorByHexString('#3f9542');
+    }
   };
 
   onRatingChange = ($event: IStarRatingOnRatingChangeEven) => {
     console.log('onRatingUpdated $event: ', $event);
     this.onRatingChangeResult = $event;
     this.rating = $event.rating;
+    if (this.rating === 1) {
+      this.statusBar.backgroundColorByHexString('#db3838');
+    } else if (this.rating < 4) {
+      this.statusBar.backgroundColorByHexString('#edc800');
+    } else {
+      this.statusBar.backgroundColorByHexString('#3f9542');
+    }
   };
+
+  ionViewWillLeave() {
+    this.statusBar.backgroundColorByHexString('#4527A0');
+  }
 
   validateReview() {
     let isValid: boolean = true;
@@ -91,16 +112,24 @@ export class OrderFeedback {
     this.deliveryService.sendReview(reviewObj, this.authToken).then(res => {
       if (res.code === 1) {
         this.hideLoading();
+        this.statusBar.backgroundColorByHexString('#4527A0');
         this.viewCtrl.dismiss({ success: true });
       } else {
         this.hideLoading();
+        this.statusBar.backgroundColorByHexString('#4527A0');
         this.viewCtrl.dismiss({ success: false });
       }
     }).catch(err => {
       this.presentToast("Error saving review", 2000);
       this.hideLoading();
+      this.statusBar.backgroundColorByHexString('#4527A0');
       this.viewCtrl.dismiss({ success: false });
     });
+  }
+
+  cancelView() {
+    this.statusBar.backgroundColorByHexString('#4527A0');
+    this.viewCtrl.dismiss({ success: false });
   }
 
   showLoading(content) {

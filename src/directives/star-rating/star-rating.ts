@@ -14,9 +14,6 @@ export class StarRating {
 
     protected config:any;
 
-    //Inputs
-    ///////////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * id property to identify the DOM element
      */
@@ -28,8 +25,6 @@ export class StarRating {
     set id(value: string) {
         this._id = value || '';
     }
-
-    /////////////////////////////////////////////
 
     /**
      * focus
@@ -43,8 +38,6 @@ export class StarRating {
         this._focus = !!value;
     }
 
-    /////////////////////////////////////////////
-
     /**
      * labelText
      */
@@ -56,8 +49,6 @@ export class StarRating {
     set labelText(value: string) {
         this._labelText = value;
     }
-
-    /////////////////////////////////////////////
 
     /**
      * labelPosition
@@ -71,8 +62,6 @@ export class StarRating {
         this._labelPosition = value || this.config.labelPosition;
     }
 
-    /////////////////////////////////////////////
-
     /**
      * labelVisible
      */
@@ -85,8 +74,6 @@ export class StarRating {
         this._labelVisible = !!value;
     }
 
-    /////////////////////////////////////////////
-
     /**
      * hoverEnabled
      */
@@ -98,8 +85,6 @@ export class StarRating {
     set hoverEnabled(value: boolean) {
         this._hoverEnabled = (value !== undefined) ? !!value : false;
     }
-
-    /////////////////////////////////////////////
 
     /**
      * staticColor
@@ -116,9 +101,6 @@ export class StarRating {
         //update color.
         this.setColor();
     }
-
-    /////////////////////////////////////////////
-
     /**
      * direction
      */
@@ -131,8 +113,6 @@ export class StarRating {
     set direction(value: starRatingDirection) {
         this._direction = value || undefined;
     }
-
-    /////////////////////////////////////////////
 
 
     /**
@@ -154,8 +134,6 @@ export class StarRating {
         this.setColor();
     }
 
-    /////////////////////////////////////////////
-
     /**
      * hoverRating
      */
@@ -168,8 +146,6 @@ export class StarRating {
     set hoverRating(value: number) {
         this._hoverRating = (value > 0) ? value : 0;
     }
-
-    /////////////////////////////////////////////
 
     /**
      * speed
@@ -184,8 +160,6 @@ export class StarRating {
         this._speed = value || this.config.speed;
     }
 
-    /////////////////////////////////////////////
-
     /**
      * size
      */
@@ -198,8 +172,6 @@ export class StarRating {
     set size(value: starRatingSizes) {
         this._size = value || this.config.size;
     }
-
-    /////////////////////////////////////////////
 
     /**
      * starType
@@ -214,8 +186,6 @@ export class StarRating {
         this._starType = value || this.config.starType;
     }
 
-    /////////////////////////////////////////////
-
     /**
      * space
      */
@@ -228,8 +198,6 @@ export class StarRating {
     set space(value: starRatingStarSpace) {
         this._space = value;
     }
-
-    /////////////////////////////////////////////
 
     /**
      * readOnly
@@ -244,8 +212,6 @@ export class StarRating {
         this._readOnly = !!value;
     }
 
-    /////////////////////////////////////////////
-
     /**
      * disabled
      */
@@ -259,10 +225,6 @@ export class StarRating {
         this._disabled = !!value;
     }
 
-
-    /////////////////////////////////////////////
-
-
     private _step:number;
 
     get step(): number {
@@ -272,9 +234,6 @@ export class StarRating {
     set step(value: number) {
         this._step = (value > 0?value:1);
     }
-
-
-    /////////////////////////////////////////////
 
     /**
      * rating
@@ -340,16 +299,12 @@ export class StarRating {
      * getColor
      */
     getColor: (rating: number, numOfStars: number, staticColor?: starRatingColor) => starRatingColor;
-    /////////////////////////////////////////////
 
     /**
      * getHalfStarVisible
      */
     getHalfStarVisible: (rating: number) => boolean;
-    /////////////////////////////////////////////
 
-    //CTRL ONLY
-    ///////////////////////////////////////////////////////////////////////////////////////////
     classEmpty: string;
     classHalf: string;
     classFilled: string;
@@ -462,5 +417,4 @@ export class StarRating {
     reset() {
         this.rating = 0;
     }
-
 }

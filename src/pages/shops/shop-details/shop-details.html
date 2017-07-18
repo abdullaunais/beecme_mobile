@@ -1,0 +1,52 @@
+<!--
+  Generated template for the ShopDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="shop-details-header">
+
+  <ion-navbar color="ui-theme">
+    <!-- <ion-title>{{shop.username}}</ion-title> -->
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="closeModal();">
+              <ion-icon name="close"></ion-icon>
+         </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="page-shop-details" #container>
+  <div class="profile-pic" [defaultImage]="'assets/img/cover/cover.webp'" [lazyLoad]="shop.profilePicture" [scrollObservable]="container.ionScroll">
+  </div>
+  <h2 style="font-size:2rem; overflow:hidden; text-overflow: ellipsis; white-space:nowrap; padding: 1rem 1.6rem;margin: 0; background-color: #f5f5f5;">{{shop.username}}</h2>
+  <div style="margin-bottom:0.2rem; white-space: nowrap; overflow: overlay; padding: 0 1.6rem 1.6rem 1.6rem;background-color: #f5f5f5;">
+    <ion-badge class="shop-card-content-badge" *ngFor="let keyword of shop.keywordsArray">{{ keyword.toLowerCase() }}</ion-badge>
+  </div>
+  <ion-list no-margin>
+
+    <ion-item>
+      <ion-icon name="car" color="ui-theme" item-start></ion-icon>
+      <ion-label  color="ui-theme">Delivery Fee</ion-label>
+      <ion-label item-end style="text-align: right;" color="ui-theme">
+        {{ (shop.deliveryCharge !== 0) ? (shop.deliveryCharge + " " + shop.currency) : '' }}
+        <ion-badge *ngIf="shop.deliveryCharge === 0" color="ui-theme">FREE!</ion-badge>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="speedometer" color="warning" item-start></ion-icon>
+      <ion-label  color="warning">Minimum Order</ion-label>
+      <ion-label  color="warning" item-end style="text-align: right;">{{ shop.minOrderAmt + " " + shop.currency }}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="at" color="primary" item-start></ion-icon>
+      <ion-label item-end style="text-align: left;" color="primary">{{ shop.email }}</ion-label>
+      <ion-icon name="ios-arrow-forward" color="primary" item-end></ion-icon>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

@@ -1,9 +1,9 @@
 import { Component, ViewChildren } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController, ToastController, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, ToastController, IonicPage, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { UserService } from "../../providers/user-service";
-import { Geolocation } from '@ionic-native/geolocation';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { Variables } from "../../providers/variables";
 
 /*
   Generated class for the UserRegistration page.
@@ -15,19 +15,13 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'page-user-registration',
   templateUrl: 'user-registration.html',
-  providers: [UserService, Geolocation, ReactiveFormsModule]
+  providers: [UserService, ReactiveFormsModule]
 })
 export class UserRegistrationPage {
-  countryCode: string = "sa";
-
-  latitude: any;
-  longitude: any;
   username: string;
   email: string;
   phone: string;
   password: any;
-  address1: string;
-  address2: string;
 
   city: any;
   province: any;
@@ -44,13 +38,12 @@ export class UserRegistrationPage {
   getItems = () => {
     console.log(this.formItems.toArray().map(x => x.nativeElement));
   }
+
   public registerForm = this.fb.group({
-    formUsername: ["", [Validators.required, Validators.minLength(4)]],
+    formUsername: ["", [Validators.required, Validators.minLength(4), Validators.pattern(/^[a-zA-Z ]{2,30}$/)]],
     formEmail: ["", [Validators.required, Validators.minLength(6), Validators.email]],
-    formPhone: ["", [Validators.required, Validators.minLength(9)]],
+    formPhone: ["", [Validators.required, Validators.minLength(9), Validators.maxLength(10)]],
     formPassword: ["", [Validators.required, Validators.minLength(6)]],
-    formAddress1: ["", [Validators.required, Validators.minLength(2)]],
-    formAddress2: ["", []],
   });
   constructor(
     public navCtrl: NavController,
@@ -59,36 +52,20 @@ export class UserRegistrationPage {
     private userService: UserService,
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    private geolocation: Geolocation,
     public fb: FormBuilder,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    private variables: Variables,
+    public events: Events
   ) {
     this.redirectString = navParams.data;
-    storage.get('location.city').then((city) => {
-      if (city) {
-        this.city = city;
-        storage.get('location.province').then((province) => {
-          if (province) {
-            this.province = province;
-            storage.get('location.country').then((country) => {
-              if (country) {
-                this.country = country;
-              }
-            });
-          }
+    this.storage.get('location.city').then((city) => {
+      this.city = city;
+      this.storage.get('location.province').then((province) => {
+        this.province = province;
+        this.storage.get('location.country').then((country) => {
+          this.country = country;
         });
-      }
-    });
-
-    this.geolocation.getCurrentPosition().then((resp) => {
-      // resp.coords.latitude
-      // resp.coords.longitude
-      console.info("Latitude -- ", resp.coords.latitude);
-      this.latitude = resp.coords.latitude;
-      console.info("Longitude -- ", resp.coords.longitude);
-      this.longitude = resp.coords.longitude;
-    }).catch((error) => {
-      console.log('Error getting location', error);
+      });
     });
   }
 
@@ -120,44 +97,65 @@ export class UserRegistrationPage {
               "email": this.email,
               "password": this.password,
               "phone": this.phone,
-              "address": this.address1 + "\n" + this.address2,
               "country": this.country.id,
               "province": this.province.id,
               "city": this.city.id,
-              "longitude": this.longitude,
-              "latitude": this.latitude,
               "type": "1",
               "notificationSend": "0"
             };
             this.userService.registerUser(user).then((data) => {
               let json = JSON.stringify(data);
               let response = JSON.parse(json);
-              // this.rows = Array.from(Array(Math.ceil(this.categories.length / 2)).keys());
-              // console.info(response);
+
               this.hideLoading();
 
               if (response.code === 1) {
                 // register success
-                let prompt = this.alertCtrl.create({
-                  title: 'Registration Success',
-                  message: "Please Login with the details provided.",
-                  cssClass: 'alert-style',
-                  buttons: [
-                    {
-                      text: 'OK',
-                      cssClass: 'alert-button-success',
-                      handler: data => {
-                        if (this.redirectString === "redirect-deliveryschedule") {
-                          this.navCtrl.push('UserLoginPage', "redirect-deliveryschedule");
-                        } else {
-                          this.navCtrl.push('UserLoginPage', null);
 
-                        }
-                      }
-                    }
-                  ]
+                this.userService.authenticate(this.email, this.password).then(user => {
+
+                  let jsonObj = JSON.stringify(user);
+                  let userRes = JSON.parse(jsonObj);
+
+                  let userData = userRes;
+                  console.info(userData);
+                  this.storage.set("user.login", true).then(res1 => {
+                    this.storage.set("user.data", userData).then(res2 => {
+                      this.storage.set("user.authToken", userData.authToken).then(res3 => {
+                        this.variables.setLogin(true);
+                        Variables.user.username = userData.username;
+                        Variables.user.email = userData.email;
+
+                        this.hideLoading();
+                        this.events.publish("user:change");
+
+                        let prompt = this.alertCtrl.create({
+                          title: 'Success',
+                          message: "You have successfully registered with BeecMe.",
+                          cssClass: 'alert-style',
+                          buttons: [
+                            {
+                              text: 'OK',
+                              cssClass: 'alert-button-success',
+                              handler: data => {
+                                if (this.redirectString === "redirect-deliveryschedule") {
+                                  this.navCtrl.setRoot('CheckoutOptionsPage', null, { animate: true, direction: "forward" });
+                                } else if (this.redirectString === "redirect-accountpage") {
+                                  this.navCtrl.setRoot('UserProfilePage', null, { animate: true, direction: "forward" });
+                                } else if (this.redirectString === "redirect-orderhistory") {
+                                  this.navCtrl.setRoot('OrderHistoryPage', null, { animate: true, direction: "forward" });
+                                } else {
+                                  this.navCtrl.setRoot('Categories', null, { animate: true, direction: "forward" });
+                                }
+                              }
+                            }
+                          ]
+                        });
+                        prompt.present();
+                      });
+                    });
+                  });
                 });
-                prompt.present();
               } else if (response.code < 0) {
                 if (response.message === "Request failed. Code already exists") {
                   let prompt = this.alertCtrl.create({
@@ -244,88 +242,65 @@ export class UserRegistrationPage {
   }
 
   validate() {
-    // console.log(event);
-    // console.log(this.registerForm.value);
-    // console.log(this.registerForm);
-
     let isValid: boolean = true;
     let message: string = "";
     let formIndex: number = 0;
     this.validationArray = [];
     console.log(this.formItems['_results']);
     if (this.registerForm.controls.formUsername.errors) {
+      isValid = false;
+      formIndex = 0;
       if (this.registerForm.controls.formUsername.errors.required) {
-        isValid = false;
         message = "Name is required";
-        formIndex = 0;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       } else if (this.registerForm.controls.formUsername.errors.minlength) {
-        isValid = false;
         message = "Name should be at least 4 charaters long";
-        formIndex = 0;
+        this.validationArray.push({ message: message, valid: isValid, index: formIndex });
+      } else if (this.registerForm.controls.formUsername.errors.pattern) {
+        message = "Name is not in a valid format";
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       }
     }
 
     if (this.registerForm.controls.formEmail.errors) {
+      isValid = false;
+      formIndex = 1;
       if (this.registerForm.controls.formEmail.errors.required) {
-        isValid = false;
         message = "Email is required";
-        formIndex = 1;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
-
       } else if (this.registerForm.controls.formEmail.errors.minlength) {
-        isValid = false;
         message = "Email is not a valid format";
-        formIndex = 1;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       } else if (this.registerForm.controls.formEmail.errors.email) {
-        isValid = false;
         message = "Email is not a valid format";
-        formIndex = 1;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       }
     }
 
     if (this.registerForm.controls.formPhone.errors) {
+      isValid = false;
+      formIndex = 2;
       if (this.registerForm.controls.formPhone.errors.required) {
-        isValid = false;
         message = "Phone is required";
-        formIndex = 2;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       } else if (this.registerForm.controls.formPhone.errors.minlength) {
-        isValid = false;
-        message = "Phone should be at least 9 charaters long";
-        formIndex = 2;
+        message = "Phone should have at least 9 numbers";
+        this.validationArray.push({ message: message, valid: isValid, index: formIndex });
+      } else if (this.registerForm.controls.formPhone.errors.maxlength) {
+        message = "Phone cannot be more than 10 numbers";
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       }
     }
 
 
     if (this.registerForm.controls.formPassword.errors) {
+      isValid = false;
+      formIndex = 3;
       if (this.registerForm.controls.formPassword.errors.required) {
-        isValid = false;
         message = "Password is required";
-        formIndex = 3;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       } else if (this.registerForm.controls.formPassword.errors.minlength) {
-        isValid = false;
         message = "Password should be at least 6 charaters long";
-        formIndex = 3;
-        this.validationArray.push({ message: message, valid: isValid, index: formIndex });
-      }
-    }
-
-    if (this.registerForm.controls.formAddress1.errors) {
-      if (this.registerForm.controls.formAddress1.errors.required) {
-        isValid = false;
-        message = "Address is required";
-        formIndex = 4;
-        this.validationArray.push({ message: message, valid: isValid, index: formIndex });
-      } else if (this.registerForm.controls.formAddress1.errors.minlength) {
-        isValid = false;
-        message = "Address is invalid";
-        formIndex = 4;
         this.validationArray.push({ message: message, valid: isValid, index: formIndex });
       }
     }
@@ -350,21 +325,16 @@ export class UserRegistrationPage {
       this.registerPressed = false;
       return;
     } else {
-      this.username = this.registerForm.value.formUsername;
+      this.username = this.registerForm.value.formUsername.replace(/[^A-Za-z0-9_'-]/gi, '');
       this.email = this.registerForm.value.formEmail;
       this.phone = this.registerForm.value.formPhone;
       this.password = this.registerForm.value.formPassword;
-      this.address1 = this.registerForm.value.formAddress1;
-      this.address2 = this.registerForm.value.formAddress2;
+
       if (this.registerPressed) {
         this.registerUser();
       }
       return;
     }
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UserRegistrationPage');
   }
 
   showLoading(content) {

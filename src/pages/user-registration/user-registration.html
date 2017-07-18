@@ -2,9 +2,7 @@
   <h4 class="registerHead"> Register with BeecMe </h4>
   <ion-list style="margin: 3rem;">
 
-    <button (click)="goToLogin()" class="register-button-login">Already a Member? <b>Login</b> </button>
-
-    <!--<ion-label class="register-section-label">Login Details</ion-label>-->
+    <button (tap)="goToLogin()" class="register-button-login">Already a Member? <b>Login</b> </button>
 
     <form [formGroup]="registerForm" (ngSubmit)="validate($event)">
       <ion-item-group>
@@ -13,72 +11,26 @@
           <ion-input type="text" formControlName="formUsername" (blur)="inputBlur()" #forminput class="registerInput" placeholder="Name"></ion-input>
           <ion-icon name="person" color="ui-theme-dark" class="registerInputIcon" item-left></ion-icon>
         </ion-item>
-        <!--<ion-item>
-        <ion-label [hidden]="!registerForm.controls.formUsername.errors">
-          Name is required
-        </ion-label>
-      </ion-item>-->
 
         <ion-item class="registerItem" #formitem>
           <ion-input type="email" formControlName="formEmail" (blur)="inputBlur()" #forminput class="registerInput" placeholder="Email"></ion-input>
           <ion-icon name="at" color="ui-theme-dark" class="registerInputIcon" item-left></ion-icon>
         </ion-item>
 
-
         <ion-item class="registerItem" #formitem>
           <ion-input type="tel" formControlName="formPhone" (blur)="inputBlur()" #forminput class="registerInput" placeholder="Phone"></ion-input>
           <ion-icon name="call" color="ui-theme-dark" class="registerInputIcon" item-left></ion-icon>
           <ion-label style="margin:0 0 0 1rem; padding:0 0.5rem;" item-left>
-            +966 -
-            <!--<ion-option value="lk">+94</ion-option>-->
+            +94 -
           </ion-label>
         </ion-item>
-        <!--<ion-item class="registerItem">-->
-        <!--&lt;!&ndash;<ion-label floating>Username</ion-label>&ndash;&gt;-->
-        <!--&lt;!&ndash;<ion-label>Country Code</ion-label>&ndash;&gt;-->
-        <!--<ion-select class="registerInput" [(ngModel)]="countryCode">-->
-        <!--<ion-option value="sa" selected="true">🇸🇦 &nbsp;+966</ion-option>-->
-        <!--<ion-option value="lk">+94 🇸🇦</ion-option>-->
-        <!--</ion-select>-->
-        <!--<ion-input type="tel" class="registerInput"  placeholder="Phone"></ion-input>-->
-        <!--</ion-item>-->
         <ion-item class="registerItem" #formitem style="border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
           <ion-input type="password" formControlName="formPassword" (blur)="inputBlur()" #forminput class="registerInput" placeholder="Password"></ion-input>
           <ion-icon name="key" color="ui-theme-dark" class="registerInputIcon" item-left></ion-icon>
         </ion-item>
       </ion-item-group>
 
-      <!--<ion-label class="register-section-label" style="margin-top:3rem;">Delivery Address</ion-label>-->
-
-      <ion-item-group>
-        <ion-item-divider color="light" style="border-top-left-radius: 5px; border-top-right-radius: 5px; margin-top:2rem;">Delivery Address</ion-item-divider>
-        <ion-item class="registerItem" #formitem>
-          <ion-input type="text" class="registerInput" formControlName="formAddress1" (blur)="inputBlur()" #forminput placeholder="Street Address"></ion-input>
-          <ion-icon name="home" color="ui-theme-dark" class="registerInputIcon" item-left style="margin-right: -1.7rem;">
-            <ion-badge color="ui-theme" class="badge badge-assertive header-badge" style="top: -15px !important; left: -15px !important;">1</ion-badge>
-          </ion-icon>
-        </ion-item>
-        <ion-item class="registerItem" #formitem style="border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
-          <ion-input type="text" class="registerInput" formControlName="formAddress2" (blur)="inputBlur()" #forminput placeholder="Street Address 2"></ion-input>
-          <ion-icon name="home" color="ui-theme-dark" class="registerInputIcon" item-left style="margin-right: -1.7rem;">
-            <ion-badge color="ui-theme" class="badge badge-assertive header-badge" style="top: -15px !important; left: -15px !important;">2</ion-badge>
-          </ion-icon>
-        </ion-item>
-        <ion-grid no-padding style="margin-top:2rem;">
-          <ion-row>
-            <ion-col style="background-color: #fff; padding:0 0.5rem; border-top-left-radius: 5px;border-bottom-left-radius: 5px;" no-padding>
-              <ion-input type="text" class="registerInput center-input-text" disabled placeholder="Latitude"></ion-input>
-            </ion-col>
-            <ion-col style="background-color: #fff; padding:0 0.5rem; border-bottom-right-radius: 5px;border-top-right-radius: 5px; margin-left:-1px;"
-              no-padding>
-              <ion-input type="text" class="registerInput center-input-text" disabled placeholder="Longitude"></ion-input>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item-group>
-
-      <!--<button ion-button full clear (click)="registerUser()" class="register-button">-->
-      <button ion-button full clear type="submit" (click)=" registerClick()" class="register-button">
+      <button ion-button full clear type="submit" (tap)=" registerClick()" class="register-button">
         <ion-icon name="person-add"></ion-icon>
         &nbsp;&nbsp;REGISTER
     </button>

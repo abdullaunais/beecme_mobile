@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, ModalController } from 'ionic-angular';
 import { DeliveryService } from "../../providers/delivery-service";
 import { Variables } from "../../providers/variables";
 import { Subscription } from "rxjs/Subscription";
@@ -32,7 +32,7 @@ export class Shops {
 
   constructor(
     public navCtrl: NavController,
-    // public menuCtrl: MenuController,
+    private modalCtrl: ModalController,
     public navParams: NavParams,
     private variables: Variables,
     private deliveryService: DeliveryService
@@ -41,6 +41,7 @@ export class Shops {
     this.city = navParams.data.city;
     this.isLoading = true;
     this.noMoreShops = false;
+    this.initialize();
   }
 
   ionViewWillEnter() {
@@ -49,10 +50,6 @@ export class Shops {
 
   ionViewWillLeave() {
     this.watchCart.unsubscribe();
-  }
-
-  ionViewDidEnter() {
-    this.initialize();
   }
 
   initialize() {
@@ -139,25 +136,21 @@ export class Shops {
   }
 
   openCart() {
-    this.navCtrl.push('CartPage', null);
+    this.navCtrl.push('CartPage', { city: this.city });
   }
 
-  // openMenu() {
-  //   this.menuCtrl.open();
-  // }
-
-  shopDetails(e: Event) {
+  shopDetails(e: Event, shop) {
     if (!e) var e = window.event;
     e.cancelBubble = true;
     if (e.stopPropagation) e.stopPropagation();
 
-    console.log("Shop Details");
+    let detailsModal = this.modalCtrl.create('ShopDetailsPage', {shop: shop});
+    detailsModal.present();
+    detailsModal.onDidDismiss((data) => {
+      if (data) {
+      }
+    });
   }
-
-
-  // ionViewDidLoad() {
-  //   console.log('ionViewDidLoad Shops');
-  // }
 
   toTitleCase(str) {
     return str.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });

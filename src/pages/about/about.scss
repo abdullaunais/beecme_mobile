@@ -1,3 +1,17 @@
 .page-about {
     background-color: #E8EAF6;
+    .aboutDescription {
+        color: #666;
+        text-align: justify;
+        margin: 3rem 1rem;
+    }
+    .aboutFootNote {
+        color: #888;
+        text-align: center;
+        margin: 3rem 1rem 1rem 1rem;
+    }
+    .versionText {
+        color: $ui-theme;
+        text-align: center;
+    }
 }

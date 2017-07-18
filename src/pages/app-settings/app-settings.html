@@ -7,7 +7,7 @@
 <ion-header color="ui-theme">
 
   <ion-navbar color="ui-theme">
-    <button ion-button menuToggle>
+    <button ion-button menuToggle  showWhen="android">
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Settings</ion-title>
@@ -23,6 +23,11 @@
     <ion-item (tap)="presentChangeLocationModal()" class="no-background">
       <ion-icon name="pin" color="danger" item-left></ion-icon>
       Change Location
+    </ion-item>
+
+    <ion-item (tap)="manageAddress()" class="no-background"  *ngIf="isLogin">
+      <ion-icon name="home" color="primary" item-left></ion-icon>
+      My Address
     </ion-item>
 
     <ion-item (tap)="loginOrLogout()" class="no-background">

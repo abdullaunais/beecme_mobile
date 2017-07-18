@@ -22,8 +22,10 @@ export class UserService {
   REGISTER_URL = "/register";  // post
   GET_USER_URL = "/users"; // +username, get
   UPDATE_USER_URL = "/users"; // +email/reset
-  AUTHENTICATE_LOGIN = "/auth" // post
-  FORGOT_PASSWORD = "/mails" // post
+  AUTHENTICATE_LOGIN = "/auth"; // post
+  FORGOT_PASSWORD = "/mails"; // post
+  ADDRESS_URL = "/users/address"; //+userId
+  UPLOAD_PICTURE = "/users/upload"; //+userId 
 
   constructor(public httpService: Http, public config: Config) {
     this.http = httpService;
@@ -40,6 +42,18 @@ export class UserService {
 
     let requestUrl: string = this.serviceRootUrl + this.REGISTER_URL;
     return this.http.post(requestUrl, body, options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  uploadPicture(userId, authToken, image): Promise<any> {
+    let headers = new Headers();
+    // headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Authorization', authToken);
+    let options = new RequestOptions({ headers: headers });
+
+    let requestUrl: string = this.serviceRootUrl + this.UPLOAD_PICTURE + "/" + userId
+    return this.http.post(requestUrl, image, options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
@@ -98,6 +112,18 @@ export class UserService {
 
     let requestUrl: string = this.serviceRootUrl + this.FORGOT_PASSWORD;
     return this.http.post(requestUrl, body, options).toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getAddressList(userId, authToken): Promise<any> {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', authToken);
+    let options = new RequestOptions({ headers: headers });
+
+    let requestUrl: string = this.serviceRootUrl + this.ADDRESS_URL + "/" + userId;
+    return this.http.get(requestUrl, options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }

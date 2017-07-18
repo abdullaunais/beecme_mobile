@@ -9,7 +9,7 @@
   <ion-navbar [color]="(rating===0) ? 'gold' : (rating<2) ? 'danger' : (rating<4) ? 'gold' : 'green'">
     <ion-title>Add Review</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="viewCtrl.dismiss({success: false});">
+      <button ion-button icon-only (tap)="cancelView();">
               <ion-icon name="close"></ion-icon>
          </button>
     </ion-buttons>
@@ -18,7 +18,7 @@
 </ion-header>
 
 
-<ion-content class="page-order-feedback" padding>
+<ion-content class="page-order-feedback component-star-rating" padding>
   <form [formGroup]="reviewForm" ion-card (ngSubmit)="validateReview($event)">
     <ion-card>
       <ion-item>
@@ -31,7 +31,8 @@
         <ion-icon name="star" [color]="(rating===0) ? 'gold' : (rating<2) ? 'danger' : (rating<4) ? 'gold' : 'green'" item-left></ion-icon>
       </ion-item>
 
-      <button ion-button block type="submit" [color]="(rating===0) ? 'gold' : (rating<2) ? 'danger' : (rating<4) ? 'gold' : 'green'" class="update-button">
+      <button ion-button block type="submit" [color]="(rating===0) ? 'gold' : (rating<2) ? 'danger' : (rating<4) ? 'gold' : 'green'"
+        class="update-button">
         <ion-icon name="send"></ion-icon>
         &nbsp;&nbsp;SEND
     </button>

@@ -21,7 +21,7 @@ export class TermsAndConditions {
     ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ImageSlilderPage');
+  closeModal() {
+    this.viewCtrl.dismiss();
   }
 }

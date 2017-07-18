@@ -1,12 +1,19 @@
 .page-change-location {
-  background-color: #E8EAF6;
-  .item-inner {
-    border-bottom-color: transparent !important;
-    box-shadow: none !important;
-    margin-left: 1rem !important;
-  }
-  .setting-item {
-    padding:0 2rem;
-    background-color: transparent;
-  }
+    background-color: #E8EAF6;
+    .item-inner {
+        border-bottom-color: transparent !important;
+        box-shadow: none !important;
+        margin-left: 1rem !important;
+    }
+    .setting-item {
+        padding: 0 2rem;
+        background-color: transparent;
+    }
+    .loading-spinner {
+        width: 5rem;
+        height: 5rem;
+        text-align: center;
+        margin: 2rem auto;
+        display: block;
+    }
 }

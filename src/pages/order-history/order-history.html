@@ -7,10 +7,16 @@
 <ion-header>
 
   <ion-navbar color="ui-theme">
-    <button ion-button menuToggle>
+    <button ion-button menuToggle showWhen="android">
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>My Orders</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="openCart()">
+                <ion-icon name="cart"></ion-icon>
+                <ion-badge *ngIf="cartCount > 0" color="primary" class="badge badge-assertive header-badge">{{ cartCount }}</ion-badge>
+            </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -31,9 +37,9 @@
     <ion-item *ngFor="let order of orders" style="border-top:none;">
       <div ion-item no-lines>
         <ion-avatar item-left>
-          <img src="assets/img/cover/profile_default_grey.jpg">
+          <img [src]="order.shop.profilePicture" class="shop-profilePic">
         </ion-avatar>
-        <h2>Order from Shop</h2>
+        <h2 style="text-overflow: ellipsis; overflow: hidden;">Order from {{order.shop.username}}</h2>
         <div class="item-status-wrapper" *ngIf="order.status === 0">
           <ion-icon name="time" color="warning"></ion-icon>
           <div class="item-status color-pending">&nbsp;PENDING</div>
@@ -43,7 +49,7 @@
           <div class="item-status color-gold">&nbsp;NOT RATED</div>
         </div>
         <ion-note item-end>
-          <button ion-button round icon-only (click)="getActions(order);" class="item-action-button">
+          <button ion-button round icon-only (tap)="getActions(order);" class="item-action-button">
             <ion-icon name="more"></ion-icon>
           </button>
         </ion-note>
@@ -54,7 +60,7 @@
           <ion-card margin-bottom class="item-card">
             <div style="display:flex;" no-padding no-margin>
               <div item-left no-margin class="item-image-wrapper">
-                <div class="item-image" style="background-image: url('assets/img/ui_icons/add_shopping_cart_theme.svg');"></div>
+                <div class="item-image" [ngStyle]="{'background-image': 'url(' + item.img1 + ')'}"></div>
               </div>
               <div item-left no-margin class="item-content-wrapper">
                 <button style="color:#999; margin-top:0;" ion-button no-margin no-padding clear small class="item-badge-button">
@@ -75,6 +81,13 @@
       <p style="font-family: monospace, serif; margin-left:2rem;"><i>{{order.orderHeader.comment}}</i></p>
     </ion-item>
 
+    <div style="display: flex; justify-content: space-between;">
+      <ion-label *ngIf="noMoreItems" style="text-align: center; width: 100%; color: #999;">No more items</ion-label>
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="paginate($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 
     <!--<ion-item *ngFor="let order of [1]">
       <div ion-item no-lines>
@@ -91,7 +104,7 @@
           <div class="item-status color-gold">&nbsp;NOT RATED</div>
         </div>
         <ion-note item-end>
-          <button ion-button round icon-only (click)="getActions(order);" class="item-action-button">
+          <button ion-button round icon-only (tap)="getActions(order);" class="item-action-button">
             <ion-icon name="more"></ion-icon>
           </button>
         </ion-note>

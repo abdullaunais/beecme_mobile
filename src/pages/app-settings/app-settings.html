@@ -20,21 +20,21 @@
 
   <ion-list no-lines inset>
 
-    <ion-item (tap)="presentChangeLocationModal()" class="no-background">
+    <button ion-item (tap)="presentChangeLocationModal()" class="no-background">
       <ion-icon name="pin" color="danger" item-left></ion-icon>
       Change Location
-    </ion-item>
+    </button>
 
-    <ion-item (tap)="manageAddress()" class="no-background"  *ngIf="isLogin">
+    <button ion-item (tap)="manageAddress()" class="no-background"  *ngIf="isLogin">
       <ion-icon name="home" color="primary" item-left></ion-icon>
       My Address
-    </ion-item>
+    </button>
 
-    <ion-item (tap)="loginOrLogout()" class="no-background">
+    <button ion-item (tap)="loginOrLogout()" class="no-background">
       <ion-icon name="contact" color="primary" *ngIf="!isLogin" item-left></ion-icon>
       <ion-icon name="exit" color="warning" *ngIf="isLogin" item-left></ion-icon>
       {{logTitle}}
-    </ion-item>
+    </button>
 
   </ion-list>
 

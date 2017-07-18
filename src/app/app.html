@@ -5,7 +5,7 @@
     <img src="assets/img/cover/cover.webp" style="vertical-align: top;width: 100%; z-index: -100; opacity: 0;">
       <img [attr.src]="profilepic" (error)="profilePicError($event);" alt="Cover" class="profile-pic" />
 
-      <div ion-item no-lines class="profile-detail-item">
+      <button ion-item no-lines class="profile-detail-item">
         <div *ngIf="isLogin">{{ user.username }}</div>
         <div *ngIf="isLogin" class="profile-status-wrapper">
           <div class="profile-status">{{ user.email }}</div>
@@ -18,7 +18,7 @@
             <ion-icon name="arrow-dropdown"></ion-icon>
           </button>
         </ion-note>
-      </div>
+      </button>
 
     </div>
 

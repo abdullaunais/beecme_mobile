@@ -66,6 +66,9 @@
         .toolbar-background {
             background: transparent;
         }
+        .toolbar-background-ios {
+            border-width: 0 !important;
+        }
         .toolbar-title {
             color: #fff;
         }

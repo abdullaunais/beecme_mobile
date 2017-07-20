@@ -30,7 +30,7 @@
       <ion-item style="border-bottom: 1px solid #eee;">
         <ion-icon name="add-circle" [color]="(createAddress) ? 'primary' : 'blue-grey'" (tap)="toggleNew();" item-start></ion-icon>
         <ion-label [color]="(createAddress) ? 'primary' : 'blue-grey'" (tap)="toggleNew();">Add New Address</ion-label>
-        <ion-toggle [(ngModel)]="createAddress"></ion-toggle>
+        <ion-toggle mode="ios" [(ngModel)]="createAddress"></ion-toggle>
       </ion-item>
 
       <ion-item *ngIf="!createAddress" style="margin-top: 1rem;">

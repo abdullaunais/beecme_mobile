@@ -19,7 +19,7 @@
 
   <div style="display: flex; justify-content: space-between;">
     <ion-label *ngIf="cartIsEmpty && !isLoading" style="text-align: center; width: 100%; color: #999;">No Items in Cart.</ion-label>
-    <ion-spinner *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
+    <ion-spinner name="dots" *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
   </div>
 
   <ion-card ion-item no-lines class="cart-status" *ngIf="shopIsVisible">

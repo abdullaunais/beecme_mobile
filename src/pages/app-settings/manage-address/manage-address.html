@@ -20,13 +20,13 @@
       <ion-item>
         <ion-icon name="add-circle" (tap)="toggleNew();" [color]="(createAddress) ? 'primary' : 'blue-grey'" item-start></ion-icon>
         <ion-label [color]="(createAddress) ? 'primary' : 'blue-grey'" (tap)="toggleNew();">Add New Address</ion-label>
-        <ion-toggle [(ngModel)]="createAddress"></ion-toggle>
+        <ion-toggle mode="ios" [(ngModel)]="createAddress"></ion-toggle>
       </ion-item>
     </ion-list>
   </ion-card>
 
   <div style="display: flex; justify-content: space-between;">
-    <ion-spinner *ngIf="isLoading" class="loading-spinner" color="primary"></ion-spinner>
+    <ion-spinner name="dots" *ngIf="isLoading" class="loading-spinner" color="primary"></ion-spinner>
   </div>
   <div style="display: block; margin-top: 3vmin; padding-top: 5vmin; border-top:1px solid #ddd;" *ngIf="isError && !isLoading">
     <ion-label style="text-align: center; width: 100%; color: #999;">Could not connect to server.</ion-label>

@@ -18,27 +18,29 @@
 </ion-header>
 
 
-<ion-content class="page-change-location" padding>
+<ion-content class="page-change-location">
   <ion-list>
 
-    <ion-item-group>
-      <ion-item-divider color="light" style="border-radius: 0.5rem;">
-        Current Location
-        <ion-icon name="pin" color="danger" item-left></ion-icon>
-      </ion-item-divider>
-      <ion-item class="setting-item">
-        <ion-label item-left>Country</ion-label>
-        <ion-label type="text" item-right style="text-align: right;">{{ prevCountry.nameEn }}</ion-label>
-      </ion-item>
-      <ion-item class="setting-item">
-        <ion-label item-left>Province</ion-label>
-        <ion-label type="text" item-right style="text-align: right;">{{ prevProvince.nameEn }}</ion-label>
-      </ion-item>
-      <ion-item class="setting-item">
-        <ion-label item-left>City</ion-label>
-        <ion-label type="text" item-right style="text-align: right;">{{ prevCity.nameEn }}</ion-label>
-      </ion-item>
-    </ion-item-group>
+    <ion-card>
+      <ion-item-group>
+        <ion-item-divider color="light">
+          Current Location
+          <ion-icon name="locate" color="primary" item-left></ion-icon>
+        </ion-item-divider>
+        <ion-item class="setting-item">
+          <ion-label item-left style="color: #999;">Country</ion-label>
+          <ion-label type="text" item-right style="text-align: right;">{{ prevCountry.nameEn }}</ion-label>
+        </ion-item>
+        <ion-item class="setting-item">
+          <ion-label item-left style="color: #999;">Province</ion-label>
+          <ion-label type="text" item-right style="text-align: right;">{{ prevProvince.nameEn }}</ion-label>
+        </ion-item>
+        <ion-item class="setting-item">
+          <ion-label item-left style="color: #999;">City</ion-label>
+          <ion-label type="text" item-right style="text-align: right;">{{ prevCity.nameEn }}</ion-label>
+        </ion-item>
+      </ion-item-group>
+    </ion-card>
 
     <div style="display: flex; justify-content: space-between;">
       <ion-spinner name="dots" *ngIf="isLoading" class="loading-spinner" color="primary"></ion-spinner>
@@ -47,32 +49,34 @@
       <ion-label style="text-align: center; width: 100%; color: #999;">Could not connect to server.</ion-label>
       <button style="display:block; margin:0 auto; padding: 1rem 2rem; border-radius: 0.5rem;" (tap)="retryServer();">TRY AGAIN</button>
     </div>
-    <ion-item-group *ngIf="!isLoading && !isError ">
-      <ion-item-divider color="light" style="border-radius: 0.5rem;">
-        Moved to new Location?
-        <ion-icon name="locate" color="primary" item-left></ion-icon>
-      </ion-item-divider>
-      <ion-item class="setting-item">
-        <ion-label>Country</ion-label>
-        <ion-select [(ngModel)]="selectedCountry" placeholder="Select" (ionChange)="countryChanged()" interface="action-sheet" okText="Select"
-          cancelText="Cancel">
-          <ion-option *ngFor="let country of countries" [value]="country">{{ country.nameEn }}</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item *ngIf="countrySet" class="setting-item" style="padding:0 2rem;">
-        <ion-label>Province</ion-label>
-        <ion-select [(ngModel)]="selectedProvince" (ionChange)="provinceChanged()" interface="action-sheet" okText="Select" cancelText="Cancel">
-          <ion-option *ngFor="let province of provinces" [value]="province">{{ province.nameEn }}</ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item *ngIf="countrySet && provinceSet" class="setting-item" style="padding:0 2rem;">
-        <ion-label>City</ion-label>
-        <ion-select [(ngModel)]="selectedCity" (ionChange)="cityChanged()" interface="action-sheet" okText="Select" cancelText="Cancel">
-          <ion-option *ngFor="let city of cities" [value]="city">{{ city.nameEn }}</ion-option>
-        </ion-select>
-      </ion-item>
-    </ion-item-group>
 
+    <ion-card>
+      <ion-item-group *ngIf="!isLoading && !isError ">
+        <ion-item-divider color="light">
+          Moved to new Location?
+          <ion-icon name="pin" color="danger" item-left></ion-icon>
+        </ion-item-divider>
+        <ion-item class="setting-item">
+          <ion-label>Country</ion-label>
+          <ion-select [(ngModel)]="selectedCountry" placeholder="Select" (ionChange)="countryChanged()" interface="action-sheet" okText="Select"
+            cancelText="Cancel">
+            <ion-option *ngFor="let country of countries" [value]="country">{{ country.nameEn }}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item *ngIf="countrySet" class="setting-item" style="padding:0 2rem;">
+          <ion-label>Province</ion-label>
+          <ion-select [(ngModel)]="selectedProvince" (ionChange)="provinceChanged()" interface="action-sheet" okText="Select" cancelText="Cancel">
+            <ion-option *ngFor="let province of provinces" [value]="province">{{ province.nameEn }}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item *ngIf="countrySet && provinceSet" class="setting-item" style="padding:0 2rem;">
+          <ion-label>City</ion-label>
+          <ion-select [(ngModel)]="selectedCity" (ionChange)="cityChanged()" interface="action-sheet" okText="Select" cancelText="Cancel">
+            <ion-option *ngFor="let city of cities" [value]="city">{{ city.nameEn }}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-item-group>
+    </ion-card>
 
 
   </ion-list>

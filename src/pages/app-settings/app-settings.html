@@ -7,7 +7,7 @@
 <ion-header color="ui-theme">
 
   <ion-navbar color="ui-theme">
-    <button ion-button menuToggle  showWhen="android">
+    <button ion-button menuToggle showWhen="android">
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Settings</ion-title>
@@ -25,15 +25,29 @@
       Change Location
     </button>
 
-    <button ion-item (tap)="manageAddress()" class="no-background"  *ngIf="isLogin">
+    <ion-item-divider class="no-background"></ion-item-divider>
+
+    <button ion-item (tap)="openPage('ManageAddressPage')" class="no-background" *ngIf="isLogin">
       <ion-icon name="home" color="primary" item-left></ion-icon>
       My Address
+    </button>
+
+    <button ion-item (tap)="openPage('UserProfilePage')" class="no-background" *ngIf="isLogin">
+      <ion-icon name="person" color="ui-theme" item-left></ion-icon>
+      My Profile
     </button>
 
     <button ion-item (tap)="loginOrLogout()" class="no-background">
       <ion-icon name="contact" color="primary" *ngIf="!isLogin" item-left></ion-icon>
       <ion-icon name="exit" color="warning" *ngIf="isLogin" item-left></ion-icon>
       {{logTitle}}
+    </button>
+
+    <ion-item-divider class="no-background"></ion-item-divider>
+
+    <button ion-item (tap)="openPage('AboutPage')" class="no-background">
+      <ion-icon name="information-circle" color="blue-grey" item-left></ion-icon>
+      About
     </button>
 
   </ion-list>

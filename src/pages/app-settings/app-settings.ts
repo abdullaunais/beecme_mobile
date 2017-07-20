@@ -59,8 +59,8 @@ export class AppSettingsPage {
     }
   }
 
-  manageAddress() {
-    this.navCtrl.push('ManageAddressPage');
+  openPage(page: string) {
+        this.navCtrl.push(page);
   }
 
   presentChangeLocationModal() {

@@ -44,9 +44,10 @@ export class CartPage {
   ) {
     this.isLoading = true;
     this.shopIsVisible = false;
+    this.initialize();
   }
 
-  ionViewDidLoad() {
+  initialize() {
     this.storage.get('delivery.cart').then((cart) => {
       if (cart) {
         if (cart.length > 0) {

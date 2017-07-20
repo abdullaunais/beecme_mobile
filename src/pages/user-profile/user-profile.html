@@ -20,7 +20,7 @@
   <div class="cover-content" #container>
     <div class="profile-pic-border">
       <div *ngIf="isLoading && !isError" class="profile-pic" style="display: block; justify-content: space-between; width:100%; line-height: 42vmin; text-align:center;">
-        <ion-spinner name="dots" class="loading-spinner" style="margin:auto; height:42vmin; width:3rem;" color="dark"></ion-spinner>
+        <ion-spinner class="loading-spinner" style="margin:auto; height:42vmin; width:3rem;" color="dark"></ion-spinner>
       </div>
       <img *ngIf="!isLoading" [defaultImage]="'assets/img/cover/profile_default.webp'" [lazyLoad]="user.profilePicture"  [scrollObservable]="container.ionScroll" class="profile-pic" />
       <div class="profile-pic-edit" ion-button (tap)="triggerFileUpload(img);">

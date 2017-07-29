@@ -112,7 +112,6 @@ export class MyApp {
         if (response.email != undefined || response.email != null) {
           Variables.user.username = response.username;
           Variables.user.email = response.email;
-          Variables.user.address = response.address;
           this.variables.setLogin(true);
           this.user = response;
 
@@ -127,7 +126,6 @@ export class MyApp {
           this.profilepic = "assets/img/cover/profile_default.webp";
           Variables.user.username = "";
           Variables.user.email = "";
-          Variables.user.address = "";
           this.variables.setLogin(false);
         }
       } else {
@@ -135,7 +133,6 @@ export class MyApp {
         this.profilepic = "assets/img/cover/profile_default.webp";
         Variables.user.username = "";
         Variables.user.email = "";
-        Variables.user.address = "";
         this.variables.setLogin(false);
       }
     });
@@ -147,13 +144,12 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      // StatusBar.styleDefault();
-      this.statusBar.styleLightContent();
-      this.statusBar.overlaysWebView(true);
+      // this.statusBar.styleLightContent();
+      this.statusBar.styleDefault();
+      this.statusBar.overlaysWebView(true); // false
       this.statusBar.backgroundColorByHexString('#4527A0');
       this.splashScreen.hide();
-      // this.platform.width() < 768 ? this.menuCtrl.close() : this.menuCtrl.open();
-
+      
       this.storage.get('delivery.cartCount').then((data) => {
         if (data)
           if (!Number.isNaN(data))

@@ -13,7 +13,6 @@ export class Variables {
   public cartCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public static user: any = {};
   public login: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public static checkoutComment: string = "";
   
   setLogin(isLoggedIn:boolean){
    this.login.next(isLoggedIn);

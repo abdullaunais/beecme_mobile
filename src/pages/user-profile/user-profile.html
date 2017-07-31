@@ -32,9 +32,9 @@
       <div *ngIf="isLoading" style="display: block; justify-content: space-between; width:100%; height: 5vh; line-height: 5vh; text-align:center;">
         <ion-spinner name="dots" class="loading-spinner" color="light"></ion-spinner>
       </div>
-      <h1 style="color:#fff; margin:0;" *ngIf="!isLoading && user.username"> {{user.username}} </h1>
-      <h6 style="color:#fff;font-weight: 400;margin:0;" *ngIf="!isLoading && user.email"> {{user.email}} </h6>
-      <h6 style="color:#fff;font-weight: 300;margin: 1rem 0;" *ngIf="!isLoading && user.phone"> +94 {{user.phone}} </h6>
+      <h1 style="color:#fff; margin:0;" *ngIf="!isLoading && user.username" class="animated slideInUp"> {{user.username}} </h1>
+      <h6 style="color:#fff;font-weight: 400;margin:0;" *ngIf="!isLoading && user.email" class="animated slideInUp"> {{user.email}} </h6>
+      <h6 style="color:#fff;font-weight: 300;margin: 1rem 0;" *ngIf="!isLoading && user.phone" class="animated slideInUp"> +94 {{user.phone}} </h6>
     </div>
 
     <div style="display: block; margin-top: 8rem;" *ngIf="isError && !isLoading">

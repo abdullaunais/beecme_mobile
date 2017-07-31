@@ -22,14 +22,14 @@
 </ion-header>
 
 
-<ion-content class="page-order-summary">
+<ion-content class="page-order-summary animated fadeIn">
   <div style="display: flex; justify-content: space-between;">
     <ion-label *ngIf="cartItems.length === 0 && !isLoading" style="text-align: center; width: 100%; color: #999;">No Items in Cart.</ion-label>
     <ion-spinner name="dots" *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
   </div>
 
   <div ion-item no-lines margin-left margin-right margin-top style="background-color: #E8EAF6;margin: 0;padding: 0.5rem 3rem;"
-    *ngIf="!isLoading">
+    *ngIf="!isLoading" class="animated flipInX">
     <ion-avatar item-left>
       <img [src]="cartShop.profilePicture">
     </ion-avatar>
@@ -40,9 +40,9 @@
     </div>
   </div>
 
-  <ion-list no-lines margin-left margin-right style="border-top: 1px solid #eee; margin-bottom: 2rem;">
+  <ion-list no-lines margin-left margin-right style="margin-top: 1rem; margin-bottom: 2rem;">
     <ion-item>
-      <ion-icon name="list-box" color="blue-grey" item-start></ion-icon>
+      <ion-icon name="list-box" style="margin:0" color="blue-grey" item-start></ion-icon>
       <div style="font-weight: 700;">Order Details</div>
     </ion-item>
     <ion-item class="price-calc-item" *ngFor="let item of cartItems">
@@ -54,7 +54,7 @@
 
   <ion-list no-lines margin-left margin-right style="border-top: 1px solid #eee; margin-bottom:0.2rem;">
     <ion-item>
-      <ion-icon name="pricetag" color="primary" item-start></ion-icon>
+      <ion-icon name="pricetag" style="margin:0" color="primary" item-start></ion-icon>
       <div style="font-weight: 700;">Total Price</div>
     </ion-item>
     <ion-item class="price-calc-item">
@@ -76,7 +76,7 @@
 
   <ion-list no-lines margin-left margin-right margin-top style="border-top: 1px solid #eee; margin-bottom: 2rem;">
     <ion-item>
-      <ion-icon name="pin" color="danger" item-start></ion-icon>
+      <ion-icon name="pin" style="margin:0" color="danger" item-start></ion-icon>
       <div style="font-weight: 700;">Delivery Address ( {{address.nickName}} )</div>
     </ion-item>
     <ion-item class="price-calc-item">
@@ -87,7 +87,7 @@
 
   <ion-list no-lines margin-left margin-right style="border-top: 1px solid #eee; margin-bottom:0.2rem;">
     <ion-item>
-      <ion-icon name="card" color="ui-theme" item-start></ion-icon>
+      <ion-icon name="card" style="margin:0" color="ui-theme" item-start></ion-icon>
       <div style="font-weight: 700;">Payment on Delivery</div>
     </ion-item>
   </ion-list>
@@ -95,7 +95,7 @@
 
   <ion-list no-lines margin-left margin-right style="border-top: 1px solid #eee;" *ngIf="checkoutComment">
     <ion-item>
-      <ion-icon name="quote" color="secondary" item-start></ion-icon>
+      <ion-icon name="quote" style="margin:0" color="secondary" item-start></ion-icon>
       <div style="font-weight: 700;">Comment</div>
     </ion-item>
     <ion-item class="price-calc-item">

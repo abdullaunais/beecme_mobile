@@ -57,14 +57,19 @@ export class Shops {
     let cityId = this.city['id'];
     this.deliveryService.getShops(cityId, catId, this.start, this.offset).then((data) => {
       let json = JSON.stringify(data);
-      this.shops = JSON.parse(json);
-      if (this.shops) {
-        if (this.shops.length > 0) {
+      let shopsArray = JSON.parse(json);
+      this.shops = [];
+      if (shopsArray) {
+        if (shopsArray.length > 0) {
           this.isAvailable = true;
-          this.shops.forEach((shop, index) => {
+          let timeout = 0;
+          shopsArray.forEach((shop, index) => {
             let keywordString = shop.keywords;
             let keywords = keywordString.split(" ");
-            this.shops[index]['keywordsArray'] = keywords;
+            shopsArray[index]['keywordsArray'] = keywords;
+            setTimeout(() => {
+              this.shops.push(shop);
+            }, timeout += 100);
           });
         } else {
           this.isAvailable = false;
@@ -83,14 +88,19 @@ export class Shops {
     let cityId = this.city['id'];
     this.deliveryService.getShops(cityId, catId, this.start, this.offset).then((data) => {
       let json = JSON.stringify(data);
-      this.shops = JSON.parse(json);
-      if (this.shops) {
-        if (this.shops.length > 0) {
+      let shopsArray = JSON.parse(json);
+      this.shops = [];
+      if (shopsArray) {
+        if (shopsArray.length > 0) {
           this.isAvailable = true;
-          this.shops.forEach((shop, index) => {
+          let timeout = 0;
+          shopsArray.forEach((shop, index) => {
             let keywordString = shop.keywords;
             let keywords = keywordString.split(" ");
-            this.shops[index]['keywordsArray'] = keywords;
+            shopsArray[index]['keywordsArray'] = keywords;
+            setTimeout(() => {
+              this.shops.push(shop);
+            }, timeout += 100);
           });
         } else {
           this.isAvailable = false;
@@ -144,7 +154,7 @@ export class Shops {
     e.cancelBubble = true;
     if (e.stopPropagation) e.stopPropagation();
 
-    let detailsModal = this.modalCtrl.create('ShopDetailsPage', {shop: shop});
+    let detailsModal = this.modalCtrl.create('ShopDetailsPage', { shop: shop });
     detailsModal.present();
     detailsModal.onDidDismiss((data) => {
       if (data) {

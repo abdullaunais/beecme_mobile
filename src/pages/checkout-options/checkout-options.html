@@ -15,7 +15,7 @@
 
 <ion-content class="page-checkout-options">
 
-  <ion-card>
+  <ion-card class="animated fadeIn">
     <ion-item class="update-item" (tap)="focusComment();">
       <ion-icon name="quote" color="secondary" item-left></ion-icon>
       <ion-label item-right>Checkout Comment</ion-label>
@@ -24,7 +24,7 @@
       #commentInput class="input-checkout-comment"></ion-textarea>
   </ion-card>
 
-  <ion-card style="padding:0.5rem;">
+  <ion-card style="padding:0.5rem;" class="animated fadeIn">
     <ion-list no-lines>
 
       <ion-item style="border-bottom: 1px solid #eee;">
@@ -33,7 +33,7 @@
         <ion-toggle mode="ios" [(ngModel)]="createAddress"></ion-toggle>
       </ion-item>
 
-      <ion-item *ngIf="!createAddress" style="margin-top: 1rem;">
+      <ion-item *ngIf="!createAddress" style="margin-top: 1rem;" class="animated flipInX">
         <ion-icon name="home" color="danger" item-start></ion-icon>
         <ion-label color="dark">Select Address</ion-label>
         <ion-select [(ngModel)]="selectedAddress" interface="action-sheet" okText="Select" placeholder="" cancelText="Cancel">
@@ -41,17 +41,17 @@
         </ion-select>
       </ion-item>
 
-      <ion-item *ngIf="createAddress" style="margin-top: 1rem;">
+      <ion-item *ngIf="createAddress" style="margin-top: 1rem;" class="animated flipInX">
         <ion-icon name="home" color="danger" item-start></ion-icon>
         <ion-label>Enter Address Details</ion-label>
       </ion-item>
-      <ion-item *ngIf="createAddress">
+      <ion-item *ngIf="createAddress" class="animated flipInX">
         <ion-input style="color: #666;" [(ngModel)]="nickname" placeholder="Nickname"></ion-input>
       </ion-item>
-      <ion-item *ngIf="createAddress">
+      <ion-item *ngIf="createAddress" class="animated flipInX">
         <ion-input style="color: #666;" [(ngModel)]="address" placeholder="Street"></ion-input>
       </ion-item>
-      <ion-item *ngIf="createAddress">
+      <ion-item *ngIf="createAddress" class="animated flipInX">
         <ion-label style="font-size: 1.2rem;  color: #999; padding-left:1rem;">{{locationLabel}}</ion-label>
       </ion-item>
 

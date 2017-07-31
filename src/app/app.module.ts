@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 
 import { MyApp } from './app.component';
@@ -20,7 +19,6 @@ import { Network } from "@ionic-native/network";
   imports: [
     BrowserModule,
     HttpModule,
-    BrowserAnimationsModule,
     IonicImageViewerModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()

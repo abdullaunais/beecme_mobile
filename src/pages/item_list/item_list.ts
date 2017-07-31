@@ -3,20 +3,12 @@ import { NavController, NavParams, Content, ActionSheetController, AlertControll
 import { DeliveryService } from "../../providers/delivery-service";
 import { Storage } from '@ionic/storage';
 import { Variables } from "../../providers/variables";
-import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @IonicPage()
 @Component({
   selector: 'item_list',
   templateUrl: 'item_list.html',
-  providers: [DeliveryService],
-  animations: [
-    trigger('fadeInOut', [
-      state('void', style({ opacity: '0' })),
-      state('*', style({ opacity: '1' })),
-      transition('void <=> *', animate('150ms ease-in'))
-    ])
-  ]
+  providers: [DeliveryService]
 })
 export class ItemList {
 
@@ -35,6 +27,7 @@ export class ItemList {
 
   cartCount: number;
   isLoading: boolean;
+  isAvailable: boolean;
   noMoreItems: boolean;
 
   constructor(
@@ -48,6 +41,7 @@ export class ItemList {
     private toastCtrl: ToastController
   ) {
     this.isLoading = true;
+    this.isAvailable = true;
     this.noMoreItems = false;
     this.shop = this.navParams.data.shop;
     this.city = this.navParams.data.city;
@@ -62,14 +56,25 @@ export class ItemList {
     this.deliveryService.getItemByShop(userId, this.start, this.offset).then((data) => {
       if (data['itemlist']) {
         if (data['itemlist'].length > 0) {
-          this.items = data['itemlist'];
+          this.isAvailable = true;
+          let timeout = 0;
+          data['itemlist'].forEach(item => {
+            setTimeout(() => {
+              this.items.push(item);
+            }, timeout += 100);
+          });
         } else {
           this.items = [];
+          this.isAvailable = false;
         }
       } else {
         this.items = [];
+        this.isAvailable = false;
       }
       this.isLoading = false;
+    }).catch(err => {
+      this.isLoading = false;
+      this.isAvailable = false;
     });
   }
 
@@ -78,15 +83,28 @@ export class ItemList {
     this.deliveryService.getItemByShop(userId, 0, this.offset).then((data) => {
       if (data['itemlist']) {
         if (data['itemlist'].length > 0) {
-          this.items = data['itemlist'];
+          this.items = [];
+          this.isAvailable = true;
+          let timeout = 0;
+          data['itemlist'].forEach(item => {
+            setTimeout(() => {
+              this.items.push(item);
+            }, timeout += 100);
+          });
+
         } else {
           this.items = [];
+          this.isAvailable = false;
         }
       } else {
         this.items = [];
+        this.isAvailable = false;
       }
       refresher.complete();
-    });
+    }).catch(err => {
+      this.isLoading = false;
+      this.isAvailable = false;
+    });;
   }
 
   paginate(infiniteScroll) {

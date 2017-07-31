@@ -16,6 +16,10 @@
     display: none !important;
 }
 
+ion-backdrop {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
 .toolbar-ios {
     padding: 4px;
     min-height: 5rem;

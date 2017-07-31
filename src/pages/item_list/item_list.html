@@ -25,7 +25,7 @@
 <ion-content class="page-item_list" #container>
 
     <div style="display: flex; justify-content: space-between;">
-        <ion-label *ngIf="items.length === 0 && !isLoading" style="text-align: center; width: 100%; color: #999;">No {{ category.nameEn }} Available. Please try a different category</ion-label>
+        <ion-label *ngIf="!isAvailable && !isLoading" style="text-align: center; width: 100%; color: #999;">No {{ category.nameEn }} Available. Please try a different category</ion-label>
         <ion-spinner name="dots" *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
     </div>
 
@@ -35,7 +35,7 @@
 
     <ion-grid no-margin no-padding>
         <ion-row responsive-sm no-margin no-padding>
-            <ion-col col-12 col-sm-6 col-lg-4 [@fadeInOut] *ngFor="let item of items; let i = index;" no-margin no-padding>
+            <ion-col col-12 col-sm-6 col-lg-4 *ngFor="let item of items; let i = index;" no-margin no-padding class="animated flipInX">
                 <ion-card style="height: 10rem; margin-bottom: 0; margin-right: 0;" (click)="viewDetails(item);">
                     <ion-row style="height: 10rem;">
                         <ion-col col-3 class="item-card-icon-col" [lazyLoad]="item.img1" [offset]="offset" [scrollObservable]="container.ionScroll">

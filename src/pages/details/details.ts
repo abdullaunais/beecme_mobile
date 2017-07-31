@@ -270,7 +270,6 @@ export class DetailsPage {
   }
 
   ngAfterViewInit() {
-    this.offsetHeight = document.getElementById('nav-content').offsetHeight;
     this.refreshPicture();
   }
 
@@ -279,15 +278,6 @@ export class DetailsPage {
       document.getElementById('headerImage').style.backgroundImage = "url(" + this.item.img1 + ")";
     } else {
       document.getElementById('headerImage').style.backgroundImage = "url('assets/img/cover/profile_default_grey.webp')";
-    }
-  }
-
-  checkScroll(event) {
-    let yOffset = document.getElementById('item-content').offsetTop;
-    if (event.scrollTop > yOffset - this.offsetHeight) {
-      document.getElementById('header-content').classList.remove("details-header");
-    } else {
-      document.getElementById('header-content').classList.add("details-header");
     }
   }
 

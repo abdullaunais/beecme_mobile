@@ -68,10 +68,16 @@ export class Categories {
   initialize() {
     this.deliveryService.getCategories(this.selectedCity.id).then((data) => {
       let json = JSON.stringify(data);
-      this.categories = JSON.parse(json);
-      if (this.categories) {
-        if (this.categories.length > 1) {
-          this.categories.splice(0, 1);
+      let catArray = JSON.parse(json);
+      if (catArray) {
+        if (catArray.length > 1) {
+          catArray.splice(0, 1);
+          let timeout = 0;
+          catArray.forEach(cat => {
+            setTimeout(() => {
+              this.categories.push(cat);
+            }, timeout+=100)
+          })
           // this.rows = Array.from(Array(Math.ceil(this.categories.length / 2)).keys());
           this.isAvailable = true;
           this.isError = false;

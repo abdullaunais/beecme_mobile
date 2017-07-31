@@ -1,4 +1,5 @@
 .page-details {
+    background-color: #E8EAF6;
     ion-label {
         margin: 0;
     }
@@ -6,13 +7,6 @@
         img {
             object-fit: cover;
         }
-    }
-    .scroll {
-        height: 100%
-    }
-    #map {
-        width: 100%;
-        height: 100%;
     }
     .loading-spinner {
         width: 3rem;
@@ -25,11 +19,10 @@
         background-size: cover;
         background-position: 50% center;
         background-color: #c5cae9;
-        box-shadow: inset 0 3rem 6rem -1rem #000;
+        box-shadow: inset 0 0 4rem -1rem #000;
     }
-    .main-content {
-        width: 100%;
-        background-color: #E8EAF6;
+    .main-head {
+        background-color: #666;
     }
     .item-status-wrapper {
         height: 2rem;
@@ -61,32 +54,30 @@
     .item-title {
         font-size: 2rem;
         background-color: transparent;
-        margin-bottom: 1.4rem;
+        margin-bottom: 0.5rem;
+        padding: 0;
+        color: #eee;
+        .item-inner {
+            padding: 0;
+        }
     }
     .item-comment-paragraph {
         color: #666;
         background-color: #C5CAE9;
         padding: 1.5rem;
-        margin-bottom: 2rem;
+        border-radius: 4px;
+        margin: 0 2rem 2rem 2rem;
         text-align: center;
     }
     .item-description-paragraph {
-        margin-top: 2rem;
-        padding: 1rem;
+        padding: 2rem 1rem;
         color: #666;
         text-align: center;
-    } //.item-description-overlay {
-    //  width: 100%;
-    //  text-align: center;
-    //  position: absolute;
-    //  bottom: 10rem;
-    //  -moz-box-shadow:    0 0 10px #fff;
-    //  -webkit-box-shadow: 0 0 10px #fff;
-    //  box-shadow:         0 0 10px #fff;
-    //}
+    }
     .btn-cart-add {
-        height: 3.5rem;
+        height: 4rem;
         margin: 0;
+        color: $ui-theme;
     }
     .item-image-scroll {
         height: 14rem;
@@ -98,33 +89,6 @@
     }
 }
 
-.footer-details {
-    .button-cart {
-        height: 5rem;
-        background-color: $ui-theme;
-        border-color: $ui-theme;
-        color: #fff;
-        margin: 0;
-    }
-}
-
-.details-header {
-    .toolbar {
-        position: absolute;
-        .toolbar-background {
-            background: transparent;
-            border-width: 0 !important;
-            transition: background-color 0.5s ease-in-out;
-        }
-        .bar-button {
-            text-shadow: 1px 1px 3px #000;
-        }
-        .toolbar-title {
-            color: #fff;
-            text-shadow: 1px 1px 3px #000;
-        }
-    }
-    .btn-edit-image {
-        text-shadow: 1px 1px 3px #000;
-    }
+.details-header::after {
+    background-image: url('');
 }

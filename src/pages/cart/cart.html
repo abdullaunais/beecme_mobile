@@ -35,7 +35,7 @@
 
   <ion-grid no-margin no-padding>
     <ion-row responsive-sm no-margin no-padding>
-      <ion-col col-12 col-md-6 col-xl-4 no-margin no-padding [@fadeInOut] *ngFor="let item of cartItems; let i = index;">
+      <ion-col id="item{{i}}" col-12 col-md-6 col-xl-4 no-margin no-padding *ngFor="let item of cartItems; let i = index;" class="animated flipInX">
         <ion-card style="margin-top:0;">
           <ion-row>
             <ion-col col-4 class="item-card-icon-col" [lazyLoad]="item.img1" [scrollObservable]="container.ionScroll" no-padding>
@@ -62,7 +62,7 @@
           <hr style="margin: 0;" />
           <ion-row no-padding>
             <ion-col text-center style="padding:0">
-              <button ion-button color="blue-grey" clear small class="btnCartAction" (tap)="removeItem(item)">
+              <button ion-button color="blue-grey" clear small class="btnCartAction" (tap)="removeItem(item, i)">
           <ion-icon name="trash" style="font-size: 2.5rem;"></ion-icon>
           &nbsp;Remove
         </button>

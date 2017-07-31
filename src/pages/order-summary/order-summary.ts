@@ -129,8 +129,10 @@ export class OrderSummaryPage {
                 handler: () => {
                   this.storage.set('delivery.cart', []).then((cart) => {
                     this.storage.set('delivery.cartCount', 0).then((count) => {
-                      this.variables.setCartCount(0);
-                      this.navCtrl.setRoot('Categories', null);
+                      this.storage.set('delivery.cartShop', {}).then((shop) => {
+                        this.variables.setCartCount(0);
+                        this.navCtrl.setRoot('Categories', null);
+                      });
                     });
                   });
                 }

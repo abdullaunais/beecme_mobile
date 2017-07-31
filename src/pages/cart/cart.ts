@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController, IonicPage } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Variables } from "../../providers/variables";
-import { trigger, state, style, animate, transition } from '@angular/animations';
 
 /*
   Generated class for the Cart page.
@@ -13,14 +12,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 @IonicPage()
 @Component({
   selector: 'page-cart',
-  templateUrl: 'cart.html',
-  animations: [
-    trigger('fadeInOut', [
-      state('void', style({ opacity: '0' })),
-      state('*', style({ opacity: '1' })),
-      transition('void <=> *', animate('150ms ease-in'))
-    ])
-  ]
+  templateUrl: 'cart.html'
 })
 export class CartPage {
   loading: any;
@@ -54,10 +46,14 @@ export class CartPage {
           this.storage.get('delivery.cartShop').then((cartShop) => {
             this.cartShop = cartShop;
             this.shopIsVisible = true;
-            this.cartItems = cart;
             this.cartIsEmpty = false;
-            this.cartItems.forEach((item) => {
+            this.cartItems = [];
+            let timeout = 0;
+            cart.forEach((item) => {
               this.totalAmount = this.totalAmount + (item.price * item.quantity);
+              setTimeout(() => {
+                this.cartItems.push(item);
+              }, timeout += 100);
             });
           }).catch(shopErr => {
             this.shopIsVisible = false;
@@ -79,19 +75,24 @@ export class CartPage {
     });
   }
 
-  removeItem(item) {
-    this.cartItems.splice(this.cartItems.findIndex((elem) => elem.itemCode === item.itemCode), 1);
-    this.totalAmount = 0;
-    this.cartItems.forEach((item) => {
-      this.totalAmount = this.totalAmount + (item.price * item.quantity);
-    })
-    this.storage.set('delivery.cart', this.cartItems);
-    this.storage.set('delivery.cartCount', this.cartItems.length);
-    if (this.cartItems.length === 0) {
-      this.storage.set('delivery.cartShop', {});
-      this.shopIsVisible = false;
-    }
-    this.variables.setCartCount(this.cartItems.length);
+  removeItem(item, index) {
+    document.getElementById('item' + index).classList.remove('flipInX');
+    document.getElementById('item' + index).classList.add('fadeOutRightBig');
+    setTimeout(() => {
+      this.cartItems.splice(this.cartItems.findIndex((elem) => elem.itemCode === item.itemCode), 1);
+      this.totalAmount = 0;
+      this.cartItems.forEach((item) => {
+        this.totalAmount = this.totalAmount + (item.price * item.quantity);
+      })
+      this.storage.set('delivery.cart', this.cartItems);
+      this.storage.set('delivery.cartCount', this.cartItems.length);
+      if (this.cartItems.length === 0) {
+        this.storage.set('delivery.cartShop', {});
+        this.shopIsVisible = false;
+        this.cartIsEmpty = true;
+      }
+      this.variables.setCartCount(this.cartItems.length);
+    }, 350);
   }
 
   viewItem(item) {

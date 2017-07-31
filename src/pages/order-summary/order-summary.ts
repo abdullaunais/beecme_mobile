@@ -88,7 +88,6 @@ export class OrderSummaryPage {
 
   confirmOrder() {
     this.showLoading("Placing Order...");
-    this.checkoutComment = Variables.checkoutComment;
     this.storage.get('delivery.cart').then((cart) => {
       let cartItems: Array<any> = cart;
       cartItems.forEach((item) => {

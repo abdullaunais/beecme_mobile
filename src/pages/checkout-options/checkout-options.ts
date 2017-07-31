@@ -1,6 +1,5 @@
 import { Component, ViewChildren } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-import { Variables } from "../../providers/variables";
 import { Storage } from '@ionic/storage';
 import { UserService } from "../../providers/user-service";
 
@@ -67,7 +66,6 @@ export class CheckoutOptionsPage {
   }
 
   checkout() {
-    Variables.checkoutComment = this.checkoutComment;
     if (this.createAddress) {
       let addressObj = {
         cityId: this.city.id,

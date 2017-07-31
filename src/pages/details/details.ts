@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ActionSheetController, AlertController, ToastController, IonicPage, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ActionSheetController, AlertController, ToastController, IonicPage, LoadingController, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Variables } from "../../providers/variables";
 import { DeliveryService } from "../../providers/delivery-service";
@@ -37,6 +37,7 @@ export class DetailsPage {
     private variables: Variables,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
+    private modalCtrl: ModalController,
     private deliveryService: DeliveryService
   ) {
     this.item = navParams.data.item;
@@ -251,6 +252,15 @@ export class DetailsPage {
     if (!this.catLoading) {
       this.navCtrl.push('ItemList', { shop: this.shop, city: this.city, category: this.category });
     }
+  }
+
+  shopDetails(shop) {
+    let detailsModal = this.modalCtrl.create('ShopDetailsPage', { shop: shop });
+    detailsModal.present();
+    detailsModal.onDidDismiss((data) => {
+      if (data) {
+      }
+    });
   }
 
   goToCategory() {

@@ -9,7 +9,7 @@
         <button ion-button menuToggle  showWhen="android">
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title>Details</ion-title>
+        <ion-title>Details - {{ toTitleCase(item.nameEn) }}</ion-title>
         <!--<button ion-button icon-only menuToggle>-->
         <!--<ion-icon name="arrow-round-back"></ion-icon>-->
         <!--</button>-->
@@ -24,7 +24,7 @@
 
 
 <ion-content id="itemContent" no-margin no-padding class="page-details" parallax-header (ionScroll)="checkScroll($event)">
-    <div class="header-image" id="headerImage" #headerImage>
+    <div class="header-image" id="headerImage" #headerImage (press)="showImages()">
     </div>
 
     <div class="main-content" id="item-content" no-padding>
@@ -60,19 +60,19 @@
             <i>{{ item.comment }}</i>
         </div>
 
-        <div (tap)="showImages()" style="height: 15rem; overflow: overlay; white-space: nowrap;">
+        <div (press)="showImages()" style="height: 15rem; overflow: overlay; white-space: nowrap;">
             <div style="display: inline-block;">
-                <img *ngIf="item.img1" src="{{ item.img1 }}" class="item-image-scroll">
+                <img *ngIf="item.img1" src="{{ item.img1 }}" imageViewer class="item-image-scroll">
             </div>
             <div style="display: inline-block;">
-                <img *ngIf="item.img2" src="{{ item.img2 }}" class="item-image-scroll">
+                <img *ngIf="item.img2" src="{{ item.img2 }}" imageViewer class="item-image-scroll">
             </div>
             <div style="display: inline-block;">
-                <img *ngIf="item.img3" src="{{ item.img3 }}" class="item-image-scroll">
+                <img *ngIf="item.img3" src="{{ item.img3 }}" imageViewer class="item-image-scroll">
             </div>
         </div>
         <ion-list style="margin:2rem 0;background-color: transparent;">
-            <div ion-item no-lines (tap)="goToCategory();" style="border-top:1px solid #ddd; background-color: transparent;">
+            <button ion-item no-lines (tap)="goToCategory();" style="border-top:1px solid #ddd; background-color: transparent;">
                 <ion-avatar item-left *ngIf="!catLoading">
                     <img [src]="category.imageEn">
                 </ion-avatar>
@@ -89,8 +89,8 @@
                 <div style="display: flex; justify-content: space-between;">
                     <ion-spinner name="dots" *ngIf="catLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
                 </div>
-            </div>
-            <div ion-item no-lines (tap)="goToShop();" style="border-top:1px solid #ddd; background-color: transparent;">
+            </button>
+            <button ion-item no-lines (tap)="goToShop();" (press)="shopDetails(shop);" style="border-top:1px solid #ddd; background-color: transparent;">
                 <ion-avatar item-left *ngIf="!catLoading">
                     <img [src]="shop.profilePicture">
                 </ion-avatar>
@@ -107,7 +107,7 @@
                 <div style="display: flex; justify-content: space-between;">
                     <ion-spinner name="dots" *ngIf="catLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
                 </div>
-            </div>
+            </button>
             <div style="width:100%; height:6rem">
             </div>
         </ion-list>

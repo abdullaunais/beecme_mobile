@@ -32,7 +32,7 @@
   <ion-grid no-margin no-padding>
     <ion-row responsive-sm no-margin no-padding>
       <ion-col col-12 col-md-6 col-xl-4 no-margin no-padding *ngFor="let shop of shops; let i = index;">
-        <ion-card style="min-height: 15vh; height:auto; margin-bottom: 0;" (click)="viewShop(shop);">
+        <ion-card style="min-height: 15vh; height:auto; margin-bottom: 0;" (click)="viewShop(shop);" (press)="shopDetails($event, shop);">
           <ion-row style="min-height: 15vh; height:auto;">
             <ion-col col-4 class="shop-card-icon-col" [lazyLoad]="shop.profilePicture" [offset]="offset" [scrollObservable]="container.ionScroll">
             </ion-col>

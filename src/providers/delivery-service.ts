@@ -43,7 +43,7 @@ export class DeliveryService {
   }
 
   getShops(cityId, categoryId, start, offset): Promise<any> {
-    let queryParams = "?type=72&value=" + cityId + "&value=" + categoryId + "&start=" + start + "&offset=" + offset;
+    let queryParams = "?type=71&value=" + cityId + "&value=" + categoryId + "&start=" + start + "&offset=" + offset;
     let requestUrl: string = this.serviceRootUrl + this.SHOPS_URL + queryParams;
     return this.http.get(requestUrl, this.options).toPromise()
       .then(this.extractData)

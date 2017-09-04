@@ -5,3 +5,4 @@ plugins/
 platforms/
 npm-debug.log
 .vs/
+.sourcemaps/

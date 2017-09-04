@@ -102,8 +102,8 @@ export class CartPage {
   checkAmount() {
     this.storage.get('delivery.cartShop').then((cartShop) => {
       if (cartShop) {
-        if (cartShop.userId) {
-          if (this.totalAmount < cartShop.minOrderAmt) {
+        if (cartShop.shopId) {
+          if (this.totalAmount < cartShop.minOrderAmount) {
             this.presentToast("You should have at least " + cartShop.minOrderAmt + " worth items in this shop to checkout. Add some more items", 2000);
             return;
           } else {

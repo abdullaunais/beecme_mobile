@@ -106,7 +106,7 @@ export class OrderSummaryPage {
           // "dlvSchId": this.deliverySchedule.dlvSchId,
           "totalAmount": this.totalAmount + this.cartShop.deliveryCharge,
           "userId": this.user.userId,
-          "shopId": this.cartShop.userId,
+          "shopId": this.cartShop.shopId,
           "comment": this.checkoutComment,
           "currency": this.cartShop.currency,
         },

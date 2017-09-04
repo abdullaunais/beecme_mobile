@@ -52,8 +52,8 @@ export class ItemList {
   }
 
   initialize() {
-    let userId = this.shop['userId'];
-    this.deliveryService.getItemByShop(userId, this.start, this.offset).then((data) => {
+    let shopId = this.shop['shopId'];
+    this.deliveryService.getItemByShop(shopId, this.start, this.offset).then((data) => {
       if (data['itemlist']) {
         if (data['itemlist'].length > 0) {
           this.isAvailable = true;
@@ -79,8 +79,8 @@ export class ItemList {
   }
 
   refreshList(refresher) {
-    let userId = this.shop['userId'];
-    this.deliveryService.getItemByShop(userId, 0, this.offset).then((data) => {
+    let shopId = this.shop['shopId'];
+    this.deliveryService.getItemByShop(shopId, 0, this.offset).then((data) => {
       if (data['itemlist']) {
         if (data['itemlist'].length > 0) {
           this.items = [];
@@ -108,10 +108,10 @@ export class ItemList {
   }
 
   paginate(infiniteScroll) {
-    let userId = this.shop['userId'];
+    let shopId = this.shop['shopId'];
     this.noMoreItems = false;
     this.start++;
-    this.deliveryService.getItemByShop(userId, this.start, this.offset).then((data) => {
+    this.deliveryService.getItemByShop(shopId, this.start, this.offset).then((data) => {
       let itemArray = data['itemlist'];
       if (itemArray) {
         if (itemArray.length > 0) {

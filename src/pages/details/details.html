@@ -41,9 +41,9 @@
                     <ion-icon name="checkmark-circle" color="secondary"></ion-icon>
                     <div class="item-status color-secondary">&nbsp;AVAILABLE</div>
                 </div>
-                <div class="item-status-wrapper animated fadeIn" *ngIf="item.qty > 0">
-                    <ion-icon name="ios-leaf" color="primary"></ion-icon>
-                    <div class="item-status color-primary">&nbsp;FRESH</div>
+                <div class="item-status-wrapper animated fadeIn">
+                    <ion-icon name="star" style="color:#ffd700;"></ion-icon>
+                    <div class="item-status"  style="color:#ffd700;">&nbsp;BEST BUY</div>
                 </div>
                 <div class="item-status-wrapper animated fadeIn" *ngIf="item.bestBuy > 0">
                     <ion-icon name="star" color="gold"></ion-icon>
@@ -93,7 +93,7 @@
                 <ion-avatar item-left *ngIf="!catLoading">
                     <img [src]="shop.profilePicture">
                 </ion-avatar>
-                <h2 *ngIf="!catLoading">{{shop.username}}</h2>
+                <h2 *ngIf="!catLoading">{{shop.shopName}}</h2>
                 <div class="item-status-wrapper" *ngIf="!catLoading">
                     <ion-icon name="cart" style="color: #666;"></ion-icon>
                     <div class="item-status" style="color: #666;">&nbsp;SELECTED SHOP</div>

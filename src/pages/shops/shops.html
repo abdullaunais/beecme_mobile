@@ -9,7 +9,7 @@
     <button ion-button menuToggle showWhen="android">
                 <ion-icon name="menu"></ion-icon>
             </button>
-    <ion-title ng-style="color:white;">{{ category.nameEn }} Shops</ion-title>
+    <ion-title ng-style="color:white;">{{ category?.nameEn }}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (tap)="openCart()">
                 <ion-icon name="cart"></ion-icon>
@@ -21,7 +21,7 @@
 
 <ion-content class="page-shops" #container>
   <div style="display: flex; justify-content: space-between;">
-    <ion-label *ngIf="!isAvailable && !isLoading" style="text-align: center; width: 100%; color: #999; white-space: inherit; margin: 8vw;">No Shops available under {{ category.nameEn }}. Please try a different category</ion-label>
+    <ion-label *ngIf="!isAvailable && !isLoading" style="text-align: center; width: 100%; color: #999; white-space: inherit; margin: 8vw;">No Shops available under {{ category?.nameEn }}. Please try a different category</ion-label>
     <ion-spinner name="dots" *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
   </div>
 
@@ -38,7 +38,7 @@
             </ion-col>
             <ion-col col-8 class="shop-card-content-col">
               <ion-card-content class="shop-card-content">
-                <ion-card-title class="shop-card-content-title">{{ toTitleCase(shop.shopName) }}</ion-card-title>
+                <ion-card-title class="shop-card-content-title">{{ toTitleCase(shop?.shopName) }}</ion-card-title>
                 <ion-icon name="information-circle" color="ui-theme" (click)="shopDetails($event, shop)" item-right style="position: absolute; top: 0.2rem; right: 0.4rem;padding: 0;font-size: 2.2rem;"></ion-icon>
                 <div style="margin-bottom: 1vh; white-space: nowrap; overflow: overlay;">
                   <ion-badge class="shop-card-content-badge" *ngFor="let keyword of shop.keywordsArray">{{ keyword.toLowerCase() }}</ion-badge>
@@ -46,11 +46,11 @@
                 <div style="margin: 1rem 0;">
                   <button ion-button class="shop-card-content-button" style="background-color: #ffc7c7;">
                 <img src="assets/img/ui_icons/icon_truck_white.png" class="shop-card-content-button-image btn-danger"/>
-                &nbsp;{{ shop.deliveryCharge }} {{ shop.currency }}&nbsp;
+                &nbsp;{{ shop?.currency }} {{ shop?.deliveryCharge }}&nbsp;
             </button>
                   <button ion-button class="shop-card-content-button" style="background-color: #ffe6ba;">
                 <img src="assets/img/ui_icons/icon_meter_white.png" class="shop-card-content-button-image btn-warning"/>
-                &nbsp;{{ shop.minOrderAmount }} {{ shop.currency }}&nbsp;
+                &nbsp;{{ shop?.currency }} {{ shop?.minOrderAmount }}&nbsp;
             </button>
                 </div>
               </ion-card-content>

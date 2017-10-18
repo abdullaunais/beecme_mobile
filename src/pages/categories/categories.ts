@@ -70,21 +70,14 @@ export class Categories {
       let json = JSON.stringify(data);
       let catArray = JSON.parse(json);
       if (catArray) {
-        if (catArray.length > 1) {
-          catArray.splice(0, 1);
-          let timeout = 0;
-          catArray.forEach(cat => {
-            setTimeout(() => {
-              this.categories.push(cat);
-            }, timeout+=100)
-          })
-          // this.rows = Array.from(Array(Math.ceil(this.categories.length / 2)).keys());
-          this.isAvailable = true;
-          this.isError = false;
-        } else {
-          this.isAvailable = false;
-          this.isError = false;
-        }
+        let timeout = 0;
+        catArray.forEach(cat => {
+          setTimeout(() => {
+            this.categories.push(cat);
+          }, timeout += 100)
+        });
+        this.isAvailable = true;
+        this.isError = false;
       } else {
         this.isAvailable = false;
         this.isError = false;

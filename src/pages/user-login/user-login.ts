@@ -167,28 +167,25 @@ export class UserLoginPage {
     if (this.loginForm.controls.formEmail.errors) {
       isValid = false;
       formIndex = 0;
-      if (this.loginForm.controls.formEmail.errors.required) {
+      if (this.loginForm.controls.formEmail.errors.required)
         message = "Email is required";
-        this.validationArray.push({ message: message, valid: isValid, index: formIndex });
-      } else if (this.loginForm.controls.formEmail.errors.minlength) {
-        message = "Email is not a valid format";;
-        this.validationArray.push({ message: message, valid: isValid, index: formIndex });
-      } else if (this.loginForm.controls.formEmail.errors.email) {
+      else if (this.loginForm.controls.formEmail.errors.minlength)
         message = "Email is not a valid format";
-        this.validationArray.push({ message: message, valid: isValid, index: formIndex });
-      }
+      else if (this.loginForm.controls.formEmail.errors.email)
+        message = "Email is not a valid format";
+
+      this.validationArray.push({ message: message, valid: isValid, index: formIndex });
     }
 
     if (this.loginForm.controls.formPassword.errors) {
       isValid = false;
       formIndex = 1;
-      if (this.loginForm.controls.formPassword.errors.required) {
+      if (this.loginForm.controls.formPassword.errors.required)
         message = "Password is required";
-        this.validationArray.push({ message: message, valid: isValid, index: formIndex });
-      } else if (this.loginForm.controls.formPassword.errors.minlength) {
+      else if (this.loginForm.controls.formPassword.errors.minlength)
         message = "Password should be at least 6 charaters long";
-        this.validationArray.push({ message: message, valid: isValid, index: formIndex });
-      }
+
+      this.validationArray.push({ message: message, valid: isValid, index: formIndex });
     }
 
     // console.log(this.loginPressed);

@@ -3,7 +3,7 @@
         <button ion-button menuToggle showWhen="android">
                 <ion-icon name="menu"></ion-icon>
             </button>
-        <ion-title ng-style="color:white;">{{ shop.username }}</ion-title>
+        <ion-title ng-style="color:white;">{{ shop?.shopName }}</ion-title>
         <ion-buttons end>
             <button ion-button icon-only (tap)="openCart()">
                 <ion-icon name="cart"></ion-icon>

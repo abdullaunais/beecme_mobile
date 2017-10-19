@@ -10,8 +10,8 @@
     <!-- <ion-title>{{shop.username}}</ion-title> -->
     <ion-buttons end>
       <button ion-button icon-only (tap)="closeModal();">
-              <ion-icon name="close"></ion-icon>
-         </button>
+        <ion-icon name="close"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 
@@ -19,7 +19,7 @@
 
 
 <ion-content class="page-shop-details" #container>
-  <div class="profile-pic" [defaultImage]="'assets/img/cover/cover.webp'" [lazyLoad]="shop.profilePicture" [scrollObservable]="container.ionScroll">
+  <div class="profile-pic" [defaultImage]="'assets/img/cover/cover.webp'" [lazyLoad]="shop?.profileUrl" [scrollObservable]="container.ionScroll">
   </div>
   <h2 style="font-size:2rem; overflow:hidden; text-overflow: ellipsis; white-space:nowrap; padding: 1rem 1.6rem;margin: 0; background-color: #f5f5f5;">{{shop.shopName}}</h2>
   <div style="margin-bottom:0.2rem; white-space: nowrap; overflow: overlay; padding: 0 1.6rem 1.6rem 1.6rem;background-color: #f5f5f5;">
@@ -29,23 +29,32 @@
 
     <ion-item>
       <ion-icon name="car" color="ui-theme" item-start></ion-icon>
-      <ion-label  color="ui-theme">Delivery Fee</ion-label>
+      <ion-label color="ui-theme">Delivery Fee</ion-label>
       <ion-label item-end style="text-align: right;" color="ui-theme">
-        {{ (shop.deliveryCharge !== 0) ? (shop.currency + " " + shop.deliveryCharge + " ") : '' }}
+        {{ (shop?.deliveryCharge !== 0) ? (shop?.currency + " " + shop?.deliveryCharge + " ") : '' }}
         <ion-badge *ngIf="shop.deliveryCharge === 0" color="ui-theme">FREE!</ion-badge>
       </ion-label>
     </ion-item>
 
     <ion-item>
       <ion-icon name="speedometer" color="warning" item-start></ion-icon>
-      <ion-label  color="warning">Minimum Order</ion-label>
-      <ion-label  color="warning" item-end style="text-align: right;">{{ shop.minOrderAmount + " " + shop.currency }}</ion-label>
+      <ion-label color="warning">Minimum Order</ion-label>
+      <ion-label color="warning" item-end style="text-align: right;">{{ shop?.currency + " " + shop?.minOrderAmount }}</ion-label>
     </ion-item>
 
     <ion-item>
       <ion-icon name="at" color="primary" item-start></ion-icon>
-      <ion-label item-end style="text-align: left;" color="primary">{{ shop.email }}</ion-label>
+      <ion-label item-end style="text-align: left;" color="primary">email@shop.com</ion-label>
       <ion-icon name="ios-arrow-forward" color="primary" item-end></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="call" color="primary" item-start></ion-icon>
+      <ion-label item-end style="text-align: left;" color="primary">{{ shop?.phoneHotline }}</ion-label>
+      <ion-label item-end style="text-align: right;" color="primary">
+        <ion-badge color="primary">Hotline</ion-badge>
+      </ion-label>
+      <!-- <ion-icon name="ios-arrow-forward" color="primary" item-end></ion-icon> -->
     </ion-item>
 
   </ion-list>

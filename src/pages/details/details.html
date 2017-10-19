@@ -33,7 +33,7 @@
             <div ion-item no-lines class="item-title animated fadeIn">
                 {{ toTitleCase(item.nameEn) }}
                 <button ion-button color="light" (tap)="validateCart()" item-end class="btn-cart-add">
-                    <ion-icon name="cart"></ion-icon>&nbsp;&nbsp;{{ item.price }} {{shop.currency}}/{{ item.unit }}
+                    <ion-icon name="cart"></ion-icon>&nbsp;&nbsp;{{ item?.price }} {{shop?.currency}}/{{ item?.unit }}
                 </button>
             </div>
             <div style="padding-bottom:1rem;">

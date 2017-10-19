@@ -34,7 +34,7 @@
       <ion-col col-12 col-md-6 col-xl-4 no-margin no-padding *ngFor="let shop of shops; let i = index;" class="animated flipInX">
         <ion-card style="min-height: 15vh; height:auto; margin-bottom: 0;" (click)="viewShop(shop);" (press)="shopDetails($event, shop);">
           <ion-row style="min-height: 15vh; height:auto;">
-            <ion-col col-4 class="shop-card-icon-col" [lazyLoad]="shop.profilePicture" [offset]="offset" [scrollObservable]="container.ionScroll">
+            <ion-col col-4 class="shop-card-icon-col" [lazyLoad]="shop?.profileUrl" [offset]="offset" [scrollObservable]="container.ionScroll">
             </ion-col>
             <ion-col col-8 class="shop-card-content-col">
               <ion-card-content class="shop-card-content">

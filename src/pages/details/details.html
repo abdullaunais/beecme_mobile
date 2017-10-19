@@ -73,16 +73,16 @@
         <ion-list style="margin:2rem 0;background-color: transparent;">
             <button ion-item no-lines (tap)="goToCategory();" style="border-top:1px solid #ddd; background-color: transparent;">
                 <ion-avatar item-left *ngIf="!catLoading">
-                    <img [src]="category.imageEn">
+                    <img [src]="category?.imageEn">
                 </ion-avatar>
-                <h2 *ngIf="!catLoading">{{category.nameEn}}</h2>
+                <h2 *ngIf="!catLoading">{{category?.nameEn}}</h2>
                 <div class="item-status-wrapper" *ngIf="!catLoading">
                     <ion-icon name="basket" style="color: #666;"></ion-icon>
                     <div class="item-status" style="color: #666;">&nbsp;CATEGORY</div>
                 </div>
                 <ion-note item-end style="margin:0 !important;" *ngIf="!catLoading">
                     <button ion-button round icon-only class="item-action-button">
-                        <ion-icon name="ios-arrow-forward" style="color: #666;"></ion-icon>
+                        <ion-icon name="ios-arrow-forward" showWhen="android" style="color: #666;"></ion-icon>
                     </button>
             </ion-note>
             <div style="display: flex; justify-content: space-between;">
@@ -91,16 +91,16 @@
             </button>
             <button ion-item no-lines (tap)="goToShop();" (press)="shopDetails(shop);" style="border-top:1px solid #ddd; background-color: transparent;">
                 <ion-avatar item-left *ngIf="!catLoading">
-                    <img [src]="shop.profilePicture">
+                    <img [src]="shop?.profileUrl">
                 </ion-avatar>
-                <h2 *ngIf="!catLoading">{{shop.shopName}}</h2>
+                <h2 *ngIf="!catLoading">{{shop?.shopName}}</h2>
                 <div class="item-status-wrapper" *ngIf="!catLoading">
                     <ion-icon name="cart" style="color: #666;"></ion-icon>
                     <div class="item-status" style="color: #666;">&nbsp;SELECTED SHOP</div>
                 </div>
                 <ion-note item-end style="margin:0 !important;" *ngIf="!catLoading">
                     <button ion-button round icon-only class="item-action-button">
-                        <ion-icon name="ios-arrow-forward" style="color: #666;"></ion-icon>
+                        <ion-icon name="ios-arrow-forward" showWhen="android" style="color: #666;"></ion-icon>
                     </button>
             </ion-note>
             <div style="display: flex; justify-content: space-between;">

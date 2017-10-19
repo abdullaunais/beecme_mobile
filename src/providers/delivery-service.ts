@@ -64,8 +64,8 @@ export class DeliveryService {
   }
 
   getItemByShop(shopId, start, offset): Promise<any> {
-    let queryParams = "?type=17&value=" + shopId + "&start=" + start + "&offset=" + offset;
-    let requestUrl: string = this.serviceRootUrl + this.ITEM_URL + queryParams;
+    // let queryParams = "?type=17&value=" + shopId + "&start=" + start + "&offset=" + offset;
+    let requestUrl: string = this.serviceRootUrl + this.ITEM_SHOP_URL + `/${shopId}?start=${start}&offset=${offset}`;
     return this.http.get(requestUrl, this.options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);

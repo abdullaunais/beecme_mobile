@@ -1,8 +1,8 @@
 <ion-header>
     <ion-navbar color="ui-theme">
         <button ion-button menuToggle showWhen="android">
-                <ion-icon name="menu"></ion-icon>
-            </button>
+            <ion-icon name="menu"></ion-icon>
+        </button>
         <ion-title ng-style="color:white;">{{ shop?.shopName }}</ion-title>
         <ion-buttons end>
             <button ion-button icon-only (tap)="openCart()">
@@ -38,15 +38,15 @@
             <ion-col col-12 col-sm-6 col-lg-4 *ngFor="let item of items; let i = index;" no-margin no-padding class="animated flipInX">
                 <ion-card style="height: 10rem; margin-bottom: 0; margin-right: 0;" (click)="viewDetails(item);">
                     <ion-row style="height: 10rem;">
-                        <ion-col col-3 class="item-card-icon-col" [lazyLoad]="item.img1" [offset]="offset" [scrollObservable]="container.ionScroll">
+                        <ion-col col-3 class="item-card-icon-col" [lazyLoad]="item?.img1" [offset]="offset" [scrollObservable]="container.ionScroll">
                         </ion-col>
                         <ion-col col-9 class="item-card-content-col">
                             <ion-card-content class="item-card-content">
-                                <ion-card-title class="item-card-content-title">{{ toTitleCase(item.nameEn) }}</ion-card-title>
-                                <p class="item-card-content-desc">{{ item.descriptionEn }}</p>
+                                <ion-card-title class="item-card-content-title">{{ toTitleCase(item?.nameEn) }}</ion-card-title>
+                                <p class="item-card-content-desc">{{ item?.descriptionEn }}</p>
                                 <img src="assets/img/ui_icons/add_shopping_cart_theme.svg" (click)="validateCart($event, item)" class="item-card-btn-cart">
                                 <ion-label class="item-card-content-price">
-                                    {{ item.price }} SAR/{{ item.unit.toUpperCase() }}
+                                    {{shop?.currency}} {{ item?.price }}/{{ item?.unit.toUpperCase() }}
                                 </ion-label>
                             </ion-card-content>
                         </ion-col>

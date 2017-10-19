@@ -18,7 +18,7 @@ export class Categories {
   categories: Array<any> = [];
   rows: Array<any> = [];
   selectedCategory: string;
-  defaultImage: string = "assets/img/ui_icons/loading-loop-cover.webp";
+  defaultImage: string = "assets/img/ui_icons/loading-loop-cover.gif";
 
   watchCart: Subscription;
   cartCount: number = 0;

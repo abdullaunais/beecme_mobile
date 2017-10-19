@@ -10,7 +10,8 @@
     ion-card {
         position: relative;
         text-align: center;
-        height: 40vmin;
+        height: 54vmin;
+        border-radius: 0.5rem;
         background-size: cover;
         object-fit: cover;
         background-position: 50%; // background-color: #eee;
@@ -20,36 +21,49 @@
     .card-button {
         height: 100%;
         padding: 0;
+        margin: 0;
         .button-effect {
             background-color: #fff;
             opacity: .3;
         }
     }
-    .card-title {
-        text-align: center;
-        font-size: 2.4rem;
-        display: block;
-        text-transform: uppercase;
+    .card-image {
+        height: 42vmin;
         width: 100%;
+        background-size: cover;
+        background-position: 50% 50%;
+        border-bottom: 1px solid #eee;
+        box-shadow: inset 0px 0px 10px 3px #ddd;
+    }
+    .card-title {
+        text-align: left;
+        font-size: 1.8rem;
+        line-height: 6vmin;
+        // display: block;
+        text-transform: uppercase;
+        // width: 100%;
+        padding: 0.3rem 1rem 0 1rem;
         font-weight: bold;
-        color: #fff;
-        text-shadow: 1px 2px 5px #000;
+        color: #666;
+        // text-shadow: 1px 2px 5px #000;
         min-height: auto;
         .label {
             margin: 0;
         }
     }
     .card-subtitle {
-        margin: 0.5rem auto 0 auto;
-        font-size: 1.3rem;
-        font-style: italic;
-        text-align: center;
-        background-color: transparent;
-        display: block;
-        width: 85%;
-        color: #fff;
-        text-shadow: 1px 1px 3px #000;
-        min-height: auto;
+        // margin: 0.5rem auto 0 auto;
+        font-size: 1.2rem;
+        font-weight: 300;
+        text-align: left;
+        padding: 0 1rem;
+        line-height: 3.5vmin;
+        // background-color: transparent;
+        // display: block;
+        // width: 85%;
+        color: #888;
+        // text-shadow: 1px 1px 3px #000;
+        // min-height: auto;
         .label {
             margin: 0;
         }

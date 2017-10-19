@@ -89,5 +89,5 @@
 </ion-content>
 
 <ion-footer class="cartFooter" *ngIf="cartItems.length > 0" no-shadow>
-  <button class="cartButton" (tap)="checkAmount();">CHECKOUT (  {{totalAmount}} {{ cartShop.currency }} )</button>
+  <button class="cartButton" (tap)="checkAmount();">CHECKOUT &nbsp;|&nbsp; {{ cartShop?.currency }} {{totalAmount}}</button>
 </ion-footer>

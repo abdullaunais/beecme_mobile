@@ -24,9 +24,9 @@
 
   <ion-card ion-item no-lines class="cart-status" *ngIf="shopIsVisible">
     <ion-avatar item-left>
-      <img [src]="cartShop.profilePicture">
+      <img [src]="cartShop.profileUrl">
     </ion-avatar>
-    <h2 style="color: #607D8B; font-weight: 700;">{{cartShop.username}}</h2>
+    <h2 style="color: #607D8B; font-weight: 700;">{{cartShop.shopName}}</h2>
     <div class="item-status-wrapper">
       <ion-icon name="cart"></ion-icon>
       <div class="item-status">&nbsp;CURRENTLY ACTIVE</div>
@@ -47,7 +47,7 @@
                 </ion-card-title>
               </ion-card-content>
               <ion-card-content class="item-card-content-desc" style="padding: 0rem 2rem 0 0.8rem;">
-                <ion-badge style="font-size:1.3rem;">{{ item.quantity + " " + item.unit.toUpperCase() + " X "}}{{item.price + " " + cartShop.currency}}</ion-badge>
+                <ion-badge style="font-size:1.3rem;">{{ item.quantity + " " + item.unit.toUpperCase() + " X "}}{{cartShop.currency + " " + item.price}}</ion-badge>
               </ion-card-content>
               <ion-card-content style="padding: 0.4rem 2rem 2rem 1rem;">
                 <p class="item-card-content-desc" no-margin *ngIf="item.commentDtl">
@@ -76,7 +76,7 @@
             <ion-col text-center style="padding:0">
               <button ion-button color="primary" clear small class="btnCartAction">
           <ion-icon name="pricetag" style="font-size: 2.5rem;"></ion-icon>
-          &nbsp;{{item.quantity*item.price}} {{cartShop.currency}}
+          &nbsp;{{cartShop.currency}} {{item.quantity*item.price}}
         </button>
             </ion-col>
           </ion-row>

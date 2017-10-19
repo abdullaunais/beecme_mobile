@@ -31,7 +31,7 @@ export class UserService {
     this.http = httpService;
     this.headers = new Headers({ 'Content-Type': 'application/json' });
     this.options = new RequestOptions({ headers: this.headers });
-    this.serviceRootUrl = config.serverUrl + "/delivery";
+    this.serviceRootUrl = config.serverUrl;
   }
 
   registerUser(user): Promise<any> {

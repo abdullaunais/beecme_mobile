@@ -12,26 +12,23 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class UserService {
+  private headers: Headers;
+  private options: RequestOptions;
 
-  http: Http;
-  headers: Headers;
-  options: RequestOptions;
+  private serviceRootUrl: string;
 
-  serviceRootUrl: string;
+  private readonly REGISTER_URL = "/register";  // post
+  private readonly GET_USER_URL = "/users"; // +username, get
+  private readonly UPDATE_USER_URL = "/users"; // +email/reset
+  private readonly AUTHENTICATE_LOGIN = "/auth"; // post
+  private readonly FORGOT_PASSWORD = "/mails"; // post
+  private readonly ADDRESS_URL = "/users/address"; //+userId
+  private readonly UPLOAD_PICTURE = "/users/upload"; //+userId 
 
-  REGISTER_URL = "/register";  // post
-  GET_USER_URL = "/users"; // +username, get
-  UPDATE_USER_URL = "/users"; // +email/reset
-  AUTHENTICATE_LOGIN = "/auth"; // post
-  FORGOT_PASSWORD = "/mails"; // post
-  ADDRESS_URL = "/users/address"; //+userId
-  UPLOAD_PICTURE = "/users/upload"; //+userId 
-
-  constructor(public httpService: Http, public config: Config) {
-    this.http = httpService;
+  constructor(private http: Http, public config: Config) {
     this.headers = new Headers({ 'Content-Type': 'application/json' });
     this.options = new RequestOptions({ headers: this.headers });
-    this.serviceRootUrl = config.serverUrl;
+    this.serviceRootUrl = config.getServerUrl();
   }
 
   registerUser(user): Promise<any> {
@@ -40,7 +37,7 @@ export class UserService {
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({ headers: headers });
 
-    let requestUrl: string = this.serviceRootUrl + this.REGISTER_URL;
+    const requestUrl: string = this.serviceRootUrl + this.REGISTER_URL;
     return this.http.post(requestUrl, body, options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
@@ -52,7 +49,7 @@ export class UserService {
     headers.append('Authorization', authToken);
     let options = new RequestOptions({ headers: headers });
 
-    let requestUrl: string = this.serviceRootUrl + this.UPLOAD_PICTURE + "/" + userId
+    const requestUrl: string = this.serviceRootUrl + this.UPLOAD_PICTURE + "/" + userId
     return this.http.post(requestUrl, image, options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
@@ -64,7 +61,7 @@ export class UserService {
     headers.append('Authorization', authToken);
     let options = new RequestOptions({ headers: headers });
 
-    let requestUrl: string = this.serviceRootUrl + this.GET_USER_URL + "/" + userId;
+    const requestUrl: string = this.serviceRootUrl + this.GET_USER_URL + "/" + userId;
     return this.http.get(requestUrl, options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
@@ -77,7 +74,7 @@ export class UserService {
     headers.append('Authorization', authToken);
     let options = new RequestOptions({ headers: headers });
 
-    let requestUrl: string = this.serviceRootUrl + this.UPDATE_USER_URL + "/" + user.email + "/reset";
+    const requestUrl: string = this.serviceRootUrl + this.UPDATE_USER_URL + "/" + user.email + "/reset";
     return this.http.put(requestUrl, body, options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
@@ -93,14 +90,14 @@ export class UserService {
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({ headers: headers });
 
-    let requestUrl: string = this.serviceRootUrl + this.AUTHENTICATE_LOGIN;
+    const requestUrl: string = this.serviceRootUrl + this.AUTHENTICATE_LOGIN;
     return this.http.post(requestUrl, body, options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
 
   forgotPassword(email): Promise<any> {
-    let request = {
+    const request = {
       PASSWORD_RESET: 1,
       email: email,
       subject: 1
@@ -110,7 +107,7 @@ export class UserService {
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({ headers: headers });
 
-    let requestUrl: string = this.serviceRootUrl + this.FORGOT_PASSWORD;
+    const requestUrl: string = this.serviceRootUrl + this.FORGOT_PASSWORD;
     return this.http.post(requestUrl, body, options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
@@ -122,14 +119,14 @@ export class UserService {
     headers.append('Authorization', authToken);
     let options = new RequestOptions({ headers: headers });
 
-    let requestUrl: string = this.serviceRootUrl + this.ADDRESS_URL + "/" + userId;
+    const requestUrl: string = this.serviceRootUrl + this.ADDRESS_URL + `/${userId}`;
     return this.http.get(requestUrl, options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
 
   private extractData(res: Response) {
-    let body = res.json();
+    const body = res.json();
     return body || {};
   }
 

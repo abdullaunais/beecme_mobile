@@ -12,32 +12,36 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class DeliveryService {
-  headers: Headers;
-  options: RequestOptions;
+  private headers: Headers;
+  private options: RequestOptions;
 
-  serviceRootUrl: string;
+  private serviceRootUrl: string;
 
   private readonly LOCATION_URL = '/locations';
   private readonly SHOP_URL = '/shops';
   private readonly CATEGORY_URL = '/categories';
   private readonly ITEM_URL = '/items';
   private readonly ITEM_SHOP_URL = '/shopitems';
-  private readonly SCHEDULE_URL = '/schedules';
   private readonly ORDER_URL = '/carts';
   private readonly REVIEW_URL = '/reviews';
-  private readonly DASHBOARD_COUNTS_URL = '/dashboard/counts';
-  private readonly SEARCH_URL = '/dashboard/search';
+  // private readonly DASHBOARD_COUNTS_URL = '/dashboard/counts';
+  // private readonly SEARCH_URL = '/dashboard/search';
 
 
   constructor(private http: Http, public config: Config) {
     this.headers = new Headers({ 'Content-Type': 'application/json' });
     this.options = new RequestOptions({ headers: this.headers });
-    this.serviceRootUrl = config.serverUrl;
+    this.serviceRootUrl = config.getServerUrl();
   }
 
   getLocation(type, value, start, offset): Promise<any> {
-    let queryParams = "?type=" + type + "&value=" + value + "&start=" + start + "&offset=" + offset;
-    let requestUrl: string = this.serviceRootUrl + this.LOCATION_URL + queryParams;
+    const queryParams = {
+      type: type,
+      value: value,
+      start: start,
+      offset: offset
+    };
+    const requestUrl: string = this.serviceRootUrl + this.LOCATION_URL + this.encodeQueryData(queryParams);
     return this.http.get(requestUrl, this.options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
@@ -57,45 +61,58 @@ export class DeliveryService {
   }
 
   getCategories(cityId): Promise<any> {
-    let requestUrl: string = this.serviceRootUrl + this.CATEGORY_URL + "/" + cityId;
+    const requestUrl: string = this.serviceRootUrl + this.CATEGORY_URL + `/ ${cityId}`;
     return this.http.get(requestUrl, this.options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
 
   getItemByShop(shopId, start, offset): Promise<any> {
-    // let queryParams = "?type=17&value=" + shopId + "&start=" + start + "&offset=" + offset;
-    let requestUrl: string = this.serviceRootUrl + this.ITEM_SHOP_URL + `/${shopId}?start=${start}&offset=${offset}`;
+    const queryParams = {
+      start: start,
+      offset: offset
+    };
+    const requestUrl: string = this.serviceRootUrl + this.ITEM_SHOP_URL + `/${shopId}` + this.encodeQueryData(queryParams);
     return this.http.get(requestUrl, this.options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
 
-  findItem(itemCode) {
-    let requestUrl: string = this.serviceRootUrl + this.ITEM_URL + "/" + itemCode;
-    return this.http.get(requestUrl, this.options).toPromise()
-      .then(this.extractData)
-      .catch(this.handleError);
-  }
+  // findItem(itemCode) {
+  //   const requestUrl: string = this.serviceRootUrl + this.ITEM_URL + `/${itemCode}`;
+  //   return this.http.get(requestUrl, this.options).toPromise()
+  //     .then(this.extractData)
+  //     .catch(this.handleError);
+  // }
 
   getItemByCategory(category, start, offset): Promise<any> {
-    let queryParams = "?type=11&value=" + category + "&start=" + start + "&offset=" + offset;
-    let requestUrl: string = this.serviceRootUrl + this.ITEM_URL + queryParams;
+    const queryParams = {
+      type: 11,
+      value: category,
+      start: start,
+      offset: offset
+    };
+    const requestUrl: string = this.serviceRootUrl + this.ITEM_URL + this.encodeQueryData(queryParams);
     return this.http.get(requestUrl, this.options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
 
   // getSchedules(cityId): Promise<any> {
-  //   let requestUrl: string = this.serviceRootUrl + this.SCHEDULES_URL + "?city=" + cityId;
+  //   const requestUrl: string = this.serviceRootUrl + this.SCHEDULES_URL + "?city=" + cityId;
   //   return this.http.get(requestUrl, this.options).toPromise()
   //     .then(this.extractData)
   //     .catch(this.handleError);
   // }
 
   getOrders(userId, start, offset): Promise<any> {
-    let queryParams = "?type=32&value=" + userId + "&start=" + start + "&offset=" + offset;
-    let requestUrl: string = this.serviceRootUrl + this.ORDER_URL + queryParams;
+    const queryParams = {
+      type: 32,
+      value: userId,
+      start: start,
+      offset: offset
+    };
+    const requestUrl: string = this.serviceRootUrl + this.ORDER_URL + this.encodeQueryData(queryParams);
     return this.http.get(requestUrl, this.options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
@@ -108,7 +125,7 @@ export class DeliveryService {
     headers.append('Authorization', authToken)
     let options = new RequestOptions({ headers: headers });
 
-    let requestUrl: string = this.serviceRootUrl + this.ORDER_URL;
+    const requestUrl: string = this.serviceRootUrl + this.ORDER_URL;
     return this.http.post(requestUrl, body, options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);
@@ -121,7 +138,7 @@ export class DeliveryService {
     headers.append('Authorization', authToken)
     let options = new RequestOptions({ headers: headers });
 
-    let requestUrl: string = this.serviceRootUrl + this.REVIEW_URL;
+    const requestUrl: string = this.serviceRootUrl + this.REVIEW_URL;
     return this.http.post(requestUrl, body, options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);

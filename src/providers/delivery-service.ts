@@ -22,10 +22,12 @@ export class DeliveryService {
   private readonly CATEGORY_URL = '/categories';
   private readonly ITEM_URL = '/items';
   private readonly ITEM_SHOP_URL = '/shopitems';
+  private readonly SCHEDULE_URL = '/schedules';
   private readonly ORDER_URL = '/carts';
   private readonly REVIEW_URL = '/reviews';
-  // private readonly DASHBOARD_COUNTS_URL = '/dashboard/counts';
-  // private readonly SEARCH_URL = '/dashboard/search';
+  private readonly DASHBOARD_COUNTS_URL = '/dashboard/counts';
+  private readonly SEARCH_URL = '/dashboard/search';
+  private readonly NOTIFICATIONS_URL = '/notifications';
 
 
   constructor(private http: Http, public config: Config) {
@@ -60,6 +62,13 @@ export class DeliveryService {
       .catch(this.handleError);
   }
 
+  getShopById(cityId, shopId): Promise<any> {
+    const requestUrl: string = this.serviceRootUrl + this.SHOP_URL + `/${cityId}/${shopId}`;
+    return this.http.get(requestUrl, this.options).toPromise()
+      .then((res) => this.extractData(res))
+      .catch((err) => this.handleError(err));
+  }
+
   getCategories(cityId): Promise<any> {
     const requestUrl: string = this.serviceRootUrl + this.CATEGORY_URL + `/ ${cityId}`;
     return this.http.get(requestUrl, this.options).toPromise()
@@ -78,12 +87,19 @@ export class DeliveryService {
       .catch(this.handleError);
   }
 
-  // findItem(itemCode) {
-  //   const requestUrl: string = this.serviceRootUrl + this.ITEM_URL + `/${itemCode}`;
-  //   return this.http.get(requestUrl, this.options).toPromise()
-  //     .then(this.extractData)
-  //     .catch(this.handleError);
-  // }
+  getDashboardCounts(cityId: number) {
+    const requestUrl: string = this.serviceRootUrl + this.DASHBOARD_COUNTS_URL + `/${cityId}`;
+    return this.http.get(requestUrl, this.options).toPromise()
+      .then((res) => this.extractData(res))
+      .catch((err) => this.handleError(err));
+  }
+
+  getNotifications(userId: number) {
+    const requestUrl: string = this.serviceRootUrl + this.NOTIFICATIONS_URL + `/${userId}`;
+    return this.http.get(requestUrl, this.options).toPromise()
+      .then((res) => this.extractData(res))
+      .catch((err) => this.handleError(err));
+  }
 
   getItemByCategory(category, start, offset): Promise<any> {
     const queryParams = {
@@ -104,6 +120,18 @@ export class DeliveryService {
   //     .then(this.extractData)
   //     .catch(this.handleError);
   // }
+
+  searchItems(cityId: number, keyword: string, start: number, offset: number): Promise<any> {
+    const queryParams = {
+      key: keyword,
+      start: start,
+      offset: offset
+    };
+    const requestUrl: string = this.serviceRootUrl + this.SEARCH_URL + `/${cityId}` + this.encodeQueryData(queryParams);
+    return this.http.get(requestUrl, this.options).toPromise()
+      .then((res) => this.extractData(res))
+      .catch((err) => this.handleError(err));
+  }
 
   getOrders(userId, start, offset): Promise<any> {
     const queryParams = {

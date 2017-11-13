@@ -22,7 +22,6 @@ export class DeliveryService {
   private readonly CATEGORY_URL = '/categories';
   private readonly ITEM_URL = '/items';
   private readonly ITEM_SHOP_URL = '/shopitems';
-  private readonly SCHEDULE_URL = '/schedules';
   private readonly ORDER_URL = '/carts';
   private readonly REVIEW_URL = '/reviews';
   private readonly DASHBOARD_COUNTS_URL = '/dashboard/counts';

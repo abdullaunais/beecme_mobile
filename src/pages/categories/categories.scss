@@ -10,13 +10,13 @@
     ion-card {
         position: relative;
         text-align: center;
-        height: 54vmin;
-        border-radius: 0.5rem;
+        // height: 54vmin;
+        // border-radius: 0.5rem;
         background-size: cover;
         object-fit: cover;
         background-position: 50%; // background-color: #eee;
-        margin-bottom: 0;
-        margin-right: 0;
+        width: 100%;
+        padding: 0 0 0.6rem 0;
     }
     .card-button {
         height: 100%;
@@ -28,21 +28,24 @@
         }
     }
     .card-image {
-        height: 42vmin;
+        height: 36vmin;
         width: 100%;
         background-size: cover;
         background-position: 50% 50%;
         border-bottom: 1px solid #eee;
-        box-shadow: inset 0px 0px 10px 3px #ddd;
+        box-shadow: inset 0px 0px 1px 0px #ddd;
     }
     .card-title {
         text-align: left;
-        font-size: 1.8rem;
-        line-height: 6vmin;
+        font-size: 1.4rem;
+        line-height: 1.5rem;
         // display: block;
         text-transform: uppercase;
         // width: 100%;
-        padding: 0.3rem 1rem 0 1rem;
+        padding: 0.4rem 1rem 0 1rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
         font-weight: bold;
         color: #666;
         // text-shadow: 1px 2px 5px #000;
@@ -57,7 +60,10 @@
         font-weight: 300;
         text-align: left;
         padding: 0 1rem;
-        line-height: 3.5vmin;
+        line-height: 1.3rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
         // background-color: transparent;
         // display: block;
         // width: 85%;

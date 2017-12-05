@@ -18,10 +18,10 @@
         <ion-label *ngIf="!isAvailable && !isLoading" style="margin-top: 6rem; text-align: center; width: 100%; color: #999;">No Categories Available.</ion-label>
         <ion-spinner name="dots" *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
     </div>
-    <ion-grid no-margin no-padding>
-        <ion-row responsive-sm no-margin no-padding>
-            <ion-col col-12 col-md-6 col-xl-4 *ngFor="let category of categories" (tap)="openCategory(category)" no-margin no-padding>
-                <ion-card id="cat{{category.categoryId}}">
+    <ion-grid no-padding>
+        <ion-row responsive-sm style="margin:6px 6px 0 6px;">
+            <ion-col col-6 col-md-6 col-xl-4 *ngFor="let category of categories" (tap)="openCategory(category)" style="padding:6px;">
+                <ion-card id="cat{{category.categoryId}}" no-margin>
                     <!-- <button ion-item class="card-button"> -->
                         <div class="card-image" [defaultImage]="defaultImage" [lazyLoad]="category.imageEn" [scrollObservable]="container.ionScroll"></div>
                         <div class="card-title">{{ category?.nameEn }}</div>

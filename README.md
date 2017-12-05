@@ -9,34 +9,35 @@ Mobile Application Developed with Ionic Framework (uses Angular 4 for developeme
 
 3. [JDK](http://www.oracle.com/technetwork/java/javase/downloads "Java SE Downloads") with JAVA_HOME path set to JDK folder
 
-4. [Gradle](https://gradle.org/releases) with path added to PATH variable
+4. [Android SDK](https://developer.android.com/studio "Get Android Studio")
+
+5. [Gradle](https://gradle.org/releases) with path added to PATH variable
 
 ## Getting Started
-1. Clone the repository and navigate to folder
+* Clone the repository and navigate to folder
 ```
 git clone https://github.com/abdullaunais/beecme_mobile.git
 cd beecme_mobile
 ```
 
 
-3. Install node modules
+* Install node modules
 ```
 npm install
 ```
 
 
-4. Execute following  command ro run Web View
+* Run Web View on Browser
 ```
-ionic cordova serve
+ionic serve
 ```
 
 
-5. Or, the following to run app on Android
+* Build App
 ```
-ionic cordova run android --prod
+ionic cordova build android --prod
 ```
 
 
 ## Releases
-* You can download the latest mobile application release from the [Releases](https://github.com/abdullaunais/beecme_mobile/releases "BeecMe Releases") tab.
-* You can build your own version by cloning the [release branch](https://github.com/abdullaunais/beecme_mobile/tree/release "Release Branch") of the repo.
+* Get it from [Google Play](https://play.google.com/store/apps/details?id=com.owlcitydev.beecme "Get from Google Play")

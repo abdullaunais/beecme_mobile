@@ -75,12 +75,14 @@ export class DeliveryService {
       .catch(this.handleError);
   }
 
-  getItemByShop(shopId, start, offset): Promise<any> {
+  getItemByShop(categoryId: number, shopId: number, start: number, offset: number): Promise<any> {
     const queryParams = {
+      type: 150,
+      value: [shopId,categoryId ],
       start: start,
       offset: offset
     };
-    const requestUrl: string = this.serviceRootUrl + this.ITEM_SHOP_URL + `/${shopId}` + this.encodeQueryData(queryParams);
+    const requestUrl: string = this.serviceRootUrl + this.ITEM_SHOP_URL + this.encodeQueryData(queryParams);
     return this.http.get(requestUrl, this.options).toPromise()
       .then(this.extractData)
       .catch(this.handleError);

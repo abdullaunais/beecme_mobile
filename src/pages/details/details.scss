@@ -1,5 +1,5 @@
 .page-details {
-    background-color: #E8EAF6;
+    background-color: #fff;
     ion-label {
         margin: 0;
     }
@@ -59,11 +59,14 @@
         color: #eee;
         .item-inner {
             padding: 0;
+            .input-wrapper {
+                padding-right: 15px;
+            }
         }
     }
     .item-comment-paragraph {
         color: #666;
-        background-color: #C5CAE9;
+        background-color: rgb(209, 213, 243);
         padding: 1.5rem;
         border-radius: 4px;
         margin: 0 2rem 2rem 2rem;

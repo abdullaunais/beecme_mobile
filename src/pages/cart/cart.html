@@ -22,7 +22,7 @@
     <ion-spinner name="dots" *ngIf="isLoading" class="loading-spinner" color="ui-theme"></ion-spinner>
   </div>
 
-  <ion-card ion-item no-lines class="cart-status" *ngIf="shopIsVisible">
+  <!-- <ion-card ion-item no-lines class="cart-status" *ngIf="shopIsVisible">
     <ion-avatar item-left>
       <img [src]="cartShop.profileUrl">
     </ion-avatar>
@@ -31,12 +31,12 @@
       <ion-icon name="cart"></ion-icon>
       <div class="item-status">&nbsp;CURRENTLY ACTIVE</div>
     </div>
-  </ion-card>
+  </ion-card> -->
 
   <ion-grid no-margin no-padding>
     <ion-row responsive-sm no-margin no-padding>
       <ion-col id="item{{i}}" col-12 col-md-6 col-xl-4 no-margin no-padding *ngFor="let item of cartItems; let i = index;" class="animated flipInX">
-        <ion-card style="margin-top:0;">
+        <ion-card>
           <ion-row>
             <ion-col col-4 class="item-card-icon-col" [lazyLoad]="item.img1" [scrollObservable]="container.ionScroll" no-padding>
             </ion-col>
@@ -47,7 +47,7 @@
                 </ion-card-title>
               </ion-card-content>
               <ion-card-content class="item-card-content-desc" style="padding: 0rem 2rem 0 0.8rem;">
-                <ion-badge style="font-size:1.3rem;">{{ item.quantity + " " + item.unit.toUpperCase() + " X "}}{{cartShop.currency + " " + item.price}}</ion-badge>
+                <ion-badge style="font-size:1.3rem;">{{ item.quantity + " " + item.unit.toUpperCase() + " X "}}LKR {{item.price}}</ion-badge>
               </ion-card-content>
               <ion-card-content style="padding: 0.4rem 2rem 2rem 1rem;">
                 <p class="item-card-content-desc" no-margin *ngIf="item.commentDtl">
@@ -76,7 +76,7 @@
             <ion-col text-center style="padding:0">
               <button ion-button color="primary" clear small class="btnCartAction">
           <ion-icon name="pricetag" style="font-size: 2.5rem;"></ion-icon>
-          &nbsp;{{cartShop.currency}} {{item.quantity*item.price}}
+          &nbsp;LKR {{item.quantity*item.price}}
         </button>
             </ion-col>
           </ion-row>
@@ -89,5 +89,5 @@
 </ion-content>
 
 <ion-footer class="cartFooter" *ngIf="cartItems.length > 0" no-shadow>
-  <button class="cartButton" (tap)="checkAmount();">CHECKOUT &nbsp;|&nbsp; {{ cartShop?.currency }} {{totalAmount}}</button>
+  <button class="cartButton" (tap)="checkAmount();">CHECKOUT &nbsp;|&nbsp; LKR {{totalAmount}}</button>
 </ion-footer>

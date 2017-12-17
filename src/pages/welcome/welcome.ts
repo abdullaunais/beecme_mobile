@@ -18,15 +18,15 @@ export class Welcome {
   provinces: Array<any> = [];
   cities: Array<any> = [];
 
-  selectedCountry: any;
+  selectedCountry: any = { id: 2, nameEn: "Sri Lanka", nameAr: "Sri Lanka" };
   selectedProvince: any;
   selectedCity: any;
 
-  countrySet: boolean = false;
+  countrySet: boolean = true;
   provinceSet: boolean = false;
   citySet: boolean = false;
 
-  type: number = 21;
+  type: number = 22;
   value: number = 1;
   start: number = 0;
   offset: number = 20;
@@ -42,7 +42,7 @@ export class Welcome {
     public toastCtrl: ToastController,
     public alertCtrl: AlertController,
     private modalCtrl: ModalController
-  ) {}
+  ) { }
 
   ngAfterViewInit() {
     this.lockSwipe();
@@ -54,21 +54,6 @@ export class Welcome {
 
   initialize() {
     this.showLoading("Fetching data...");
-    this.delivery.getLocation(this.type, this.value, this.start, this.offset)
-      .then((data) => {
-        let json = JSON.stringify(data);
-        this.countries = JSON.parse(json);
-        this.hideLoading();
-      }).catch((err) => {
-        console.log("Error ", err);
-        this.hideLoading();
-        this.presentToast("Unable to fetch data. Please check your internet connection", 3000);
-      });
-  }
-
-  countryChanged() {
-    this.showLoading("Please wait...");
-    this.type = 22;
     this.value = this.selectedCountry.id;
     this.delivery.getLocation(this.type, this.value, this.start, this.offset)
       .then((data) => {
@@ -80,8 +65,24 @@ export class Welcome {
         this.hideLoading();
         this.presentToast("Unable to fetch data. Please check your internet connection", 3000);
       });
-    this.countrySet = true;
   }
+
+  // countryChanged() {
+  //   this.showLoading("Please wait...");
+  //   this.type = 22;
+  //   this.value = this.selectedCountry.id;
+  //   this.delivery.getLocation(this.type, this.value, this.start, this.offset)
+  //     .then((data) => {
+  //       let json = JSON.stringify(data);
+  //       this.provinces = JSON.parse(json);
+  //       this.hideLoading();
+  //     }).catch((err) => {
+  //       console.log("Error ", err);
+  //       this.hideLoading();
+  //       this.presentToast("Unable to fetch data. Please check your internet connection", 3000);
+  //     });
+  //   this.countrySet = true;
+  // }
 
   provinceChanged() {
     this.showLoading("Please wait...");
@@ -181,7 +182,7 @@ export class Welcome {
     termAlert.present();
   }
 
-   presentTermsModal() {
+  presentTermsModal() {
     let updateProfileModal = this.modalCtrl.create('TermsAndConditions');
     updateProfileModal.present();
     updateProfileModal.onDidDismiss((data) => {

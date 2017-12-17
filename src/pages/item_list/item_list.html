@@ -3,7 +3,7 @@
         <button ion-button menuToggle showWhen="android">
             <ion-icon name="menu"></ion-icon>
         </button>
-        <ion-title ng-style="color:white;">{{ shop?.shopName }}</ion-title>
+        <ion-title ng-style="color:white;">{{ category.nameEn }}</ion-title>
         <ion-buttons end>
             <button ion-button icon-only (tap)="openCart()">
                 <ion-icon name="cart"></ion-icon>
@@ -46,7 +46,7 @@
                                 <p class="item-card-content-desc">{{ item?.descriptionEn }}</p>
                                 <img src="assets/img/ui_icons/add_shopping_cart_theme.svg" (click)="validateCart($event, item)" class="item-card-btn-cart">
                                 <ion-label class="item-card-content-price">
-                                    {{shop?.currency}} {{ item?.price }}/{{ item?.unit }}
+                                    LKR {{ item?.price }}/{{ item?.unit }}
                                 </ion-label>
                             </ion-card-content>
                         </ion-col>

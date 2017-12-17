@@ -15,7 +15,6 @@ export class ItemList {
   @ViewChild(Content) content: Content;
   searchVisible: boolean = false;
 
-  shop: any;
   city: any;
   category: any;
   items: Array<any> = [];
@@ -43,7 +42,6 @@ export class ItemList {
     this.isLoading = true;
     this.isAvailable = true;
     this.noMoreItems = false;
-    this.shop = this.navParams.data.shop;
     this.city = this.navParams.data.city;
     this.category = this.navParams.data.category;
     this.variables.cartCount.subscribe(value => this.cartCount = value);
@@ -52,8 +50,9 @@ export class ItemList {
   }
 
   initialize() {
-    let shopId = this.shop['shopId'];
-    this.deliveryService.getItemByShop(shopId, this.start, this.offset).then((data) => {
+    const catId = this.category['categoryId'];
+    const shopId = 22;
+    this.deliveryService.getItemByShop(catId, shopId, this.start, this.offset).then((data) => {
       if (data['itemlist']) {
         if (data['itemlist'].length > 0) {
           this.isAvailable = true;
@@ -79,8 +78,9 @@ export class ItemList {
   }
 
   refreshList(refresher) {
-    let shopId = this.shop['shopId'];
-    this.deliveryService.getItemByShop(shopId, 0, this.offset).then((data) => {
+    const catId = this.category['categoryId'];
+    const shopId = 22;
+    this.deliveryService.getItemByShop(catId, shopId, 0, this.offset).then((data) => {
       if (data['itemlist']) {
         if (data['itemlist'].length > 0) {
           this.items = [];
@@ -108,10 +108,11 @@ export class ItemList {
   }
 
   paginate(infiniteScroll) {
-    let shopId = this.shop['shopId'];
+    const catId = this.category['categoryId'];
+    const shopId = 22;
     this.noMoreItems = false;
-    this.start++;
-    this.deliveryService.getItemByShop(shopId, this.start, this.offset).then((data) => {
+    this.start += this.offset;
+    this.deliveryService.getItemByShop(catId, shopId, this.start, this.offset).then((data) => {
       let itemArray = data['itemlist'];
       if (itemArray) {
         if (itemArray.length > 0) {
@@ -157,44 +158,44 @@ export class ItemList {
 
     this.storage.get('delivery.cartShop').then((cartShop) => {
       if (cartShop) {
-        if (cartShop.userId) {
-          if (parseInt(cartShop.userId) !== parseInt(this.shop.userId)) {
-            let cartAlert = this.alertCtrl.create({
-              title: 'Existing Cart',
-              cssClass: 'alert-style',
-              message: 'Your cart already contains items from a different Shop. You can only  add items from one shop at a time. Do you wish to clear the existing cart and add this item?',
-              buttons: [
-                {
-                  text: 'Cancel',
-                  cssClass: 'alert-button-danger-plain',
-                  role: 'cancel',
-                  handler: () => {
-                    return;
-                  }
-                },
-                {
-                  text: 'Clear Cart',
-                  cssClass: 'alert-button-primary',
-                  handler: () => {
-                    this.storage.set("delivery.cart", []).then(res => {
-                      this.storage.set("delivery.cartCount", 0).then(res => {
-                        this.storage.set("delivery.cartShop", {}).then(res => {
-                          this.variables.setCartCount(0);
-                          this.selectQuantity(item);
-                        });
-                      });
-                    });
-                  }
-                }
-              ]
-            });
-            cartAlert.present();
-          } else {
-            this.selectQuantity(item);
-          }
-        } else {
-          this.selectQuantity(item);
-        }
+        // if (cartShop.userId) {
+        // if (parseInt(cartShop.userId) !== parseInt(this.shop.userId)) {
+        //   let cartAlert = this.alertCtrl.create({
+        //     title: 'Existing Cart',
+        //     cssClass: 'alert-style',
+        //     message: 'Your cart already contains items from a different Shop. You can only  add items from one shop at a time. Do you wish to clear the existing cart and add this item?',
+        //     buttons: [
+        //       {
+        //         text: 'Cancel',
+        //         cssClass: 'alert-button-danger-plain',
+        //         role: 'cancel',
+        //         handler: () => {
+        //           return;
+        //         }
+        //       },
+        //       {
+        //         text: 'Clear Cart',
+        //         cssClass: 'alert-button-primary',
+        //         handler: () => {
+        //           this.storage.set("delivery.cart", []).then(res => {
+        //             this.storage.set("delivery.cartCount", 0).then(res => {
+        //               this.storage.set("delivery.cartShop", {}).then(res => {
+        //                 this.variables.setCartCount(0);
+        //                 this.selectQuantity(item);
+        //               });
+        //             });
+        //           });
+        //         }
+        //       }
+        //     ]
+        //   });
+        //   cartAlert.present();
+        // } else {
+        this.selectQuantity(item);
+        // }
+        // } else {
+        // this.selectQuantity(item);
+        // }
       }
     });
   }
@@ -270,19 +271,19 @@ export class ItemList {
         cartItems[index] = item
         this.storage.set("delivery.cart", cartItems).then(res => {
           this.storage.set("delivery.cartCount", cartItems.length).then(res => {
-            this.storage.set("delivery.cartShop", this.shop).then(res => {
-              this.variables.setCartCount(cartItems.length);
-            });
+            // this.storage.set("delivery.cartShop", this.shop).then(res => {
+            this.variables.setCartCount(cartItems.length);
+            // });
           });
         });
       } else {
         cartItems.push(item);
         this.storage.set('delivery.cart', cartItems).then((response) => {
           this.storage.set('delivery.cartCount', cartItems.length).then((res) => {
-            this.storage.set("delivery.cartShop", this.shop).then(res => {
-              this.variables.setCartCount(cartItems.length);
-              // this.navCtrl.push(CartPage, null);
-            });
+            // this.storage.set("delivery.cartShop", this.shop).then(res => {
+            this.variables.setCartCount(cartItems.length);
+            // this.navCtrl.push(CartPage, null);
+            // });
           });
         });
       }
@@ -335,7 +336,7 @@ export class ItemList {
   }
 
   viewDetails(item) {
-    this.navCtrl.push('DetailsPage', { item: item, shop: this.shop, category: this.category, city: this.city }, { animate: true, direction: "forward" });
+    this.navCtrl.push('DetailsPage', { item: item, category: this.category, city: this.city }, { animate: true, direction: "forward" });
   }
 
   openCart() {

@@ -248,24 +248,24 @@ export class DetailsPage {
     this.navCtrl.push('ImageSliderPage', this.item);
   }
 
-  goToShop() {
-    if (!this.catLoading) {
-      this.navCtrl.push('ItemList', { shop: this.shop, city: this.city, category: this.category });
-    }
-  }
+  // goToShop() {
+  //   if (!this.catLoading) {
+  //     this.navCtrl.push('ItemList', { shop: this.shop, city: this.city, category: this.category });
+  //   }
+  // }
 
-  shopDetails(shop) {
-    let detailsModal = this.modalCtrl.create('ShopDetailsPage', { shop: shop });
-    detailsModal.present();
-    detailsModal.onDidDismiss((data) => {
-      if (data) {
-      }
-    });
-  }
+  // shopDetails(shop) {
+  //   let detailsModal = this.modalCtrl.create('ShopDetailsPage', { shop: shop });
+  //   detailsModal.present();
+  //   detailsModal.onDidDismiss((data) => {
+  //     if (data) {
+  //     }
+  //   });
+  // }
 
   goToCategory() {
     if (!this.catLoading) {
-      this.navCtrl.push('Shops', { city: this.city, category: this.category });
+      this.navCtrl.push('ItemList', { category: this.category, city: this.city });
     }
   }
 

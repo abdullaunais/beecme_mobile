@@ -34,13 +34,13 @@
 
         <h4 class="countryHead"> Tell us know where you live </h4>
         <ion-list style="margin: 3rem;">
-          <ion-item class="selectItem">
+          <!-- <ion-item class="selectItem">
             <ion-label style="max-width:30vw;">Country</ion-label>
             <ion-select [(ngModel)]="selectedCountry" (ionChange)="countryChanged()" class="selectInput" interface="action-sheet" okText="Select"
               cancelText="Cancel">
               <ion-option *ngFor="let country of countries" [value]="country">{{ country.nameEn }}</ion-option>
             </ion-select>
-          </ion-item>
+          </ion-item> -->
           <ion-item class="selectItem" *ngIf="countrySet">
             <ion-label>Province</ion-label>
             <ion-select [(ngModel)]="selectedProvince" (ionChange)="provinceChanged()" class="selectInput" interface="action-sheet" okText="Select"

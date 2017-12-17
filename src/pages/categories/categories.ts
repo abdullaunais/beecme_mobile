@@ -95,6 +95,6 @@ export class Categories {
   }
 
   openCategory(category) {
-    this.navCtrl.push('Shops', { category: category, city: this.selectedCity });
+    this.navCtrl.push('ItemList', { category: category, city: this.selectedCity });
   }
 }
